@@ -1,0 +1,194 @@
+.nav{
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    font-weight: 400;
+    padding: 0 10px 0 25px;
+    font-size: 1.2em;
+    align-items: center;
+    
+    ul{
+        display: flex;
+        width: 70%;
+        justify-content: space-between;
+        padding-left: 0;
+        align-items: center;
+
+        li{
+            list-style: none;
+
+            a{
+                text-decoration: none;
+                color: rgb(155, 155, 155);
+                
+                &:hover{
+                    color: rgb(75, 75, 253);
+                }
+            }
+
+            .menu_akun{
+                button{
+                    text-transform: capitalize;
+                    font-size: 1em;
+                    color: rgb(75, 75, 253);
+                    font-weight: bold;
+                }
+            }
+
+            .login{
+                background: linear-gradient(to left, #58a1f5, #4364F7, #0052D4);
+                color: white;
+                padding: 20px 25px 20px 25px;
+                line-height: 55px;
+                text-align: center;
+                border-radius: 3px;
+    
+                &:hover{
+                    color: #fff;
+                }
+            }
+        }
+    }
+    
+    .active{
+        color: rgb(75, 75, 253);
+
+        &::after{
+            display: block;
+            content: "";
+            width: 60px;
+            border-radius: 5px;
+            margin: 8px auto 0 auto;
+            background-color: rgb(75, 75, 253);
+            height: 5px;
+        }
+    }
+
+    .unselected{
+        color: rgb(155, 155, 155);
+    }
+
+    .hamburger-menu{
+        display: none;
+        position: relative;
+        height: 30px;
+        flex-direction: column;
+        justify-content: space-between;
+    
+        input[type="checkbox"]{
+            position: absolute;
+            width: 40px;
+            left: -4px;
+            top: -2px;
+            height: 28px;
+            cursor: pointer;
+            z-index: 2;
+            opacity: 0;
+        }
+    }
+}
+
+// Responsive Breakpoints
+@media screen and (max-width: 768px){
+    .nav{
+        font-size: .9em;
+
+        ul{
+            justify-content: space-between;
+        }
+
+        .active{
+            &::after{
+                width: 40px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 576px){
+    .nav{
+        align-items: center;
+        font-size: 1.1em;
+        padding-right: 35px;
+
+        ul{
+            position: absolute;
+            flex-direction: column;
+            height: 350px;
+            top: 55px;
+            width: 58%;
+            background-color: rgb(59, 59, 59);
+            left: 0;
+            z-index: 9999;
+            justify-content: space-evenly;
+            align-items: center;
+            transform: translateX(-100%);
+            transition: all 1s;
+
+            li{
+                width: 100%;
+                height: 88px;
+                text-align: center;
+                line-height: 90px;
+
+                .login{
+                    padding: 10px;
+                    height: 66px;
+                    line-height: 66px;
+                    display: block;
+                    border-radius: 0;
+                }
+            }
+        }
+
+        .isShow{
+            transform: translateX(0);
+        }
+        
+        .active{
+            &::after{
+                display: none;
+            }
+        }
+
+        .hamburger-menu{
+            display: flex;
+
+            span{
+                display: block;
+                height: 5px;
+                background-color: rgb(75, 75, 253);
+                border-radius: 3px;
+                transition: all 0.5s;
+            }
+
+            span:nth-child(2){
+                transform-origin: 0 0;
+                width: 40px;
+            }
+
+            span:nth-child(3){
+                width: 25px;
+            }
+            
+            span:nth-child(4){
+                transform-origin: 0 100%;
+                width: 15px;
+            }
+
+            input:checked ~ span:nth-child(2){
+                transform: rotate(46deg) translate(-1px, -1px);
+            }
+
+            input:checked ~ span:nth-child(3){
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            input:checked ~ span:nth-child(4){
+                width: auto;
+                transform: rotate(-46deg) translate(-1px, 0);
+            }
+        }
+    }
+}

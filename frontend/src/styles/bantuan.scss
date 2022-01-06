@@ -1,0 +1,46 @@
+.bantuan{
+    padding-left: 25px;
+    text-align: center;
+    max-width: 1200px;
+    margin: auto;
+
+    .search_bantuan{
+        display: flex;
+        justify-content: center;
+
+        .MuiTextField-root{
+            width: 65%;
+            margin-right: 10px;
+        }
+
+        .btn_cari{
+            width: 95px;
+            font-size: 1em;
+            font-weight: bold;
+        }
+    }
+
+    .bantuan_content{
+        margin-top: 30px;
+        display: flex;
+
+        .filtering_bantuan{
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+
+            h2{
+                font-size: 1.2em;
+                margin: 0 0 15px 0;
+            }
+        }
+
+        .result_bantuan{
+            margin: 20px 0 0 70px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 80%;
+            row-gap: 50px;
+        }
+    }
+}

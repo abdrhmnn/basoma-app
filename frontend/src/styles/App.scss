@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    box-sizing: border-box;
+    // height: 2000px;
+}
+
+.container{
+    // background-color: red;
+    max-width: 1200px;
+    margin: auto;
+}
+
+// font
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&display=swap');
+
+// other scss files
+@import "./navbar.scss";
+@import "./hero.scss";
+@import "./info.scss";
+@import "./bantuan_berlangsung.scss";
+@import "./bantuan_baru.scss";
+@import "./join_us.scss";
+@import "./footer.scss";
+@import "./about.scss";
+@import "./bantuan.scss";
+@import "./login.scss";
+@import "./card_bantuan.scss";
+@import "./masukan.scss";
+@import "./feed_success.scss";
+@import "./edit_profile.scss";

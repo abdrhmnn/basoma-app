@@ -1,0 +1,33 @@
+.masukan_foot{
+    padding: 40px 30px 20px 25px;
+    margin-top: 30px;
+}
+
+.masukan{
+    max-width: 1200px;
+    margin: auto;
+    
+    .feed-form{
+        form{
+            display: flex;
+            flex-direction: column;
+            height: 430px;
+            justify-content: space-between;
+        }
+    }
+}
+
+// Responsive Breakpoints
+@media screen and (max-width: 768px){
+    .masukan{
+        padding: 0 20px 0 20px;
+    }
+}
+
+@media screen and (max-width: 576px){
+    .masukan{
+        h2{
+            font-size: 1.3em;
+        }
+    }
+}

@@ -1,0 +1,69 @@
+.card_bantuan{
+    max-width: 1200px;
+    margin: auto;
+    // background-color: red;
+    display: flex;
+    // justify-content: space-around;
+
+    
+    .card_detail{
+        h1{
+            margin: 0 0 11px 0;
+        }
+    
+        p{
+            margin: 0;
+        }
+
+        img{
+            width: 650px;
+            margin-top: 20px;
+            border-radius: 3px;
+        }
+
+        .box-tabs{
+            margin-top: 20px;
+
+            .active{
+                color: rgb(75, 75, 253);
+                font-weight: bold;
+                border-bottom: 2px solid rgb(75, 75, 253);
+                border-radius: 2px;
+            }
+
+            .unselected{
+                color: rgb(133, 133, 133);
+            }
+        }
+
+        .tab-content{
+            color: red;
+        }
+    }
+
+    .card_info{
+        margin-left: 40px;
+
+        .card_detail_info{
+            display: flex;
+            padding: 100px 0 25px 0;
+            
+            h2{
+                margin: 0 0 5px 0;
+            }
+    
+            p{
+                margin: 0;
+            }
+            
+            .kapasitas{
+                margin-right: 50px;
+            }
+        }
+
+        .btn_daftar{
+            width: 100%;
+            font-weight: bold;
+        }
+    }
+}

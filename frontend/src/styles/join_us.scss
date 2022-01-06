@@ -1,0 +1,60 @@
+.join_us{
+    background: linear-gradient(to left, #3d92f3, #4364F7, #0052D4);
+    width: 63%;
+    margin: 0 auto 0 auto;
+    padding: 20px 0 20px 30px;
+    color: #fff;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, 170%);
+
+    h1{
+        margin: 0;
+    }
+
+    p{
+        margin: 0 0 30px 0;
+    }
+
+    .btn_join{
+        background-color: rgb(238, 238, 238);
+        color: black;
+        box-shadow: none;
+        outline: none;
+        font-weight: bold;
+        letter-spacing: 1px;
+        font-family: 'Poppins', sans-serif;
+        
+        &:hover{
+            background-color: rgb(238, 238, 238);
+            color: black;
+            box-shadow: none;
+        }
+    }
+}
+
+// Responsive Breakpoints
+@media screen and (max-width: 768px){
+    .join_us{
+        top: 78%;
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 576px){
+    .join_us{
+        top: 78%;
+        // width: 80%;
+
+        h1{
+            font-size: 1.6em;
+        }
+
+        p{
+            font-size: .9em;
+        }
+    }
+}

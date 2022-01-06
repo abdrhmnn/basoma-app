@@ -1,0 +1,54 @@
+GET http://localhost:5000/acara
+
+###
+
+GET http://localhost:5000/acara/58
+
+###
+
+POST http://localhost:5000/acara
+Content-Type: application/json
+
+{
+    "nama": "abdu",
+    "tanggal": "2021-01-02",
+    "deskripsi": "coba",
+    "banner": "coba"
+}
+
+###
+
+PATCH http://localhost:5000/acara/58
+Content-Type: application/json
+
+{
+    "nama": "rahman"
+}
+
+###
+
+DELETE http://localhost:5000/acara/60
+
+###
+
+GET http://localhost:5000/masukan
+
+###
+
+GET http://localhost:5000/users
+
+###
+
+PATCH  http://localhost:5000/users/USER_1
+Content-Type: application/json
+
+{
+    "nm_depan": "eunha",
+    "nm_belakang": "umji"
+}
+
+###
+
+GET  http://localhost:5000/users/24
+
+###
