@@ -1,4 +1,4 @@
-GET http://localhost:5000/acara
+GET http://localhost:5000/bantuan
 
 ###
 
@@ -6,28 +6,27 @@ GET http://localhost:5000/acara/58
 
 ###
 
-POST http://localhost:5000/acara
+POST http://localhost:5000/bantuan
 Content-Type: application/json
 
 {
+    "kd_bantuan": "BNT_5",
     "nama": "abdu",
-    "tanggal": "2021-01-02",
-    "deskripsi": "coba",
-    "banner": "coba"
+    "kapasitas": "10"
 }
 
 ###
 
-PATCH http://localhost:5000/acara/58
+PATCH http://localhost:5000/users/USER_2
 Content-Type: application/json
 
 {
-    "nama": "rahman"
+    "gambar": "123.jpg"
 }
 
 ###
 
-DELETE http://localhost:5000/acara/60
+DELETE http://localhost:5000/masukan/USER_1
 
 ###
 
@@ -35,8 +34,12 @@ GET http://localhost:5000/masukan
 
 ###
 
-GET http://localhost:5000/users
+PATCH  http://localhost:5000/users/USER_11
+Content-Type: application/json
 
+{
+    "role": "warga"
+}
 ###
 
 PATCH  http://localhost:5000/users/USER_1
@@ -49,6 +52,10 @@ Content-Type: application/json
 
 ###
 
-GET  http://localhost:5000/users/24
+GET  http://localhost:5000/bantuan/id/BNT_2
+
+###
+
+GET  http://localhost:5000/bantuan/100/tersedia
 
 ###

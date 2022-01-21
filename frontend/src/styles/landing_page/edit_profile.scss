@@ -1,0 +1,44 @@
+.edit_profile_foot{
+    padding: $padding-footer;
+    margin-top: $mt-30;
+}
+
+.edit_profile{
+    max-width: 900px;
+    margin: auto;
+    padding: 0 25px 0 25px;
+
+    .edit_foto{
+        display: flex;
+        margin-bottom: 20px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 30px;
+
+        img{
+            width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .edit_foto_detail{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding-left: 20px;
+
+            p{
+                margin: 15px 0 0 0;
+
+                &:nth-child(3){
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+
+    .MuiFormControl-root{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

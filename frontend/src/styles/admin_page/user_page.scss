@@ -1,0 +1,38 @@
+.wrap_tbl_user{
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: rgba(145, 158, 171, 0.24) 0px 0px 2px 0px, rgba(145, 158, 171, 0.24) 0px 16px 32px -4px;
+    padding: 20px 10px 10px 10px;
+
+    .flex_element_user{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .btn_export_user{
+            width: 310px;
+            display: flex;
+            justify-content: space-between;
+            
+            .generate_pdf_user{
+                height: 55px;
+                background-color: rgb(255, 46, 46);
+                
+                &:hover{
+                    background-color: red;
+                }
+            }
+            
+            .generate_excel_user{
+                height: 55px;
+                background-color: rgb(36, 122, 36);
+                
+                &:hover{
+                    background-color: green;
+                }
+            }
+        }
+    }
+}
+
+

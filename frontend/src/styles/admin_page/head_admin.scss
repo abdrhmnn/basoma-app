@@ -1,0 +1,15 @@
+.head_admin{
+    background-color: rgba($color: #fff, $alpha: .7);
+    z-index: 100;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: sticky;
+    // width: 81%;
+    top: 0;
+    
+    .nav_profile{
+        margin-right: 20px;
+    }
+}

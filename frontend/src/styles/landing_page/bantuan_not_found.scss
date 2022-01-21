@@ -1,0 +1,18 @@
+.not_found{
+    .flex_not_found{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        img{
+            width: 500px;
+        }
+
+        h1{
+            margin: 0 0 10px 0;
+            padding: 0;
+            font-size: 1.4em;
+        }
+    }
+}

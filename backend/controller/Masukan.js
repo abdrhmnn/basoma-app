@@ -19,3 +19,18 @@ export const createMasukan = async (req, res) => {
         res.json({ message: error.message })
     }
 }
+
+export const deleteMasukan = async (req, res) => {
+    try{
+        await Masukan.destroy({
+            where: {
+                user_id: req.params.id
+            }
+        });
+        res.json({
+            "message" : "Masukan berhasil dihapus!"
+        });
+    }catch(error){
+        res.json({ message: error.message })
+    }
+}

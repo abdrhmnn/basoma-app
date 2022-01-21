@@ -1,0 +1,63 @@
+.wr_info{
+    position: relative;
+
+    .info{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 230px;
+    
+        .info-content{
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+    
+            h2{
+                margin-bottom: 0;
+            }
+    
+            img{
+                width: 79%;
+                margin: auto;
+            }
+    
+            &:nth-child(2){
+                p{
+                    width: 80%;
+                    margin: auto;
+                }
+                img{
+                    width: 50%;
+                }
+            }
+        }
+    }
+}
+
+// Responsive Breakpoints
+@media screen and (max-width: 768px){
+    .wr_info{
+        .info{
+            flex-direction: column;
+    
+            .info-content{
+                h2{
+                    font-size: 1.2em;
+                }
+    
+                img{
+                    width: 40%;
+                    margin-top: 50px;
+                }
+            
+                &:nth-child(2){
+                    p{
+                        margin-top: 16px;
+                    }
+                    img{
+                        width: 35%;
+                    }
+                }
+            }
+        }
+    }
+}

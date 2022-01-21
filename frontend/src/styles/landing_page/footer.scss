@@ -1,0 +1,122 @@
+.foot_foot{
+    padding: 100px 30px 20px 25px;
+}
+
+.footer{
+    background-color: $black-color;
+    color: $white-color;
+    
+    .wrap_footer{
+        max-width: 1300px;
+        margin: auto;
+
+        h1{
+            margin: 0;
+            font-size: 1.8em;
+        }
+    
+        hr{
+            margin: 20px 0 0 0;
+            opacity: .3;
+        }
+    
+        .footer_nav{
+            width: 300px;
+
+            ul{
+                display: flex;
+                margin: 10px 0 0 0;
+                padding: 0;
+                justify-content: space-between;
+    
+                li{
+                    list-style: none;
+    
+                    a{
+                        text-decoration: none;
+    
+                        &:hover{
+                            color: $white-color;
+                        }
+                    }
+                }
+            }
+    
+            .active_foot{
+                color: $white-color;
+            }
+    
+            .unselected_foot{
+                color: rgb(133, 133, 133);
+            }
+        }
+    
+        .footer_sosmed{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 10px;
+
+            .footer_created{
+                h2{
+                    margin: 0;
+                    font-size: .9em;
+                    font-weight: 300;
+                    color: rgb(170, 170, 170);
+                }
+            }
+
+            .footer_social_media{
+                width: 100px;
+                display: flex;
+                justify-content: space-between;
+
+                a{
+                    color: rgb(133, 133, 133);
+
+                    &:hover{
+                        color: $white-color;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Responsive Breakpoints
+@media screen and (max-width: 768px){
+    .footer{
+        .wrap_footer{
+
+            // h1{
+            //     font-size: ;
+            // }
+            .footer_nav{
+                width: 50%;
+            }
+
+            .footer_sosmed{
+                .footer_social_media{
+                    width: 20%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 576px){
+    .footer{
+        .wrap_footer{
+            .footer_nav{
+                width: 65%;
+            }
+
+            .footer_sosmed{
+                .footer_social_media{
+                    width: 20%;
+                }
+            }
+        }
+    }
+}

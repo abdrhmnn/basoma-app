@@ -1,0 +1,41 @@
+.success_register{
+    max-width: $max-width-container;
+    margin: -40px auto 0 auto;
+    padding-bottom: 50px;
+
+    .register_success{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        img{
+            width: 450px;
+        }
+
+        h1{
+            margin: 0 0 10px 0;
+            padding: 0;
+        }
+
+        p{
+            margin: 0 0 20px 0;
+            padding: 0;
+        }
+
+        .btn_kembali_login{
+            padding: 15px;
+            font-weight: bold;
+        }
+    }
+}
+
+@media screen and (max-width: 576px){
+    .success_register{
+        .register_success{
+            h1{
+                font-size: 1.8em;
+            }
+        }
+    }
+}

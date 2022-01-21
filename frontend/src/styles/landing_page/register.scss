@@ -1,0 +1,84 @@
+.register{
+    text-align: center;
+    margin: auto;
+    max-width: 1250px;
+
+    h2:nth-child(1){
+        text-align: left;
+        margin: 30px 0 27px 60px;
+    }
+
+    .register_auth{
+        width: 60%;
+        margin: auto;
+        
+        h2{
+            text-align: center;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+        
+            .flex_text_field{
+                display: flex;
+                justify-content: space-between;
+
+                .text-1{
+                    width: 50%;
+                    margin-right: 20px;
+                }
+
+                .text-2{
+                    width: 50%;
+                }
+            }
+
+            .MuiFormControl-root{
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px){
+    .register{
+        padding: 0 25px 0 25px;
+
+        h2:nth-child(1){
+            text-align: left;
+            margin: 20px 0 27px 0;
+        }
+        .register_auth{
+            width: 100%;
+
+            h2{
+                text-align: center;
+            }
+            
+            form{
+                .flex_text_field{
+                    display: flex;
+                    flex-direction: column;
+
+                    .text-1{
+                        width: 100%;
+                        margin: 0;
+                    }
+    
+                    .text-2{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 576px){
+    .register{
+        h2:nth-child(1){
+            font-size: 1.3em;
+        }
+    }
+}

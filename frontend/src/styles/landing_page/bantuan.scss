@@ -1,0 +1,144 @@
+.bantuan_foot{
+    padding: $padding-footer;
+    margin-top: $mt-30;
+}
+
+.bantuan{
+    padding-left: 25px;
+    padding-right: 25px;
+    max-width: $max-width-container;
+    margin: auto;
+
+    h1{
+        text-align: center;
+    }
+
+    .search_bantuan{
+        display: flex;
+        justify-content: center;
+
+        form{
+            display: flex;
+
+            .MuiTextField-root{
+                width: 550px;
+                margin-right: 20px;
+            }
+
+            .btn_cari{
+                padding: 5px;
+                width: 100px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .bantuan_content{
+        margin-top: 30px;
+        display: flex;
+
+        .filtering_bantuan{
+            text-align: left;
+
+            form{
+                display: flex;
+                flex-direction: column;
+            }
+            
+            h2{
+                font-size: 1.2em;
+                margin: 0 0 15px 0;
+            }
+        }
+
+        .result_bantuan{
+            margin: 0 0 0 25px;
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+
+            p{
+                margin: 10px 0 20px 0;
+            }
+
+            .detail_bantuan{
+                display: flex;
+                width: 75%;
+                justify-content: space-between;
+            }
+
+            .MuiBox-root{
+                transition: .5s;
+                margin-bottom: 20px;
+
+                &:hover{
+                    box-shadow: $card-box-shadow;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px){
+    .bantuan{
+        margin-top: 30px;
+
+        h1{
+            font-size: 1.6em;
+        }
+
+        .search_bantuan{
+            width: 80%;
+            margin: auto;
+            
+            form{
+                .MuiTextField-root{
+                    width: 400px;
+                }
+            }
+        }
+
+        .bantuan_content{
+            justify-content: center;
+            flex-direction: column;
+
+            .result_bantuan{
+                margin: 20px 0 0 0;
+                width: 100%;
+
+                .detail_bantuan{
+                    width: 450px;
+                }
+            }
+
+            .filtering_bantuan{
+                display: block;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 576px){
+    .bantuan{
+        .search_bantuan{
+            form{
+                .MuiTextField-root{
+                    width: 300px;
+                }
+            }
+        }
+
+        .bantuan_content{
+            .result_bantuan{
+                .detail_bantuan{
+                    width: 360px;
+
+                    p{
+                        font-size: .9em;
+                    }
+                }
+            }
+        }
+    }
+}

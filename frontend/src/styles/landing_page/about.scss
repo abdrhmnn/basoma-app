@@ -1,0 +1,79 @@
+.about_foot{
+    padding: $padding-footer;
+    margin-top: $mt-30;
+}
+
+.about{
+    max-width: 1200px;
+    margin: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    p{
+        line-height: 28px;
+
+        a{
+            text-decoration: none;
+            color: $primary-color;
+            font-weight: bold;
+        }
+
+        span{
+            color: $primary-color;
+            font-weight: bold;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    .about_us{
+        display: flex;
+        justify-content: space-between;
+        margin: 40px 0 40px 0;
+        text-align: center;
+
+        .card_about_us{
+            width: 350px;
+            box-shadow: none;
+            text-align: center;
+
+            h2{
+                margin: 0;
+                font-size: 1.3em;
+            }
+
+            p{
+                margin: 5px 0 0 0;
+                font-weight: 400;
+                color: rgb(107, 114, 121);
+            }
+        }
+    }
+}
+
+// Responsive Breakpoints
+@media screen and (max-width: 768px){
+    .about{
+        padding-top: 20px;
+
+        h1{
+            font-size: 1.5em;
+        }
+
+        .about_us{
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .card_about_us:nth-child(1), .card_about_us:nth-child(2){
+                margin-bottom: 70px;
+
+                .img1{
+                    width: 50%;
+                }
+            }
+        }
+    }
+}

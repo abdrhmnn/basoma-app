@@ -1,9 +1,10 @@
 import express from "express";
-import { getAllMasukan, createMasukan } from "../controller/Masukan.js";
+import { getAllMasukan, createMasukan, deleteMasukan } from "../controller/Masukan.js";
 
 const router = express.Router();
 
 router.get('/', getAllMasukan)
 router.post('/', createMasukan)
+router.delete('/:id', deleteMasukan)
 
 export default router;

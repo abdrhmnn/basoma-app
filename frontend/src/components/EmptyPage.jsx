@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-// components
-
-
-// img
-
-
 // npm packages
 import { Link } from "react-router-dom";
 import { CircularProgress } from "@mui/material";

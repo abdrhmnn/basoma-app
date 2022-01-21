@@ -1,33 +1,159 @@
+// global variables
+$primary-color: rgb(75, 75, 253);
+$max-width-container: 1200px;
+$white-color: #ffffff;
+$black-color: #000000;
+$padding-footer: 25px 30px 20px 25px;
+$mt-30: 30px;
+$card-box-shadow: 0 0 40px rgb(221, 221, 221);
+
+
 body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     box-sizing: border-box;
-    // height: 2000px;
 }
 
 .container{
-    // background-color: red;
-    max-width: 1200px;
+    max-width: $max-width-container;
     margin: auto;
+}
+
+
+// global styles for admin page
+.flex_header_admin{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.content_dashboard_admin{
+    height: 2000px;
+    padding: 20px 20px 0 20px;
+
+    h2{
+        margin: 0;
+        font-size: 1.4em;
+    }
+}
+
+.tbl_class{
+    width: 100%;
+    margin-top: 30px;
+    
+    border-radius: 10px;
+    border-spacing: 0;
+
+    .tbl_class_head{
+        font-size: 1em;
+        background-color: $primary-color;
+        color: $white-color;
+        
+        tr{
+            th{
+                padding: 8px;
+
+            }
+        }
+    }
+
+    .tbl_class_body{
+        text-align: center;
+        
+        tr{
+            &:nth-child(even){
+                background-color: rgb(218, 218, 218);
+            }
+            
+            td{
+                padding: 20px;
+
+            }
+        }
+
+        .btn_delete_bantuan{
+            background-color: rgb(255, 46, 46);
+            color: $white-color;
+            
+            &:hover{
+                background-color: red;
+            }
+        }
+
+        .btn_delete_user{
+            background-color: rgb(255, 46, 46);
+            color: $white-color;
+            
+            &:hover{
+                background-color: red;
+            }
+        }
+
+        .btn_as_admin{
+            background-color: rgb(255, 185, 55);
+            color: $white-color;
+
+            .btn_yakin{
+                background-color: red;
+            }
+            
+            &:hover{
+                background-color: rgb(255, 166, 0);
+            }
+
+            &:disabled{
+                background-color: rgb(61, 61, 61);
+            }
+        }
+
+        .role_admin{
+            background-color: rgb(0, 110, 255);
+            padding: 7px;
+            border-radius: 8px;
+        }
+
+        .role_warga{
+            background-color: rgb(0, 255, 0);
+            padding: 7px;
+            border-radius: 8px;
+        }
+    }
+}
+
+@media screen and (max-width: 576px){
+    .MuiPaper-root{
+        margin-top: 15px
+    }
 }
 
 // font
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&display=swap');
 
-// other scss files
-@import "./navbar.scss";
-@import "./hero.scss";
-@import "./info.scss";
-@import "./bantuan_berlangsung.scss";
-@import "./bantuan_baru.scss";
-@import "./join_us.scss";
-@import "./footer.scss";
-@import "./about.scss";
-@import "./bantuan.scss";
-@import "./login.scss";
-@import "./card_bantuan.scss";
-@import "./masukan.scss";
-@import "./feed_success.scss";
-@import "./edit_profile.scss";
+// others scss files
+// landing page styles
+@import "./landing_page/navbar.scss";
+@import "./landing_page/hero.scss";
+@import "./landing_page/info.scss";
+@import "./landing_page/join_us.scss";
+@import "./landing_page/footer.scss";
+@import "./landing_page/about.scss";
+@import "./landing_page/bantuan.scss";
+@import "./landing_page/login.scss";
+@import "./landing_page/bantuan_detail.scss";
+@import "./landing_page/masukan.scss";
+@import "./landing_page/feed_success.scss";
+@import "./landing_page/edit_profile.scss";
+@import "./landing_page/bantuan_not_found.scss";
+@import "./landing_page/register.scss";
+@import "./landing_page/register_success.scss";
+
+
+// admin page styles
+@import "./admin_page/navbar_admin.scss";
+@import "./admin_page/head_admin.scss";
+@import "./admin_page/dashboard.scss";
+@import "./admin_page/user_page.scss";
+@import "./admin_page/kelola_bantuan_page.scss";
+@import "./admin_page/tambah_bantuan.scss";
