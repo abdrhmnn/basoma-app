@@ -1,14 +1,20 @@
 import React,{ useState, useEffect } from "react";
+
+// components
 import HeaderAdmin from "./HeaderAdmin";
 import NavbarAdmin from "./NavbarAdmin";
-import swal from 'sweetalert';
 
+// npm packages
+import swal from 'sweetalert';
 import {
-    TextField, Button,
-    Radio, RadioGroup,
+    TextField,
+    Button,
+    Radio,
+    RadioGroup,
     FormControl,
     FormControlLabel,
-    FormLabel } from "@mui/material";
+    FormLabel
+} from "@mui/material";
 import * as Yup from "yup";
 import { Formik, Field } from 'formik';
 import axios from "axios";

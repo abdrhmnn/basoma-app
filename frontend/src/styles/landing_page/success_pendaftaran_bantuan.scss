@@ -1,0 +1,40 @@
+.success-pendaftaran-bantuan{
+    background-color: $primary-color;
+    // height: 100vh;
+    color: $white-color;
+
+    .success-title{
+        max-width: $max-width-container;
+        margin: auto;
+        padding: 40px 0 0 0;
+        
+        h3{
+            margin: 0;
+            font-size: 1.5em;
+        }
+    }
+
+    .success-content{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    
+        h2{
+            margin: 20px 0 10px 0;
+        }
+
+        p{
+            margin: 0;
+        }
+
+        .btn_back{
+            margin-top: 20px;
+            margin-bottom: 50px;
+            box-shadow: none;
+            padding: 15px;
+            color: $white-color;
+            border-color: $white-color;
+        }
+    }
+}

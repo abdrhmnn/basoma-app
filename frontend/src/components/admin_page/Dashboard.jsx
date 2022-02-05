@@ -1,7 +1,10 @@
 import React,{ useState, useEffect } from "react";
+
+// components
 import HeaderAdmin from "./HeaderAdmin";
 import NavbarAdmin from "./NavbarAdmin";
 
+// npm packages
 import { FaHandsHelping, FaUserFriends, FaListUl } from "react-icons/fa";
 import { MdAssignmentInd } from "react-icons/md";
 import {

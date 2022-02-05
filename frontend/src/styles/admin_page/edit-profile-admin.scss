@@ -1,0 +1,23 @@
+.edit-profile-admin{
+
+    h2{
+        margin-bottom: 20px;
+    }
+
+    .form-edit-admin{
+        margin-top: 30px;
+        text-align: center;
+
+        form{
+
+            .MuiFormControl-root{
+                width: 100%;
+                margin-top: 20px;
+            }
+
+            .edit_foto_detail_admin{
+                margin-top: 10px;
+            }
+        }
+    }
+}

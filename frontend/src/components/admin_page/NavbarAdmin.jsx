@@ -4,8 +4,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { RiDashboard3Line } from "react-icons/ri";
 import { FiUsers } from "react-icons/fi";
-import { FaRegHandshake } from "react-icons/fa";
-import { MdExpandMore } from "react-icons/md";
+import { FaRegHandshake, FaListUl } from "react-icons/fa";
+import { MdExpandMore, MdAssignmentInd } from "react-icons/md";
 import { AiOutlineDatabase } from "react-icons/ai";
 import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 
@@ -78,18 +78,34 @@ const NavbarAdmin = ({ dataTambahBantuan }) => {
                                 </div>
                             </AccordionDetails>
                         </NavLink>
+                        <NavLink
+                            exact="true"
+                            to="/kriteria-bantuan"
+                            className={({ isActive }) => (isActive ? 'active' : 'unselected')}
+                            >
+                                <AccordionDetails>
+                                <div className="menu_item_dropdown">
+                                    <div className="menu_item_logo_dropdown">
+                                        <FaListUl size={20} />
+                                    </div>
+                                    <div className="menu_item_text_dropdown">
+                                        <p>Kriteria</p>
+                                    </div>
+                                </div>
+                            </AccordionDetails>
+                        </NavLink>
                     </Accordion>
                     <NavLink
                         exact="true"
-                        to="/asdasda"
+                        to="/pendaftaran-bantuan"
                         className={({ isActive }) => (isActive ? 'active' : 'unselected')}
                     >
                         <div className="menu_item">
                             <div className="menu_item_logo">
-                                <FiUsers size={20} />
+                                <MdAssignmentInd size={20} />
                             </div>
                             <div className="menu_item_text">
-                                <p>User</p>
+                                <p>Pendaftaran</p>
                             </div>
                         </div>
                     </NavLink>

@@ -7,21 +7,20 @@ import Info from "./Info";
 import Navbar from "./Navbar";
 
 const Home = () => {
+	useEffect(() => {
+		document.title = "Bantuan Sosial Masyarakat";
+	}, []);
 
-    useEffect(() => {
-        document.title = "Bantuan Sosial Masyarakat"
-    }, [])
+	return (
+		<div>
+			<Navbar />
+			<div className="container">
+				<Hero />
+				<Info />
+			</div>
+			<Footer />
+		</div>
+	);
+};
 
-    return (
-        <div>
-            <Navbar />
-                <div className="container">
-                    <Hero />
-                    <Info />
-                </div>
-            <Footer />
-        </div>
-    )
-}
-
-export default Home
+export default Home;

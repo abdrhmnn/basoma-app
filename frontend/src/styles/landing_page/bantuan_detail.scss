@@ -3,96 +3,102 @@
     margin-top: $mt-30;
 }
 
-.card_bantuan{
+.alert_auth_login{
     max-width: $max-width-container;
     margin: auto;
-    display: flex;
-    padding: 0 25px 0 25px;
 
-    .card_detail{
-        width: 56%;
+    .card_bantuan{
         display: flex;
-        flex-direction: column;
-
-        h1{
-            margin: 0 0 11px 0;
-        }
     
-        p{
-            margin: 0 0 20px 0;
-        }
-
-        img{
-            width: 95%;
-            border-radius: 3px;
-        }
-    }
-
-    .card_info{
-        margin-left: 20px;
-
-        .card_detail_info{
+        .card_detail{
+            width: 56%;
             display: flex;
-            padding: 100px 0 25px 0;
-            
-            h2{
-                margin: 0 0 5px 0;
+            flex-direction: column;
+    
+            h1{
+                margin: 0 0 11px 0;
+            }
+        
+            p{
+                margin: 0 0 20px 0;
             }
     
-            p{
-                margin: 0;
-            }
-            
-            .kapasitas{
-                margin-right: 50px;
+            img{
+                width: 95%;
+                border-radius: 3px;
             }
         }
-
-        .btn_daftar{
-            width: 100%;
-            font-weight: bold;
+    
+        .card_info{
+            margin-left: 20px;
+    
+            .card_detail_info{
+                display: flex;
+                padding: 100px 0 25px 0;
+                
+                h2{
+                    margin: 0 0 5px 0;
+                }
+        
+                p{
+                    margin: 0;
+                }
+                
+                .kapasitas{
+                    margin-right: 50px;
+                }
+            }
+    
+            .btn_daftar{
+                width: 100%;
+                font-weight: bold;
+            }
         }
     }
 }
 
+
 @media screen and (max-width: 768px){
-    .card_bantuan{
-        margin-top: 20px;
-        flex-direction: column;
-
-        .card_detail{
-            width: 100%;
-        }
-
-        .card_info{
-            margin: 0;
-
-            .card_detail_info{
-                padding-top: 10px;
+    .alert_auth_login{
+        .card_bantuan{
+            margin-top: 20px;
+            flex-direction: column;
+    
+            .card_detail{
+                width: 100%;
+            }
+    
+            .card_info{
+                margin: 0;
+    
+                .card_detail_info{
+                    padding-top: 10px;
+                }
             }
         }
     }
 }
 
 @media screen and (max-width: 576px){
-    .card_bantuan{
-
-        .card_detail{
-            h1{
-                font-size: 1.7em;
+    .alert_auth_login{
+        .card_bantuan{
+            .card_detail{
+                h1{
+                    font-size: 1.7em;
+                }
+    
+                h2{
+                    font-size: 1.2em;
+                }
+    
+                p{
+                    font-size: .9em;
+                }
             }
-
-            h2{
-                font-size: 1.2em;
-            }
-
-            p{
-                font-size: .9em;
-            }
-        }
-        .card_info{
-            h2{
-                font-size: 1.2em;
+            .card_info{
+                h2{
+                    font-size: 1.2em;
+                }
             }
         }
     }

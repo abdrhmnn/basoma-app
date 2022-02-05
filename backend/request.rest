@@ -1,18 +1,20 @@
-GET http://localhost:5000/bantuan
+GET http://localhost:5000/warga
 
 ###
 
-GET http://localhost:5000/acara/58
+GET http://localhost:5000/nilai-prioritas/USER_11
 
 ###
 
-POST http://localhost:5000/bantuan
+POST http://localhost:5000/nilai-prioritas
 Content-Type: application/json
 
 {
-    "kd_bantuan": "BNT_5",
-    "nama": "abdu",
-    "kapasitas": "10"
+    "prioritas_id": "PRIO_7",
+    "user_id": "USER_11",
+    "id_kriteria": "KB_3",
+    "pilihan": "test lagi",
+    "total_nilai": 20
 }
 
 ###
@@ -26,19 +28,19 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:5000/masukan/USER_1
+DELETE http://localhost:5000/kriteria/KB_5
 
 ###
 
-GET http://localhost:5000/masukan
+GET http://localhost:5000/bantuan/kapasitas/100
 
 ###
 
-PATCH  http://localhost:5000/users/USER_11
+PATCH  http://localhost:5000/kriteria/KB_2
 Content-Type: application/json
 
 {
-    "role": "warga"
+    "nilai_prioritas": 2.57
 }
 ###
 

@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
+
+// components
 import HeaderAdmin from "./HeaderAdmin";
 import NavbarAdmin from "./NavbarAdmin";
+
+// npm packages
 import axios from "axios";
 import { jsPDF } from "jspdf";
 import 'jspdf-autotable';
 import ReactExport from "react-export-excel";
 import { Link } from "react-router-dom";
 import swal from 'sweetalert';
-
 import { TextField, Button } from "@mui/material";
 import { AiOutlinePlusSquare } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
+
 
 const BantuanAdmin = () => {
 
@@ -116,30 +120,30 @@ const BantuanAdmin = () => {
                                             <td>{e.nama}</td>
                                             <td>{e.kapasitas}</td>
                                             <td>
-                                            <Button
-                                                variant="contained"
-                                                className="btn_delete_bantuan"
-                                                onClick={() => {
-                                                    swal({
-                                                        title: "Yakin ingin hapus data?",
-                                                        text: "Jika iya, maka data tidak bisa dikembalikan lagi!",
-                                                        icon: "warning",
-                                                        buttons: ["Tidak", "Yakin"],
-                                                        dangerMode: true
-                                                    })
-                                                    .then((willDelete) => {
-                                                        if (willDelete) {
-                                                            axios.delete(`http://localhost:5000/bantuan/${e.kd_bantuan}`)
-                                                            .then(res => {
-                                                                swal("Data berhasil dihapus!", {
-                                                                icon: "success",
+                                                <Button
+                                                    variant="contained"
+                                                    className="btn_delete_bantuan"
+                                                    onClick={() => {
+                                                        swal({
+                                                            title: "Yakin ingin hapus data?",
+                                                            text: "Jika iya, maka data tidak bisa dikembalikan lagi!",
+                                                            icon: "warning",
+                                                            buttons: ["Tidak", "Yakin"],
+                                                            dangerMode: true
+                                                        })
+                                                        .then((willDelete) => {
+                                                            if (willDelete) {
+                                                                axios.delete(`http://localhost:5000/bantuan/${e.kd_bantuan}`)
+                                                                .then(res => {
+                                                                    swal("Data berhasil dihapus!", {
+                                                                    icon: "success",
+                                                                    })
                                                                 })
-                                                            })
-                                                            getAllBantuan()
-                                                        }
-                                                    });
-                                                }}
-                                            ><RiDeleteBin6Line /></Button>
+                                                                getAllBantuan()
+                                                            }
+                                                        });
+                                                    }}
+                                                ><RiDeleteBin6Line /></Button>
                                             </td>
                                         </tr>
                                     )

@@ -25,6 +25,9 @@ const User = db.define('users', {
     },
     gambar: {
         type: DataTypes.STRING
+    },
+    status_pengisian: {
+        type: DataTypes.STRING
     }
 }, {
     freezeTableName: true

@@ -24,6 +24,14 @@ import BantuanAdmin from "./components/admin_page/BantuanAdmin";
 // npm packages
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import TambahBantuan from "./components/admin_page/TambahBantuan";
+import EditProfileAdmin from "./components/admin_page/EditProfileAdmin";
+import KriteriaBantuan from "./components/admin_page/KriteriaBantuan";
+import EditKriteriaBantuan from "./components/admin_page/EditKriteriaBantuan";
+import PageAwalKuesioner from "./components/landing_page/PageAwalKuesioner";
+import KuesionerPendaftaran from "./components/landing_page/KuesionerPendaftaran";
+import HasilKuesionerPendaftaran from "./components/landing_page/HasilKuesionerPendaftaran";
+import FormPendaftaranBantuan from "./components/landing_page/FormPendaftaranBantuan";
+import SuccessPendaftaranBantuan from "./components/landing_page/SuccessPendaftaranBantuan";
 
 
 // const PrivatRoute = ({ component: Component, ...rest }) => {
@@ -68,6 +76,11 @@ function App() {
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/masukan" element={<Masukan data="true"/>} />
             <Route exact path="/edit-profile" element={<EditProfile />} />
+            <Route exact path="/panduan-pendaftaran" element={<PageAwalKuesioner />} />
+            <Route exact path="/kuesioner-pendaftaran" element={<KuesionerPendaftaran />} />
+            <Route exact path="/hasil-kuesioner-pendaftaran" element={<HasilKuesionerPendaftaran />} />
+            <Route exact path="/form-pendaftaran" element={<FormPendaftaranBantuan />} />
+            <Route exact path="/form-pendaftaran-success" element={<SuccessPendaftaranBantuan />} />
             {/* <PrivatRoute exact path="/edit-profile" element={<EditProfile />}/> */}
 
             {/* admin page components */}
@@ -75,6 +88,9 @@ function App() {
             <Route exact path="/user" element={<User />} />
             <Route exact path="/kelola-bantuan" element={<BantuanAdmin />} />
             <Route exact path="/tambah-bantuan" element={<TambahBantuan />} />
+            <Route exact path="/edit-profile-admin" element={<EditProfileAdmin />} />
+            <Route exact path="/kriteria-bantuan" element={<KriteriaBantuan />} />
+            <Route exact path="/edit-kriteria-bantuan" element={<EditKriteriaBantuan />} />
 
 
             {/* Empty Page */}

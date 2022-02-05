@@ -48,12 +48,11 @@ export const getBantuanByNama = async (req, res) => {
     }
 }
 
-export const getBantuanByKapasitasAndStatus = async (req, res) => {
+export const getBantuanByKapasitas = async (req, res) => {
     try{
         const bantuanFilter = await Bantuan.findAll({
             where: {
-                kapasitas: req.params.kapasitas,
-                status: req.params.status
+                kapasitas: req.params.kapasitas
             }
         });
         res.json(bantuanFilter);

@@ -1,0 +1,98 @@
+.form_pendaftaran{
+    max-width: 800px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    
+    .form_title{
+        text-align: center;
+        padding-top: 30px;
+    
+        h2{
+            margin: 0;
+            font-size: 1.7em;
+        }
+    
+        p{
+            margin: 10px 0 0 0;
+            font-size: .9em;
+        }
+    }
+
+    .form_content{
+        // background-color: red;
+        margin-top: 30px;
+
+        .flex_nik_nm_lengkap{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .flex_pekerjaan_penghasilan{
+            display: flex;
+            justify-content: space-between;
+            margin-top: 18px;
+        }
+
+        .flex_pendidikan_luas_bangunan{
+            @extend .flex_pekerjaan_penghasilan;
+            margin-bottom: 18px;
+        }
+
+        .flex_fktp_fbanguan{
+            display: flex;
+            justify-content: space-between;
+
+            .fktp{
+                .btn_upload_ktp{
+                    background-color: transparent;
+                    border: 1px dashed $primary-color;
+                    box-shadow: none;
+                    display: flex;
+                    flex-direction: column;
+                    width: 380px;
+                    height: 160px;
+                    color: rgb(155, 155, 155);
+
+                    p{
+                        margin: 0;
+                        // text-transform: capitalize;
+                        font-size: .9em;
+
+                        &:nth-child(2){
+                            margin-top: 10px;
+                        }
+                    }
+                }
+            }
+
+            .fbangunan{
+                .btn_upload_bangunan{
+                    background-color: transparent;
+                    border: 1px dashed $primary-color;
+                    box-shadow: none;
+                    display: flex;
+                    flex-direction: column;
+                    width: 390px;
+                    height: 160px;
+                    color: rgb(155, 155, 155);
+
+                    p{
+                        margin: 0;
+                        // text-transform: capitalize;
+                        font-size: .9em;
+
+                        &:nth-child(2){
+                            margin-top: 10px;
+                        }
+                    }
+                }
+            }
+
+            .ml_bangunan{
+                margin-left: 27px;
+            }
+        }
+    }
+}

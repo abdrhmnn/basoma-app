@@ -109,13 +109,19 @@ body {
         }
 
         .role_admin{
-            background-color: rgb(0, 110, 255);
+            background-color: rgba(122, 180, 255, 0.397);
+            color: rgba(4, 0, 255, 0.815);
+            font-weight: bold;
+            font-size: .85em;
             padding: 7px;
             border-radius: 8px;
         }
 
         .role_warga{
-            background-color: rgb(0, 255, 0);
+            background-color: rgba(78, 252, 165, 0.397);
+            color: rgba(43, 170, 31, 0.836);
+            font-weight: bold;
+            font-size: .85em;
             padding: 7px;
             border-radius: 8px;
         }
@@ -148,6 +154,12 @@ body {
 @import "./landing_page/bantuan_not_found.scss";
 @import "./landing_page/register.scss";
 @import "./landing_page/register_success.scss";
+@import "./landing_page/page_awal_kuesioner.scss";
+@import "./landing_page/kuesioner_pendaftaran.scss";
+@import "./landing_page/hasil_kuesioner_pendaftaran.scss";
+@import "./landing_page/form_pendaftaran.scss";
+@import "./landing_page/success_pendaftaran_bantuan.scss";
+@import "./landing_page/sudah_mengisi_kuesioner.scss";
 
 
 // admin page styles
@@ -157,3 +169,7 @@ body {
 @import "./admin_page/user_page.scss";
 @import "./admin_page/kelola_bantuan_page.scss";
 @import "./admin_page/tambah_bantuan.scss";
+@import "./admin_page/edit-profile-admin.scss";
+@import "./admin_page/success_edit_profile_admin.scss";
+@import "./admin_page/kriteria_bantuan.scss";
+@import "./admin_page/edit-kriteria-bantuan.scss";

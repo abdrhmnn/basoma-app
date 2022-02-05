@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
+
+// components
 import HeaderAdmin from "./HeaderAdmin";
 import NavbarAdmin from "./NavbarAdmin";
+
+// npm packages
 import axios from "axios";
 import { jsPDF } from "jspdf";
 import { Button } from "@mui/material";
 import 'jspdf-autotable';
 import ReactExport from "react-export-excel";
 import swal from 'sweetalert';
-
 import { RiDeleteBin6Line, RiAdminLine } from "react-icons/ri";
-
 import { TextField } from "@mui/material";
 
 const User = () => {
@@ -66,10 +68,6 @@ const User = () => {
 
         return (<span className="role_warga">{role}</span>)
     }
-
-    // const validateUserDelete = () => {
-    //     console.log(e.user_id)
-    // }
 
     return(
         <div style={{ display: "flex" }}>
@@ -174,7 +172,7 @@ const User = () => {
                                                             text: "Jika iya, maka data tidak bisa dikembalikan lagi!",
                                                             icon: "warning",
                                                             buttons: ["Tidak", "Yakin"],
-                                                            dangerMode: true,
+                                                            dangerMode: true
                                                         })
                                                         .then((willDelete) => {
                                                             if (willDelete) {
@@ -194,7 +192,6 @@ const User = () => {
                                             </tr>
                                         )
                                     }
-
                                     return null
                                 })}
                             </tbody>
