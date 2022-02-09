@@ -1,0 +1,63 @@
+.empty_page{
+    h2:nth-child(1){
+        padding: 20px 0 0 40px;
+        margin: 0;
+    }
+
+    .flex_empty_page{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        img{
+            width: 400px;
+        }
+
+        h2{
+            margin: 0 0 20px 0;
+            font-size: 1.6em;
+        }
+    }
+}
+
+// Responsive Breakpoints
+// for tablet
+@media screen and (max-width: 768px){
+    .empty_page{
+        h2:nth-child(1){
+            font-size: 1.3em;
+            padding-left: 30px;
+        }
+
+        .flex_empty_page{
+            img{
+                width: 350px;
+            }
+
+            h2{
+                font-size: 1.3em;
+            }
+        }
+    }
+}
+
+// for mobile
+@media screen and (max-width: 576px){
+    .empty_page{
+        h2:nth-child(1){
+            font-size: 1.2em;
+            padding-left: 20px;
+        }
+
+        .flex_empty_page{
+            img{
+                width: 300px;
+            }
+
+            h2{
+                font-size: 1.2em;
+            }
+        }
+    }
+}

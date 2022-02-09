@@ -1,9 +1,16 @@
+// styling component linked in bantuan_detail.scss file
+
 import React, { useState, useEffect } from "react";
 
 // components
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { kuki } from "../../kuki";
+
+// Cookie storage
+import kuki from "../../kuki";
+
+// API storage
+import API from "../../api";
 
 // img
 import img1 from "./../../images/test.png";
@@ -12,52 +19,75 @@ import img1 from "./../../images/test.png";
 import { useLocation, Link } from "react-router-dom";
 import { Button, CircularProgress, Alert } from "@mui/material";
 import { AES, enc } from "crypto-js";
-import axios from "axios";
 
-const BantuanDetail = ({ data }) => {
-	const [isLoad, setIsLoad] = useState(false);
-	const [bantuanById, setBantuanById] = useState();
-	const [isShow, setIsShow] = useState(false);
+const BantuanDetail = ({ activeNav }) => {
+	const [isLoadContent, setIsLoadContent] = useState(false);
+
+	const [bantuanByID, setBantuanByID] = useState(null);
+	const [userByID, setUserByID] = useState(null);
+
 	const location = useLocation();
 
 	useEffect(() => {
 		document.title = "Detail Bantuan";
+		getUserByID();
+
 		const params = new URLSearchParams(location.search);
 		const bi = AES.decrypt(params.get("bi"), "bantuan_id").toString(enc.Utf8);
-		axios.get(`http://localhost:5000/bantuan/id/${bi}`).then((res) => {
-			setBantuanById(res.data);
+
+		API.getBantuanByID(bi).then((res) => {
+			setBantuanByID(res.data);
 		});
+
 		setTimeout(() => {
-			setIsLoad(true);
+			setIsLoadContent(true);
 		}, 2000);
 	}, [location]);
+
+	const getUserByID = async () => {
+		const response = await API.getUserByID(kuki.get("user_id"));
+		setUserByID(response.data);
+	};
 
 	return (
 		<div>
 			<Navbar dataBantuan="true" />
-			{isLoad ? (
-				<div className="alert_auth_login">
-					{kuki.get("user_id") || isShow ? null : (
-						<Alert
-							onClose={() => {
-								setIsShow(true);
-							}}
-							variant="outlined"
-							severity="warning"
-							sx={{ mb: 2, mt: 2 }}
-						>
+
+			{/* Component bantuan detail */}
+			{isLoadContent ? (
+				<div className="bantuan_detail">
+					{userByID && (
+						<div>
+							{userByID.status_pengisian === "sudah" ? (
+								<Alert
+									variant="outlined"
+									severity="warning"
+									sx={{ mt: 2, mb: 2 }}
+								>
+									Batas pengisian kuesioner hanya satu kali, Anda sudah
+									tidak bisa mengisi kuesioner pendaftaran bantuan
+									lagi.
+								</Alert>
+							) : null}
+						</div>
+					)}
+
+					{kuki.get("user_id") ? null : (
+						<Alert variant="outlined" severity="warning" sx={{ mb: 2 }}>
 							<span style={{ fontWeight: "bold" }}>PERHATIKAN!</span>,
 							silahkan login terlebih dahulu untuk bisa melakukan
 							pendaftaran.
 						</Alert>
 					)}
-					<div className="card_bantuan">
-						<div className="card_detail">
-							<h1>{bantuanById.nama}</h1>
+
+					<div className="bantuan_detail_content">
+						{/* Info nama dan deskripsi bantuan */}
+						<div className="info_nama_and_deskripsi">
+							<h1>{bantuanByID.nama}</h1>
 							<p>
 								Bantuan ini diberikan oleh <span>test</span>
 							</p>
-							<img src={img1} alt="Card" />
+							<img src={img1} alt="Bantuan Sosial Banner" />
 							<h2>Deskripsi</h2>
 							<p>
 								Lorem ipsum dolor sit amet consectetur, adipisicing
@@ -81,16 +111,19 @@ const BantuanDetail = ({ data }) => {
 								natus.
 							</p>
 						</div>
-						<div className="card_info">
-							<div className="card_detail_info">
+						{/* Akhir info nama dan deskripsi bantuan */}
+
+						{/* Info kapasitas bantuan */}
+						<div className="group_kapasitas_and_btn">
+							<div className="info_kapasitas">
 								<div className="kapasitas">
 									<h2>Kapasitas</h2>
-									<p>{bantuanById.kapasitas} Orang</p>
+									<p>{bantuanByID.kapasitas} Orang</p>
 								</div>
 							</div>
 							<Button
 								variant="contained"
-								className="btn_daftar"
+								className="btn_daftar_bantuan"
 								component={Link}
 								to="/panduan-pendaftaran"
 								disabled={kuki.get("user_id") ? false : true}
@@ -98,6 +131,7 @@ const BantuanDetail = ({ data }) => {
 								Daftar
 							</Button>
 						</div>
+						{/* Akhir info kapasitas bantuan */}
 					</div>
 				</div>
 			) : (
@@ -112,9 +146,11 @@ const BantuanDetail = ({ data }) => {
 					<CircularProgress />
 				</div>
 			)}
+			{/* Akhir component bantuan detail */}
+
 			<Footer
 				class_bantuan_detail="bantuan_detail_foot"
-				active_foot={data}
+				active_foot={activeNav}
 			/>
 		</div>
 	);

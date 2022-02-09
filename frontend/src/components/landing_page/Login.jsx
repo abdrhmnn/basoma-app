@@ -1,7 +1,12 @@
+// styling component linked in login.scss file
+
 import React, { useState, useEffect } from "react";
 
-// components or files
-import { kuki } from "../../kuki/index.js";
+// Cookie storage
+import kuki from "../../kuki";
+
+// API storage
+import API from "../../api";
 
 // img
 import login_img from "./../../images/greetings.svg";
@@ -22,12 +27,11 @@ import { Formik, Field } from "formik";
 import { BiShowAlt, BiHide } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
-import axios from "axios";
 
 const Login = () => {
-	const [showPassword, setShowPassword] = useState(false);
 	const [user, setUser] = useState([]);
-	const [isValid, setIsValid] = useState(true);
+	const [isShowPassword, setIsShowPassword] = useState(false);
+	const [isValidLogin, setIsValidLogin] = useState(true);
 
 	const schemaLogin = Yup.object({
 		username: Yup.string().required("Username masih kosong!"),
@@ -40,7 +44,7 @@ const Login = () => {
 	}, []);
 
 	const getAllUser = async () => {
-		const response = await axios.get("http://localhost:5000/users");
+		const response = await API.getAllUser();
 		setUser(response.data);
 	};
 
@@ -50,13 +54,15 @@ const Login = () => {
 				<h2>Basoma</h2>
 				<img src={login_img} alt="login" />
 			</div>
+			{/* Login component content */}
 			<div className="login_auth">
 				<h1>Selamat Datang</h1>
 				<p>Silahkan masukan username dan password anda</p>
-				{isValid ? null : (
+
+				{isValidLogin ? null : (
 					<Alert
 						onClose={() => {
-							setIsValid(true);
+							setIsValidLogin(true);
 						}}
 						variant="outlined"
 						severity="warning"
@@ -66,6 +72,7 @@ const Login = () => {
 						Username atau password tidak tepat!
 					</Alert>
 				)}
+
 				<Formik
 					initialValues={{ username: "", password: "" }}
 					validationSchema={schemaLogin}
@@ -83,9 +90,10 @@ const Login = () => {
 									window.location.href = "/";
 									return;
 								}
+							} else {
+								setIsValidLogin(false);
 							}
 						});
-						setIsValid(false);
 					}}
 				>
 					{(props) => (
@@ -94,6 +102,7 @@ const Login = () => {
 								name="username"
 								variant="outlined"
 								label="Username"
+								autoComplete="off"
 								as={TextField}
 								error={
 									props.touched.username && props.errors.username
@@ -104,6 +113,8 @@ const Login = () => {
 									props.touched.username && props.errors.username
 								}
 							/>
+
+							{/* Textfield password */}
 							<FormControl
 								className="custom_text_input"
 								variant="outlined"
@@ -120,7 +131,7 @@ const Login = () => {
 									name="password"
 									label="Password"
 									id="outlined-adornment-password"
-									type={showPassword ? "text" : "password"}
+									type={isShowPassword ? "text" : "password"}
 									value={props.values.password}
 									onChange={props.handleChange}
 									endAdornment={
@@ -128,10 +139,14 @@ const Login = () => {
 											<IconButton
 												edge="end"
 												onClick={() =>
-													setShowPassword(!showPassword)
+													setIsShowPassword(!isShowPassword)
 												}
 											>
-												{showPassword ? <BiShowAlt /> : <BiHide />}
+												{isShowPassword ? (
+													<BiShowAlt />
+												) : (
+													<BiHide />
+												)}
 											</IconButton>
 										</InputAdornment>
 									}
@@ -140,6 +155,8 @@ const Login = () => {
 									{props.touched.password && props.errors.password}
 								</FormHelperText>
 							</FormControl>
+							{/* Akhir textfield password */}
+
 							<Button
 								variant="contained"
 								sx={{
@@ -152,6 +169,8 @@ const Login = () => {
 						</form>
 					)}
 				</Formik>
+
+				{/* Registrasi link */}
 				<p
 					style={{
 						marginTop: 10,
@@ -167,7 +186,9 @@ const Login = () => {
 						disini!
 					</Link>
 				</p>
+				{/* Akhir registrasi link */}
 			</div>
+			{/* Akhir login component content */}
 		</div>
 	);
 };

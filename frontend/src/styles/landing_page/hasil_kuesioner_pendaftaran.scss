@@ -1,8 +1,6 @@
 .hasil_kuesioner{
     max-width: $max-width-container;
     margin: auto;
-    // background-color: red;
-    // position: relative;
 
     .logo_app_hasil_kuesioner{
         padding-top: 30px;
@@ -18,14 +16,17 @@
         padding-left: 30px;
         padding-right: 30px;
         margin-bottom: 50px;
-        // position: absolute;
-        // top: 60%;
-        // left: 50%;
-        // transform: translate(-50%, -50%);
-        // width: 1100px;
+    }
+}
 
-        // .btn_export_hasil_kuesioner{
-        //     margin: 20px 0 100px 0;
-        // }
+// Responsive Breakpoints
+// for tablet
+@media screen and (max-width: 768px){
+    .hasil_kuesioner{
+        .logo_app_hasil_kuesioner{
+            h2{
+                font-size: 1.3em;
+            }
+        }
     }
 }

@@ -1,3 +1,5 @@
+// styling component linked in footer.scss file
+
 import React from "react";
 
 // npm packages
@@ -29,9 +31,12 @@ const Footer = (props) => {
 	};
 
 	return (
+		// Component footer
 		<footer className={"footer " + showClassName()}>
-			<div className="wrap_footer">
+			<div className="wrap_container">
 				<h1>Basoma</h1>
+
+				{/* Footer navbar section */}
 				<div className="footer_nav">
 					<ul>
 						<li>
@@ -73,7 +78,11 @@ const Footer = (props) => {
 						</li>
 					</ul>
 				</div>
+				{/* Akhir footer navbar section */}
+
 				<hr />
+
+				{/* Footer sosial media section */}
 				<div className="footer_sosmed">
 					<div className="footer_created">
 						<h2>Created by. Team JAI</h2>
@@ -90,8 +99,10 @@ const Footer = (props) => {
 						</Link>
 					</div>
 				</div>
+				{/* Akhir footer sosial media section */}
 			</div>
 		</footer>
+		// Akhir component footer
 	);
 };
 

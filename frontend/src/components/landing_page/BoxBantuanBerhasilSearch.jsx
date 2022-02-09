@@ -1,3 +1,5 @@
+// styling component linked in bantuan.scss file
+
 import React from "react";
 
 // components
@@ -31,13 +33,18 @@ const BoxBantuanBerhasilSearch = ({ data }) => {
 							})
 						}
 					>
+						{/* Nama dan penyelenggara bantuan */}
 						<Typography variant="h4" style={{ fontSize: "1.9em" }}>
 							{e.nama}
 						</Typography>
 						<p style={{ fontSize: ".9em" }}>
 							Bantuan ini diberikan oleh: abdu
 						</p>
+						{/* Akhir nama dan penyelenggara bantuan */}
+
 						<hr />
+
+						{/* Kapasitas bantuan */}
 						<div className="detail_bantuan">
 							<div className="kapasitas">
 								<p>
@@ -45,6 +52,7 @@ const BoxBantuanBerhasilSearch = ({ data }) => {
 								</p>
 							</div>
 						</div>
+						{/* Kapasitas bantuan */}
 					</Box>
 				))
 			) : (

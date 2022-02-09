@@ -1,3 +1,4 @@
+// styling for padding component footer when page is loaded
 .foot_foot{
     padding: 100px 30px 20px 25px;
 }
@@ -5,8 +6,8 @@
 .footer{
     background-color: $black-color;
     color: $white-color;
-    
-    .wrap_footer{
+
+    .wrap_container{
         max-width: 1300px;
         margin: auto;
 
@@ -14,12 +15,12 @@
             margin: 0;
             font-size: 1.8em;
         }
-    
+
         hr{
             margin: 20px 0 0 0;
             opacity: .3;
         }
-    
+
         .footer_nav{
             width: 300px;
 
@@ -28,29 +29,29 @@
                 margin: 10px 0 0 0;
                 padding: 0;
                 justify-content: space-between;
-    
+
                 li{
                     list-style: none;
-    
+
                     a{
                         text-decoration: none;
-    
+
                         &:hover{
                             color: $white-color;
                         }
                     }
                 }
             }
-    
+
             .active_foot{
                 color: $white-color;
             }
-    
+
             .unselected_foot{
                 color: rgb(133, 133, 133);
             }
         }
-    
+
         .footer_sosmed{
             display: flex;
             justify-content: space-between;
@@ -85,13 +86,10 @@
 }
 
 // Responsive Breakpoints
+// for tablet
 @media screen and (max-width: 768px){
     .footer{
-        .wrap_footer{
-
-            // h1{
-            //     font-size: ;
-            // }
+        .wrap_container{
             .footer_nav{
                 width: 50%;
             }
@@ -105,9 +103,10 @@
     }
 }
 
+// for mobile
 @media screen and (max-width: 576px){
     .footer{
-        .wrap_footer{
+        .wrap_container{
             .footer_nav{
                 width: 65%;
             }

@@ -8,7 +8,6 @@
     position: absolute;
     top: 46%;
     left: 50%;
-
     transform: translate(-50%, 170%);
 
     h1{
@@ -37,6 +36,7 @@
 }
 
 // Responsive Breakpoints
+// for tablet
 @media screen and (max-width: 768px){
     .join_us{
         top: 78%;
@@ -44,6 +44,7 @@
     }
 }
 
+// for mobile
 @media screen and (max-width: 576px){
     .join_us{
         top: 75%;

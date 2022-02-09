@@ -1,0 +1,37 @@
+.success_edit_profile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    img{
+        width: 350px;
+    }
+
+    h2{
+        font-size: 1.4em;
+    }
+}
+
+// Responsive Breakpoints
+// for tablet
+@media screen and (max-width: 768px){
+    .success_edit_profile{
+        img{
+            width: 280px;
+        }
+
+        h2{
+            font-size: 1.2em;
+        }
+    }
+}
+
+// for mobile
+@media screen and (max-width: 576px){
+    .success_edit_profile{
+        img{
+            width: 250px;
+        }
+    }
+}

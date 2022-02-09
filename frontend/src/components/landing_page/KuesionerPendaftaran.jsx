@@ -1,11 +1,18 @@
+// styling component linked in kuesioner_pendaftaran.scss file
+// and App.scss for tbl_class, tbl_class_head, tbl_class_body class name
+
 import React, { useState, useEffect } from "react";
 
-// components or files
-import SudahMengisiKuesioner from "./SudahMengisiKuesioner.jsx";
-import { kuki } from "../../kuki/index.js";
+// components
+import SudahMengisiKuesioner from "./SudahMengisiKuesioner";
+
+// Cookiee storage
+import kuki from "../../kuki";
+
+// API storage
+import API from "../../api";
 
 // npm packages
-import axios from "axios";
 import {
 	Radio,
 	RadioGroup,
@@ -18,70 +25,73 @@ import { useNavigate } from "react-router-dom";
 
 const KuesionerPendaftaran = () => {
 	const [kriteriaBantuan, setKriteriaBantuan] = useState(null);
-	const [userById, setUserById] = useState(null);
+	const [userByID, setUserByID] = useState(null);
+
 	const navigate = useNavigate();
 
-	const [jawaban1, setJawaban1] = useState(null);
-	const [jawaban2, setJawaban2] = useState(null);
-	const [jawaban3, setJawaban3] = useState(null);
-	const [jawaban4, setJawaban4] = useState(null);
-	const [jawaban5, setJawaban5] = useState(null);
+	// state for get jawaban user
+	const [jawabanSatu, setJawabanSatu] = useState(null);
+	const [jawabanDua, setJawabanDua] = useState(null);
+	const [jawabanTiga, setJawabanTiga] = useState(null);
+	const [jawabanEmpat, setJawabanEmpat] = useState(null);
+	const [jawabanLima, setJawabanLima] = useState(null);
 
-	const [value1, setValue1] = useState("");
-	const [value2, setValue2] = useState("");
-	const [value3, setValue3] = useState("");
-	const [value4, setValue4] = useState("");
-	const [value5, setValue5] = useState("");
+	// state for get data value from radio button
+	const [valueRB1, setValueRB1] = useState("");
+	const [valueRB2, setValueRB2] = useState("");
+	const [valueRB3, setValueRB3] = useState("");
+	const [valueRB4, setValueRB4] = useState("");
+	const [valueRB5, setValueRB5] = useState("");
 
-	const [isValid, setIsValid] = useState(false);
-	const [open, setOpen] = useState(false);
+	const [isValidSubmit, setIsValidSubmit] = useState(false);
+	const [isOpenSnackbar, setIsOpenSnackbar] = useState(false);
 
 	useEffect(() => {
 		document.title = "Kuesioner Pendaftaran Bantuan";
 		getAllKriteria();
-		getUserById();
+		getUserByID();
 	}, []);
 
 	const getAllKriteria = async () => {
-		const response = await axios.get("http://localhost:5000/kriteria");
+		const response = await API.getAllKriteria();
 		setKriteriaBantuan(response.data);
 	};
 
-	const getUserById = async () => {
-		const response = await axios.get(
-			`http://localhost:5000/users/${kuki.get("user_id")}`
-		);
-		setUserById(response.data);
+	const getUserByID = async () => {
+		const response = await API.getUserByID(kuki.get("user_id"));
+		setUserByID(response.data);
 	};
 
-	const handleClose = (event, reason) => {
+	const handleCloseSnackbar = (event, reason) => {
 		if (reason === "clickaway") {
 			return;
 		}
 
-		setOpen(false);
+		setIsOpenSnackbar(false);
 	};
 
 	return (
+		// Component kuesioner pendaftaran content
 		<div className="kuesioner">
-			{kriteriaBantuan && userById && (
+			{kriteriaBantuan && userByID && (
 				<div>
-					{userById.status_pengisian === "sudah" ? (
+					{userByID.status_pengisian === "sudah" ? (
 						<SudahMengisiKuesioner />
 					) : (
 						<div>
+							{/* Logo dan validasi pengisian */}
 							<div className="logo_app_kuesioner">
 								<h2>Basoma</h2>
-								{isValid ? (
+								{isValidSubmit ? (
 									<Snackbar
-										open={open}
+										open={isOpenSnackbar}
 										autoHideDuration={6000}
-										onClose={handleClose}
+										onClose={handleCloseSnackbar}
 									>
 										<Alert
-											onClose={handleClose}
+											onClose={handleCloseSnackbar}
 											severity="warning"
-											variant="outlined"
+											variant="filled"
 										>
 											Silahkan jawab semua pertanyaan terlebih
 											dahulu!
@@ -89,7 +99,11 @@ const KuesionerPendaftaran = () => {
 									</Snackbar>
 								) : null}
 							</div>
+							{/* Akhir logo dan validasi pengisian */}
+
+							{/* Kuesioner pendaftaran content */}
 							<div className="kuesioner_pendaftaran">
+								{/* Tabel kuesioner pendaftaran */}
 								<table className="tbl_class">
 									<thead className="tbl_class_head">
 										<tr>
@@ -98,7 +112,10 @@ const KuesionerPendaftaran = () => {
 											<th colSpan={2}>Jawaban</th>
 										</tr>
 									</thead>
+
+									{/* Tabel body */}
 									<tbody className="tbl_class_body">
+										{/* Baris satu */}
 										<tr>
 											<td>1</td>
 											<td style={{ textAlign: "left" }}>
@@ -109,7 +126,7 @@ const KuesionerPendaftaran = () => {
 													row
 													name="jwb_kuesioner_1"
 													onChange={(e) =>
-														setJawaban1(e.target.value)
+														setJawabanSatu(e.target.value)
 													}
 												>
 													<FormControlLabel
@@ -119,11 +136,12 @@ const KuesionerPendaftaran = () => {
 														control={
 															<Radio
 																onChange={() => {
-																	setValue1(
+																	setValueRB1(
 																		kriteriaBantuan[0]
 																			.pilihan_satu
 																	);
 																}}
+																style={{ fontSize: ".9em" }}
 															/>
 														}
 														label={
@@ -135,7 +153,7 @@ const KuesionerPendaftaran = () => {
 														control={
 															<Radio
 																onChange={() => {
-																	setValue1(
+																	setValueRB1(
 																		kriteriaBantuan[0]
 																			.pilihan_dua
 																	);
@@ -147,6 +165,9 @@ const KuesionerPendaftaran = () => {
 												</RadioGroup>
 											</td>
 										</tr>
+										{/* Akhir baris satu */}
+
+										{/* Baris dua */}
 										<tr>
 											<td>2</td>
 											<td style={{ textAlign: "left" }}>
@@ -157,7 +178,7 @@ const KuesionerPendaftaran = () => {
 													row
 													name="jwb_kuesioner_2"
 													onChange={(e) =>
-														setJawaban2(e.target.value)
+														setJawabanDua(e.target.value)
 													}
 												>
 													<FormControlLabel
@@ -165,7 +186,7 @@ const KuesionerPendaftaran = () => {
 														control={
 															<Radio
 																onChange={() => {
-																	setValue2(
+																	setValueRB2(
 																		kriteriaBantuan[1]
 																			.pilihan_satu
 																	);
@@ -183,7 +204,7 @@ const KuesionerPendaftaran = () => {
 														control={
 															<Radio
 																onChange={() => {
-																	setValue2(
+																	setValueRB2(
 																		kriteriaBantuan[1]
 																			.pilihan_dua
 																	);
@@ -195,6 +216,9 @@ const KuesionerPendaftaran = () => {
 												</RadioGroup>
 											</td>
 										</tr>
+										{/* Akhir baris dua */}
+
+										{/* Baris tiga */}
 										<tr>
 											<td>3</td>
 											<td style={{ textAlign: "left" }}>
@@ -205,7 +229,7 @@ const KuesionerPendaftaran = () => {
 													row
 													name="jwb_kuesioner_3"
 													onChange={(e) =>
-														setJawaban3(e.target.value)
+														setJawabanTiga(e.target.value)
 													}
 												>
 													<FormControlLabel
@@ -215,7 +239,7 @@ const KuesionerPendaftaran = () => {
 														control={
 															<Radio
 																onChange={() => {
-																	setValue3(
+																	setValueRB3(
 																		kriteriaBantuan[2]
 																			.pilihan_satu
 																	);
@@ -231,7 +255,7 @@ const KuesionerPendaftaran = () => {
 														control={
 															<Radio
 																onChange={() => {
-																	setValue3(
+																	setValueRB3(
 																		kriteriaBantuan[2]
 																			.pilihan_dua
 																	);
@@ -243,6 +267,9 @@ const KuesionerPendaftaran = () => {
 												</RadioGroup>
 											</td>
 										</tr>
+										{/* Akhir baris tiga */}
+
+										{/* Baris empat */}
 										<tr>
 											<td>4</td>
 											<td style={{ textAlign: "left" }}>
@@ -253,7 +280,7 @@ const KuesionerPendaftaran = () => {
 													row
 													name="jwb_kuesioner_4"
 													onChange={(e) =>
-														setJawaban4(e.target.value)
+														setJawabanEmpat(e.target.value)
 													}
 												>
 													<FormControlLabel
@@ -263,7 +290,7 @@ const KuesionerPendaftaran = () => {
 														control={
 															<Radio
 																onChange={() => {
-																	setValue4(
+																	setValueRB4(
 																		kriteriaBantuan[3]
 																			.pilihan_satu
 																	);
@@ -279,7 +306,7 @@ const KuesionerPendaftaran = () => {
 														control={
 															<Radio
 																onChange={() => {
-																	setValue4(
+																	setValueRB4(
 																		kriteriaBantuan[3]
 																			.pilihan_dua
 																	);
@@ -291,6 +318,9 @@ const KuesionerPendaftaran = () => {
 												</RadioGroup>
 											</td>
 										</tr>
+										{/* Akhir baris empat */}
+
+										{/* Baris lima */}
 										<tr>
 											<td>5</td>
 											<td style={{ textAlign: "left" }}>
@@ -301,7 +331,7 @@ const KuesionerPendaftaran = () => {
 													row
 													name="jwb_kuesioner_5"
 													onChange={(e) =>
-														setJawaban5(e.target.value)
+														setJawabanLima(e.target.value)
 													}
 												>
 													<FormControlLabel
@@ -309,7 +339,7 @@ const KuesionerPendaftaran = () => {
 														control={
 															<Radio
 																onChange={() => {
-																	setValue5(
+																	setValueRB5(
 																		kriteriaBantuan[4]
 																			.pilihan_satu
 																	);
@@ -327,7 +357,7 @@ const KuesionerPendaftaran = () => {
 														control={
 															<Radio
 																onChange={() => {
-																	setValue5(
+																	setValueRB5(
 																		kriteriaBantuan[4]
 																			.pilihan_dua
 																	);
@@ -339,94 +369,58 @@ const KuesionerPendaftaran = () => {
 												</RadioGroup>
 											</td>
 										</tr>
+										{/* Akhir baris lima */}
 									</tbody>
+									{/* Akhir tabel body */}
 								</table>
+								{/* Akhir tabel kuesioner pendaftaran */}
+
 								<Button
 									variant="contained"
 									className="btn_submit_kuesioner"
-									onClick={(e) => {
-										// e.preventDefault()
+									onClick={() => {
 										const arrJawaban = [];
 										arrJawaban.push(
-											value1,
-											value2,
-											value3,
-											value4,
-											value5
+											valueRB1,
+											valueRB2,
+											valueRB3,
+											valueRB4,
+											valueRB5
 										);
 
-										// console.log(arrJawaban)
-										// console.log(jawaban1, jawaban2, jawaban3, jawaban4, jawaban5)
-
 										if (
-											jawaban1 &&
-											jawaban2 &&
-											jawaban3 &&
-											jawaban4 &&
-											jawaban5
+											jawabanSatu &&
+											jawabanDua &&
+											jawabanTiga &&
+											jawabanEmpat &&
+											jawabanLima
 										) {
 											const hasilNilaiPrioritas =
-												parseFloat(jawaban1) +
-												parseFloat(jawaban2) +
-												parseFloat(jawaban3) +
-												parseFloat(jawaban4) +
-												parseFloat(jawaban5);
+												parseFloat(jawabanSatu) +
+												parseFloat(jawabanDua) +
+												parseFloat(jawabanTiga) +
+												parseFloat(jawabanEmpat) +
+												parseFloat(jawabanLima);
 
-											// console.log(typeof parseInt(finalResult))
 											for (let i = 0; i < arrJawaban.length; i++) {
-												axios
-													.post(
-														"http://localhost:5000/nilai-prioritas",
-														{
-															prioritas_id: `PRIO_${i + 1}`,
-															user_id: kuki.get("user_id"),
-															id_kriteria:
-																kriteriaBantuan[i].id_kriteria,
-															pilihan: arrJawaban[i],
-															total_nilai: Math.floor(
-																(hasilNilaiPrioritas / 10) *
-																	1000
-															),
-														}
-													)
-													.then((res) => {
-														navigate(
-															"/hasil-kuesioner-pendaftaran"
-														);
-													});
+												API.savePrioritas(
+													arrJawaban[i],
+													kuki.get("user_id"),
+													Math.floor(
+														(hasilNilaiPrioritas / 10) * 1000
+													),
+													i
+												).then((res) => {
+													navigate("/hasil-kuesioner-pendaftaran");
+												});
 											}
 
-											axios.patch(
-												`http://localhost:5000/users/${kuki.get(
-													"user_id"
-												)}`,
-												{
-													status_pengisian: "sudah",
-												}
+											API.updateStatusPengisianUser(
+												kuki.get("user_id")
 											);
-											// arrJawaban.map((e, i) => {
-											//     axios.post('http://localhost:5000/nilai-prioritas', {
-											//         prioritas_id: '',
-											//         user_id: kuki.get("user_id"),
-											//         id_kriteria: kriteriaBantuan[i].id_kriteria,
-											//         pilihan: e,
-											//         total_nilai: finalResult
-											//     })
-											//     .then(res => {
-											//         alert('ok')
-											//     })
-											// })
-											// setIsShow(true)
-											// console.log(nilaiPrioritas)
-											// nilaiPrioritas.forEach((e, i) => {
-											//     if(e.user_id === kuki.get("user_id")){
-											//         kuki.set("pengisian_kuesioner", true)
-											//     }
-											// })
-											// kuki.set('is_registered', )
 										} else {
-											setIsValid(true);
-											setOpen(true);
+											setIsValidSubmit(true);
+											setIsOpenSnackbar(true);
 										}
 									}}
 									type="submit"
@@ -434,11 +428,13 @@ const KuesionerPendaftaran = () => {
 									kirim
 								</Button>
 							</div>
+							{/* Akhir kuesioner pendaftaran content */}
 						</div>
 					)}
 				</div>
 			)}
 		</div>
+		// Akhir component kuesioner pendaftaran content
 	);
 };
 

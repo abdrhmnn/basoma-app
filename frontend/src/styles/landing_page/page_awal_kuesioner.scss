@@ -32,3 +32,47 @@
         }
     }
 }
+
+// Responsive Breakpoints
+// for tablet
+@media screen and (max-width: 768px){
+    .panduan{
+        .logo_app{
+            h2{
+                font-size: 1.3em;
+            }
+        }
+
+        .panduan_pendaftaran{
+            h1{
+                font-size: 1.5em;
+            }
+
+            p{
+                font-size: .9em;
+            }
+        }
+    }
+}
+
+// for mobile
+@media screen and (max-width: 576px){
+    .panduan{
+        .logo_app{
+            h2{
+                font-size: 1.2em;
+            }
+        }
+
+        .panduan_pendaftaran{
+            text-align: center;
+            h1{
+                font-size: 1.4em;
+            }
+
+            p{
+                font-size: .85em;
+            }
+        }
+    }
+}

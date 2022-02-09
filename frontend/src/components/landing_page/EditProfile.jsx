@@ -1,8 +1,14 @@
+// styling component linked in edit_profile.scss file
+
 import React, { useState, useEffect } from "react";
 
-// components or files
+// components
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import SuccessEditProfile from "./SuccessEditProfile";
+
+// API storage
+import API from "../../api";
 
 // npm packages
 import {
@@ -20,21 +26,19 @@ import { useLocation } from "react-router-dom";
 import { AES, enc } from "crypto-js";
 import { Formik, Field } from "formik";
 import { BiShowAlt, BiHide } from "react-icons/bi";
-import axios from "axios";
 import * as Yup from "yup";
 
 const EditProfile = () => {
-	const [userById, setUserById] = useState([]);
-	const [showPassword, setShowPassword] = useState(false);
+	const [userByID, setUserByID] = useState([]);
 	const [showImg, setShowImg] = useState();
-	const [isValidType, setIsValidType] = useState(true);
-	const [isSuccess, setIsSuccess] = useState(true);
-	const [selectedFileImg, setSelectedFileImg] = useState({
-		selectedFile: null,
-	});
+	const [isShowPassword, setIsShowPassword] = useState(false);
+	const [isSuccessUpdate, setIsSuccessUpdate] = useState(false);
+	const [isValidImgType, setIsValidImgType] = useState(true);
+	const [selectedFileImg, setSelectedFileImg] = useState(null);
+
 	const location = useLocation();
 	const params = new URLSearchParams(location.search);
-	const ui = AES.decrypt(params.get("ui"), "abdu").toString(enc.Utf8);
+	const ui = AES.decrypt(params.get("ui"), "userID").toString(enc.Utf8);
 
 	const schemaEditProfile = Yup.object({
 		nm_depan: Yup.string().required("Nama depan masih kosong!"),
@@ -45,16 +49,21 @@ const EditProfile = () => {
 
 	useEffect(() => {
 		const params = new URLSearchParams(location.search);
-		const ui = AES.decrypt(params.get("ui"), "abdu").toString(enc.Utf8);
-		axios.get(`http://localhost:5000/users/${ui}`).then((res) => {
-			setUserById(res.data);
+		const ui = AES.decrypt(params.get("ui"), "userID").toString(enc.Utf8);
+
+		API.getUserByID(ui).then((res) => {
+			setUserByID(res.data);
 		});
 	}, [location]);
 
 	return (
 		<div>
 			<Navbar />
-			{isSuccess ? (
+
+			{/* Component edit profile */}
+			{isSuccessUpdate ? (
+				<SuccessEditProfile />
+			) : (
 				<div className="edit_profile">
 					<Formik
 						initialValues={{
@@ -65,30 +74,31 @@ const EditProfile = () => {
 						}}
 						validationSchema={schemaEditProfile}
 						onSubmit={(values, actions) => {
-							const data = new FormData();
-							data.append("gambar", selectedFileImg.selectedFile);
-							axios.post("http://localhost:5000/uploads", data);
-							axios.patch(`http://localhost:5000/users/${ui}`, {
-								nm_depan: values.nm_depan,
-								nm_belakang: values.nm_belakang,
-								username: values.username,
-								password: values.password,
-								gambar: selectedFileImg.selectedFile.name,
-							});
-							setIsSuccess(false);
+							if (selectedFileImg === null) {
+								// API.updateUserByID(values, selectedFileImg, ui);
+								API.updateUserTanpaGambar(values, ui);
+							} else {
+								const data = new FormData();
+								data.append("gambar", selectedFileImg);
+								API.saveIMG(data);
+								API.updateUserByID(values, selectedFileImg, ui);
+							}
+							setIsSuccessUpdate(true);
 						}}
 					>
 						{(props) => (
+							// Form edit profile
 							<form onSubmit={props.handleSubmit}>
+								{/* Edit foto profile section */}
 								<div className="edit_foto">
 									<img
 										style={{ width: 200 }}
 										src={
 											showImg
 												? showImg
-												: `http://localhost:5000/public/${
-														userById.gambar || "blank_img.png"
-												  }`
+												: API.showIMG(
+														userByID.gambar || "blank_img.png"
+												  )
 										}
 										alt="Foto Profile"
 									/>
@@ -113,16 +123,14 @@ const EditProfile = () => {
 														validType.includes(typeFile) ||
 														sizeFile > 5000000
 													) {
-														setIsValidType(true);
+														setIsValidImgType(true);
 														props.setFieldValue(
 															"file",
 															e.currentTarget.files[0]
 														);
-														setSelectedFileImg({
-															selectedFile: file,
-														});
+														setSelectedFileImg(file);
 													} else {
-														setIsValidType(false);
+														setIsValidImgType(false);
 													}
 												}}
 											/>
@@ -141,18 +149,22 @@ const EditProfile = () => {
 										>
 											Maks: 5MB
 										</p>
-										{isValidType ? null : (
+										{isValidImgType ? null : (
 											<Alert variant="outlined" severity="warning">
 												Format atau ukuran gambar tidak tepat!
 											</Alert>
 										)}
 									</div>
 								</div>
-								<div className="edit_nama_depan">
+								{/* Akhir edit foto profile section */}
+
+								{/* Textfield form edit profile */}
+								<div>
 									<Field
 										name="nm_depan"
 										variant="outlined"
 										label="Nama Depan"
+										autoComplete="off"
 										as={TextField}
 										error={
 											props.touched.nm_depan && props.errors.nm_depan
@@ -164,11 +176,12 @@ const EditProfile = () => {
 										}
 									/>
 								</div>
-								<div className="edit_nama_belakang">
+								<div>
 									<Field
 										name="nm_belakang"
 										variant="outlined"
 										label="Nama Belakang"
+										autoComplete="off"
 										as={TextField}
 										error={
 											props.touched.nm_belakang &&
@@ -182,11 +195,12 @@ const EditProfile = () => {
 										}
 									/>
 								</div>
-								<div className="username">
+								<div>
 									<Field
 										name="username"
 										variant="outlined"
 										label="Username"
+										autoComplete="off"
 										as={TextField}
 										error={
 											props.touched.username && props.errors.username
@@ -198,7 +212,7 @@ const EditProfile = () => {
 										}
 									/>
 								</div>
-								<div className="password">
+								<div>
 									<FormControl
 										className="custom_text_input"
 										variant="outlined"
@@ -215,7 +229,7 @@ const EditProfile = () => {
 											name="password"
 											label="Password"
 											id="outlined-adornment-password"
-											type={showPassword ? "text" : "password"}
+											type={isShowPassword ? "text" : "password"}
 											value={props.values.password}
 											onChange={props.handleChange}
 											endAdornment={
@@ -223,10 +237,10 @@ const EditProfile = () => {
 													<IconButton
 														edge="end"
 														onClick={() =>
-															setShowPassword(!showPassword)
+															setIsShowPassword(!isShowPassword)
 														}
 													>
-														{showPassword ? (
+														{isShowPassword ? (
 															<BiShowAlt />
 														) : (
 															<BiHide />
@@ -241,6 +255,8 @@ const EditProfile = () => {
 										</FormHelperText>
 									</FormControl>
 								</div>
+								{/* Akhir textfield form edit profile */}
+
 								<Button
 									variant="contained"
 									sx={{
@@ -249,15 +265,18 @@ const EditProfile = () => {
 										fontWeight: "bold",
 									}}
 									type="submit"
-									disabled={isValidType ? false : true}
+									disabled={isValidImgType ? false : true}
 								>
 									simpan
 								</Button>
 							</form>
+							// Akhir form edit profile
 						)}
 					</Formik>
 				</div>
-			) : null}
+			)}
+			{/* Akhir component edit profile */}
+
 			<Footer class_edit_profile="edit_profile_foot" />
 		</div>
 	);

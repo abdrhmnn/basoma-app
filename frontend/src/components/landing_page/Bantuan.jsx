@@ -1,3 +1,5 @@
+// styling component linked in bantuan.scss file
+
 import React, { useState, useEffect } from "react";
 
 // components
@@ -6,6 +8,9 @@ import Footer from "./Footer";
 import BantuanList from "./BantuanList";
 import BoxBantuanBerhasilFilter from "./BoxBantuanBerhasilFilter";
 import BoxBantuanBerhasilSearch from "./BoxBantuanBerhasilSearch";
+
+// API storage
+import API from "../../api";
 
 // npm packages
 import {
@@ -18,14 +23,14 @@ import {
 	FormLabel,
 } from "@mui/material";
 import { useNavigate, createSearchParams } from "react-router-dom";
-import axios from "axios";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
 
 const Bantuan = () => {
 	const [bantuan, setBantuan] = useState([]);
-	const [validShowBantuan, setValidShowBantuan] = useState();
-	const [dataFilter, setDataFilter] = useState();
+	const [searchDataBantuan, setSearchDataBantuan] = useState(null);
+	const [filterDataBantuan, setFilterDataBantuan] = useState(null);
+
 	const navigate = useNavigate();
 
 	const schemaSearching = Yup.object({
@@ -42,17 +47,18 @@ const Bantuan = () => {
 	}, []);
 
 	const getAllBantuan = async () => {
-		const response = await axios.get("http://localhost:5000/bantuan");
+		const response = await API.getAllBantuan();
 		setBantuan(response.data);
 	};
 
-	const ShowBantuanByFilter = (props) => {
+	const ShowDataBantuanByFilterAndSearch = (props) => {
 		const isFilter = props.isFiltering;
 		const isSearch = props.isSearching;
 
-		if (isFilter) return <BoxBantuanBerhasilFilter data={dataFilter} />;
+		if (isFilter)
+			return <BoxBantuanBerhasilFilter data={filterDataBantuan} />;
 		else if (isSearch)
-			return <BoxBantuanBerhasilSearch data={validShowBantuan} />;
+			return <BoxBantuanBerhasilSearch data={searchDataBantuan} />;
 
 		return <BantuanList bantuan={props.bantuan} />;
 	};
@@ -60,8 +66,12 @@ const Bantuan = () => {
 	return (
 		<div>
 			<Navbar />
+
+			{/* Component bantuan content */}
 			<div className="bantuan">
 				<h1>Bantuan Sosial Masyarakat</h1>
+
+				{/* Search data section */}
 				<div className="search_bantuan">
 					<Formik
 						initialValues={{ cari: "" }}
@@ -72,17 +82,16 @@ const Bantuan = () => {
 							const validBantuan = namaBantuan.find(
 								(e) => e === values.cari
 							);
+
 							navigate({
 								search: `?${createSearchParams({
 									s: validBantuan ? validBantuan : "",
 								}).toString()}`,
 							});
 
-							axios
-								.get(`http://localhost:5000/bantuan/${validBantuan}`)
-								.then(function (response) {
-									setValidShowBantuan(response.data);
-								});
+							API.getBantuanByNama(validBantuan).then((res) => {
+								setSearchDataBantuan(res.data);
+							});
 						}}
 					>
 						{(props) => (
@@ -101,7 +110,7 @@ const Bantuan = () => {
 								/>
 								<Button
 									variant="contained"
-									className="btn_cari"
+									className="btn_cari_bantuan"
 									type="submit"
 								>
 									Cari
@@ -110,7 +119,10 @@ const Bantuan = () => {
 						)}
 					</Formik>
 				</div>
+				{/* Akhir search data section */}
+
 				<div className="bantuan_content">
+					{/* Filtering data section */}
 					<div className="filtering_bantuan">
 						<h2>Cari Berdasarkan</h2>
 						<Formik
@@ -123,13 +135,11 @@ const Bantuan = () => {
 									}).toString()}`,
 								});
 
-								axios
-									.get(
-										`http://localhost:5000/bantuan/kapasitas/${values.kapasitas}`
-									)
-									.then((res) => {
-										setDataFilter(res.data);
-									});
+								API.getBantuanByKapasitas(values.kapasitas).then(
+									(res) => {
+										setFilterDataBantuan(res.data);
+									}
+								);
 							}}
 						>
 							{(props) => (
@@ -166,17 +176,23 @@ const Bantuan = () => {
 							)}
 						</Formik>
 					</div>
+					{/* Akhir filtering data section */}
+
+					{/* Showing data based on search and filter */}
 					<div className="result_bantuan">
 						{
-							<ShowBantuanByFilter
-								isFiltering={dataFilter ? true : false}
-								isSearching={validShowBantuan ? true : false}
+							<ShowDataBantuanByFilterAndSearch
+								isFiltering={filterDataBantuan ? true : false}
+								isSearching={searchDataBantuan ? true : false}
 								bantuan={bantuan}
 							/>
 						}
 					</div>
+					{/* Akhir showing data based on search and filter */}
 				</div>
 			</div>
+			{/* Akhir component bantuan content */}
+
 			<Footer class_bantuan="bantuan_foot" />
 		</div>
 	);

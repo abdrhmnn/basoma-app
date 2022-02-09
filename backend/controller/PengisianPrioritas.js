@@ -9,7 +9,7 @@ export const getAllNilaiPrioritas = async (req, res) => {
     }
 }
 
-export const getNilaiPrioritasByID = async (req, res) => {
+export const getNilaiPrioritasByUserID = async (req, res) => {
     try{
         const nilai_prioritas = await NilaiPrioritas.findAll({
             where: {
@@ -17,6 +17,22 @@ export const getNilaiPrioritasByID = async (req, res) => {
             }
         });
         res.json(nilai_prioritas[0]);
+    }catch(error){
+        res.json({ message: error.message })
+    }
+}
+
+export const getNilaiPrioritasByUserIDandIdentity = async (req, res) => {
+    try{
+        const nilai_prioritas = await NilaiPrioritas.findAll({
+            where: {
+                user_id: req.params.id
+            },
+            order: [
+                ['identitas_pilihan', 'ASC']
+            ]
+        });
+        res.json(nilai_prioritas);
     }catch(error){
         res.json({ message: error.message })
     }

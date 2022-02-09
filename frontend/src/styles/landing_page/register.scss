@@ -19,7 +19,7 @@
         form{
             display: flex;
             flex-direction: column;
-        
+
             .flex_text_field{
                 display: flex;
                 justify-content: space-between;
@@ -41,6 +41,8 @@
     }
 }
 
+// Responsive Breakpoints
+// for tablet
 @media screen and (max-width: 768px){
     .register{
         padding: 0 25px 0 25px;
@@ -49,13 +51,14 @@
             text-align: left;
             margin: 20px 0 27px 0;
         }
+
         .register_auth{
             width: 100%;
 
             h2{
                 text-align: center;
             }
-            
+
             form{
                 .flex_text_field{
                     display: flex;
@@ -65,7 +68,7 @@
                         width: 100%;
                         margin: 0;
                     }
-    
+
                     .text-2{
                         width: 100%;
                     }
@@ -75,8 +78,13 @@
     }
 }
 
+// for mobile
 @media screen and (max-width: 576px){
     .register{
+        .register_auth{
+            margin-top: 50px;
+        }
+
         h2:nth-child(1){
             font-size: 1.3em;
         }

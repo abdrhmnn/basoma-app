@@ -3,16 +3,17 @@
     margin: auto;
     display: flex;
     flex-direction: column;
-    
+    padding: 0 20px 0 20px;
+
     .form_title{
         text-align: center;
         padding-top: 30px;
-    
+
         h2{
             margin: 0;
             font-size: 1.7em;
         }
-    
+
         p{
             margin: 10px 0 0 0;
             font-size: .9em;
@@ -20,27 +21,50 @@
     }
 
     .form_content{
-        // background-color: red;
         margin-top: 30px;
 
         .flex_nik_nm_lengkap{
             display: flex;
             justify-content: space-between;
             margin-bottom: 18px;
+
+            .text_nik{
+                width: 380px;
+            }
+
+            .text_nm_lengkap{
+                width: 400px;
+            }
         }
 
         .flex_pekerjaan_penghasilan{
             display: flex;
             justify-content: space-between;
             margin-top: 18px;
+
+            .text_pekerjaan{
+                width: 380px;    
+            }
+
+            .text_penghasilan{
+                width: 400px;
+            }
         }
 
         .flex_pendidikan_luas_bangunan{
             @extend .flex_pekerjaan_penghasilan;
             margin-bottom: 18px;
+
+            .text_pendidikan{
+                width: 380px;
+            }
+
+            .text_luas_rumah{
+                width: 400px;
+            }
         }
 
-        .flex_fktp_fbanguan{
+        .flex_fktp_fbangunan{
             display: flex;
             justify-content: space-between;
 
@@ -57,7 +81,6 @@
 
                     p{
                         margin: 0;
-                        // text-transform: capitalize;
                         font-size: .9em;
 
                         &:nth-child(2){
@@ -80,7 +103,6 @@
 
                     p{
                         margin: 0;
-                        // text-transform: capitalize;
                         font-size: .9em;
 
                         &:nth-child(2){
@@ -92,6 +114,87 @@
 
             .ml_bangunan{
                 margin-left: 27px;
+            }
+        }
+    }
+}
+
+// Responsive Breakpoints
+// for tablet
+@media screen and (max-width: 768px){
+    .form_pendaftaran{
+        .form_title{
+            h2{
+                font-size: 1.4em;
+            }
+            p{
+                font-size: .85em;
+            }
+        }
+
+        .form_content{
+            margin-top: 15px;
+            .flex_nik_nm_lengkap{
+                flex-direction: column;
+                .text_nik{
+                    width: 100%;
+                    margin-bottom: 20px;
+                }
+
+                .text_nm_lengkap{
+                    width: 100%;
+                }
+            }
+
+            .flex_pekerjaan_penghasilan{
+                flex-direction: column;
+                .text_pekerjaan{
+                    width: 100%;
+                    margin-bottom: 20px;
+                }
+                .text_penghasilan{
+                    width: 100%;
+                }
+            }
+
+            .flex_pendidikan_luas_bangunan{
+                flex-direction: column;
+                .text_pendidikan{
+                    width: 100%;
+                    margin-bottom: 20px;
+                }
+
+                .text_luas_rumah{
+                    width: 100%;
+                }
+            }
+
+            .flex_fktp_fbanguan{
+                flex-direction: column;
+                .fktp{
+                    text-align: center;
+                    margin-bottom: 20px;
+
+                    p{
+                        text-align: left;
+                    }
+
+                    .btn_upload_ktp{
+                        width: 100%;
+                    }
+                }
+
+                .fbangunan{
+                    text-align: center;
+                    margin-bottom: 20px;
+
+                    p{
+                        text-align: left;
+                    }
+                    .btn_upload_bangunan{
+                        width: 100%;
+                    }
+                }
             }
         }
     }

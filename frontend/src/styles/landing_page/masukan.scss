@@ -1,3 +1,4 @@
+// styling for padding component footer when page is loaded
 .masukan_foot{
     padding: $padding-footer;
     margin-top: $mt-30;
@@ -19,12 +20,14 @@
 }
 
 // Responsive Breakpoints
+// for tablet
 @media screen and (max-width: 768px){
     .masukan{
         padding: 0 20px 0 20px;
     }
 }
 
+// for mobile
 @media screen and (max-width: 576px){
     .masukan{
         h2{

@@ -1,3 +1,5 @@
+// styling component linked in about.scss file
+
 import React, { useEffect } from "react";
 
 // components
@@ -19,6 +21,8 @@ const About = () => {
 	return (
 		<div>
 			<Navbar />
+
+			{/* Component about content */}
 			<div className="about">
 				<h1>Bantuan Sosial Masyarakat</h1>
 				<p>
@@ -26,7 +30,7 @@ const About = () => {
 					keputusan yang dapat membantu dalam menentukan masyarakat yang
 					tepat untuk menerima bantuan sosial yang akan diberikan. Dalam
 					proses menentukan calon penerima bantuan sosial, sistem Basoma
-					menggunakan metode <i>Analytical Hierarchy Process</i> (AHP).
+					menggunakan metode <i>Analytical Hierarchy Process</i>.
 				</p>
 				<p>
 					Kami adalah mahasiswa{" "}
@@ -40,6 +44,8 @@ const About = () => {
 					yang saat ini sedang mengerjakan tugas akhir dimana aplikasi
 					Basoma adalah aplikasi yang kami rancang untuk tugas akhir kami.
 				</p>
+
+				{/* Card container */}
 				<div className="about_us">
 					<Card className="card_about_us">
 						<Avatar
@@ -75,12 +81,16 @@ const About = () => {
 						</CardContent>
 					</Card>
 				</div>
+				{/* Akhir card container */}
+
 				<p>
 					Saran dan masukan sangat kami butuhkan untuk mengembangkan
 					aplikasi basoma untuk kedepannya. Jika ada, dapat klik{" "}
 					<Link to="/masukan">disini!</Link>
 				</p>
 			</div>
+			{/* Akhir component about content */}
+
 			<Footer class_about="about_foot" />
 		</div>
 	);

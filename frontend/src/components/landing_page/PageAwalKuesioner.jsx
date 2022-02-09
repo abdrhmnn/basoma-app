@@ -1,3 +1,5 @@
+// styling component linked in page_awal_kuesioner.scss file
+
 import React from "react";
 
 // npm packages

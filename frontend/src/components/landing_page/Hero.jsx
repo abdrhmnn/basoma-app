@@ -1,3 +1,5 @@
+// styling component linked in hero.scss file
+
 import React from "react";
 
 // img

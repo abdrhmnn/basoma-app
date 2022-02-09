@@ -1,3 +1,5 @@
+// styling component linked in register_success.scss file
+
 import React, { useState, useEffect } from "react";
 
 // img
@@ -8,17 +10,17 @@ import { Link } from "react-router-dom";
 import { CircularProgress, Button } from "@mui/material";
 
 const SuccessRegister = () => {
-	const [isLoad, setIsLoad] = useState(false);
+	const [isLoadContent, setIsLoadContent] = useState(false);
 
 	useEffect(() => {
 		setTimeout(() => {
-			setIsLoad(true);
+			setIsLoadContent(true);
 		}, 2000);
 	}, []);
 
 	return (
 		<div>
-			{isLoad ? (
+			{isLoadContent ? (
 				<div className="success_register">
 					<div className="register_success">
 						<img src={thanks} alt="Terima Kasih" />

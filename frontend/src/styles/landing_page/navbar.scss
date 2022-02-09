@@ -8,7 +8,7 @@
     align-items: center;
     max-width: 1300px;
     margin: auto;
-    
+
     ul{
         display: flex;
         width: 70%;
@@ -44,14 +44,14 @@
                 line-height: 55px;
                 text-align: center;
                 border-radius: 3px;
-    
+
                 &:hover{
                     color: #fff;
                 }
             }
         }
     }
-    
+
     .active{
         color: $primary-color;
 
@@ -76,7 +76,7 @@
         height: 30px;
         flex-direction: column;
         justify-content: space-between;
-    
+
         input[type="checkbox"]{
             position: absolute;
             width: 40px;
@@ -91,6 +91,7 @@
 }
 
 // Responsive Breakpoints
+// for tablet
 @media screen and (max-width: 768px){
     .nav{
         font-size: .9em;
@@ -107,6 +108,7 @@
     }
 }
 
+// for mobile
 @media screen and (max-width: 576px){
     .nav{
         align-items: center;

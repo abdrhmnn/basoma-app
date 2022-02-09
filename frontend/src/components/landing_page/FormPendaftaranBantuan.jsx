@@ -1,7 +1,12 @@
+// styling component linked in form_pendaftaran.scss file
+
 import React, { useState, useEffect } from "react";
 
-// files
-import { kuki } from "../../kuki";
+// Cookie storage
+import kuki from "../../kuki";
+
+// API storage
+import API from "../../api";
 
 // npm packages
 import { BsFillImageFill } from "react-icons/bs";
@@ -14,20 +19,22 @@ import {
 	Select,
 	MenuItem,
 } from "@mui/material";
-import axios from "axios";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
 const FormPendaftaranBantuan = () => {
-	const [userById, setUserById] = useState(null);
+	const [userByID, setUserByID] = useState(null);
 	const [penghasilan, setPenghasilan] = useState("");
 	const [pendidikan, setPendidikan] = useState("");
 	const [luasRumah, setLuasRumah] = useState("");
-	const [isValidTypeKTP, setIsValidTypeKTP] = useState(true);
-	const [isValidTypeBangunan, setIsValidTypeBangunan] = useState(true);
+
+	const [isValidImgTypeKTP, setIsValidImgTypeKTP] = useState(true);
+	const [isValidImgTypeBangunan, setIsValidImgTypeBangunan] = useState(true);
+
 	const [showImgKTP, setShowImgKTP] = useState();
 	const [showImgBangunan, setShowImgBangunan] = useState();
+
 	const [selectedFileImgKTP, setSelectedFileImgKTP] = useState(null);
 	const [selectedFileImgBangunan, setSelectedFileImgBangunan] = useState(null);
 
@@ -37,10 +44,10 @@ const FormPendaftaranBantuan = () => {
 
 	useEffect(() => {
 		document.title = "Formulir Pendaftaran Bantuan";
-		getUserById();
+		getUserByID();
 	}, []);
 
-	const schemaEditProfile = Yup.object({
+	const schemaFormPendaftaranBantuan = Yup.object({
 		nik: Yup.number()
 			.typeError("NIK tidak valid!")
 			.required("NIK masih kosong!"),
@@ -49,25 +56,54 @@ const FormPendaftaranBantuan = () => {
 		sumber_penerangan: Yup.string().required("Pekerjaan masih kosong!"),
 	});
 
-	const getUserById = async () => {
-		const response = await axios.get(
-			`http://localhost:5000/users/${kuki.get("user_id")}`
-		);
-		setUserById(response.data);
+	const getUserByID = async () => {
+		const response = await API.getUserByID(kuki.get("user_id"));
+		setUserByID(response.data);
 	};
 
-	const TextFieldCustom = (props) => {
-		return <TextField fullWidth {...props} />;
+	const generateImgKTP = (e, props) => {
+		e.preventDefault();
+		const file = e.target.files[0];
+		setShowImgKTP(URL.createObjectURL(file));
+		const sizeFile = file.size;
+		const dataFile = file.name.split(".");
+		const typeFile = dataFile[dataFile.length - 1];
+		const validType = ["png", "jpeg", "jpg"];
+
+		if (validType.includes(typeFile) || sizeFile > 5000000) {
+			setIsValidImgTypeKTP(true);
+			props.setFieldValue("file", e.currentTarget.files[0]);
+			setSelectedFileImgKTP(file);
+		} else {
+			setIsValidImgTypeKTP(null);
+		}
 	};
 
-	// console.log(acceptedFiles);
+	const generateImgBangunan = (e, props) => {
+		e.preventDefault();
+		const file = e.target.files[0];
+		setShowImgBangunan(URL.createObjectURL(file));
+		const sizeFile = file.size;
+		const dataFile = file.name.split(".");
+		const typeFile = dataFile[dataFile.length - 1];
+		const validType = ["png", "jpeg", "jpg"];
+
+		if (validType.includes(typeFile) || sizeFile > 5000000) {
+			setIsValidImgTypeBangunan(true);
+			props.setFieldValue("file", e.currentTarget.files[0]);
+			setSelectedFileImgBangunan(file);
+		} else {
+			setIsValidImgTypeBangunan(null);
+		}
+	};
 
 	return (
 		<div className="form_pendaftaran">
-			{userById && (
+			{/* Form title content */}
+			{userByID && (
 				<div className="form_title">
 					<h2>
-						Halo, {userById.nm_depan} {userById.nm_belakang}
+						Halo, {userByID.nm_depan} {userByID.nm_belakang}
 					</h2>
 					<p>
 						Silahkan lengkapi data dibawah ini untuk digunakan sebagai
@@ -75,6 +111,9 @@ const FormPendaftaranBantuan = () => {
 					</p>
 				</div>
 			)}
+			{/* Akhir form title content */}
+
+			{/* Form content */}
 			<div className="form_content">
 				{isCompleteSubmit ? (
 					<Alert variant="outlined" severity="warning" sx={{ mb: 3 }}>
@@ -89,11 +128,8 @@ const FormPendaftaranBantuan = () => {
 						pekerjaan: "",
 						sumber_penerangan: "",
 					}}
-					validationSchema={schemaEditProfile}
+					validationSchema={schemaFormPendaftaranBantuan}
 					onSubmit={(values, actions) => {
-						// console.log(values, penghasilan, pendidikan, luasRumah);
-						// console.log(selectedFileImgKTP);
-						// console.log(selectedFileImgBangunan);
 						if (
 							penghasilan &&
 							pendidikan &&
@@ -102,52 +138,42 @@ const FormPendaftaranBantuan = () => {
 							selectedFileImgBangunan
 						) {
 							setIsCompleteSubmit(false);
-							const dataKTP = new FormData();
-							const dataBangunan = new FormData();
-							dataKTP.append("gambar_form_ktp", selectedFileImgKTP);
-							dataBangunan.append(
+							const dataImgKTP = new FormData();
+							const dataImgBangunan = new FormData();
+							dataImgKTP.append("gambar_form_ktp", selectedFileImgKTP);
+							dataImgBangunan.append(
 								"gambar_form_bangunan",
 								selectedFileImgBangunan
 							);
-							axios.post("http://localhost:5000/uploads/ktp", dataKTP);
-							axios.post(
-								"http://localhost:5000/uploads/bangunan",
-								dataBangunan
-							);
-							axios
-								.post("http://localhost:5000/warga", {
-									no_ktp: values.nik,
-									user_id: kuki.get("user_id"),
-									nama_lengkap: values.nm_lengkap,
-									alamat: values.alamat,
-									pekerjaan: values.pekerjaan,
-									penghasilan: penghasilan,
-									pendidikan: pendidikan,
-									luas_bangunan: luasRumah,
-									sumber_penerangan_rumah: values.sumber_penerangan,
-									foto_ktp: selectedFileImgKTP.name,
-									foto_bangunan_rumah: selectedFileImgBangunan.name,
-								})
-								.then((res) => {
-									navigate("/form-pendaftaran-success");
-								});
-							console.log("ok");
+							API.saveIMG_KTP(dataImgKTP);
+							API.saveIMG_BANGUNAN(dataImgBangunan);
+							API.saveWarga(
+								values,
+								kuki.get("user_id"),
+								penghasilan,
+								pendidikan,
+								luasRumah,
+								selectedFileImgKTP,
+								selectedFileImgBangunan
+							).then(() => {
+								navigate("/form-pendaftaran-success");
+							});
 						} else {
 							setIsCompleteSubmit(true);
 						}
-
-						// console.log("ok");
 					}}
 				>
 					{(props) => (
 						<form onSubmit={props.handleSubmit}>
+							{/* Group textfield nik dan nama lengkap */}
 							<div className="flex_nik_nm_lengkap">
-								<div style={{ width: 380 }}>
+								<div className="text_nik">
 									<Field
 										name="nik"
 										variant="outlined"
 										label="Nomor Induk Kependudukan"
-										as={TextFieldCustom}
+										fullWidth
+										as={TextField}
 										error={
 											props.touched.nik && props.errors.nik
 												? true
@@ -156,12 +182,13 @@ const FormPendaftaranBantuan = () => {
 										helperText={props.touched.nik && props.errors.nik}
 									/>
 								</div>
-								<div style={{ width: 400 }}>
+								<div className="text_nm_lengkap">
 									<Field
 										name="nm_lengkap"
 										variant="outlined"
 										label="Nama Lengkap"
-										as={TextFieldCustom}
+										fullWidth
+										as={TextField}
 										error={
 											props.touched.nm_lengkap &&
 											props.errors.nm_lengkap
@@ -175,23 +202,29 @@ const FormPendaftaranBantuan = () => {
 									/>
 								</div>
 							</div>
+							{/* Akhir group textfield nik dan nama lengkap */}
+
 							<div>
 								<Field
 									name="alamat"
 									variant="outlined"
 									label="Alamat Tempat Tinggal"
 									multiline
+									fullWidth
 									rows={3}
-									as={TextFieldCustom}
+									as={TextField}
 								/>
 							</div>
+
+							{/* Group textfield pekerjaan dan penghasilan */}
 							<div className="flex_pekerjaan_penghasilan">
-								<div style={{ width: 380 }}>
+								<div className="text_pekerjaan">
 									<Field
 										name="pekerjaan"
 										variant="outlined"
 										label="Pekerjaan"
-										as={TextFieldCustom}
+										fullWidth
+										as={TextField}
 										error={
 											props.touched.pekerjaan &&
 											props.errors.pekerjaan
@@ -204,7 +237,7 @@ const FormPendaftaranBantuan = () => {
 										}
 									/>
 								</div>
-								<div style={{ width: 400 }}>
+								<div className="text_penghasilan">
 									<FormControl fullWidth>
 										<InputLabel id="penghasilan">
 											Penghasilan
@@ -234,8 +267,11 @@ const FormPendaftaranBantuan = () => {
 									</FormControl>
 								</div>
 							</div>
+							{/* Akhir group textfield pekerjaan dan penghasilan */}
+
+							{/* Group textfield pendidikan dan luas bangunan rumah */}
 							<div className="flex_pendidikan_luas_bangunan">
-								<div style={{ width: 380 }}>
+								<div className="text_pendidikan">
 									<FormControl fullWidth>
 										<InputLabel id="pendidikan">
 											Pendidikan
@@ -264,7 +300,7 @@ const FormPendaftaranBantuan = () => {
 										</Select>
 									</FormControl>
 								</div>
-								<div style={{ width: 400 }}>
+								<div className="text_luas_rumah">
 									<FormControl fullWidth>
 										<InputLabel id="luas_rumah">
 											Luas Bangunan Rumah
@@ -294,12 +330,15 @@ const FormPendaftaranBantuan = () => {
 									</FormControl>
 								</div>
 							</div>
+							{/* Akhir group textfield pendidikan dan luas bangunan rumah */}
+
 							<div>
 								<Field
 									name="sumber_penerangan"
 									variant="outlined"
 									label="Sumber Penerangan"
-									as={TextFieldCustom}
+									fullWidth
+									as={TextField}
 									error={
 										props.touched.sumber_penerangan &&
 										props.errors.sumber_penerangan
@@ -312,7 +351,10 @@ const FormPendaftaranBantuan = () => {
 									}
 								/>
 							</div>
-							<div className="flex_fktp_fbanguan">
+
+							{/* Group button ktp dan bangunan */}
+							<div className="flex_fktp_fbangunan">
+								{/* Button foto ktp section */}
 								<div className="fktp">
 									<p>Foto Kartu Tanda Penduduk</p>
 									{showImgKTP ? (
@@ -321,11 +363,13 @@ const FormPendaftaranBantuan = () => {
 												src={showImgKTP}
 												alt="Foto KTP"
 												width={350}
+												style={{ margin: "auto" }}
 											/>
 											<br />
-											{isValidTypeKTP ? (
+											{isValidImgTypeKTP ? (
 												<Button
 													variant="contained"
+													color="error"
 													sx={{ mt: 2 }}
 													onClick={() => {
 														setShowImgKTP(false);
@@ -373,37 +417,17 @@ const FormPendaftaranBantuan = () => {
 												type="file"
 												name="gambar_form_ktp"
 												hidden
-												onChange={(e) => {
-													e.preventDefault();
-													const file = e.target.files[0];
-													setShowImgKTP(URL.createObjectURL(file));
-													const sizeFile = file.size;
-													const dataFile = file.name.split(".");
-													const typeFile =
-														dataFile[dataFile.length - 1];
-													const validType = ["png", "jpeg", "jpg"];
-
-													if (
-														validType.includes(typeFile) ||
-														sizeFile > 5000000
-													) {
-														setIsValidTypeKTP(true);
-														props.setFieldValue(
-															"file",
-															e.currentTarget.files[0]
-														);
-														setSelectedFileImgKTP(file);
-													} else {
-														setIsValidTypeKTP(false);
-													}
-												}}
+												onChange={(e) => generateImgKTP(e, props)}
 											/>
 										</Button>
 									)}
 								</div>
+								{/* Akhir button foto ktp section */}
+
+								{/* Button foto bangunan section */}
 								<div
 									className={`fbangunan ${
-										isValidTypeBangunan ? "" : "ml_bangunan"
+										isValidImgTypeBangunan ? "" : "ml_bangunan"
 									}`}
 								>
 									<p>Foto Bangunan Tempat Tinggal</p>
@@ -415,9 +439,10 @@ const FormPendaftaranBantuan = () => {
 												width={350}
 											/>
 											<br />
-											{isValidTypeBangunan ? (
+											{isValidImgTypeBangunan ? (
 												<Button
 													variant="contained"
+													color="error"
 													sx={{ mt: 2 }}
 													onClick={() => {
 														setShowImgBangunan(false);
@@ -466,36 +491,16 @@ const FormPendaftaranBantuan = () => {
 												name="gambar_form_bangunan"
 												hidden
 												onChange={(e) => {
-													e.preventDefault();
-													const file = e.target.files[0];
-													setShowImgBangunan(
-														URL.createObjectURL(file)
-													);
-													const sizeFile = file.size;
-													const dataFile = file.name.split(".");
-													const typeFile =
-														dataFile[dataFile.length - 1];
-													const validType = ["png", "jpeg", "jpg"];
-
-													if (
-														validType.includes(typeFile) ||
-														sizeFile > 5000000
-													) {
-														setIsValidTypeBangunan(true);
-														props.setFieldValue(
-															"file",
-															e.currentTarget.files[0]
-														);
-														setSelectedFileImgBangunan(file);
-													} else {
-														setIsValidTypeBangunan(false);
-													}
+													generateImgBangunan(e, props);
 												}}
 											/>
 										</Button>
 									)}
 								</div>
+								{/* Akhir button foto bangunan section */}
 							</div>
+							{/* Akhir group button ktp dan bangunan */}
+
 							<Button
 								variant="contained"
 								sx={{
@@ -513,6 +518,7 @@ const FormPendaftaranBantuan = () => {
 					)}
 				</Formik>
 			</div>
+			{/* Akhir form content */}
 		</div>
 	);
 };

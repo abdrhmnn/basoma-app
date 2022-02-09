@@ -1,23 +1,28 @@
+// styling component linked in masukan.scss file
+
 import React, { useEffect, useState } from "react";
 
-// components or files
+// components
 import Navbar from "./Navbar";
 import SuccessFeedback from "./SuccessFeedback";
 import Footer from "./Footer";
-import { kuki } from "../../kuki";
+
+// Cookie storage
+import kuki from "../../kuki";
+
+// API storage
+import API from "../../api";
 
 // npm packages
 import { TextField, Button, Alert } from "@mui/material";
 import * as Yup from "yup";
 import { Formik, Field } from "formik";
-import axios from "axios";
 
 const Masukan = ({ data }) => {
-	const [isLoad, setIsLoad] = useState(true);
-	const [isShow, setIsShow] = useState(false);
 	const [masukan, setMasukan] = useState([]);
+	const [isSubmitMasukan, setIsSubmitMasukan] = useState(true);
 
-	const schemaObj = Yup.object({
+	const schemaSubmitMasukan = Yup.object({
 		nm_depan: Yup.string().required("Nama depan tidak boleh kosong!"),
 		nm_belakang: Yup.string().required("Nama belakang tidak boleh kosong!"),
 		pesan: Yup.string().required("Silahkan isi pesan terlebih dahulu!"),
@@ -29,30 +34,30 @@ const Masukan = ({ data }) => {
 	}, []);
 
 	const getAllMasukan = async () => {
-		const response = await axios.get("http://localhost:5000/masukan");
+		const response = await API.getAllMasukan();
 		setMasukan(response.data);
 	};
 
 	return (
 		<div>
 			<Navbar data="true" />
-			{isLoad ? (
+
+			{/* Masukan component content */}
+			{isSubmitMasukan ? (
 				<div className="masukan">
-					{kuki.get("user_id") || isShow ? null : (
-						<Alert
-							onClose={() => {
-								setIsShow(true);
-							}}
-							variant="outlined"
-							severity="warning"
-							sx={{ mb: 2, mt: 3 }}
-						>
+					{/* Alert validasi login */}
+					{kuki.get("user_id") ? null : (
+						<Alert variant="outlined" severity="warning" sx={{ mb: 2 }}>
 							<span style={{ fontWeight: "bold" }}>PERHATIKAN!</span>,
 							silahkan login terlebih dahulu untuk bisa mengisi form
 							feedback.
 						</Alert>
 					)}
+					{/* Akhir alert validasi login */}
+
 					<h2>Feedback Bantuan Sosial Masyarakat</h2>
+
+					{/* Form pengisian masukan */}
 					<div className="feed-form">
 						<Formik
 							initialValues={{
@@ -62,20 +67,18 @@ const Masukan = ({ data }) => {
 								pesan: "",
 								user_id: "",
 							}}
-							validationSchema={schemaObj}
+							validationSchema={schemaSubmitMasukan}
 							onSubmit={(values, actions) => {
 								if (kuki.get("user_id")) {
-									axios.post("http://localhost:5000/masukan", {
-										kd_masukan: `MS_${masukan.length + 1}`,
-										nm_depan: values.nm_depan,
-										nm_belakang: values.nm_belakang,
-										pesan: values.pesan,
-										user_id: kuki.get("user_id"),
-									});
+									API.saveMasukan(
+										values,
+										masukan.length + 1,
+										kuki.get("user_id")
+									);
 								} else {
 									return;
 								}
-								setIsLoad(false);
+								setIsSubmitMasukan(false);
 							}}
 						>
 							{(props) => (
@@ -84,6 +87,7 @@ const Masukan = ({ data }) => {
 										name="nm_depan"
 										variant="outlined"
 										label="Nama Depan"
+										autoComplete="off"
 										as={TextField}
 										error={
 											props.touched.nm_depan && props.errors.nm_depan
@@ -98,6 +102,7 @@ const Masukan = ({ data }) => {
 										name="nm_belakang"
 										variant="outlined"
 										label="Nama Belakang"
+										autoComplete="off"
 										as={TextField}
 										error={
 											props.touched.nm_belakang &&
@@ -114,6 +119,7 @@ const Masukan = ({ data }) => {
 										name="pesan"
 										variant="outlined"
 										label="Pesan Feedback"
+										autoComplete="off"
 										multiline
 										rows={6}
 										as={TextField}
@@ -141,10 +147,13 @@ const Masukan = ({ data }) => {
 							)}
 						</Formik>
 					</div>
+					{/* Akhir form pengisian masukan */}
 				</div>
 			) : (
 				<SuccessFeedback />
 			)}
+			{/* Akhir masukan component content */}
+
 			<Footer class_masukan="masukan_foot" active_masukan={data} />
 		</div>
 	);

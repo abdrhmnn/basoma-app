@@ -1,7 +1,12 @@
+// styling component linked in register.scss file
+
 import React, { useState, useEffect } from "react";
 
 // components
 import SuccessRegister from "./SuccessRegister";
+
+// API storage
+import API from "../../api";
 
 // npm packages
 import {
@@ -18,13 +23,12 @@ import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import { BiShowAlt, BiHide } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 const Register = () => {
+	const [users, setUsers] = useState([]);
 	const [showPasswordRegister, setShowPasswordRegister] = useState(false);
 	const [showPasswordKfRegister, setShowPasswordKfRegister] = useState(false);
 	const [isRegister, setIsRegister] = useState(true);
-	const [users, setUsers] = useState([]);
 
 	const schemaRegister = Yup.object({
 		nm_depan: Yup.string().required("Nama depan masih kosong!"),
@@ -37,23 +41,20 @@ const Register = () => {
 		),
 	});
 
-	const TextFieldCustom = (props) => {
-		return <TextField fullWidth {...props} />;
-	};
-
 	useEffect(() => {
 		document.title = "Register";
 		getAllUser();
 	}, []);
 
 	const getAllUser = async () => {
-		const response = await axios.get("http://localhost:5000/users");
+		const response = await API.getAllUser();
 		setUsers(response.data);
 	};
 
 	return (
 		<div className="register">
 			<h2>Basoma</h2>
+			{/* Register component content */}
 			{isRegister ? (
 				<div className="register_auth">
 					<h2>Silahkan isi data dibawah ini</h2>
@@ -67,20 +68,9 @@ const Register = () => {
 						}}
 						validationSchema={schemaRegister}
 						onSubmit={(values, actions) => {
-							axios
-								.post("http://localhost:5000/users", {
-									user_id: `USER_${users.length + 1}`,
-									nm_depan: values.nm_depan,
-									nm_belakang: values.nm_belakang,
-									username: values.username,
-									password: values.password,
-									role: "warga",
-									gambar: "default_img.svg",
-									status_pengisian: "belum",
-								})
-								.then(() => {
-									setIsRegister(false);
-								});
+							API.saveUser(values, users.length + 1).then((res) => {
+								setIsRegister(false);
+							});
 						}}
 					>
 						{(props) => (
@@ -91,7 +81,9 @@ const Register = () => {
 											name="nm_depan"
 											variant="outlined"
 											label="Nama Depan"
-											as={TextFieldCustom}
+											autoComplete="off"
+											fullWidth
+											as={TextField}
 											error={
 												props.touched.nm_depan &&
 												props.errors.nm_depan
@@ -109,7 +101,9 @@ const Register = () => {
 											name="nm_belakang"
 											variant="outlined"
 											label="Nama Belakang"
-											as={TextFieldCustom}
+											autoComplete="off"
+											fullWidth
+											as={TextField}
 											error={
 												props.touched.nm_belakang &&
 												props.errors.nm_belakang
@@ -127,7 +121,9 @@ const Register = () => {
 									name="username"
 									variant="outlined"
 									label="Username"
-									as={TextFieldCustom}
+									autoComplete="off"
+									fullWidth
+									as={TextField}
 									error={
 										props.touched.username && props.errors.username
 											? true
@@ -137,6 +133,8 @@ const Register = () => {
 										props.touched.username && props.errors.username
 									}
 								/>
+
+								{/* Password section */}
 								<FormControl
 									className="custom_text_input"
 									variant="outlined"
@@ -180,6 +178,9 @@ const Register = () => {
 										{props.touched.password && props.errors.password}
 									</FormHelperText>
 								</FormControl>
+								{/* Akhir password section */}
+
+								{/* Konfirmasi password section */}
 								<FormControl
 									className="custom_text_input"
 									variant="outlined"
@@ -224,6 +225,8 @@ const Register = () => {
 											props.errors.kf_password}
 									</FormHelperText>
 								</FormControl>
+								{/* Akhir konfirmasi password section */}
+
 								<Button
 									variant="contained"
 									sx={{
@@ -256,6 +259,7 @@ const Register = () => {
 			) : (
 				<SuccessRegister />
 			)}
+			{/* Akhir register component content */}
 		</div>
 	);
 };

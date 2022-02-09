@@ -1,37 +1,39 @@
+// styling component linked in navbar.scss file
+
 import React, { useState, useEffect } from "react";
 
-// components or files
-import { kuki } from "../../kuki";
+// Cookie storage
+import kuki from "../../kuki";
+
+// API storage
+import API from "../../api";
 
 // npm packages
 import { NavLink, useNavigate, createSearchParams } from "react-router-dom";
 import { Button, Menu, MenuItem } from "@mui/material";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { AES } from "crypto-js";
-import axios from "axios";
 
 const Navbar = (props) => {
-	const [userById, setUserById] = useState([]);
-	const [isShow, setIsShow] = useState(false);
+	const [userByID, setUserByID] = useState([]);
+	const [isShowMobileNavbar, setIsShowMobileNavbar] = useState(false);
 	const [anchorEl, setAnchorEl] = useState(null);
+
 	const navigate = useNavigate();
 	const open = Boolean(anchorEl);
-	const encrypt = AES.encrypt(kuki.get("user_id"), "abdu");
-	// const decryptUserId = AES.decrypt(params.get("ui"), "abdu").toString(enc.Utf8)
+	const encrypt = AES.encrypt(kuki.get("user_id"), "userID");
 
 	useEffect(() => {
-		getUserById();
+		getUserByID();
 	}, []);
 
-	const getUserById = async () => {
-		const response = await axios.get(
-			`http://localhost:5000/users/${kuki.get("user_id")}`
-		);
-		setUserById(response.data);
+	const getUserByID = async () => {
+		const response = await API.getUserByID(kuki.get("user_id"));
+		setUserByID(response.data);
 	};
 
 	const handleClick = () => {
-		setIsShow(!isShow);
+		setIsShowMobileNavbar(!isShowMobileNavbar);
 	};
 
 	const handleClose = () => {
@@ -41,7 +43,8 @@ const Navbar = (props) => {
 	return (
 		<nav className="nav">
 			<h3>Basoma</h3>
-			<ul className={isShow ? "isShow" : ""}>
+			{/* Navbar content */}
+			<ul className={isShowMobileNavbar ? "isShow" : ""}>
 				<li>
 					<NavLink
 						exact="true"
@@ -75,6 +78,8 @@ const Navbar = (props) => {
 						Tentang
 					</NavLink>
 				</li>
+
+				{/* Navbar active when user login */}
 				<li>
 					{kuki.get("user_id") ? (
 						<div className="menu_akun">
@@ -85,7 +90,7 @@ const Navbar = (props) => {
 								aria-expanded={open ? "true" : undefined}
 								onClick={(e) => setAnchorEl(e.currentTarget)}
 							>
-								Hi, {userById.username}{" "}
+								Hi, {userByID.username}{" "}
 								<MdKeyboardArrowDown style={{ marginLeft: 5 }} />
 							</Button>
 							<Menu
@@ -125,19 +130,24 @@ const Navbar = (props) => {
 						</NavLink>
 					)}
 				</li>
+				{/* Akhir navbar active when user login */}
 			</ul>
+			{/* Akhir navbar content */}
+
+			{/* Hamburger menu */}
 			<div className="hamburger-menu">
 				<input
 					type="checkbox"
 					name="checkbox"
 					id="checkbox"
 					onChange={handleClick}
-					checked={isShow ? true : false}
+					checked={isShowMobileNavbar ? true : false}
 				/>
 				<span></span>
 				<span></span>
 				<span></span>
 			</div>
+			{/* Akhir hamburger menu */}
 		</nav>
 	);
 };

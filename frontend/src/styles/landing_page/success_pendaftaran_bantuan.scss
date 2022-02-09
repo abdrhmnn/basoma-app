@@ -1,12 +1,11 @@
 .success-pendaftaran-bantuan{
     background-color: $primary-color;
-    // height: 100vh;
     color: $white-color;
 
     .success-title{
         max-width: $max-width-container;
         margin: auto;
-        padding: 40px 0 0 0;
+        padding: 20px 0 0 20px;
         
         h3{
             margin: 0;
@@ -19,7 +18,13 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-    
+        text-align: center;
+        padding: 0 5px 0 5px;
+
+        img{
+            width: 400px;
+        }
+
         h2{
             margin: 20px 0 10px 0;
         }
@@ -35,6 +40,32 @@
             padding: 15px;
             color: $white-color;
             border-color: $white-color;
+        }
+    }
+}
+
+// Responsive Breakpoints
+// for tablet
+@media screen and (max-width: 768px){
+    .success-pendaftaran-bantuan{
+        .success-title{
+            h3{
+                font-size: 1.3em;
+            }
+        }
+
+        .success-content{
+            img{
+                width: 300px;
+            }
+
+            h2{
+                font-size: 1.3em;
+            }
+
+            p{
+                font-size: .9em;
+            }
         }
     }
 }

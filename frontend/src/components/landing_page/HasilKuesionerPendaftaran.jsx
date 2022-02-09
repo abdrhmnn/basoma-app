@@ -1,10 +1,15 @@
+// styling component linked in hasil_kuesioner_pendaftaran.scss file
+// and App.scss for tbl_class, tbl_class_head, tbl_class_body class name
+
 import React, { useState, useEffect } from "react";
 
-// files
-import { kuki } from "../../kuki/index.js";
+// Cookie storage
+import kuki from "../../kuki";
+
+// API storage
+import API from "../../api";
 
 // npm packages
-import axios from "axios";
 import {
 	Radio,
 	RadioGroup,
@@ -19,49 +24,43 @@ import { Link } from "react-router-dom";
 const HasilKuesionerPendaftaran = () => {
 	const [hasilKuesioner, setHasilKuesioner] = useState(null);
 	const [kriteriaBantuan, setKriteriaBantuan] = useState(null);
-	const [userById, setUserById] = useState(null);
-
-	// state for loop data keterangan and pilihan pengisian pendaftaran
-	const [keteranganKriteria, setKeteranganKriteria] = useState([]);
-	const [hasilKuesionerArr, setHasilKuesionerArr] = useState([]);
+	const [userByID, setUserByID] = useState(null);
 
 	useEffect(() => {
 		document.title = "Hasil Kuesioner Pendaftaran Bantuan";
-		getAllHasilKuesioner();
+		getAllHasilKuesionerByUserIDandIdentitasPilihan();
 		getAllKriteria();
-		getUserById();
+		getUserByID();
 	}, []);
 
-	const getAllHasilKuesioner = async () => {
-		const response = await axios.get("http://localhost:5000/nilai-prioritas");
+	const getAllHasilKuesionerByUserIDandIdentitasPilihan = async () => {
+		const response = await API.getPrioritasByUserIDandIdentitasPilihan(
+			kuki.get("user_id")
+		);
 		setHasilKuesioner(response.data);
-		setHasilKuesionerArr(response.data);
 	};
 
 	const getAllKriteria = async () => {
-		const response = await axios.get("http://localhost:5000/kriteria");
+		const response = await API.getAllKriteria();
 		setKriteriaBantuan(response.data);
-		setKeteranganKriteria(response.data);
 	};
 
-	const getUserById = async () => {
-		const response = await axios.get(
-			`http://localhost:5000/users/${kuki.get("user_id")}`
-		);
-		setUserById(response.data);
+	const getUserByID = async () => {
+		const response = await API.getUserByID(kuki.get("user_id"));
+		setUserByID(response.data);
 	};
 
 	const generatePdf = () => {
 		const today = new Date();
 		let keterangan = [];
-		keteranganKriteria.forEach((e, i) => {
+		kriteriaBantuan.forEach((e, i) => {
 			keterangan.push(e.keterangan);
 		});
 
 		var doc = new jsPDF({ orientation: "p", lineHeight: 1.5 });
 		doc.text("Data Pengisian Pendaftaran Bantuan", 65, 20);
 		doc.setFontSize(11);
-		doc.text(`Nama : ${userById.nm_depan} ${userById.nm_belakang}`, 14, 30);
+		doc.text(`Nama : ${userByID.nm_depan} ${userByID.nm_belakang}`, 14, 30);
 		doc.text(
 			`Tanggal cetak : ${today.getDate()} - ${
 				today.getMonth() + 1
@@ -71,7 +70,7 @@ const HasilKuesionerPendaftaran = () => {
 		);
 		doc.autoTable({
 			head: [["No", "Pertanyaan", "Jawaban"]],
-			body: hasilKuesionerArr.map((e, i) => {
+			body: hasilKuesioner.map((e, i) => {
 				return [i + 1, keterangan[i], e.pilihan];
 			}),
 			startY: 42,
@@ -84,13 +83,13 @@ const HasilKuesionerPendaftaran = () => {
 		doc.save("data_pengisian.pdf");
 	};
 
-	console.log(hasilKuesioner);
-
 	return (
+		// Hasil kuesioner pendaftaran content
 		<div className="hasil_kuesioner">
 			<div className="logo_app_hasil_kuesioner">
 				<h2>Basoma</h2>
 			</div>
+			{/* Button dan tabel hasil kuesioner pendaftaran */}
 			{hasilKuesioner && kriteriaBantuan && (
 				<div className="hasil_kuesioner_pendaftaran">
 					<Button
@@ -100,6 +99,8 @@ const HasilKuesionerPendaftaran = () => {
 					>
 						cetak data
 					</Button>
+
+					{/* Tabel kuesioner */}
 					<table className="tbl_class">
 						<thead className="tbl_class_head">
 							<tr>
@@ -108,14 +109,17 @@ const HasilKuesionerPendaftaran = () => {
 								<th colSpan={2}>Jawaban</th>
 							</tr>
 						</thead>
+
+						{/* Tabel body */}
 						<tbody className="tbl_class_body">
+							{/* Baris satu */}
 							<tr>
 								<td>1</td>
 								<td style={{ textAlign: "left" }}>
 									{kriteriaBantuan[0].keterangan}
 								</td>
 								<td colSpan={2}>
-									<RadioGroup row name="jwb_kuesioner_1">
+									<RadioGroup row>
 										<FormControlLabel
 											control={
 												<Radio
@@ -157,13 +161,16 @@ const HasilKuesionerPendaftaran = () => {
 									</RadioGroup>
 								</td>
 							</tr>
+							{/* Akhir baris satu */}
+
+							{/* Baris dua */}
 							<tr>
 								<td>2</td>
 								<td style={{ textAlign: "left" }}>
 									{kriteriaBantuan[1].keterangan}
 								</td>
 								<td colSpan={2}>
-									<RadioGroup row name="jwb_kuesioner_2">
+									<RadioGroup row>
 										<FormControlLabel
 											control={
 												<Radio
@@ -205,13 +212,16 @@ const HasilKuesionerPendaftaran = () => {
 									</RadioGroup>
 								</td>
 							</tr>
+							{/* Akhir baris dua */}
+
+							{/* Baris tiga */}
 							<tr>
 								<td>3</td>
 								<td style={{ textAlign: "left" }}>
 									{kriteriaBantuan[2].keterangan}
 								</td>
 								<td colSpan={2}>
-									<RadioGroup row name="jwb_kuesioner_3">
+									<RadioGroup row>
 										<FormControlLabel
 											control={
 												<Radio
@@ -253,13 +263,16 @@ const HasilKuesionerPendaftaran = () => {
 									</RadioGroup>
 								</td>
 							</tr>
+							{/* Akhir baris tiga */}
+
+							{/* Baris empat */}
 							<tr>
 								<td>4</td>
 								<td style={{ textAlign: "left" }}>
 									{kriteriaBantuan[3].keterangan}
 								</td>
 								<td colSpan={2}>
-									<RadioGroup row name="jwb_kuesioner_4">
+									<RadioGroup row>
 										<FormControlLabel
 											control={
 												<Radio
@@ -301,13 +314,16 @@ const HasilKuesionerPendaftaran = () => {
 									</RadioGroup>
 								</td>
 							</tr>
+							{/* Akhir baris empat */}
+
+							{/* Baris lima */}
 							<tr>
 								<td>5</td>
 								<td style={{ textAlign: "left" }}>
 									{kriteriaBantuan[3].keterangan}
 								</td>
 								<td colSpan={2}>
-									<RadioGroup row name="jwb_kuesioner_5">
+									<RadioGroup row>
 										<FormControlLabel
 											control={
 												<Radio
@@ -349,13 +365,18 @@ const HasilKuesionerPendaftaran = () => {
 									</RadioGroup>
 								</td>
 							</tr>
+							{/* Akhir baris lima */}
 						</tbody>
+						{/* Akhir tabel body */}
 					</table>
+					{/* Akhir tabel kuesioner */}
+
+					{/* Alert hasil akhir section */}
 					{hasilKuesioner[0].total_nilai > 50 ? (
 						<Alert
 							variant="outlined"
 							severity="success"
-							sx={{ mt: 2, fontSize: "1em" }}
+							sx={{ mt: 2, fontSize: ".9em" }}
 						>
 							<AlertTitle>Selamat!</AlertTitle>
 							Anda berkemungkinan sebesar{" "}
@@ -369,13 +390,13 @@ const HasilKuesionerPendaftaran = () => {
 							>
 								disini!
 							</Link>{" "}
-							untuk proses lebih lanjut
+							untuk proses lebih lanjut.
 						</Alert>
 					) : (
 						<Alert
 							variant="outlined"
 							severity="error"
-							sx={{ mt: 2, fontSize: "1em" }}
+							sx={{ mt: 2, fontSize: ".9em" }}
 						>
 							Maaf!, anda berkemungkinan sebesar{" "}
 							<span style={{ fontWeight: "bold" }}>
@@ -384,9 +405,12 @@ const HasilKuesionerPendaftaran = () => {
 							untuk bisa mendapatkan bantuan sosial
 						</Alert>
 					)}
+					{/* Akhir alert hasil akhir section */}
 				</div>
 			)}
+			{/* Akhir button dan tabel hasil kuesioner pendaftaran */}
 		</div>
+		// Akhir hasil kuesioner pendaftaran
 	);
 };
 

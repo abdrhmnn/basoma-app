@@ -1,3 +1,5 @@
+// styling component linked in feed_success.scss file
+
 import React, { useState, useEffect } from "react";
 
 // img
@@ -8,18 +10,18 @@ import { Link } from "react-router-dom";
 import { CircularProgress, Button } from "@mui/material";
 
 const SuccessFeedback = () => {
-	const [isLoad, setIsLoad] = useState(false);
+	const [isLoadContent, setIsLoadContent] = useState(false);
 
 	useEffect(() => {
 		document.title = "Tentang Bantuan Sosial Masyarakat";
 		setTimeout(() => {
-			setIsLoad(true);
+			setIsLoadContent(true);
 		}, 2000);
 	}, []);
 
 	return (
 		<div>
-			{isLoad ? (
+			{isLoadContent ? (
 				<div className="feed_success">
 					<div className="flex_success">
 						<img src={thanks} alt="Terima Kasih" />

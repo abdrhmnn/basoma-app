@@ -1,3 +1,5 @@
+// styling component linked in info.scss file
+
 import React from "react";
 
 // components

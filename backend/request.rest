@@ -2,7 +2,7 @@ GET http://localhost:5000/warga
 
 ###
 
-GET http://localhost:5000/nilai-prioritas/USER_11
+GET http://localhost:5000/nilai-prioritas/USER_6
 
 ###
 

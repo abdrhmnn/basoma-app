@@ -1,15 +1,15 @@
-// styling component linked in empty_page.scss file
+// styling component linked in success_edit_profile.scss file
 
 import React, { useState, useEffect } from "react";
 
 // img
-import not_found from "../images/page_not_found.svg";
+import success from "../../images/success_img.svg";
 
 // npm packages
 import { Link } from "react-router-dom";
 import { CircularProgress, Button } from "@mui/material";
 
-const EmptyPage = () => {
+const SuccessEditProfile = () => {
 	const [isLoadContent, SetIsLoadContent] = useState(false);
 
 	useEffect(() => {
@@ -21,15 +21,12 @@ const EmptyPage = () => {
 	return (
 		<div>
 			{isLoadContent ? (
-				<div className="empty_page">
-					<h2>Basoma</h2>
-					<div className="flex_empty_page">
-						<img src={not_found} alt="Halaman tidak ditemukan" />
-						<h2>Halaman tidak ditemukan!</h2>
-						<Button variant="contained" component={Link} to="/">
-							kembali ke beranda
-						</Button>
-					</div>
+				<div className="success_edit_profile">
+					<img src={success} alt="Profile berhasil diubah!" />
+					<h2>Profile berhasil diubah!</h2>
+					<Button variant="contained" component={Link} to="/">
+						kembali ke beranda
+					</Button>
 				</div>
 			) : (
 				<div
@@ -46,4 +43,5 @@ const EmptyPage = () => {
 		</div>
 	);
 };
-export default EmptyPage;
+
+export default SuccessEditProfile;

@@ -1,55 +1,58 @@
+// styling for padding component footer when page is loaded
 .bantuan_detail_foot{
     padding: $padding-footer;
     margin-top: $mt-30;
 }
 
-.alert_auth_login{
+.bantuan_detail{
     max-width: $max-width-container;
     margin: auto;
+    padding-left: 20px;
+    padding-right: 20px;
 
-    .card_bantuan{
+    .bantuan_detail_content{
         display: flex;
-    
-        .card_detail{
+
+        .info_nama_and_deskripsi{
             width: 56%;
             display: flex;
             flex-direction: column;
-    
+
             h1{
                 margin: 0 0 11px 0;
             }
-        
+
             p{
                 margin: 0 0 20px 0;
             }
-    
+
             img{
                 width: 95%;
                 border-radius: 3px;
             }
         }
-    
-        .card_info{
+
+        .group_kapasitas_and_btn{
             margin-left: 20px;
-    
-            .card_detail_info{
+
+            .info_kapasitas{
                 display: flex;
                 padding: 100px 0 25px 0;
                 
                 h2{
                     margin: 0 0 5px 0;
                 }
-        
+
                 p{
                     margin: 0;
                 }
-                
+
                 .kapasitas{
                     margin-right: 50px;
                 }
             }
-    
-            .btn_daftar{
+
+            .btn_daftar_bantuan{
                 width: 100%;
                 font-weight: bold;
             }
@@ -57,21 +60,22 @@
     }
 }
 
-
+// Responsive Breakpoints
+// for tablet
 @media screen and (max-width: 768px){
-    .alert_auth_login{
-        .card_bantuan{
+    .bantuan_detail{
+        .bantuan_detail_content{
             margin-top: 20px;
             flex-direction: column;
     
-            .card_detail{
+            .info_nama_and_deskripsi{
                 width: 100%;
             }
     
-            .card_info{
+            .group_kapasitas_and_btn{
                 margin: 0;
     
-                .card_detail_info{
+                .info_kapasitas{
                     padding-top: 10px;
                 }
             }
@@ -79,23 +83,25 @@
     }
 }
 
+// for mobile
 @media screen and (max-width: 576px){
-    .alert_auth_login{
-        .card_bantuan{
-            .card_detail{
+    .bantuan_detail{
+        .bantuan_detail_content{
+            .info_nama_and_deskripsi{
                 h1{
                     font-size: 1.7em;
                 }
-    
+
                 h2{
                     font-size: 1.2em;
                 }
-    
+
                 p{
                     font-size: .9em;
                 }
             }
-            .card_info{
+
+            .group_kapasitas_and_btn{
                 h2{
                     font-size: 1.2em;
                 }

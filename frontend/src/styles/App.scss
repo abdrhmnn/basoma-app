@@ -39,6 +39,7 @@ body {
     }
 }
 
+// tabel styling
 .tbl_class{
     width: 100%;
     margin-top: 30px;
@@ -73,6 +74,7 @@ body {
             }
         }
 
+        // button styling for admin page
         .btn_delete_bantuan{
             background-color: rgb(255, 46, 46);
             color: $white-color;
@@ -108,6 +110,7 @@ body {
             }
         }
 
+        // role styling for admin page
         .role_admin{
             background-color: rgba(122, 180, 255, 0.397);
             color: rgba(4, 0, 255, 0.815);
@@ -128,6 +131,30 @@ body {
     }
 }
 
+// Responsive Breakpoints
+// for tablet
+@media screen and (max-width: 768px){
+    .tbl_class{
+        .tbl_class_head{
+            tr{
+                th{
+                    font-size: .9em;
+                }
+            }
+        }
+
+        .tbl_class_body{
+            tr{
+                td{
+                    padding: 10px;
+                    font-size: .9em;
+                }
+            }
+        }
+    }
+}
+
+// for mobile
 @media screen and (max-width: 576px){
     .MuiPaper-root{
         margin-top: 15px
@@ -160,6 +187,7 @@ body {
 @import "./landing_page/form_pendaftaran.scss";
 @import "./landing_page/success_pendaftaran_bantuan.scss";
 @import "./landing_page/sudah_mengisi_kuesioner.scss";
+@import "./landing_page/success_edit_profile.scss";
 
 
 // admin page styles
@@ -173,3 +201,6 @@ body {
 @import "./admin_page/success_edit_profile_admin.scss";
 @import "./admin_page/kriteria_bantuan.scss";
 @import "./admin_page/edit-kriteria-bantuan.scss";
+
+// Empty page style
+@import "./empty_page.scss";

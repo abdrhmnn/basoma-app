@@ -3,6 +3,8 @@
 // styling
 import "./styles/App.scss";
 
+import kuki from "./kuki";
+
 // components or files
 // landing page components
 import Home from "./components/landing_page/Home";
@@ -22,7 +24,7 @@ import User from "./components/admin_page/User";
 import BantuanAdmin from "./components/admin_page/BantuanAdmin";
 
 // npm packages
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
 import TambahBantuan from "./components/admin_page/TambahBantuan";
 import EditProfileAdmin from "./components/admin_page/EditProfileAdmin";
 import KriteriaBantuan from "./components/admin_page/KriteriaBantuan";
@@ -32,22 +34,20 @@ import KuesionerPendaftaran from "./components/landing_page/KuesionerPendaftaran
 import HasilKuesionerPendaftaran from "./components/landing_page/HasilKuesionerPendaftaran";
 import FormPendaftaranBantuan from "./components/landing_page/FormPendaftaranBantuan";
 import SuccessPendaftaranBantuan from "./components/landing_page/SuccessPendaftaranBantuan";
+import React, { Component } from "react";
 
 
-// const PrivatRoute = ({ component: Component, ...rest }) => {
-//   const navigate = useNavigate()
-//   const isAuth = kuki.get("user_id");
-
+// const PrivatRouteHasilPengisian = ({ component: Component, ...rest }) => {
+//   const isSubmitted = kuki.get("pengisian");
+//   const navigate = useNavigate();
 //   return (
 //     <Route
 //       {...rest}
 //       render={(props) =>
-//         isAuth ? (
+//         isSubmitted ? (
 //           <Component {...props} {...rest} />
 //         ) : (
-//           navigate({
-//             to: "/"
-//           })
+//           navigate("/")
 //           // <Redirect
 //           //   to={{
 //           //     pathname: "/",
@@ -62,16 +62,18 @@ import SuccessPendaftaranBantuan from "./components/landing_page/SuccessPendafta
 //   );
 // };
 
-function App() {
-  return (
-    <Router>
+class App extends Component{
+  render(){
+    const isSubmitted = kuki.get("pengisian");
+    return(
+<Router>
       <div>
         <Routes>
             {/* landing page components */}
             <Route exact path="/" element={<Home />} />
             <Route exact path="/tentang" element={<About />} />
             <Route exact path="/bantuan" element={<Bantuan />} />
-            <Route exact path="/bantuan-detail" element={<BantuanDetail data="true" />} />
+            <Route exact path="/bantuan-detail" element={<BantuanDetail activeNav="true" />} />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/masukan" element={<Masukan data="true"/>} />
@@ -79,6 +81,9 @@ function App() {
             <Route exact path="/panduan-pendaftaran" element={<PageAwalKuesioner />} />
             <Route exact path="/kuesioner-pendaftaran" element={<KuesionerPendaftaran />} />
             <Route exact path="/hasil-kuesioner-pendaftaran" element={<HasilKuesionerPendaftaran />} />
+
+            
+            
             <Route exact path="/form-pendaftaran" element={<FormPendaftaranBantuan />} />
             <Route exact path="/form-pendaftaran-success" element={<SuccessPendaftaranBantuan />} />
             {/* <PrivatRoute exact path="/edit-profile" element={<EditProfile />}/> */}
@@ -98,7 +103,14 @@ function App() {
         </Routes>
       </div>
     </Router>
-  );
+    )
+  }
 }
+
+// function App() {
+//   return (
+    
+//   );
+// }
 
 export default App;
