@@ -10,11 +10,11 @@ import { Link } from "react-router-dom";
 import { CircularProgress, Button } from "@mui/material";
 
 const SuccessEditProfile = () => {
-	const [isLoadContent, SetIsLoadContent] = useState(false);
+	const [isLoadContent, setIsLoadContent] = useState(false);
 
 	useEffect(() => {
 		setTimeout(() => {
-			SetIsLoadContent(true);
+			setIsLoadContent(true);
 		}, 2000);
 	}, []);
 

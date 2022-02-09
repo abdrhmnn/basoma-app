@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { CircularProgress, Button } from "@mui/material";
 
 const EmptyPage = () => {
-	const [isLoadContent, SetIsLoadContent] = useState(false);
+	const [isLoadContent, setIsLoadContent] = useState(false);
 
 	useEffect(() => {
 		setTimeout(() => {
