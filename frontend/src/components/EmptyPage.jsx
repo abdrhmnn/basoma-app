@@ -14,7 +14,7 @@ const EmptyPage = () => {
 
 	useEffect(() => {
 		setTimeout(() => {
-			SetIsLoadContent(true);
+			setIsLoadContent(true);
 		}, 2000);
 	}, []);
 

@@ -33,6 +33,17 @@
             }
         }
     }
+
+    .show_length_data_user{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 10px;
+
+        p{
+            margin: 0 10px 0 0;
+        }
+    }
 }
 
 

@@ -12,7 +12,13 @@ const MASUKAN = {
             pesan: props.pesan,
             user_id: userID,
         })
-    }
+    },
+    getMasukanByID: (id) => {
+        return axios.get(`/masukan/${id}`)
+    },
+    updateMasukanByUserID: (id) => {
+        return axios.patch(`/masukan/userId/${id}`)
+    },
 }
 
 export default MASUKAN

@@ -1,0 +1,76 @@
+.wrap_tbl_masukan{
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: rgba(145, 158, 171, 0.24) 0px 0px 2px 0px, rgba(145, 158, 171, 0.24) 0px 16px 32px -4px;
+    padding: 20px 10px 10px 10px;
+
+    .tbl_class{
+        .btn_detail_masukan{
+            padding: 5px;
+            font-size: .8em;
+            background-color: rgba(122, 180, 255, 0.397);
+            color: rgba(4, 0, 255, 0.815);
+            box-shadow: none;
+            font-weight: bold;
+        }
+    }
+
+    .show_length_data_masukan{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 10px;
+
+        p{
+            margin: 0 10px 0 0;
+        }
+    }
+}
+
+.MuiDialogContent-root{
+    width: 400px;
+    form{
+        display: flex;
+        flex-direction: column;
+
+        .text_nama_pengirim{
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        p{
+            margin: 10px 0 0 0;
+            text-align: right;
+            font-size: .85em;
+            color: $primary-color;
+
+            &:hover{
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+
+        .pesan_balas_masukan{
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+
+            p{
+                margin: 8px 0 0 0;
+                text-align: left;
+                font-size: .75em;
+
+                &:hover{
+                    text-decoration: none;
+                    cursor: default;
+                }
+            }
+
+            .submit_pesan_balas{
+                background-color: rgb(71, 71, 71);
+                padding: 5px;
+                cursor: no-drop;
+            }
+        }
+    }
+}

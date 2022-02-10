@@ -80,6 +80,7 @@ const HeaderAdmin = ({ isRendering }) => {
 					<MenuItem
 						onClick={() => {
 							kuki.remove("user_id");
+							kuki.remove("admin");
 							window.location.href = "/";
 						}}
 						style={{ padding: "10 15 10 15" }}

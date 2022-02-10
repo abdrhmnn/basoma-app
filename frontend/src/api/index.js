@@ -4,6 +4,7 @@ import axios from "axios";
 import BANTUAN from "./bantuan";
 import KRITERIA from "./kriteria";
 import MASUKAN from "./masukan";
+import PESAN_BALAS from "./pesan_balas";
 import PRIORITAS from "./prioritas";
 import UPLOAD from "./uploads";
 import WARGA from "./warga";
@@ -58,7 +59,8 @@ const API = {
     ...WARGA,
     ...KRITERIA,
     ...PRIORITAS,
-    ...MASUKAN
+    ...MASUKAN,
+    ...PESAN_BALAS
 }
 
 export default API

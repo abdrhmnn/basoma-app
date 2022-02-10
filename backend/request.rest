@@ -1,4 +1,4 @@
-GET http://localhost:5000/warga
+GET http://localhost:5000/masukan/MS_4
 
 ###
 
@@ -19,11 +19,14 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:5000/users/USER_2
+POST http://localhost:5000/pesan-balas
 Content-Type: application/json
 
 {
-    "gambar": "123.jpg"
+    "kd_pesan_balas": "PB_2",
+    "user_id": "USER_11",
+    "kd_masukan": "MS_4",
+    "pesan_balas": "test"
 }
 
 ###

@@ -117,6 +117,7 @@ const Navbar = (props) => {
 								<MenuItem
 									onClick={() => {
 										kuki.remove("user_id");
+										kuki.remove("warga");
 										window.location.href = "/";
 									}}
 								>
