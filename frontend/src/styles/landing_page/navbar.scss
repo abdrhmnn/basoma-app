@@ -4,7 +4,7 @@
     justify-content: space-between;
     font-weight: 400;
     padding: 0 10px 0 25px;
-    font-size: 1.2em;
+    font-size: 1.15em;
     align-items: center;
     max-width: 1300px;
     margin: auto;
@@ -40,7 +40,7 @@
             .login{
                 background: linear-gradient(to left, #58a1f5, #4364F7, #0052D4);
                 color: white;
-                padding: 20px 25px 20px 25px;
+                padding: 0 25px 0 25px;
                 line-height: 55px;
                 text-align: center;
                 border-radius: 3px;
@@ -58,9 +58,10 @@
         &::after{
             display: block;
             content: "";
-            width: 60px;
+            position: absolute;
+            width: 50px;
             border-radius: 5px;
-            margin: 8px auto 0 auto;
+            margin: 8px 0 0 13px;
             background-color: $primary-color;
             height: 5px;
         }

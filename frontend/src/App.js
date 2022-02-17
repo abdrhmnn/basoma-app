@@ -35,6 +35,7 @@ import MasukanAdmin from "./components/admin_page/Masukan";
 
 // npm packages
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import Pemberitahuan from "./components/landing_page/Pemberitahuan";
 
 const PrivateRouteAdmin = ({ children }) => {
   const isAuthenticated = kuki.get("admin")
@@ -216,6 +217,18 @@ class App extends Component{
                     <SuccessPendaftaranBantuan />
                   </PrivateRouteWarga> :
                   <SuccessPendaftaranBantuan />
+                }
+              />
+
+              <Route
+                exact
+                path="/pemberitahuan"
+                element={
+                  kuki.get("warga") || kuki.get("admin") ? 
+                  <PrivateRouteWarga>
+                    <Pemberitahuan />
+                  </PrivateRouteWarga> :
+                  <Pemberitahuan />
                 }
               />
               {/* Akhir landing page components */}

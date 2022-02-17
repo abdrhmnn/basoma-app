@@ -6,9 +6,8 @@ const { DataTypes } = Sequelize;
 
 const NilaiPrioritas = db.define('pengisian_prioritas_tbl', {
     prioritas_id: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.STRING,
         primaryKey: true,
-        autoIncrement: true
     },
     user_id: {
         type: DataTypes.STRING,

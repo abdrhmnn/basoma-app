@@ -22,6 +22,19 @@ export const getMasukanByID = async (req, res) => {
     }
 }
 
+export const getMasukanByUserID = async (req, res) => {
+    try{
+        const masukan = await Masukan.findAll({
+            where: {
+                user_id: req.params.id
+            }
+        });
+        res.json(masukan);
+    }catch(error){
+        res.json({ message: error.message })
+    }
+}
+
 export const updateMasukanByUserID = async (req, res) => {
     try{
         await Masukan.update(req.body, {

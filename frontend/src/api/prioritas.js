@@ -4,8 +4,9 @@ const PRIORITAS = {
     getAllPrioritas: () => {
         return axios.get(`/nilai-prioritas`)
     },
-    savePrioritas: (pilihan, userID, totalNilai, identitasNilai) => {
+    savePrioritas: (prioritasID, pilihan, userID, totalNilai, identitasNilai) => {
         return axios.post(`/nilai-prioritas`, {
+            prioritas_id: `PRIO_${prioritasID}`,
             user_id: userID,
             pilihan: pilihan,
             total_nilai: totalNilai,

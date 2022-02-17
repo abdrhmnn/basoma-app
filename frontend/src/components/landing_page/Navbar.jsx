@@ -105,6 +105,15 @@ const Navbar = (props) => {
 								<MenuItem
 									onClick={() => {
 										navigate({
+											pathname: "/pemberitahuan",
+										});
+									}}
+								>
+									Pemberitahuan
+								</MenuItem>
+								<MenuItem
+									onClick={() => {
+										navigate({
 											pathname: "/edit-profile",
 											search: `?${createSearchParams({
 												ui: encrypt,

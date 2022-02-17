@@ -19,6 +19,7 @@ const Footer = (props) => {
 		const bantuanDetailProps = props.class_bantuan_detail;
 		const editProfileProps = props.class_edit_profile;
 		const masukanProps = props.class_masukan;
+		const pemberitahuanProps = props.class_pemberitahuan;
 
 		if (aboutProps) return (classNameForFooter = aboutProps);
 		else if (bantuanProps) return (classNameForFooter = bantuanProps);
@@ -26,6 +27,8 @@ const Footer = (props) => {
 			return (classNameForFooter = bantuanDetailProps);
 		else if (editProfileProps) return (classNameForFooter = editProfileProps);
 		else if (masukanProps) return (classNameForFooter = masukanProps);
+		else if (pemberitahuanProps)
+			return (classNameForFooter = pemberitahuanProps);
 
 		return classNameForFooter;
 	};

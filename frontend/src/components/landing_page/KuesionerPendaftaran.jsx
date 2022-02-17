@@ -26,6 +26,7 @@ import { useNavigate } from "react-router-dom";
 const KuesionerPendaftaran = () => {
 	const [kriteriaBantuan, setKriteriaBantuan] = useState(null);
 	const [userByID, setUserByID] = useState(null);
+	const [prioritas, setPrioritas] = useState(null);
 
 	const navigate = useNavigate();
 
@@ -49,12 +50,18 @@ const KuesionerPendaftaran = () => {
 	useEffect(() => {
 		document.title = "Kuesioner Pendaftaran Bantuan";
 		getAllKriteria();
+		getAllPrioritas();
 		getUserByID();
 	}, []);
 
 	const getAllKriteria = async () => {
 		const response = await API.getAllKriteria();
 		setKriteriaBantuan(response.data);
+	};
+
+	const getAllPrioritas = async () => {
+		const response = await API.getAllPrioritas();
+		setPrioritas(response.data);
 	};
 
 	const getUserByID = async () => {
@@ -380,6 +387,8 @@ const KuesionerPendaftaran = () => {
 									className="btn_submit_kuesioner"
 									onClick={() => {
 										const arrJawaban = [];
+										let prioritasLength = prioritas.length + 1;
+
 										arrJawaban.push(
 											valueRB1,
 											valueRB2,
@@ -404,6 +413,7 @@ const KuesionerPendaftaran = () => {
 
 											for (let i = 0; i < arrJawaban.length; i++) {
 												API.savePrioritas(
+													prioritasLength++,
 													arrJawaban[i],
 													kuki.get("user_id"),
 													Math.floor(

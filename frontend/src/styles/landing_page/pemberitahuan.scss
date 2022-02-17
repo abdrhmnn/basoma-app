@@ -1,0 +1,70 @@
+// styling for padding component footer when page is loaded
+.pemberitahuan_foot{
+    padding: $padding-footer;
+    margin-top: $mt-30;
+}
+
+.pemberitahuan_content{
+    max-width: 1200px;
+    margin: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    .cari_pemberitahuan{
+        margin-top: 30px;
+        margin-bottom: 20px;
+        text-align: center;
+
+        // styling for textfield search bantuan
+        .MuiTextField-root{
+            width: 60%;
+        }
+    }
+
+    .data_pemberitahuan{
+        display: flex;
+
+        .content{
+            width: 100%;
+
+            // styling for box result data pemberitahuan
+            .MuiBox-root{
+                transition: .5s;
+                margin-bottom: 20px;
+
+                &:hover{
+                    box-shadow: $card-box-shadow;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+.pesan_balas_user_detail{
+    .css-1elwnq4-MuiPaper-root-MuiAccordion-root.Mui-expanded{
+        margin: 0;
+    }
+    .MuiPaper-root{
+        box-shadow: none;
+
+        .css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root.Mui-expanded{
+            min-height: 48px;
+        }
+
+        .MuiButtonBase-root{
+            padding: 0;
+            
+            // when accordion expanded
+            .css-o4b71y-MuiAccordionSummary-content.Mui-expanded{
+                margin: 0;
+            }
+        }
+    }
+
+    p{
+        margin: 0;
+        font-size: .8em;
+        color: $primary-color;
+    }
+}

@@ -1,13 +1,12 @@
 import { Sequelize } from "sequelize";
 import db from "../config/database.js";
 import User from "./UserModel.js";
-import Masukan from "./MasukanModel.js";
 
 const { DataTypes } = Sequelize;
 
-const PesanBalas = db.define('pesan_balas_tbl', {
-    kd_pesan_balas: {
-        type: DataTypes.STRING,
+const Pemberitahuan = db.define('pemberitahuan_tbl', {
+    kd_pemberitahuan: {
+        type: DataTypes.INTEGER,
         primaryKey: true
     },
     user_id: {
@@ -17,18 +16,11 @@ const PesanBalas = db.define('pesan_balas_tbl', {
             key: 'user_id'
         }
     },
-    kd_masukan: {
-        type: DataTypes.STRING,
-        references: {
-            model: Masukan,
-            key: 'kd_masukan'
-        }
-    },
-    pesan_balas: {
+    nama: {
         type: DataTypes.STRING
     }
 }, {
     freezeTableName: true
 })
 
-export default PesanBalas
+export default Pemberitahuan

@@ -4,9 +4,6 @@ import React, { useState, useEffect } from "react";
 import HeaderAdmin from "./HeaderAdmin";
 import NavbarAdmin from "./NavbarAdmin";
 
-// Cookie storage
-import kuki from "../../kuki";
-
 // API storage
 import API from "../../api";
 
@@ -17,51 +14,76 @@ import {
 	Dialog,
 	DialogTitle,
 	DialogContent,
-	CircularProgress,
-	Snackbar,
-	Alert,
 	FormControl,
 	Select,
 	MenuItem,
 } from "@mui/material";
-import { Formik, Field } from "formik";
-import * as Yup from "yup";
 
 const Masukan = () => {
 	const [masukan, setMasukan] = useState(null);
 	const [masukanByID, setMasukanByID] = useState(null);
-	const [pesanBalas, setPesanBalas] = useState(null);
 	const [valueCari, setValueCari] = useState("");
 
 	const [openDialog, setOpenDialog] = useState(false);
-	const [openTextfieldPesanBalas, setOpenTextfieldPesanBalas] = useState(true);
-	const [isSubmitPesanBalas, setIsSubmitPesanBalas] = useState(false);
-	const [isOpenSnackbar, setIsOpenSnackbar] = useState(false);
 
 	const [dataMasukanLength, setDataMasukanLength] = useState(5);
 
 	useEffect(() => {
 		document.title = "Kelola Masukan";
 		getAllMasukan();
-		getAllPesanBalas();
 	}, []);
-
-	const schemaBalasPesan = Yup.object({
-		pesan_balas: Yup.string().required("Pesan masih kosong!"),
-	});
 
 	const getAllMasukan = async () => {
 		const response = await API.getAllMasukan();
 		setMasukan(response.data);
 	};
 
-	const getAllPesanBalas = async () => {
-		const response = await API.getAllPesanBalas();
-		setPesanBalas(response.data);
-	};
-
 	const handleChange = (e) => {
 		setValueCari(e.target.value);
+	};
+
+	const showMasukan = (data) => {
+		return data.slice(0, dataMasukanLength).map((e, i) => {
+			const stringData = e.nm_depan + e.nm_belakang;
+
+			if (stringData.toLowerCase().includes(valueCari)) {
+				return (
+					<tr key={i}>
+						<td>{i + 1}</td>
+						<td style={{ textAlign: "left" }}>
+							{e.nm_depan} {e.nm_belakang}
+						</td>
+						<td
+							style={{
+								textAlign: "left",
+								overflow: "hidden",
+								textOverflow: "ellipsis",
+								whiteSpace: "nowrap",
+								maxWidth: 100,
+							}}
+						>
+							{e.pesan}
+						</td>
+						<td>
+							<Button
+								variant="contained"
+								className="btn_detail_masukan"
+								onClick={() => {
+									setOpenDialog(true);
+									API.getMasukanByID(e.kd_masukan).then((res) => {
+										setMasukanByID(res.data);
+									});
+									setMasukanByID(null);
+								}}
+							>
+								detail
+							</Button>
+						</td>
+					</tr>
+				);
+			}
+			return null;
+		});
 	};
 
 	return (
@@ -70,33 +92,6 @@ const Masukan = () => {
 			<div className="flex_header_admin">
 				<HeaderAdmin />
 				<div className="content_dashboard_admin">
-					{isOpenSnackbar ? (
-						<Snackbar
-							open={isOpenSnackbar}
-							autoHideDuration={6000}
-							onClose={(e, reason) => {
-								if (reason === "clickaway") {
-									return;
-								}
-
-								setIsOpenSnackbar(false);
-							}}
-						>
-							<Alert
-								onClose={(e, reason) => {
-									if (reason === "clickaway") {
-										return;
-									}
-
-									setIsOpenSnackbar(false);
-								}}
-								severity="success"
-								variant="filled"
-							>
-								Pesan balas berhasil dikirim!
-							</Alert>
-						</Snackbar>
-					) : null}
 					<h2>Data Masukan</h2>
 					<div className="wrap_tbl_masukan">
 						<div className="flex_element_masukan">
@@ -119,52 +114,7 @@ const Masukan = () => {
 								</tr>
 							</thead>
 							<tbody className="tbl_class_body">
-								{masukan &&
-									masukan.slice(0, dataMasukanLength).map((e, i) => {
-										const stringData = e.nm_depan + e.nm_belakang;
-
-										if (
-											stringData.toLowerCase().includes(valueCari)
-										) {
-											return (
-												<tr key={i}>
-													<td>{i + 1}</td>
-													<td style={{ textAlign: "left" }}>
-														{e.nm_depan} {e.nm_belakang}
-													</td>
-													<td
-														style={{
-															textAlign: "left",
-															overflow: "hidden",
-															textOverflow: "ellipsis",
-															whiteSpace: "nowrap",
-															maxWidth: 100,
-														}}
-													>
-														{e.pesan}
-													</td>
-													<td>
-														<Button
-															variant="contained"
-															className="btn_detail_masukan"
-															onClick={() => {
-																setOpenDialog(true);
-																API.getMasukanByID(
-																	e.kd_masukan
-																).then((res) => {
-																	setMasukanByID(res.data);
-																});
-																setMasukanByID(null);
-															}}
-														>
-															detail
-														</Button>
-													</td>
-												</tr>
-											);
-										}
-										return null;
-									})}
+								{masukan && showMasukan(masukan)}
 							</tbody>
 						</table>
 						<div className="show_length_data_masukan">
@@ -189,114 +139,38 @@ const Masukan = () => {
 								open={openDialog}
 								onClose={() => {
 									setOpenDialog(false);
-									setOpenTextfieldPesanBalas(true);
-									setIsSubmitPesanBalas(false);
 								}}
 								aria-labelledby="alert-dialog-title"
 								aria-describedby="alert-dialog-description"
 							>
 								<DialogTitle
 									id="alert-dialog-title"
-									sx={{ fontSize: "1.1em" }}
+									sx={{ fontSize: "1em" }}
 								>
 									Detail Masukan
 								</DialogTitle>
 								<DialogContent>
-									<Formik
-										initialValues={{ pesan_balas: "" }}
-										validationSchema={schemaBalasPesan}
-										onSubmit={(values, actions) => {
-											setIsSubmitPesanBalas(true);
-											setTimeout(() => {
-												setIsSubmitPesanBalas(false);
-												API.savePesanBalas(
-													values,
-													pesanBalas.length + 1,
-													kuki.get("user_id"),
-													masukanByID.kd_masukan
-												);
-												setOpenDialog(false);
-												setOpenTextfieldPesanBalas(true);
-												setIsOpenSnackbar(true);
-											}, 3000);
-										}}
-									>
-										{(props) => (
-											<form onSubmit={props.handleSubmit}>
-												<Field
-													name="nama_pengirim"
-													variant="outlined"
-													label="Nama Pengirim"
-													as={TextField}
-													defaultValue={`${masukanByID.nm_depan} ${masukanByID.nm_belakang}`}
-													className="text_nama_pengirim"
-													disabled={true}
-												/>
-												<Field
-													name="pesan_masukan"
-													variant="outlined"
-													label="Pesan"
-													multiline
-													rows={4}
-													as={TextField}
-													defaultValue={`${masukanByID.pesan}`}
-													disabled={true}
-												/>
-												{openTextfieldPesanBalas ? (
-													<p
-														onClick={() => {
-															setOpenTextfieldPesanBalas(false);
-														}}
-													>
-														Balas Pesan
-													</p>
-												) : (
-													<div className="pesan_balas_masukan">
-														<Field
-															name="pesan_balas"
-															variant="outlined"
-															label="Pesan Balas"
-															multiline
-															rows={3}
-															as={TextField}
-															style={{ marginBottom: 15 }}
-															error={
-																props.touched.pesan_balas &&
-																props.errors.pesan_balas
-																	? true
-																	: false
-															}
-															helperText={
-																props.touched.pesan_balas &&
-																props.errors.pesan_balas
-															}
-														/>
-														<Button
-															variant="contained"
-															type="submit"
-															className={
-																isSubmitPesanBalas
-																	? "submit_pesan_balas"
-																	: ""
-															}
-														>
-															{isSubmitPesanBalas ? (
-																<CircularProgress
-																	size={27}
-																	sx={{
-																		color: "white",
-																		opacity: ".6",
-																	}}
-																/>
-															) : (
-																"kirim"
-															)}
-														</Button>
-													</div>
-												)}
-											</form>
-										)}
-									</Formik>
+									<TextField
+										name="nama_pengirim"
+										variant="outlined"
+										label="Nama Pengirim"
+										defaultValue={`${masukanByID.nm_depan} ${masukanByID.nm_belakang}`}
+										className="text_nama_pengirim"
+										disabled={true}
+										fullWidth
+										sx={{ marginTop: "6px" }}
+									/>
+									<TextField
+										name="pesan_masukan"
+										variant="outlined"
+										label="Pesan"
+										multiline
+										rows={6}
+										defaultValue={`${masukanByID.pesan}`}
+										disabled={true}
+										fullWidth
+										sx={{ marginTop: "20px" }}
+									/>
 								</DialogContent>
 							</Dialog>
 						)}

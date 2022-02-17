@@ -16,6 +16,9 @@ const MASUKAN = {
     getMasukanByID: (id) => {
         return axios.get(`/masukan/${id}`)
     },
+    getMasukanByUserID: (userId) => {
+        return axios.get(`/masukan/userId/${userId}`)
+    },
     updateMasukanByUserID: (id) => {
         return axios.patch(`/masukan/userId/${id}`)
     },

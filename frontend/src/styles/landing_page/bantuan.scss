@@ -42,20 +42,19 @@
         .filtering_bantuan{
             text-align: left;
 
-            form{
-                display: flex;
-                flex-direction: column;
+            h3{
+                margin: 0 0 20px 0;
             }
 
-            h2{
-                font-size: 1.2em;
-                margin: 0 0 15px 0;
+            p{
+                margin: 0 0 7px 0;
+                color: rgba(0, 0, 0, 0.6);
             }
         }
 
         .result_bantuan{
             margin: 0 0 0 25px;
-            width: 70%;
+            width: 80%;
             display: flex;
             flex-direction: column;
 
