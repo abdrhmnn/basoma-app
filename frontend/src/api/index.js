@@ -1,4 +1,5 @@
 import axios from "axios";
+import ALTERNATIF from "./alternatif";
 
 // other API files
 import BANTUAN from "./bantuan";
@@ -62,7 +63,8 @@ const API = {
     ...PRIORITAS,
     ...MASUKAN,
     ...PESAN_BALAS,
-    ...PEMBERITAHUAN
+    ...PEMBERITAHUAN,
+    ...ALTERNATIF
 }
 
 export default API

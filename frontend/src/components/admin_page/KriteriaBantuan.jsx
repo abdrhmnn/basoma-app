@@ -10,12 +10,17 @@ import { Button, CircularProgress } from "@mui/material";
 import { AiOutlineEdit } from "react-icons/ai";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import { AES } from "crypto-js";
+import "jspdf-autotable";
+import { jsPDF } from "jspdf";
 
 const KriteriaBantuan = () => {
 	const [kriteriaBantuan, setKriteriaBantuan] = useState([]);
 	const [isLoad, setIsLoad] = useState(false);
 	const [isShow, setIsShow] = useState(false);
 	const navigate = useNavigate();
+
+	const jmlhKriteria = 5;
+	const nilaiRI = 1.12;
 
 	let nilaiMatriks1 = [];
 	let nilaiMatriks2 = [];
@@ -30,6 +35,7 @@ const KriteriaBantuan = () => {
 	let normalisasiKriteria5 = [];
 	let hasilAkhir = [];
 	let hasilAkhirNilaiPrioritas = [];
+	let nilaiLamda = [];
 
 	useEffect(() => {
 		document.title = "Kelola Kriteria Bantuan";
@@ -83,6 +89,7 @@ const KriteriaBantuan = () => {
 		normalisasiKriteria5.push(roundMatriks5[x] / hasilAkhir[x]);
 	}
 
+	// membulatkan nilai normalisai kriteria
 	const roundNormalisasiKriteria1 = normalisasiKriteria1.map(
 		(e, i) => Math.round(e * 100) / 100
 	);
@@ -99,28 +106,51 @@ const KriteriaBantuan = () => {
 		(e, i) => Math.round(e * 100) / 100
 	);
 
-	// cari method untuk menampilkan nama bulan saat ini
+	// kalkulasi data normalisasi kriteria
+	const jmlhNormalisasiKriteria1 = roundNormalisasiKriteria1.reduce(
+		(accu, curr) => accu + curr,
+		0
+	);
+	const jmlhNormalisasiKriteria2 = roundNormalisasiKriteria2.reduce(
+		(accu, curr) => accu + curr,
+		0
+	);
+	const jmlhNormalisasiKriteria3 = roundNormalisasiKriteria3.reduce(
+		(accu, curr) => accu + curr,
+		0
+	);
+	const jmlhNormalisasiKriteria4 = roundNormalisasiKriteria4.reduce(
+		(accu, curr) => accu + curr,
+		0
+	);
+	const jmlhNormalisasiKriteria5 = roundNormalisasiKriteria5.reduce(
+		(accu, curr) => accu + curr,
+		0
+	);
 
-	const nilaiPrioritas = (arr) => {
-		return arr
-			.sort(
-				(a, b) =>
-					arr.filter((v) => v === a).length -
-					arr.filter((v) => v === b).length
-			)
-			.pop();
-	};
+	// menghitung nilai eigen / prioritas
+	hasilAkhirNilaiPrioritas.push(
+		Math.round((jmlhNormalisasiKriteria1 / jmlhKriteria) * 100) / 100,
+		Math.round((jmlhNormalisasiKriteria2 / jmlhKriteria) * 100) / 100,
+		Math.round((jmlhNormalisasiKriteria3 / jmlhKriteria) * 100) / 100,
+		Math.round((jmlhNormalisasiKriteria4 / jmlhKriteria) * 100) / 100,
+		Math.round((jmlhNormalisasiKriteria5 / jmlhKriteria) * 100) / 100
+	);
 
-	hasilAkhirNilaiPrioritas.push(nilaiPrioritas(roundNormalisasiKriteria1));
-	hasilAkhirNilaiPrioritas.push(nilaiPrioritas(roundNormalisasiKriteria2));
-	hasilAkhirNilaiPrioritas.push(nilaiPrioritas(roundNormalisasiKriteria3));
-	hasilAkhirNilaiPrioritas.push(nilaiPrioritas(roundNormalisasiKriteria4));
-	hasilAkhirNilaiPrioritas.push(nilaiPrioritas(roundNormalisasiKriteria5));
+	// mencari nilai lamda, lamda maks, CI, dan CR
+	for (let i = 0; i < kriteriaBantuan.length; i++) {
+		nilaiLamda.push(hasilAkhirNilaiPrioritas[i] * hasilAkhir[i]);
+	}
+
+	const nilaiLamdaMaks = nilaiLamda.reduce((accu, curr) => accu + curr, 0);
+	const nilaiCI = (nilaiLamdaMaks - jmlhKriteria) / (jmlhKriteria - 1);
+	const nilaiCR = nilaiCI / nilaiRI;
 
 	const handleClick = (e) => {
 		for (let i = 0; i < kriteriaBantuan.length + 1; i++) {
 			axios.patch(`http://localhost:5000/kriteria/KB_${i + 1}`, {
 				nilai_prioritas: hasilAkhirNilaiPrioritas[i],
+				nilai_lamda: nilaiLamda[i],
 			});
 		}
 
@@ -131,6 +161,25 @@ const KriteriaBantuan = () => {
 		}, 3000);
 	};
 
+	const generatePdf = () => {
+		var doc = new jsPDF({ orientation: "p" });
+		doc.text("Data Kriteria Bantuan", 80, 20);
+		doc.autoTable({
+			head: [["Nama", "Nilai Bobot", "Nilai Prioritas", "Nilai Lamda"]],
+			body: kriteriaBantuan.map((e, i) => {
+				return [e.nama, e.nilai_bobot, e.nilai_prioritas, nilaiLamda[i]];
+			}),
+			startY: 30,
+		});
+		doc.setFontSize(11);
+		doc.text(`Nilai lamda maks: ${nilaiLamdaMaks}`, 15, 85);
+		doc.setFontSize(11);
+		doc.text(`Nilai CI: ${nilaiCI}`, 15, 91);
+		doc.setFontSize(11);
+		doc.text(`Nilai CR: ${nilaiCR}`, 15, 97);
+		doc.save("data_kriteria.pdf");
+	};
+
 	return (
 		<div style={{ display: "flex" }}>
 			<NavbarAdmin />
@@ -139,9 +188,20 @@ const KriteriaBantuan = () => {
 				<div className="content_dashboard_admin">
 					<h2 style={{ marginBottom: 10 }}>Data Kriteria</h2>
 					<div className="wrap_tbl_kriteria">
-						<Button variant="contained" onClick={handleClick}>
-							Hitung nilai prioritas
-						</Button>
+						<div className="flex_element_kriteria_bantuan">
+							<Button variant="contained" onClick={handleClick}>
+								Hitung nilai prioritas
+							</Button>
+							<div className="cetak_data_kriteria_bantuan">
+								<Button
+									variant="contained"
+									className="generate_pdf_kriteria_bantuan"
+									onClick={generatePdf}
+								>
+									Cetak ke PDF
+								</Button>
+							</div>
+						</div>
 						<table className="tbl_class">
 							<thead className="tbl_class_head">
 								<tr>

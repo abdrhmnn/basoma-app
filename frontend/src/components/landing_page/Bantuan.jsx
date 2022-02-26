@@ -10,22 +10,12 @@ import Footer from "./Footer";
 import API from "../../api";
 
 // npm packages
-import {
-	TextField,
-	FormGroup,
-	Checkbox,
-	FormControlLabel,
-	Box,
-	Typography,
-} from "@mui/material";
-import { useNavigate, createSearchParams } from "react-router-dom";
-import { AES } from "crypto-js";
+import { TextField, Box, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Bantuan = () => {
 	const [bantuan, setBantuan] = useState([]);
 	const [searchDataBantuan, setSearchDataBantuan] = useState("");
-	const [checkedKapasitas100, setCheckedKapasitas100] = useState(false);
-	const [checkedKapasitas50, setCheckedKapasitas50] = useState(false);
 
 	const navigate = useNavigate();
 
@@ -40,118 +30,6 @@ const Bantuan = () => {
 	};
 
 	const showBantuan = (data) => {
-		if (checkedKapasitas100) {
-			if (checkedKapasitas50) {
-				return data.map((e, i) => {
-					if (e.nama.toLowerCase().includes(searchDataBantuan)) {
-						return (
-							<Box
-								key={i}
-								sx={{
-									height: 90,
-									p: 3,
-									borderRadius: 3,
-								}}
-								onClick={() =>
-									navigate({
-										pathname: "/bantuan-detail",
-										search: `?${createSearchParams({
-											bi: AES.encrypt(e.kd_bantuan, "bantuan_id"),
-										}).toString()}`,
-									})
-								}
-							>
-								<Typography variant="h4" style={{ fontSize: "1.7em" }}>
-									{e.nama}
-								</Typography>
-
-								<div style={{ fontSize: ".9em" }}>
-									<p>
-										Kapasitas: <span>{e.kapasitas}</span>
-									</p>
-								</div>
-							</Box>
-						);
-					}
-					return null;
-				});
-			}
-
-			return data
-				.filter((e) => e.kapasitas === "100")
-				.map((e, i) => {
-					if (e.nama.toLowerCase().includes(searchDataBantuan)) {
-						return (
-							<Box
-								key={i}
-								sx={{
-									height: 90,
-									p: 3,
-									borderRadius: 3,
-								}}
-								onClick={() =>
-									navigate({
-										pathname: "/bantuan-detail",
-										search: `?${createSearchParams({
-											bi: AES.encrypt(e.kd_bantuan, "bantuan_id"),
-										}).toString()}`,
-									})
-								}
-							>
-								<Typography variant="h4" style={{ fontSize: "1.7em" }}>
-									{e.nama}
-								</Typography>
-
-								<div style={{ fontSize: ".9em" }}>
-									<p>
-										Kapasitas: <span>{e.kapasitas}</span>
-									</p>
-								</div>
-							</Box>
-						);
-					}
-
-					return null;
-				});
-		} else if (checkedKapasitas50) {
-			return data
-				.filter((e) => e.kapasitas === "50")
-				.map((e, i) => {
-					if (e.nama.toLowerCase().includes(searchDataBantuan)) {
-						return (
-							<Box
-								key={i}
-								sx={{
-									height: 90,
-									p: 3,
-									borderRadius: 3,
-								}}
-								onClick={() =>
-									navigate({
-										pathname: "/bantuan-detail",
-										search: `?${createSearchParams({
-											bi: AES.encrypt(e.kd_bantuan, "bantuan_id"),
-										}).toString()}`,
-									})
-								}
-							>
-								<Typography variant="h4" style={{ fontSize: "1.7em" }}>
-									{e.nama}
-								</Typography>
-
-								<div style={{ fontSize: ".9em" }}>
-									<p>
-										Kapasitas: <span>{e.kapasitas}</span>
-									</p>
-								</div>
-							</Box>
-						);
-					}
-
-					return null;
-				});
-		}
-
 		return data.map((e, i) => {
 			if (e.nama.toLowerCase().includes(searchDataBantuan)) {
 				return (
@@ -163,11 +41,8 @@ const Bantuan = () => {
 							borderRadius: 3,
 						}}
 						onClick={() =>
-							navigate({
-								pathname: "/bantuan-detail",
-								search: `?${createSearchParams({
-									bi: AES.encrypt(e.kd_bantuan, "bantuan_id"),
-								}).toString()}`,
+							navigate("/bantuan-detail", {
+								state: e.kd_bantuan,
 							})
 						}
 					>
@@ -212,35 +87,6 @@ const Bantuan = () => {
 				{/* Akhir search data section */}
 
 				<div className="bantuan_content">
-					{/* Filtering data section */}
-					<div className="filtering_bantuan">
-						<h3>Cari Berdasarkan</h3>
-						<p>Kapasitas</p>
-						<FormGroup row>
-							<FormControlLabel
-								control={
-									<Checkbox
-										onChange={(e) => {
-											setCheckedKapasitas100(e.target.checked);
-										}}
-									/>
-								}
-								label="100"
-							/>
-							<FormControlLabel
-								control={
-									<Checkbox
-										onChange={(e) => {
-											setCheckedKapasitas50(e.target.checked);
-										}}
-									/>
-								}
-								label="50"
-							/>
-						</FormGroup>
-					</div>
-					{/* Akhir filtering data section */}
-
 					{/* Showing data based on search and filter */}
 					<div className="result_bantuan">
 						{bantuan && showBantuan(bantuan)}

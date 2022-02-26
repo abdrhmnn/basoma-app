@@ -38,20 +38,20 @@ const SudahMengisiKuesioner = () => {
 			<div className="sudah_title">
 				<h2>Basoma</h2>
 			</div>
-			{userByID && nilaiPrioritasByID && (
+			{userByID && (
 				<div className="sudah_content">
 					<img
 						src={feel_sorry}
 						alt="Maaf tidak bisa mengisi kuesioner lagi"
 					/>
 					<h2>Kuesioner telah diisi sebelumnya</h2>
-					<p>
+					{/* <p>
 						Hasil pengisian kuesioner sebelumnya dengan nama{" "}
 						<i>
 							{userByID.nm_depan} {userByID.nm_belakang}
 						</i>{" "}
 						adalah <b>{nilaiPrioritasByID.total_nilai + "%"}</b>
-					</p>
+					</p> */}
 					<p>
 						Batas pengisian kuesioner pendaftaran hanya satu kali, jika
 						mendapatkan hasil akhir dibawah rata - rata maka tidak bisa

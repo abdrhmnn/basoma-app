@@ -9,10 +9,9 @@ import kuki from "../../kuki";
 import API from "../../api";
 
 // npm packages
-import { NavLink, useNavigate, createSearchParams } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Button, Menu, MenuItem } from "@mui/material";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { AES } from "crypto-js";
 
 const Navbar = (props) => {
 	const [userByID, setUserByID] = useState([]);
@@ -21,7 +20,6 @@ const Navbar = (props) => {
 
 	const navigate = useNavigate();
 	const open = Boolean(anchorEl);
-	const encrypt = AES.encrypt(kuki.get("user_id"), "userID");
 
 	useEffect(() => {
 		getUserByID();
@@ -113,11 +111,8 @@ const Navbar = (props) => {
 								</MenuItem>
 								<MenuItem
 									onClick={() => {
-										navigate({
-											pathname: "/edit-profile",
-											search: `?${createSearchParams({
-												ui: encrypt,
-											}).toString()}`,
+										navigate("/edit-profile", {
+											state: kuki.get("user_id"),
 										});
 									}}
 								>

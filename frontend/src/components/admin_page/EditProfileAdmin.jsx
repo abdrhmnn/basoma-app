@@ -18,7 +18,6 @@ import {
 	Alert,
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
-import { AES, enc } from "crypto-js";
 import { Formik, Field } from "formik";
 import { BiShowAlt, BiHide } from "react-icons/bi";
 import axios from "axios";
@@ -34,8 +33,6 @@ const EditProfileAdmin = () => {
 		selectedFile: null,
 	});
 	const location = useLocation();
-	const params = new URLSearchParams(location.search);
-	const ui = AES.decrypt(params.get("ui"), "abdu").toString(enc.Utf8);
 
 	const schemaEditProfile = Yup.object({
 		nm_depan: Yup.string().required("Nama depan masih kosong!"),
@@ -45,9 +42,7 @@ const EditProfileAdmin = () => {
 	});
 
 	useEffect(() => {
-		const params = new URLSearchParams(location.search);
-		const ui = AES.decrypt(params.get("ui"), "abdu").toString(enc.Utf8);
-		axios.get(`http://localhost:5000/users/${ui}`).then((res) => {
+		axios.get(`http://localhost:5000/users/${location.state}`).then((res) => {
 			setUserById(res.data);
 		});
 	}, [location]);
@@ -82,13 +77,16 @@ const EditProfileAdmin = () => {
 											selectedFileImg.selectedFile
 										);
 										axios.post("http://localhost:5000/uploads", data);
-										axios.patch(`http://localhost:5000/users/${ui}`, {
-											nm_depan: values.nm_depan,
-											nm_belakang: values.nm_belakang,
-											username: values.username,
-											password: values.password,
-											gambar: selectedFileImg.selectedFile.name,
-										});
+										axios.patch(
+											`http://localhost:5000/users/${location.state}`,
+											{
+												nm_depan: values.nm_depan,
+												nm_belakang: values.nm_belakang,
+												username: values.username,
+												password: values.password,
+												gambar: selectedFileImg.selectedFile.name,
+											}
+										);
 										setIsSuccess(false);
 									}}
 								>

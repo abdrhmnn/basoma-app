@@ -1,6 +1,25 @@
 .wrap_tbl_kriteria{
-    // margin-top: 20px;
+    margin: 0 0 100px 0;
     border-radius: 8px;
     box-shadow: rgba(145, 158, 171, 0.24) 0px 0px 2px 0px, rgba(145, 158, 171, 0.24) 0px 16px 32px -4px;
     padding: 20px 10px 10px 10px;
+
+    .flex_element_kriteria_bantuan{
+        display: flex;
+        justify-content: space-between;
+
+        .cetak_data_kriteria_bantuan{
+            display: flex;
+            align-items: center;
+
+            p{
+                margin: 0 15px 0 0;
+                font-size: 1em;
+            }
+
+            .generate_pdf_kriteria_bantuan{
+                background-color: rgb(255, 46, 46);
+            }
+        }
+    }
 }

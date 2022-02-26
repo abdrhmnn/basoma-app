@@ -16,9 +16,8 @@ import API from "../../api";
 import img1 from "./../../images/test.png";
 
 // npm packages
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button, CircularProgress, Alert } from "@mui/material";
-import { AES, enc } from "crypto-js";
 
 const BantuanDetail = ({ activeNav }) => {
 	const [isLoadContent, setIsLoadContent] = useState(false);
@@ -26,16 +25,21 @@ const BantuanDetail = ({ activeNav }) => {
 	const [bantuanByID, setBantuanByID] = useState(null);
 	const [userByID, setUserByID] = useState(null);
 
+	const navigate = useNavigate();
 	const location = useLocation();
 
 	useEffect(() => {
+		if (kuki.get("bantuan_id")) {
+			kuki.remove("bantuan_id");
+			kuki.remove("nilai_ci");
+			kuki.remove("nilai_cr");
+			kuki.remove("nilai_rangking");
+		}
+
 		document.title = "Detail Bantuan";
 		getUserByID();
 
-		const params = new URLSearchParams(location.search);
-		const bi = AES.decrypt(params.get("bi"), "bantuan_id").toString(enc.Utf8);
-
-		API.getBantuanByID(bi).then((res) => {
+		API.getBantuanByID(location.state).then((res) => {
 			setBantuanByID(res.data);
 		});
 
@@ -124,9 +128,12 @@ const BantuanDetail = ({ activeNav }) => {
 							<Button
 								variant="contained"
 								className="btn_daftar_bantuan"
-								component={Link}
-								to="/panduan-pendaftaran"
 								disabled={kuki.get("user_id") ? false : true}
+								onClick={() => {
+									navigate("/panduan-pendaftaran", {
+										state: location.state,
+									});
+								}}
 							>
 								Daftar
 							</Button>

@@ -30,7 +30,7 @@ body {
 }
 
 .content_dashboard_admin{
-    height: 2000px;
+    // height: 2000px;
     padding: 20px 20px 0 20px;
 
     h2{
@@ -43,7 +43,6 @@ body {
 .tbl_class{
     width: 100%;
     margin-top: 30px;
-    
     border-radius: 10px;
     border-spacing: 0;
 
@@ -203,6 +202,11 @@ body {
 @import "./admin_page/kriteria_bantuan.scss";
 @import "./admin_page/edit-kriteria-bantuan.scss";
 @import "./admin_page/masukan_admin.scss";
+@import "./admin_page/pendaftaran_bantuan.scss";
+@import "./admin_page/pendaftaran_bantuan_detail.scss";
+@import "./admin_page/warga_detail.scss";
+@import "./admin_page/rangking.scss";
+
 
 // Empty page style
 @import "./empty_page.scss";

@@ -25,6 +25,7 @@ import { useNavigate } from "react-router-dom";
 
 const FormPendaftaranBantuan = () => {
 	const [userByID, setUserByID] = useState(null);
+	const [alternatif, setAlternatif] = useState(null);
 	const [penghasilan, setPenghasilan] = useState("");
 	const [pendidikan, setPendidikan] = useState("");
 	const [luasRumah, setLuasRumah] = useState("");
@@ -45,6 +46,7 @@ const FormPendaftaranBantuan = () => {
 	useEffect(() => {
 		document.title = "Formulir Pendaftaran Bantuan";
 		getUserByID();
+		getAllAlternatif();
 	}, []);
 
 	const schemaFormPendaftaranBantuan = Yup.object({
@@ -59,6 +61,11 @@ const FormPendaftaranBantuan = () => {
 	const getUserByID = async () => {
 		const response = await API.getUserByID(kuki.get("user_id"));
 		setUserByID(response.data);
+	};
+
+	const getAllAlternatif = async () => {
+		const response = await API.getAllAlternatif();
+		setAlternatif(response.data);
 	};
 
 	const generateImgKTP = (e, props) => {
@@ -147,16 +154,28 @@ const FormPendaftaranBantuan = () => {
 							);
 							API.saveIMG_KTP(dataImgKTP);
 							API.saveIMG_BANGUNAN(dataImgBangunan);
+							API.saveAlternatif(
+								alternatif.length + 1,
+								kuki.get("user_id"),
+								kuki.get("nilai_ci"),
+								kuki.get("nilai_cr")
+							);
 							API.saveWarga(
 								values,
 								kuki.get("user_id"),
+								kuki.get("bantuan_id"),
 								penghasilan,
 								pendidikan,
 								luasRumah,
 								selectedFileImgKTP,
-								selectedFileImgBangunan
+								selectedFileImgBangunan,
+								kuki.get("nilai_rangking")
 							).then(() => {
 								navigate("/form-pendaftaran-success");
+								kuki.remove("bantuan_id");
+								kuki.remove("nilai_ci");
+								kuki.remove("nilai_cr");
+								kuki.remove("nilai_rangking");
 							});
 						} else {
 							setIsCompleteSubmit(true);

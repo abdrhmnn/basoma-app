@@ -1,0 +1,62 @@
+.container_rangking{
+    max-width: $max-width-container;
+    margin: auto;
+
+    .head_rangking{
+        h2{
+            font-size: 1.25em;
+        }
+    }
+
+    .content_rangking{
+        max-width: 1000px;
+        margin: 30px auto 50px auto;
+
+        .flex_element_rangking{
+            display: flex;
+        }
+
+        .rangking_alternatif{
+            .btn_detail_rangking{
+                padding: 5px;
+                font-size: .8em;
+                background-color: rgba(122, 180, 255, 0.397);
+                color: rgba(4, 0, 255, 0.815);
+                box-shadow: none;
+                font-weight: bold;
+        
+                &:hover{
+                    background-color: rgba(122, 180, 255, 0.397);
+                    box-shadow: none;
+                }
+            }
+            
+            .role_pending{
+                background-color: rgba(122, 180, 255, 0.397);
+                color: rgba(4, 0, 255, 0.815);
+                font-weight: bold;
+                font-size: .85em;
+                padding: 7px;
+                border-radius: 8px;
+            }
+
+            .role_diterima{
+                background-color: rgba(78, 252, 165, 0.397);
+                color: rgba(43, 170, 31, 0.836);
+                font-weight: bold;
+                font-size: .85em;
+                padding: 7px;
+                border-radius: 8px;
+            }
+
+            .role_ditolak{
+                background-color: rgba(252, 104, 78, 0.397);
+                color: rgba(192, 29, 29, 0.836);
+                font-weight: bold;
+                font-size: .85em;
+                padding: 7px;
+                border-radius: 8px;
+            }
+        }
+    }
+}

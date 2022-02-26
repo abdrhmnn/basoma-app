@@ -7,6 +7,12 @@ const UPLOAD = {
     showIMG: (data) => {
         return `http://localhost:5000/public/${data}`
     },
+    showImgKTP: (data) => {
+        return `http://localhost:5000/public/fktp/${data}`
+    },
+    showImgBangunan: (data) => {
+        return `http://localhost:5000/public/fbangunan/${data}`
+    },
     saveIMG_KTP: (data) => {
         return axios.post(`/uploads/ktp`, data)
     },

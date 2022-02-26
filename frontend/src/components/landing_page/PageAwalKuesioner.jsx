@@ -4,9 +4,12 @@ import React from "react";
 
 // npm packages
 import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const PageAwalKuesioner = () => {
+	const navigate = useNavigate();
+	const location = useLocation();
+
 	return (
 		<div className="panduan">
 			<div className="logo_app">
@@ -17,8 +20,11 @@ const PageAwalKuesioner = () => {
 				<p>Silahkan lengkapi beberapa pertanyaan yang akan diberikan</p>
 				<Button
 					variant="contained"
-					component={Link}
-					to="/kuesioner-pendaftaran"
+					onClick={() =>
+						navigate("/kuesioner-pendaftaran", {
+							state: location.state,
+						})
+					}
 				>
 					mulai
 				</Button>

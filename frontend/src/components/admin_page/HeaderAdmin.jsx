@@ -7,16 +7,13 @@ import kuki from "../../kuki";
 import { Button, Menu, MenuItem, Avatar } from "@mui/material";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import axios from "axios";
-import { useNavigate, createSearchParams } from "react-router-dom";
-import { AES } from "crypto-js";
+import { useNavigate } from "react-router-dom";
 
 const HeaderAdmin = ({ isRendering }) => {
 	const [userById, setUserById] = useState({});
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
 	const navigate = useNavigate();
-
-	const encrypt = AES.encrypt(kuki.get("user_id"), "abdu");
 
 	const handleClose = () => {
 		setAnchorEl(null);
@@ -67,11 +64,8 @@ const HeaderAdmin = ({ isRendering }) => {
 				>
 					<MenuItem
 						onClick={() => {
-							navigate({
-								pathname: "/edit-profile-admin",
-								search: `?${createSearchParams({
-									ui: encrypt,
-								}).toString()}`,
+							navigate("/edit-profile-admin", {
+								state: kuki.get("user_id"),
 							});
 						}}
 					>

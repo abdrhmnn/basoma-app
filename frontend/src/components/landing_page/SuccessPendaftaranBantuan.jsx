@@ -33,7 +33,7 @@ const SuccessPendaftaranBantuan = () => {
 							Data akan di review selama 2x24 jam, pemberitahuan akan
 							ditampilkan dihalaman notifikasi atau bisa akses{" "}
 							<Link
-								to="/notifikasi"
+								to="/pemberitahuan"
 								style={{
 									color: "white",
 								}}

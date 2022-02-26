@@ -1,0 +1,112 @@
+.wrap_detail_warga{
+    margin: 0 0 100px 0;
+    border-radius: 8px;
+    box-shadow: rgba(145, 158, 171, 0.24) 0px 0px 2px 0px, rgba(145, 158, 171, 0.24) 0px 16px 32px -4px;
+    padding: 20px 10px 10px 10px;
+
+    p{
+        color: rgb(94, 94, 94);
+    }
+
+    .nilai_perhitungan{
+        margin: 20px 0 50px 0;
+
+        h2{
+            font-size: 1em;
+            color:rgb(51, 51, 51);
+        }
+
+        .nilai_prio_rangking{
+            display: flex;
+
+            .nilai_prioritas{
+                width: 60%;
+                margin-right: 20px;
+            }
+
+            .nilai_rangking{
+                width: 100%;
+            }
+        }
+
+        .nilai_ci_cr{
+            display: flex;
+
+            .nilai_ci{
+                width: 60%;
+                margin-right: 20px;
+            }
+
+            .nilai_cr{
+                width: 100%;
+            }
+        }
+    }
+
+    .data_diri_alternatif{
+        h2{
+            font-size: 1em;
+            color:rgb(51, 51, 51);
+        }
+        
+        .flex_nik_nm_lengkap{
+            display: flex;
+    
+            .nik{
+                width: 60%;
+                margin-right: 20px;
+            }
+    
+            .nm_lengkap{
+                width: 100%;
+            }
+        }
+    
+        .flex_pekerjaan_penghasilan{
+            display: flex;
+    
+            .pekerjaan{
+                width: 60%;
+                margin-right: 20px;
+            }
+    
+            .penghasilan{
+                width: 100%;
+            }
+        }
+    
+        .flex_pendidikan_luas_rumah{
+            display: flex;
+    
+            .pendidikan{
+                width: 60%;
+                margin-right: 20px;
+            }
+    
+            .luas_rumah{
+                width: 100%;
+            }
+        }
+    
+        .flex_foto_ktp_bangunan{
+            display: flex;
+    
+            .ft_ktp{
+                width: 60%;
+                margin-right: 20px;
+    
+                img{
+                    width: 90%;
+                }
+            }
+    
+            .ft_bangunan{
+                width: 100%;
+    
+                img{
+                    width: 90%;
+                }
+            }
+        }
+    }
+}

@@ -1,4 +1,4 @@
-GET http://localhost:5000/masukan/userId/USER_5
+GET http://localhost:5000/pendaftaran/noKTP/44444
 
 ###
 
@@ -35,7 +35,7 @@ DELETE http://localhost:5000/kriteria/KB_5
 
 ###
 
-GET http://localhost:5000/bantuan/kapasitas/100
+GET http://localhost:5000/warga/sortRangking
 
 ###
 

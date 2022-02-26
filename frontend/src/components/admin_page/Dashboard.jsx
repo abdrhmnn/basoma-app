@@ -4,6 +4,9 @@ import React, { useState, useEffect } from "react";
 import HeaderAdmin from "./HeaderAdmin";
 import NavbarAdmin from "./NavbarAdmin";
 
+// API storage
+import API from "../../api";
+
 // npm packages
 import { FaHandsHelping, FaUserFriends, FaListUl } from "react-icons/fa";
 import { MdAssignmentInd } from "react-icons/md";
@@ -17,11 +20,12 @@ import {
 	Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import axios from "axios";
 
 const Dashboard = () => {
 	const [user, setUser] = useState([]);
 	const [bantuan, setBantuan] = useState([]);
+	const [pendaftaran, setPendaftaran] = useState([]);
+	const [kriteria, setKriteria] = useState([]);
 
 	ChartJS.register(
 		CategoryScale,
@@ -57,16 +61,28 @@ const Dashboard = () => {
 		document.title = "Dashboard Admin";
 		getAllUser();
 		getAllBantuan();
+		getAllPendaftaran();
+		getAllKriteria();
 	}, []);
 
 	const getAllUser = async () => {
-		const response = await axios.get("http://localhost:5000/users");
+		const response = await API.getAllUser();
 		setUser(response.data);
 	};
 
 	const getAllBantuan = async () => {
-		const response = await axios.get("http://localhost:5000/bantuan");
+		const response = await API.getAllBantuan();
 		setBantuan(response.data);
+	};
+
+	const getAllPendaftaran = async () => {
+		const response = await API.getAllWarga();
+		setPendaftaran(response.data);
+	};
+
+	const getAllKriteria = async () => {
+		const response = await API.getAllKriteria();
+		setKriteria(response.data);
 	};
 
 	return (
@@ -139,7 +155,7 @@ const Dashboard = () => {
 								<MdAssignmentInd size={30} />
 							</div>
 							<div className="info_detail">
-								<h2>23</h2>
+								<h2>{pendaftaran.length}</h2>
 								<p>Pendaftaran Bantuan</p>
 							</div>
 						</div>
@@ -161,14 +177,14 @@ const Dashboard = () => {
 								<FaListUl size={28} />
 							</div>
 							<div className="info_detail">
-								<h2>30</h2>
+								<h2>{kriteria.length}</h2>
 								<p>Kriteria Bantuan</p>
 							</div>
 						</div>
 					</div>
 					<div className="dashboard_chart">
 						<h2>Data Pendaftaran Bantuan</h2>
-						<p>berdasarkan status diterima</p>
+						<p>berdasarkan status penerimaan</p>
 						<Bar options={options} data={data} />
 					</div>
 				</div>

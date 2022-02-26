@@ -1,0 +1,64 @@
+.wrap_tbl_pendaftaran_bantuan_detail{
+    margin: 20px 0 100px 0;
+    border-radius: 8px;
+    box-shadow: rgba(145, 158, 171, 0.24) 0px 0px 2px 0px, rgba(145, 158, 171, 0.24) 0px 16px 32px -4px;
+    padding: 20px 10px 10px 10px;
+
+    .flex_element_pendaftaran_bantuan_detail{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .btn_detail_pendaftaran{
+        padding: 5px;
+        font-size: .8em;
+        background-color: rgba(122, 180, 255, 0.397);
+        color: rgba(4, 0, 255, 0.815);
+        box-shadow: none;
+        font-weight: bold;
+
+        &:hover{
+            background-color: rgba(122, 180, 255, 0.397);
+            box-shadow: none;
+        }
+    }
+
+    .show_length_data_pendaftaran{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 10px;
+
+        p{
+            margin: 0 10px 0 0;
+        }
+    }
+
+    .role_pending{
+        background-color: rgba(122, 180, 255, 0.397);
+        color: rgba(4, 0, 255, 0.815);
+        font-weight: bold;
+        font-size: .85em;
+        padding: 7px;
+        border-radius: 8px;
+    }
+
+    .role_diterima{
+        background-color: rgba(78, 252, 165, 0.397);
+        color: rgba(43, 170, 31, 0.836);
+        font-weight: bold;
+        font-size: .85em;
+        padding: 7px;
+        border-radius: 8px;
+    }
+
+    .role_ditolak{
+        background-color: rgba(252, 104, 78, 0.397);
+        color: rgba(192, 29, 29, 0.836);
+        font-weight: bold;
+        font-size: .85em;
+        padding: 7px;
+        border-radius: 8px;
+    }
+}

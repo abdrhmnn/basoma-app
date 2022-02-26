@@ -23,7 +23,6 @@ import {
 	Alert,
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
-import { AES, enc } from "crypto-js";
 import { Formik, Field } from "formik";
 import { BiShowAlt, BiHide } from "react-icons/bi";
 import * as Yup from "yup";
@@ -37,8 +36,6 @@ const EditProfile = () => {
 	const [selectedFileImg, setSelectedFileImg] = useState(null);
 
 	const location = useLocation();
-	const params = new URLSearchParams(location.search);
-	const ui = AES.decrypt(params.get("ui"), "userID").toString(enc.Utf8);
 
 	const schemaEditProfile = Yup.object({
 		nm_depan: Yup.string().required("Nama depan masih kosong!"),
@@ -48,10 +45,10 @@ const EditProfile = () => {
 	});
 
 	useEffect(() => {
-		const params = new URLSearchParams(location.search);
-		const ui = AES.decrypt(params.get("ui"), "userID").toString(enc.Utf8);
+		// const params = new URLSearchParams(location.search);
+		// const ui = AES.decrypt(params.get("ui"), "userID").toString(enc.Utf8);
 
-		API.getUserByID(ui).then((res) => {
+		API.getUserByID(location.state).then((res) => {
 			setUserByID(res.data);
 		});
 	}, [location]);
@@ -76,12 +73,16 @@ const EditProfile = () => {
 						onSubmit={(values, actions) => {
 							if (selectedFileImg === null) {
 								// API.updateUserByID(values, selectedFileImg, ui);
-								API.updateUserTanpaGambar(values, ui);
+								API.updateUserTanpaGambar(values, location.state);
 							} else {
 								const data = new FormData();
 								data.append("gambar", selectedFileImg);
 								API.saveIMG(data);
-								API.updateUserByID(values, selectedFileImg, ui);
+								API.updateUserByID(
+									values,
+									selectedFileImg,
+									location.state
+								);
 							}
 							setIsSuccessUpdate(true);
 						}}

@@ -1,0 +1,24 @@
+.wrap_tbl_pendaftaran_bantuan{
+    margin: 20px 0 100px 0;
+
+    .flex_element_pendaftaran{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .list_bantuan{
+        margin-top: 20px;
+
+        // styling for box result data bantuan
+        .MuiBox-root{
+            transition: .5s;
+            margin-bottom: 20px;
+
+            &:hover{
+                box-shadow: $card-box-shadow;
+                cursor: pointer;
+            }
+        }
+    }
+}

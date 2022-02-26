@@ -32,6 +32,10 @@ import EditProfileAdmin from "./components/admin_page/EditProfileAdmin";
 import KriteriaBantuan from "./components/admin_page/KriteriaBantuan";
 import EditKriteriaBantuan from "./components/admin_page/EditKriteriaBantuan";
 import MasukanAdmin from "./components/admin_page/Masukan";
+import PendaftaranBantuan from "./components/admin_page/PendaftaranBantuan";
+import PendaftaranBantuanDetail from "./components/admin_page/PendaftaranBantuanDetail";
+import WargaDetail from "./components/admin_page/WargaDetail";
+import RangkingAlternatif from "./components/admin_page/RangkingAlternatif";
 
 // npm packages
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
@@ -310,6 +314,46 @@ class App extends Component{
                 element={
                   <PrivateRouteAdmin>
                     <MasukanAdmin />
+                  </PrivateRouteAdmin>
+                }
+              />
+
+              <Route
+                exact
+                path="/pendaftaran-bantuan"
+                element={
+                  <PrivateRouteAdmin>
+                    <PendaftaranBantuan />
+                  </PrivateRouteAdmin>
+                }
+              />
+
+              <Route
+                exact
+                path="/pendaftaran-bantuan-detail"
+                element={
+                  <PrivateRouteAdmin>
+                    <PendaftaranBantuanDetail />
+                  </PrivateRouteAdmin>
+                }
+              />
+
+              <Route
+                exact
+                path="/warga-detail"
+                element={
+                  <PrivateRouteAdmin>
+                    <WargaDetail />
+                  </PrivateRouteAdmin>
+                }
+              />
+
+              <Route
+                exact
+                path="/rangking"
+                element={
+                  <PrivateRouteAdmin>
+                    <RangkingAlternatif />
                   </PrivateRouteAdmin>
                 }
               />

@@ -21,7 +21,7 @@ import {
 	Snackbar,
 	Alert,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const KuesionerPendaftaran = () => {
 	const [kriteriaBantuan, setKriteriaBantuan] = useState(null);
@@ -29,6 +29,7 @@ const KuesionerPendaftaran = () => {
 	const [prioritas, setPrioritas] = useState(null);
 
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	// state for get jawaban user
 	const [jawabanSatu, setJawabanSatu] = useState(null);
@@ -43,6 +44,13 @@ const KuesionerPendaftaran = () => {
 	const [valueRB3, setValueRB3] = useState("");
 	const [valueRB4, setValueRB4] = useState("");
 	const [valueRB5, setValueRB5] = useState("");
+
+	// state for check correct users answer
+	const [correctAnswer1, setCorrectAnswer1] = useState(false);
+	const [correctAnswer2, setCorrectAnswer2] = useState(false);
+	const [correctAnswer3, setCorrectAnswer3] = useState(false);
+	const [correctAnswer4, setCorrectAnswer4] = useState(false);
+	const [correctAnswer5, setCorrectAnswer5] = useState(false);
 
 	const [isValidSubmit, setIsValidSubmit] = useState(false);
 	const [isOpenSnackbar, setIsOpenSnackbar] = useState(false);
@@ -77,12 +85,208 @@ const KuesionerPendaftaran = () => {
 		setIsOpenSnackbar(false);
 	};
 
+	const hitungNilaiDecimalAlternatif = (hasilNilaiPrioritas) => {
+		const nilaiBobot = [];
+		const kalkulasiNilaiDecimal = [];
+		const nilaiEigen = [];
+		const nilaiLamda = [];
+		const jmlhKriteria = 5;
+		const nilaiRI = 1.12;
+
+		// variable untuk menyimpan nilai decimal per jawaban yang sesuai dgn kriteria
+		const nilaiDecimalPendidikan = [];
+		const nilaiDecimalPekerjaan = [];
+		const nilaiDecimalPenghasilan = [];
+		const nilaiDecimalLuasRumah = [];
+		const nilaiDecimalSumberPenerangan = [];
+
+		// variabel untuk menyimpan nilai normalisasi alternatif
+		const normalisasiPendidikan = [];
+		const normalisasiPekerjaan = [];
+		const normalisasiPenghasilan = [];
+		const normalisasiLuasRumah = [];
+		const normalisasiSumberPenerangan = [];
+
+		// variabel untuk menangkap nilai normalisasi lamda alternatif
+		const normalisasiLamda = [];
+
+		for (let i = 0; i < kriteriaBantuan.length; i++) {
+			nilaiBobot.push(kriteriaBantuan[i].nilai_bobot);
+		}
+
+		// loop per jawaban untuk mendapatkan nilai decimal per kriteria
+		if (correctAnswer1) {
+			for (let i = 0; i < kriteriaBantuan.length; i++) {
+				nilaiDecimalPendidikan.push(nilaiBobot[0] / nilaiBobot[i]);
+			}
+		} else {
+			nilaiDecimalPendidikan.push(1, 0, 0, 0, 0);
+		}
+
+		if (correctAnswer2) {
+			for (let i = 0; i < kriteriaBantuan.length; i++) {
+				nilaiDecimalPekerjaan.push(nilaiBobot[1] / nilaiBobot[i]);
+			}
+		} else {
+			nilaiDecimalPekerjaan.push(0, 1, 0, 0, 0);
+		}
+
+		if (correctAnswer3) {
+			for (let i = 0; i < kriteriaBantuan.length; i++) {
+				nilaiDecimalPenghasilan.push(nilaiBobot[2] / nilaiBobot[i]);
+			}
+		} else {
+			nilaiDecimalPenghasilan.push(0, 0, 1, 0, 0);
+		}
+
+		if (correctAnswer4) {
+			for (let i = 0; i < kriteriaBantuan.length; i++) {
+				nilaiDecimalLuasRumah.push(nilaiBobot[3] / nilaiBobot[i]);
+			}
+		} else {
+			nilaiDecimalLuasRumah.push(0, 0, 0, 1, 0);
+		}
+
+		if (correctAnswer5) {
+			for (let i = 0; i < kriteriaBantuan.length; i++) {
+				nilaiDecimalSumberPenerangan.push(nilaiBobot[4] / nilaiBobot[i]);
+			}
+		} else {
+			nilaiDecimalSumberPenerangan.push(0, 0, 0, 0, 1);
+		}
+
+		// membulatkan nilai decimal yang didapat
+		const roundNilaiDecimalPendidikan = nilaiDecimalPendidikan.map(
+			(e, i) => Math.floor(e * 100) / 100
+		);
+		const roundNilaiDecimalPekerjaan = nilaiDecimalPekerjaan.map(
+			(e, i) => Math.floor(e * 100) / 100
+		);
+		const roundNilaiDecimalPenghasilan = nilaiDecimalPenghasilan.map(
+			(e, i) => Math.floor(e * 100) / 100
+		);
+		const roundNilaiDecimalLuasRumah = nilaiDecimalLuasRumah.map(
+			(e, i) => Math.floor(e * 100) / 100
+		);
+		const roundNilaiDecimalSumberPenerangan =
+			nilaiDecimalSumberPenerangan.map((e, i) => Math.floor(e * 100) / 100);
+
+		for (let y = 0; y < kriteriaBantuan.length; y++) {
+			kalkulasiNilaiDecimal.push(
+				roundNilaiDecimalPendidikan[y] +
+					roundNilaiDecimalPekerjaan[y] +
+					roundNilaiDecimalPenghasilan[y] +
+					roundNilaiDecimalLuasRumah[y] +
+					roundNilaiDecimalSumberPenerangan[y]
+			);
+		}
+
+		for (let x = 0; x < kriteriaBantuan.length; x++) {
+			normalisasiPendidikan.push(
+				roundNilaiDecimalPendidikan[x] / kalkulasiNilaiDecimal[x]
+			);
+			normalisasiPekerjaan.push(
+				roundNilaiDecimalPekerjaan[x] / kalkulasiNilaiDecimal[x]
+			);
+			normalisasiPenghasilan.push(
+				roundNilaiDecimalPenghasilan[x] / kalkulasiNilaiDecimal[x]
+			);
+			normalisasiLuasRumah.push(
+				roundNilaiDecimalLuasRumah[x] / kalkulasiNilaiDecimal[x]
+			);
+			normalisasiSumberPenerangan.push(
+				roundNilaiDecimalSumberPenerangan[x] / kalkulasiNilaiDecimal[x]
+			);
+		}
+
+		// membulatkan hasil normalisasi
+		const roundNormalisasiPendidikan = normalisasiPendidikan.map(
+			(e, i) => Math.round(e * 100) / 100
+		);
+		const roundNormalisasiPekerjaan = normalisasiPekerjaan.map(
+			(e, i) => Math.round(e * 100) / 100
+		);
+		const roundNormalisasiPenghasilan = normalisasiPenghasilan.map(
+			(e, i) => Math.round(e * 100) / 100
+		);
+		const roundNormalisasiLuasRumah = normalisasiLuasRumah.map(
+			(e, i) => Math.round(e * 100) / 100
+		);
+		const roundNormalisasiSumberPenerangan = normalisasiSumberPenerangan.map(
+			(e, i) => Math.round(e * 100) / 100
+		);
+
+		// kalkulasi data normalisasi
+		const jmlhNormalisasiPendidikan = roundNormalisasiPendidikan.reduce(
+			(accu, curr) => accu + curr,
+			0
+		);
+		const jmlhNormalisasiPekerjaan = roundNormalisasiPekerjaan.reduce(
+			(accu, curr) => accu + curr,
+			0
+		);
+		const jmlhNormalisasiPenghasilan = roundNormalisasiPenghasilan.reduce(
+			(accu, curr) => accu + curr,
+			0
+		);
+		const jmlhNormalisasiLuasRumah = roundNormalisasiLuasRumah.reduce(
+			(accu, curr) => accu + curr,
+			0
+		);
+		const jmlhNormalisasiSumberPenerangan =
+			roundNormalisasiSumberPenerangan.reduce(
+				(accu, curr) => accu + curr,
+				0
+			);
+
+		// menghitung nilai eigen
+		nilaiEigen.push(
+			Math.round((jmlhNormalisasiPendidikan / jmlhKriteria) * 100) / 100,
+			Math.round((jmlhNormalisasiPekerjaan / jmlhKriteria) * 100) / 100,
+			Math.round((jmlhNormalisasiPenghasilan / jmlhKriteria) * 100) / 100,
+			Math.round((jmlhNormalisasiLuasRumah / jmlhKriteria) * 100) / 100,
+			Math.round((jmlhNormalisasiSumberPenerangan / jmlhKriteria) * 100) /
+				100
+		);
+
+		// mencari nilai lamda, lamda maks, CI, dan CR
+		for (let i = 0; i < kriteriaBantuan.length; i++) {
+			nilaiLamda.push(nilaiEigen[i] * kalkulasiNilaiDecimal[i]);
+		}
+
+		const nilaiLamdaMaks = nilaiLamda.reduce((accu, curr) => accu + curr, 0);
+		const nilaiCI = (nilaiLamdaMaks - jmlhKriteria) / (jmlhKriteria - 1);
+		const nilaiCR = nilaiCI / nilaiRI;
+
+		// mendapatkan nilai normalisasi lamda per alternatif
+		for (let i = 0; i < kriteriaBantuan.length; i++) {
+			normalisasiLamda.push(nilaiLamda[i] * kriteriaBantuan[i].nilai_lamda);
+		}
+
+		// nilai hasil akhir rangking
+		const nilaiRangkingAlternatif = (
+			normalisasiLamda.reduce((accu, curr) => accu + curr) * 10
+		).toFixed(2);
+
+		// check jika user mendapatkan skor diatas rata-rata
+		kuki.set("nilai_ci", nilaiCI);
+		kuki.set("nilai_cr", nilaiCR);
+		kuki.set("nilai_rangking", nilaiRangkingAlternatif);
+		kuki.set("bantuan_id", location.state);
+		// if (Math.floor((hasilNilaiPrioritas / 10) * 1000) > 50) {
+		// 	kuki.set("nilai_ci", nilaiCI);
+		// 	kuki.set("nilai_cr", nilaiCR);
+		// 	kuki.set("nilai_rangking", nilaiRangkingAlternatif);
+		// 	kuki.set("bantuan_id", location.state);
+		// }
+	};
+
 	return (
 		// Component kuesioner pendaftaran content
 		<div className="kuesioner">
 			{kriteriaBantuan && userByID && (
 				<div>
-					{userByID.status_pengisian === "sudah" ? (
+					{userByID.status_pengisian === "sudah" && !location.state ? (
 						<SudahMengisiKuesioner />
 					) : (
 						<div>
@@ -147,6 +351,7 @@ const KuesionerPendaftaran = () => {
 																		kriteriaBantuan[0]
 																			.pilihan_satu
 																	);
+																	setCorrectAnswer1(true);
 																}}
 																style={{ fontSize: ".9em" }}
 															/>
@@ -164,6 +369,7 @@ const KuesionerPendaftaran = () => {
 																		kriteriaBantuan[0]
 																			.pilihan_dua
 																	);
+																	setCorrectAnswer1(false);
 																}}
 															/>
 														}
@@ -197,6 +403,7 @@ const KuesionerPendaftaran = () => {
 																		kriteriaBantuan[1]
 																			.pilihan_satu
 																	);
+																	setCorrectAnswer2(false);
 																}}
 															/>
 														}
@@ -215,6 +422,7 @@ const KuesionerPendaftaran = () => {
 																		kriteriaBantuan[1]
 																			.pilihan_dua
 																	);
+																	setCorrectAnswer2(true);
 																}}
 															/>
 														}
@@ -250,6 +458,7 @@ const KuesionerPendaftaran = () => {
 																		kriteriaBantuan[2]
 																			.pilihan_satu
 																	);
+																	setCorrectAnswer3(true);
 																}}
 															/>
 														}
@@ -266,6 +475,7 @@ const KuesionerPendaftaran = () => {
 																		kriteriaBantuan[2]
 																			.pilihan_dua
 																	);
+																	setCorrectAnswer3(false);
 																}}
 															/>
 														}
@@ -301,6 +511,7 @@ const KuesionerPendaftaran = () => {
 																		kriteriaBantuan[3]
 																			.pilihan_satu
 																	);
+																	setCorrectAnswer4(true);
 																}}
 															/>
 														}
@@ -317,6 +528,7 @@ const KuesionerPendaftaran = () => {
 																		kriteriaBantuan[3]
 																			.pilihan_dua
 																	);
+																	setCorrectAnswer4(false);
 																}}
 															/>
 														}
@@ -350,6 +562,7 @@ const KuesionerPendaftaran = () => {
 																		kriteriaBantuan[4]
 																			.pilihan_satu
 																	);
+																	setCorrectAnswer5(false);
 																}}
 															/>
 														}
@@ -368,6 +581,7 @@ const KuesionerPendaftaran = () => {
 																		kriteriaBantuan[4]
 																			.pilihan_dua
 																	);
+																	setCorrectAnswer5(true);
 																}}
 															/>
 														}
@@ -386,10 +600,10 @@ const KuesionerPendaftaran = () => {
 									variant="contained"
 									className="btn_submit_kuesioner"
 									onClick={() => {
-										const arrJawaban = [];
+										const arrValueJawaban = [];
 										let prioritasLength = prioritas.length + 1;
 
-										arrJawaban.push(
+										arrValueJawaban.push(
 											valueRB1,
 											valueRB2,
 											valueRB3,
@@ -411,10 +625,18 @@ const KuesionerPendaftaran = () => {
 												parseFloat(jawabanEmpat) +
 												parseFloat(jawabanLima);
 
-											for (let i = 0; i < arrJawaban.length; i++) {
+											hitungNilaiDecimalAlternatif(
+												hasilNilaiPrioritas
+											);
+
+											for (
+												let i = 0;
+												i < arrValueJawaban.length;
+												i++
+											) {
 												API.savePrioritas(
 													prioritasLength++,
-													arrJawaban[i],
+													arrValueJawaban[i],
 													kuki.get("user_id"),
 													Math.floor(
 														(hasilNilaiPrioritas / 10) * 1000

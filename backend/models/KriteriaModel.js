@@ -17,6 +17,9 @@ const Kriteria = db.define('kriteria_tbl', {
     nilai_prioritas: {
         type: DataTypes.NUMBER
     },
+    nilai_lamda: {
+        type: DataTypes.NUMBER
+    },
     keterangan: {
         type: DataTypes.STRING
     },

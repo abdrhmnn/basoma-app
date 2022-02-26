@@ -372,26 +372,26 @@ const HasilKuesionerPendaftaran = () => {
 					{/* Akhir tabel kuesioner */}
 
 					{/* Alert hasil akhir section */}
-					{hasilKuesioner[0].total_nilai > 50 ? (
-						<Alert
-							variant="outlined"
-							severity="success"
-							sx={{ mt: 2, fontSize: ".9em" }}
+					<Alert
+						variant="outlined"
+						severity="success"
+						sx={{ mt: 2, fontSize: ".9em" }}
+					>
+						<AlertTitle>Selamat!</AlertTitle>
+						Anda berkemungkinan sebesar{" "}
+						<span style={{ fontWeight: "bold" }}>
+							{hasilKuesioner[0].total_nilai + "%"}
+						</span>{" "}
+						untuk bisa mendapatkan bantuan sosial, silahkan klik{" "}
+						<Link
+							to="/form-pendaftaran"
+							style={{ color: "#334620", fontWeight: "bold" }}
 						>
-							<AlertTitle>Selamat!</AlertTitle>
-							Anda berkemungkinan sebesar{" "}
-							<span style={{ fontWeight: "bold" }}>
-								{hasilKuesioner[0].total_nilai + "%"}
-							</span>{" "}
-							untuk bisa mendapatkan bantuan sosial, silahkan klik{" "}
-							<Link
-								to="/form-pendaftaran"
-								style={{ color: "#334620", fontWeight: "bold" }}
-							>
-								disini!
-							</Link>{" "}
-							untuk proses lebih lanjut.
-						</Alert>
+							disini!
+						</Link>{" "}
+						untuk proses lebih lanjut.
+					</Alert>
+					{/* {hasilKuesioner[0].total_nilai > 50 ? (
 					) : (
 						<Alert
 							variant="outlined"
@@ -404,7 +404,7 @@ const HasilKuesionerPendaftaran = () => {
 							</span>{" "}
 							untuk bisa mendapatkan bantuan sosial
 						</Alert>
-					)}
+					)} */}
 					{/* Akhir alert hasil akhir section */}
 				</div>
 			)}

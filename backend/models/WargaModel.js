@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
 import db from "../config/database.js";
 import User from "./UserModel.js";
+import Bantuan from "./BantuanModel.js";
 
 const { DataTypes } = Sequelize;
 
@@ -14,6 +15,13 @@ const Warga = db.define('warga_tbl', {
         references: {
             model: User,
             key: 'user_id'
+        }
+    },
+    kd_bantuan: {
+        type: DataTypes.STRING,
+        references: {
+            model: Bantuan,
+            key: 'bantuan_id'
         }
     },
     nama_lengkap: {
@@ -37,12 +45,18 @@ const Warga = db.define('warga_tbl', {
     sumber_penerangan_rumah: {
         type: DataTypes.STRING
     },
+    status_penerimaan: {
+        type: DataTypes.STRING
+    },
     foto_ktp: {
         type: DataTypes.STRING
     },
     foto_bangunan_rumah: {
         type: DataTypes.STRING
     },
+    nilai_rangking: {
+        type: DataTypes.INTEGER
+    }
 }, {
     freezeTableName: true
 })
