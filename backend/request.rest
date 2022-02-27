@@ -39,11 +39,11 @@ GET http://localhost:5000/warga/sortRangking
 
 ###
 
-PATCH  http://localhost:5000/kriteria/KB_2
+PATCH  http://localhost:5000/warga/update/USER_5
 Content-Type: application/json
 
 {
-    "nilai_prioritas": 2.57
+    "status_penerimaan": "diterima"
 }
 ###
 

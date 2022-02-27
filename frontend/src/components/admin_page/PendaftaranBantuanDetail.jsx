@@ -14,6 +14,8 @@ import {
 	FormControl,
 	Select,
 	MenuItem,
+	Alert,
+	Snackbar,
 } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -23,11 +25,13 @@ const PendaftaranBantuanDetail = () => {
 	const [searchDataPendaftaran, setSearchDataPendaftaran] = useState("");
 	const [dataPendaftaranLength, setDataPendaftaranLength] = useState(5);
 
+	const [isOpenSnackbar, setIsOpenSnackbar] = useState(true);
+
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	useEffect(() => {
-		API.getWargaByBantuanID(location.state).then((res) =>
+		API.getWargaByBantuanID(location.state.kd_bantuan).then((res) =>
 			setPendaftaranBantuanByUserID(res.data)
 		);
 	}, [location]);
@@ -45,6 +49,15 @@ const PendaftaranBantuanDetail = () => {
 		return <span className="role_ditolak">{role}</span>;
 	};
 
+	const handleCloseSnackbar = (event, reason) => {
+		if (reason === "clickaway") {
+			return;
+		}
+
+		location.state.alert_penerimaan = false;
+		setIsOpenSnackbar(false);
+	};
+
 	return (
 		<div style={{ display: "flex" }}>
 			<NavbarAdmin />
@@ -52,6 +65,21 @@ const PendaftaranBantuanDetail = () => {
 				<HeaderAdmin />
 				<div className="content_dashboard_admin">
 					<h2>Data Pendaftaran Bantuan</h2>
+					{location.state.alert_penerimaan ? (
+						<Snackbar
+							open={isOpenSnackbar}
+							autoHideDuration={4000}
+							onClose={handleCloseSnackbar}
+						>
+							<Alert
+								onClose={handleCloseSnackbar}
+								severity="info"
+								variant="filled"
+							>
+								Status penerimaan berhasil diperbarui!
+							</Alert>
+						</Snackbar>
+					) : null}
 					<div className="wrap_tbl_pendaftaran_bantuan_detail">
 						<div className="flex_element_pendaftaran_bantuan_detail">
 							<TextField
@@ -68,7 +96,7 @@ const PendaftaranBantuanDetail = () => {
 									className="rekomendasi_alternatif"
 									onClick={() => {
 										navigate("/rangking", {
-											state: location.state,
+											state: location.state.kd_bantuan,
 										});
 									}}
 								>

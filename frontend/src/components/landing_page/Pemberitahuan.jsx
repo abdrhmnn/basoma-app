@@ -46,11 +46,11 @@ const Pemberitahuan = () => {
 							{e.nama}
 						</Typography>
 
-						<div className="status">
+						{/* <div className="status">
 							<p>
 								Status: <span>{e.status}</span>
 							</p>
-						</div>
+						</div> */}
 					</Box>
 				);
 			}

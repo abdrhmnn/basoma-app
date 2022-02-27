@@ -4,7 +4,7 @@ import User from "./UserModel.js";
 
 const { DataTypes } = Sequelize;
 
-const Alternatif = db.define('data_alternatif_tbl', {
+const Alternatif = db.define('alternatif_tbl', {
     id_alternatif: {
         type: DataTypes.INTEGER,
         primaryKey: true

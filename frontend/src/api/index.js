@@ -6,7 +6,6 @@ import BANTUAN from "./bantuan";
 import KRITERIA from "./kriteria";
 import MASUKAN from "./masukan";
 import PEMBERITAHUAN from "./pemberitahuan";
-import PESAN_BALAS from "./pesan_balas";
 import PRIORITAS from "./prioritas";
 import UPLOAD from "./uploads";
 import WARGA from "./warga";
@@ -62,7 +61,6 @@ const API = {
     ...KRITERIA,
     ...PRIORITAS,
     ...MASUKAN,
-    ...PESAN_BALAS,
     ...PEMBERITAHUAN,
     ...ALTERNATIF
 }

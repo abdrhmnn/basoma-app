@@ -18,6 +18,7 @@
 
         .nilai_prio_rangking{
             display: flex;
+            margin-top: 6px;
 
             .nilai_prioritas{
                 width: 60%;
@@ -51,6 +52,7 @@
         
         .flex_nik_nm_lengkap{
             display: flex;
+            margin-top: 6px;
     
             .nik{
                 width: 60%;
@@ -107,6 +109,22 @@
                     width: 90%;
                 }
             }
+        }
+    }
+
+    .keputusan_penerimaan{
+        margin-top: 40px;
+
+        .keputusan_akhir{
+            p{
+                margin: 20px 0 13px 0;
+            }
+        }
+
+        .submit_penerimaan{
+            width: 85px;
+            background-color: rgb(88, 88, 88);
+            cursor: not-allowed;
         }
     }
 }

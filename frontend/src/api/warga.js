@@ -30,6 +30,12 @@ const WARGA = {
     },
     getWargaByBantuanIDAndSortByNilaiRangking: (bantuanId) => {
         return axios.get(`/warga/sortRangking/${bantuanId}`)
+    },
+    updateStatusWargaByUserID: (userId, status) => {
+        return axios.patch(`/warga/update/${userId}`, {
+            user_id: userId,
+            status_penerimaan: status
+        })
     }
 }
 

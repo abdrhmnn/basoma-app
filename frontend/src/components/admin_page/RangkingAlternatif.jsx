@@ -18,19 +18,14 @@ const RangkingAlternatif = () => {
 
 	useEffect(() => {
 		document.title = "Rangking Alternatif Bantuan Sosial";
-		getWargaSortByNilaiRangking();
+		API.getWargaByBantuanIDAndSortByNilaiRangking(location.state).then(
+			(res) => setRangking(res.data)
+		);
 
 		setTimeout(() => {
 			setIsLoadContent(true);
 		}, 2000);
-	}, []);
-
-	const getWargaSortByNilaiRangking = async () => {
-		const response = await API.getWargaByBantuanIDAndSortByNilaiRangking(
-			location.state
-		);
-		setRangking(response.data);
-	};
+	}, [location]);
 
 	const highlightRole = (role) => {
 		if (role === "pending")

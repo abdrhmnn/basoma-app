@@ -61,3 +61,18 @@ export const getAllWargaAndSortByNilaiRangking = async (req, res) => {
         res.json({ message: error.message })
     }
 }
+
+export const updateStatusWargaByUserID = async (req, res) => {
+    try{
+        await Warga.update(req.body, {
+            where: {
+                user_id: req.params.id
+            }
+        });
+        res.json({
+            "message" : "Warga berhasil diubah!"
+        });
+    }catch(error){
+        res.json({ message: error.message })
+    }
+}

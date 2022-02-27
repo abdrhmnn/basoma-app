@@ -8,16 +8,33 @@ import HeaderAdmin from "./HeaderAdmin";
 import API from "../../api";
 
 // npm packages
-import { useLocation } from "react-router-dom";
-import { TextField } from "@mui/material";
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+	TextField,
+	FormControl,
+	Radio,
+	RadioGroup,
+	FormControlLabel,
+	Button,
+	Alert,
+	CircularProgress,
+} from "@mui/material";
 
 const WargaDetail = () => {
 	const [wargaByNoKTP, setWargaByNoKTP] = useState(null);
 	const [nilaiPrioritas, setNilaiPrioritas] = useState(null);
 	const [nilaiCI, setNilaiCI] = useState(null);
 	const [nilaiCR, setNilaiCR] = useState(null);
+	const [pemberitahuan, setPemberitahuan] = useState(null);
+
+	const [statusPenerimaan, setStatusPenerimaan] = useState("");
+	const [alasanPenerimaan, setAlasanPenerimaan] = useState("");
+	const [alertKeputusan, setAlertKeputusan] = useState(false);
+
+	const [isSubmitPenerimaan, setIsSubmitPenerimaan] = useState(false);
 
 	const location = useLocation();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		API.getWargaByNoKTP(location.state.ui).then((res) =>
@@ -30,7 +47,27 @@ const WargaDetail = () => {
 			setNilaiCI(res.data.nilai_ci);
 			setNilaiCR(res.data.nilai_cr);
 		});
+		API.getAllPemberitahuan().then((res) => setPemberitahuan(res.data));
 	}, [location]);
+
+	const showAlasanPenerimaan = (status) => {
+		if (status === "ditolak")
+			return (
+				<div className="status_ditolak">
+					<p>Alasan</p>
+					<TextField
+						name="status_ditolak"
+						variant="outlined"
+						fullWidth
+						multiline
+						rows={3}
+						onChange={(e) => setAlasanPenerimaan(e.target.value)}
+					/>
+				</div>
+			);
+
+		return null;
+	};
 
 	return (
 		<div style={{ display: "flex" }}>
@@ -195,6 +232,123 @@ const WargaDetail = () => {
 											alt="Foto tempat tinggal"
 										/>
 									</div>
+								</div>
+								<div className="keputusan_penerimaan">
+									<h2>Penerimaan keputusan</h2>
+									{alertKeputusan ? (
+										<Alert
+											variant="outlined"
+											severity="warning"
+											sx={{ mt: 2 }}
+										>
+											Status atau alasan penerimaan masih kosong!
+										</Alert>
+									) : null}
+									<div className="keputusan_akhir">
+										<p>Status penerimaan</p>
+										<FormControl component="fieldset">
+											<RadioGroup
+												row
+												name="status_penerimaan"
+												onChange={(e) =>
+													setStatusPenerimaan(e.target.value)
+												}
+											>
+												<FormControlLabel
+													value="diterima"
+													control={<Radio />}
+													label="Diterima"
+												/>
+												<FormControlLabel
+													value="ditolak"
+													control={<Radio />}
+													label="Ditolak"
+												/>
+											</RadioGroup>
+										</FormControl>
+									</div>
+									{showAlasanPenerimaan(statusPenerimaan)}
+									<Button
+										variant="contained"
+										sx={{
+											marginTop: "14px",
+										}}
+										type="submit"
+										className={
+											isSubmitPenerimaan ? "submit_penerimaan" : ""
+										}
+										onClick={() => {
+											let pemberitahuanLength =
+												pemberitahuan.length + 1;
+
+											if (!statusPenerimaan) {
+												setAlertKeputusan(true);
+											} else if (statusPenerimaan === "diterima") {
+												setAlertKeputusan(false);
+												setIsSubmitPenerimaan(true);
+
+												setTimeout(() => {
+													setIsSubmitPenerimaan(false);
+													API.updateStatusWargaByUserID(
+														wargaByNoKTP.user_id,
+														statusPenerimaan
+													);
+													API.savePemberitahuan(
+														pemberitahuanLength++,
+														wargaByNoKTP.user_id,
+														"kosong"
+													);
+													navigate("/pendaftaran-bantuan-detail", {
+														state: {
+															kd_bantuan:
+																wargaByNoKTP.kd_bantuan,
+															alert_penerimaan: true,
+														},
+													});
+												}, 3000);
+											} else if (
+												statusPenerimaan === "ditolak" &&
+												!alasanPenerimaan
+											) {
+												setAlertKeputusan(true);
+											} else {
+												setAlertKeputusan(false);
+												setIsSubmitPenerimaan(true);
+
+												setTimeout(() => {
+													setIsSubmitPenerimaan(false);
+													API.updateStatusWargaByUserID(
+														wargaByNoKTP.user_id,
+														statusPenerimaan
+													);
+													API.savePemberitahuan(
+														pemberitahuanLength++,
+														wargaByNoKTP.user_id,
+														alasanPenerimaan
+													);
+													navigate("/pendaftaran-bantuan-detail", {
+														state: {
+															kd_bantuan:
+																wargaByNoKTP.kd_bantuan,
+															alert_penerimaan: true,
+														},
+													});
+												}, 3000);
+											}
+										}}
+									>
+										{isSubmitPenerimaan ? (
+											<CircularProgress
+												size={23}
+												sx={{
+													color: "white",
+													opacity: ".6",
+												}}
+											/>
+										) : (
+											"submit"
+										)}
+									</Button>
 								</div>
 							</div>
 						</div>

@@ -18,6 +18,9 @@ const Pemberitahuan = db.define('pemberitahuan_tbl', {
     },
     nama: {
         type: DataTypes.STRING
+    },
+    alasan: {
+        type: DataTypes.STRING
     }
 }, {
     freezeTableName: true
