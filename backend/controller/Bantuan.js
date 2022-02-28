@@ -75,3 +75,18 @@ export const deleteBantuan = async (req, res) => {
         res.json({ message: error.message })
     }
 }
+
+export const updateBantuan = async (req, res) => {
+    try{
+        await Bantuan.update(req.body, {
+            where: {
+                kd_bantuan: req.params.id
+            }
+        });
+        res.json({
+            "message" : "Data Bantuan berhasil diubah!"
+        });
+    }catch(error){
+        res.json({ message: error.message })
+    }
+}

@@ -286,7 +286,7 @@ const KuesionerPendaftaran = () => {
 		<div className="kuesioner">
 			{kriteriaBantuan && userByID && (
 				<div>
-					{userByID.status_pengisian === "sudah" && !location.state ? (
+					{userByID.status_pengisian === "sudah" ? (
 						<SudahMengisiKuesioner />
 					) : (
 						<div>

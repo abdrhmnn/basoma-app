@@ -11,52 +11,26 @@ import kuki from "../../kuki";
 import API from "../../api";
 
 // npm packages
-import { Alert, TextField, Box, Typography } from "@mui/material";
+import { Alert } from "@mui/material";
 
 const Pemberitahuan = () => {
-	const [valueCariPemberitahuan, setValueCariPemberitahuan] = useState("");
-	const [pemberitahuan, setPemberitahuan] = useState(null);
+	const [wargaByUserID, setWargaByUserID] = useState(null);
+	const [pemberitahuanByUserID, setPemberitahuanByUserID] = useState(null);
 
 	useEffect(() => {
-		document.title = "Pemberitahuan";
+		document.title = "Pemberitahuan Bantuan Sosial";
+		getWargaByUserID();
 		getPemberitahuanByUserID();
 	}, []);
 
-	const getPemberitahuanByUserID = async () => {
-		const response = await API.getPemberitahuanByUserID(kuki.get("user_id"));
-		setPemberitahuan(response.data);
+	const getWargaByUserID = async () => {
+		const response = await API.getWargaByUserID(kuki.get("user_id"));
+		setWargaByUserID(response.data);
 	};
 
-	const showPemberitahuan = (data) => {
-		return data.map((e, i) => {
-			if (e.nama.toLowerCase().includes(valueCariPemberitahuan)) {
-				return (
-					<Box
-						key={i}
-						sx={{
-							height: 90,
-							p: 3,
-							borderRadius: 3,
-						}}
-						onClick={() => {
-							alert("ok");
-						}}
-					>
-						<Typography variant="h4" style={{ fontSize: "1.35em" }}>
-							{e.nama}
-						</Typography>
-
-						{/* <div className="status">
-							<p>
-								Status: <span>{e.status}</span>
-							</p>
-						</div> */}
-					</Box>
-				);
-			}
-
-			return null;
-		});
+	const getPemberitahuanByUserID = async () => {
+		const response = await API.getPemberitahuanByUserID(kuki.get("user_id"));
+		setPemberitahuanByUserID(response.data);
 	};
 
 	return (
@@ -64,27 +38,68 @@ const Pemberitahuan = () => {
 			<Navbar />
 			<div className="pemberitahuan_content">
 				<Alert variant="outlined" severity="info">
-					<span style={{ fontWeight: "bold" }}>PERHATIKAN!</span>, semua
-					pemberitahuan tentang bantuan sosial dan masukan yang sudah
-					diberikan akan ditampilkan disini.
+					<span style={{ fontWeight: "bold" }}>PERHATIKAN!</span>,
+					pemberitahuan tentang bantuan sosial akan ditampilkan disini.
 				</Alert>
-				<div className="cari_pemberitahuan">
-					<TextField
-						label="Cari berdasarkan nama"
-						name="cari_pemberitahuan"
-						variant="outlined"
-						sx={{ width: "30%", marginRight: 3 }}
-						autoComplete="off"
-						onChange={(e) => {
-							setValueCariPemberitahuan(e.target.value);
-						}}
-					/>
-				</div>
-				<div className="data_pemberitahuan">
-					<div className="content">
-						{pemberitahuan && showPemberitahuan(pemberitahuan)}
+				{wargaByUserID && pemberitahuanByUserID && (
+					<div className="data_pemberitahuan">
+						<Alert
+							variant="outlined"
+							severity={
+								wargaByUserID.status_penerimaan === "diterima"
+									? "success"
+									: "error"
+							}
+							sx={{
+								width: "640px",
+								display: "block",
+								margin: "30px auto 0 auto",
+							}}
+							icon={false}
+						>
+							<div className="data_diri_pemberitahuan">
+								<div className="nik_nm_lengkap_pemberitahuan">
+									<div className="nik_alternatif">
+										<span>Nomor Induk Kependudukan : </span>
+										<span>{wargaByUserID.no_ktp}</span>
+									</div>
+									<div className="nm_lengkap_alternatif">
+										<span>Nama lengkap : </span>
+										<span>{wargaByUserID.nama_lengkap}</span>
+									</div>
+								</div>
+								<div className="alamat_status_pemberitahuan">
+									<div className="alamat_alternatif">
+										<span>Alamat : </span>
+										<span>{wargaByUserID.alamat}</span>
+									</div>
+									<div className="status_alternatif">
+										<span>Hasil keputusan : </span>
+										<span>{wargaByUserID.status_penerimaan}</span>
+									</div>
+								</div>
+								{wargaByUserID.status_penerimaan === "ditolak" ? (
+									<div className="masukan_admin">
+										<span>Pesan dari admin : </span>
+										<span>{pemberitahuanByUserID.alasan}</span>
+									</div>
+								) : null}
+							</div>
+						</Alert>
+						{wargaByUserID.status_penerimaan === "diterima" ? (
+							<p style={{ marginTop: "40px" }}>
+								<b>SELAMAT!</b>, Anda diterima untuk sebagai calon
+								penerima bantuan sosial, silahkan datang ke lokasi
+								bantuan, terima kasih
+							</p>
+						) : (
+							<p style={{ marginTop: "40px" }}>
+								<b>MOHON MAAF!</b>, Anda tidak diterima sebagai calon
+								penerima bantuan sosial, terima kasih
+							</p>
+						)}
 					</div>
-				</div>
+				)}
 			</div>
 			<Footer class_pemberitahuan="pemberitahuan_foot" />
 		</div>

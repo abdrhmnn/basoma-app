@@ -90,13 +90,31 @@
 @media screen and (max-width: 768px){
     .footer{
         .wrap_container{
+            h1{
+                font-size: 1.4em;
+            }
+
             .footer_nav{
                 width: 50%;
+
+                ul{
+                    li{
+                        a{
+                            font-size: 1em;
+                        }
+                    }
+                }
             }
 
             .footer_sosmed{
                 .footer_social_media{
                     width: 20%;
+                }
+
+                .footer_created{
+                    h2{
+                        font-size: .8em;
+                    }
                 }
             }
         }
@@ -107,13 +125,31 @@
 @media screen and (max-width: 576px){
     .footer{
         .wrap_container{
+            h1{
+                font-size: 1.5em;
+            }
+
             .footer_nav{
                 width: 65%;
+
+                ul{
+                    li{
+                        a{
+                            font-size: .95em;
+                        }
+                    }
+                }
             }
 
             .footer_sosmed{
                 .footer_social_media{
                     width: 20%;
+                }
+
+                .footer_created{
+                    h2{
+                        font-size: .8em;
+                    }
                 }
             }
         }

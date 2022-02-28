@@ -92,13 +92,13 @@ const Footer = (props) => {
 					</div>
 					<div className="footer_social_media">
 						<Link to="">
-							<AiFillFacebook size={20} />
+							<AiFillFacebook size={18} />
 						</Link>
 						<Link to="">
-							<AiFillInstagram size={20} />
+							<AiFillInstagram size={18} />
 						</Link>
 						<Link to="">
-							<AiOutlineTwitter size={20} />
+							<AiOutlineTwitter size={18} />
 						</Link>
 					</div>
 				</div>

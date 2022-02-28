@@ -3,7 +3,7 @@
     position: relative;
     justify-content: space-between;
     font-weight: 400;
-    padding: 0 10px 0 25px;
+    padding: 0 10px 0 20px;
     font-size: 1.15em;
     align-items: center;
     max-width: 1300px;
@@ -95,7 +95,7 @@
 // for tablet
 @media screen and (max-width: 768px){
     .nav{
-        font-size: .9em;
+        font-size: 1em;
 
         ul{
             justify-content: space-between;
@@ -113,14 +113,14 @@
 @media screen and (max-width: 576px){
     .nav{
         align-items: center;
-        font-size: 1.1em;
+        font-size: 1em;
         padding-right: 20px;
 
         ul{
             position: absolute;
             flex-direction: column;
             height: 350px;
-            top: 55px;
+            top: 49px;
             width: 58%;
             background-color: rgb(59, 59, 59);
             left: 0;

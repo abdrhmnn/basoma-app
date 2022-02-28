@@ -12,60 +12,30 @@
 
     h1{
         text-align: center;
+        font-size: 1.7em;
     }
 
     .search_bantuan{
         display: flex;
         justify-content: center;
 
-        form{
-            display: flex;
-
-            // styling for textfield search bantuan
-            .MuiTextField-root{
-                width: 550px;
-                margin-right: 20px;
-            }
-
-            .btn_cari_bantuan{
-                padding: 5px;
-                width: 100px;
-                font-weight: bold;
-            }
+        // styling for textfield search bantuan
+        .MuiTextField-root{
+            width: 60%;
         }
     }
 
     .bantuan_content{
-        margin-top: 30px;
+        margin-top: 10px;
         display: flex;
 
-        .filtering_bantuan{
-            text-align: left;
-
-            h3{
-                margin: 0 0 20px 0;
-            }
-
-            p{
-                margin: 0 0 7px 0;
-                color: rgba(0, 0, 0, 0.6);
-            }
-        }
-
         .result_bantuan{
-            margin: 0 0 0 25px;
             width: 100%;
             display: flex;
             flex-direction: column;
 
             p{
-                margin: 10px 0 20px 0;
-            }
-
-            .detail_bantuan{
-                display: flex;
-                width: 75%;
-                justify-content: space-between;
+                margin: 10px 0 0 0;
             }
 
             // styling for box result data bantuan
@@ -86,19 +56,14 @@
 // for tablet
 @media screen and (max-width: 768px){
     .bantuan{
-        margin-top: 30px;
-
         h1{
-            font-size: 1.6em;
+            font-size: 1.3em;
         }
 
         .search_bantuan{
-            width: 80%;
-            margin: auto;
-            
             form{
                 .MuiTextField-root{
-                    width: 400px;
+                    width: 55%;
                 }
             }
         }
@@ -110,14 +75,6 @@
             .result_bantuan{
                 margin: 20px 0 0 0;
                 width: 100%;
-
-                .detail_bantuan{
-                    width: 450px;
-                }
-            }
-
-            .filtering_bantuan{
-                display: block;
             }
         }
     }
@@ -127,23 +84,8 @@
 @media screen and (max-width: 576px){
     .bantuan{
         .search_bantuan{
-            form{
-                // styling for textfield search bantuan
-                .MuiTextField-root{
-                    width: 100%;
-                }
-            }
-        }
-
-        .bantuan_content{
-            .result_bantuan{
-                .detail_bantuan{
-                    width: 360px;
-
-                    p{
-                        font-size: .9em;
-                    }
-                }
+            .MuiTextField-root{
+                width: 100%;
             }
         }
     }

@@ -14,6 +14,7 @@
             margin: 0;
             position: absolute;
             top: -60px;
+            font-size: 1.3em;
         }
 
         img{
@@ -58,11 +59,11 @@
             margin: 0;
 
             h2{
-                margin-top: 30px;
+                margin-top: 20px;
                 position: relative;
                 left: 0;
                 top: 0;
-                font-size: 1.3em;
+                font-size: 1.2em;
             }
             img{
                 display: none;
@@ -102,10 +103,10 @@
 // for mobile
 @media screen and (max-width: 576px){
     .login{
-
         .login_img{
             h2{
-                font-size: 1.3em;
+                font-size: 1.2em;
+                margin-top: 20px;
             }
         }
 

@@ -68,8 +68,7 @@ const BantuanDetail = ({ activeNav }) => {
 									severity="warning"
 									sx={{ mt: 2, mb: 2 }}
 								>
-									Batas pengisian kuesioner hanya satu kali, Anda sudah
-									tidak bisa mengisi kuesioner pendaftaran bantuan
+									Anda sudah tidak bisa melakukan pendaftaran bantuan
 									lagi.
 								</Alert>
 							) : null}
@@ -87,33 +86,15 @@ const BantuanDetail = ({ activeNav }) => {
 					<div className="bantuan_detail_content">
 						{/* Info nama dan deskripsi bantuan */}
 						<div className="info_nama_and_deskripsi">
-							<h1>{bantuanByID.nama}</h1>
-							<p>
-								Bantuan ini diberikan oleh <span>test</span>
-							</p>
-							<img src={img1} alt="Bantuan Sosial Banner" />
+							<h2>{bantuanByID.nama}</h2>
+							<img
+								src={API.showImgBantuan(bantuanByID.banner)}
+								alt="Bantuan Sosial Banner"
+							/>
 							<h2>Deskripsi</h2>
-							<p>
-								Lorem ipsum dolor sit amet consectetur, adipisicing
-								elit. Unde perspiciatis amet, doloribus eos quo dicta
-								fugiat. Magnam ipsum tenetur, dolorem dicta sed
-								blanditiis. A nihil consequuntur placeat vel delectus
-								natus.
-							</p>
-							<p>
-								Lorem ipsum dolor sit amet consectetur, adipisicing
-								elit. Unde perspiciatis amet, doloribus eos quo dicta
-								fugiat. Magnam ipsum tenetur, dolorem dicta sed
-								blanditiis. A nihil consequuntur placeat vel delectus
-								natus.
-							</p>
-							<p>
-								Lorem ipsum dolor sit amet consectetur, adipisicing
-								elit. Unde perspiciatis amet, doloribus eos quo dicta
-								fugiat. Magnam ipsum tenetur, dolorem dicta sed
-								blanditiis. A nihil consequuntur placeat vel delectus
-								natus.
-							</p>
+							<div className="deskripsi_bantuan">
+								<p>{bantuanByID.deskripsi}</p>
+							</div>
 						</div>
 						{/* Akhir info nama dan deskripsi bantuan */}
 
@@ -123,6 +104,10 @@ const BantuanDetail = ({ activeNav }) => {
 								<div className="kapasitas">
 									<h2>Kapasitas</h2>
 									<p>{bantuanByID.kapasitas} Orang</p>
+								</div>
+								<div className="alamat">
+									<h2>Lokasi</h2>
+									<p>{bantuanByID.alamat}</p>
 								</div>
 							</div>
 							<Button

@@ -46,6 +46,19 @@ export const getWargaByNoKTP = async (req, res) => {
     }
 }
 
+export const getWargaByUserID = async (req, res) => {
+    try{
+        const warga = await Warga.findAll({
+            where: {
+                user_id: req.params.id
+            }
+        });
+        res.json(warga[0]);
+    }catch(error){
+        res.json({ message: error.message })
+    }
+}
+
 export const getAllWargaAndSortByNilaiRangking = async (req, res) => {
     try{
         const warga = await Warga.findAll({

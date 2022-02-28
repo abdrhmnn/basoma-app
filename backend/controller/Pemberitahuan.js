@@ -16,7 +16,7 @@ export const getPemberitahuanByID = async (req, res) => {
                 user_id: req.params.id
             }
         });
-        res.json(pemberitahuan);
+        res.json(pemberitahuan[0]);
     }catch(error){
         res.json({ message: error.message })
     }

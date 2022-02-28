@@ -145,6 +145,7 @@ const PendaftaranBantuanDetail = () => {
 																		state: {
 																			ui: e.no_ktp,
 																			uid: e.user_id,
+																			bi: e.kd_bantuan,
 																		},
 																	});
 																}}

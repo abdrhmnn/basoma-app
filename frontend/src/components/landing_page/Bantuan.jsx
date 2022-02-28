@@ -46,7 +46,7 @@ const Bantuan = () => {
 							})
 						}
 					>
-						<Typography variant="h4" style={{ fontSize: "1.7em" }}>
+						<Typography variant="h4" style={{ fontSize: "1.5em" }}>
 							{e.nama}
 						</Typography>
 
@@ -78,7 +78,6 @@ const Bantuan = () => {
 						name="cari_bantuan"
 						variant="outlined"
 						autoComplete="off"
-						sx={{ width: "60%" }}
 						onChange={(e) => {
 							setSearchDataBantuan(e.target.value);
 						}}

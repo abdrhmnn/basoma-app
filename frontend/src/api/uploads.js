@@ -13,11 +13,17 @@ const UPLOAD = {
     showImgBangunan: (data) => {
         return `http://localhost:5000/public/fbangunan/${data}`
     },
+    showImgBantuan: (data) => {
+        return `http://localhost:5000/public/bantuan/${data}`
+    },
     saveIMG_KTP: (data) => {
         return axios.post(`/uploads/ktp`, data)
     },
     saveIMG_BANGUNAN: (data) => {
         return axios.post(`/uploads/bangunan`, data)
+    },
+    saveIMG_BANTUAN: (data) => {
+        return axios.post(`/uploads/bantuan`, data)
     }
 }
 

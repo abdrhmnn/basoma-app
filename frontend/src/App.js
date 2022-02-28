@@ -40,6 +40,7 @@ import RangkingAlternatif from "./components/admin_page/RangkingAlternatif";
 // npm packages
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import Pemberitahuan from "./components/landing_page/Pemberitahuan";
+import EditBantuan from "./components/admin_page/EditBantuan";
 
 const PrivateRouteAdmin = ({ children }) => {
   const isAuthenticated = kuki.get("admin")
@@ -354,6 +355,16 @@ class App extends Component{
                 element={
                   <PrivateRouteAdmin>
                     <RangkingAlternatif />
+                  </PrivateRouteAdmin>
+                }
+              />
+
+              <Route
+                exact
+                path="/edit-bantuan"
+                element={
+                  <PrivateRouteAdmin>
+                    <EditBantuan />
                   </PrivateRouteAdmin>
                 }
               />

@@ -13,6 +13,15 @@ const Bantuan = db.define('bantuan_tbl', {
     },
     kapasitas: {
         type: DataTypes.STRING
+    },
+    alamat: {
+        type: DataTypes.STRING
+    },
+    deskripsi: {
+        type: DataTypes.STRING
+    },
+    banner: {
+        type: DataTypes.STRING
     }
 }, {
     freezeTableName: true

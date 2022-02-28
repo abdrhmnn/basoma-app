@@ -7,7 +7,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 // img
-import img1 from "./../../images/img2.jpg";
+import img1 from "./../../images/img2.png";
 
 // npm packages
 import { Card, CardContent, Avatar } from "@mui/material";

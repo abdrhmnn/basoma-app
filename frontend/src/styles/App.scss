@@ -73,7 +73,7 @@ body {
             }
         }
 
-        // button styling for admin page
+        // button styling for bantuan admin component
         .btn_delete_bantuan{
             background-color: rgb(255, 46, 46);
             color: $white-color;
@@ -83,6 +83,16 @@ body {
             }
         }
 
+        .btn_edit_bantuan{
+            background-color: rgb(255, 185, 55);
+            color: $white-color;
+            
+            &:hover{
+                background-color: rgb(255, 166, 0);
+            }
+        }
+
+        // button styling for user component
         .btn_delete_user{
             background-color: rgb(255, 46, 46);
             color: $white-color;
@@ -109,7 +119,7 @@ body {
             }
         }
 
-        // role styling for admin page
+        // role styling for user component
         .role_admin{
             background-color: rgba(122, 180, 255, 0.397);
             color: rgba(4, 0, 255, 0.815);

@@ -36,6 +36,9 @@ const WARGA = {
             user_id: userId,
             status_penerimaan: status
         })
+    },
+    getWargaByUserID: (userId) => {
+        return axios.get(`/warga/userId/${userId}`)
     }
 }
 

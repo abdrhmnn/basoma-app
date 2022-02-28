@@ -26,6 +26,7 @@ const WargaDetail = () => {
 	const [nilaiCI, setNilaiCI] = useState(null);
 	const [nilaiCR, setNilaiCR] = useState(null);
 	const [pemberitahuan, setPemberitahuan] = useState(null);
+	const [bantuanByID, setBantuanByID] = useState(null);
 
 	const [statusPenerimaan, setStatusPenerimaan] = useState("");
 	const [alasanPenerimaan, setAlasanPenerimaan] = useState("");
@@ -48,6 +49,9 @@ const WargaDetail = () => {
 			setNilaiCR(res.data.nilai_cr);
 		});
 		API.getAllPemberitahuan().then((res) => setPemberitahuan(res.data));
+		API.getBantuanByID(location.state.bi).then((res) =>
+			setBantuanByID(res.data)
+		);
 	}, [location]);
 
 	const showAlasanPenerimaan = (status) => {
@@ -245,110 +249,136 @@ const WargaDetail = () => {
 										</Alert>
 									) : null}
 									<div className="keputusan_akhir">
-										<p>Status penerimaan</p>
-										<FormControl component="fieldset">
-											<RadioGroup
-												row
-												name="status_penerimaan"
-												onChange={(e) =>
-													setStatusPenerimaan(e.target.value)
-												}
-											>
-												<FormControlLabel
-													value="diterima"
-													control={<Radio />}
-													label="Diterima"
-												/>
-												<FormControlLabel
-													value="ditolak"
-													control={<Radio />}
-													label="Ditolak"
-												/>
-											</RadioGroup>
-										</FormControl>
-									</div>
-									{showAlasanPenerimaan(statusPenerimaan)}
-									<Button
-										variant="contained"
-										sx={{
-											marginTop: "14px",
-										}}
-										type="submit"
-										className={
-											isSubmitPenerimaan ? "submit_penerimaan" : ""
-										}
-										onClick={() => {
-											let pemberitahuanLength =
-												pemberitahuan.length + 1;
-
-											if (!statusPenerimaan) {
-												setAlertKeputusan(true);
-											} else if (statusPenerimaan === "diterima") {
-												setAlertKeputusan(false);
-												setIsSubmitPenerimaan(true);
-
-												setTimeout(() => {
-													setIsSubmitPenerimaan(false);
-													API.updateStatusWargaByUserID(
-														wargaByNoKTP.user_id,
-														statusPenerimaan
-													);
-													API.savePemberitahuan(
-														pemberitahuanLength++,
-														wargaByNoKTP.user_id,
-														"kosong"
-													);
-													navigate("/pendaftaran-bantuan-detail", {
-														state: {
-															kd_bantuan:
-																wargaByNoKTP.kd_bantuan,
-															alert_penerimaan: true,
-														},
-													});
-												}, 3000);
-											} else if (
-												statusPenerimaan === "ditolak" &&
-												!alasanPenerimaan
-											) {
-												setAlertKeputusan(true);
-											} else {
-												setAlertKeputusan(false);
-												setIsSubmitPenerimaan(true);
-
-												setTimeout(() => {
-													setIsSubmitPenerimaan(false);
-													API.updateStatusWargaByUserID(
-														wargaByNoKTP.user_id,
-														statusPenerimaan
-													);
-													API.savePemberitahuan(
-														pemberitahuanLength++,
-														wargaByNoKTP.user_id,
-														alasanPenerimaan
-													);
-													navigate("/pendaftaran-bantuan-detail", {
-														state: {
-															kd_bantuan:
-																wargaByNoKTP.kd_bantuan,
-															alert_penerimaan: true,
-														},
-													});
-												}, 3000);
-											}
-										}}
-									>
-										{isSubmitPenerimaan ? (
-											<CircularProgress
-												size={23}
-												sx={{
-													color: "white",
-													opacity: ".6",
-												}}
-											/>
+										{wargaByNoKTP.status_penerimaan !== "pending" ? (
+											<p>
+												Warga sudah{" "}
+												<b>{wargaByNoKTP.status_penerimaan}!</b>.
+											</p>
 										) : (
-											"submit"
+											<div>
+												<p>Status penerimaan</p>
+												<FormControl
+													component="fieldset"
+													sx={{ display: "block" }}
+												>
+													<RadioGroup
+														row
+														name="status_penerimaan"
+														onChange={(e) =>
+															setStatusPenerimaan(e.target.value)
+														}
+													>
+														<FormControlLabel
+															value="diterima"
+															control={<Radio />}
+															label="Diterima"
+														/>
+														<FormControlLabel
+															value="ditolak"
+															control={<Radio />}
+															label="Ditolak"
+														/>
+													</RadioGroup>
+												</FormControl>
+												{showAlasanPenerimaan(statusPenerimaan)}
+												<Button
+													variant="contained"
+													sx={{
+														marginTop: "14px",
+													}}
+													type="submit"
+													className={
+														isSubmitPenerimaan
+															? "submit_penerimaan"
+															: ""
+													}
+													onClick={() => {
+														let pemberitahuanLength =
+															pemberitahuan.length + 1;
+
+														if (!statusPenerimaan) {
+															setAlertKeputusan(true);
+														} else if (
+															statusPenerimaan === "diterima"
+														) {
+															setAlertKeputusan(false);
+															setIsSubmitPenerimaan(true);
+
+															setTimeout(() => {
+																setIsSubmitPenerimaan(false);
+																API.updateStatusWargaByUserID(
+																	wargaByNoKTP.user_id,
+																	statusPenerimaan
+																);
+																API.savePemberitahuan(
+																	pemberitahuanLength++,
+																	wargaByNoKTP.user_id,
+																	"kosong"
+																);
+																API.updateKapasitasBantuan(
+																	wargaByNoKTP.kd_bantuan,
+																	bantuanByID.kapasitas - 1
+																);
+																navigate(
+																	"/pendaftaran-bantuan-detail",
+																	{
+																		state: {
+																			kd_bantuan:
+																				wargaByNoKTP.kd_bantuan,
+																			alert_penerimaan: true,
+																		},
+																	}
+																);
+															}, 3000);
+														} else if (
+															statusPenerimaan === "ditolak" &&
+															!alasanPenerimaan
+														) {
+															setAlertKeputusan(true);
+														} else {
+															setAlertKeputusan(false);
+															setIsSubmitPenerimaan(true);
+
+															setTimeout(() => {
+																setIsSubmitPenerimaan(false);
+																API.updateStatusWargaByUserID(
+																	wargaByNoKTP.user_id,
+																	statusPenerimaan
+																);
+																API.savePemberitahuan(
+																	pemberitahuanLength++,
+																	wargaByNoKTP.user_id,
+																	alasanPenerimaan
+																);
+																navigate(
+																	"/pendaftaran-bantuan-detail",
+																	{
+																		state: {
+																			kd_bantuan:
+																				wargaByNoKTP.kd_bantuan,
+																			alert_penerimaan: true,
+																		},
+																	}
+																);
+															}, 3000);
+														}
+													}}
+												>
+													{isSubmitPenerimaan ? (
+														<CircularProgress
+															size={23}
+															sx={{
+																color: "white",
+																opacity: ".6",
+															}}
+														/>
+													) : (
+														"submit"
+													)}
+												</Button>
+											</div>
 										)}
-									</Button>
+									</div>
 								</div>
 							</div>
 						</div>

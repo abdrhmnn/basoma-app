@@ -12,6 +12,25 @@ const BANTUAN = {
     },
     getBantuanByKapasitas: (kapasitas) => {
         return axios.get(`/bantuan/kapasitas/${kapasitas}`)
+    },
+    updateBantuan: (bantuanId, data) => {
+        return axios.patch(`/bantuan/${bantuanId}`, data)
+    },
+    updateKapasitasBantuan: (bantuanId, kapasitas) => {
+        return axios.patch(`/bantuan/${bantuanId}`, {
+            kd_bantuan: bantuanId,
+            kapasitas: kapasitas
+        })
+    },
+    saveBantuan: (bantuanId, props, banner) => {
+        return axios.post(`/bantuan`, {
+            kd_bantuan: `BNT_${bantuanId}`,
+            nama: props.nama,
+            kapasitas: props.kapasitas,
+            alamat: props.alamat,
+            deskripsi: props.deskripsi,
+            banner: banner.name
+        })
     }
 }
 

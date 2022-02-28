@@ -44,7 +44,7 @@ const SudahMengisiKuesioner = () => {
 						src={feel_sorry}
 						alt="Maaf tidak bisa mengisi kuesioner lagi"
 					/>
-					<h2>Kuesioner telah diisi sebelumnya</h2>
+					<h2>Anda sudah mendaftar bantuan sosial sebelumnya!</h2>
 					{/* <p>
 						Hasil pengisian kuesioner sebelumnya dengan nama{" "}
 						<i>
@@ -53,15 +53,16 @@ const SudahMengisiKuesioner = () => {
 						adalah <b>{nilaiPrioritasByID.total_nilai + "%"}</b>
 					</p> */}
 					<p>
-						Batas pengisian kuesioner pendaftaran hanya satu kali, jika
-						mendapatkan hasil akhir dibawah rata - rata maka tidak bisa
-						melanjutkan ke tahap selanjutnya, Terima kasih
+						Batas pendaftaran hanya satu kali, Anda tidak bisa lagi
+						mendaftar bantuan sosial, silahkan menunggu hasil keputusan
+						yang akan ditampilkan <Link to="/pemberitahuan">disini</Link>,
+						Terima kasih.
 					</p>
 					<Button
 						variant="contained"
 						component={Link}
 						to="/"
-						sx={{ mt: 3, mb: 4 }}
+						sx={{ mt: 2, mb: 4 }}
 					>
 						kembali ke beranda
 					</Button>

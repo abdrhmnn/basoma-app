@@ -51,7 +51,9 @@ const Login = () => {
 	return (
 		<div className="login">
 			<div className="login_img">
-				<h2>Basoma</h2>
+				<Link to="/" style={{ textDecoration: "none", color: "black" }}>
+					<h2>Basoma</h2>
+				</Link>
 				<img src={login_img} alt="login" />
 			</div>
 			{/* Login component content */}

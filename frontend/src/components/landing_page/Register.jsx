@@ -53,7 +53,9 @@ const Register = () => {
 
 	return (
 		<div className="register">
-			<h2>Basoma</h2>
+			<Link to="/" style={{ color: "black" }}>
+				<h2>Basoma</h2>
+			</Link>
 			{/* Register component content */}
 			{isRegister ? (
 				<div className="register_auth">
