@@ -154,12 +154,12 @@ const FormPendaftaranBantuan = () => {
 							);
 							API.saveIMG_KTP(dataImgKTP);
 							API.saveIMG_BANGUNAN(dataImgBangunan);
-							API.saveAlternatif(
-								alternatif.length + 1,
-								kuki.get("user_id"),
-								kuki.get("nilai_ci"),
-								kuki.get("nilai_cr")
-							);
+							API.saveAlternatif({
+								id_alternatif: `AI_${alternatif.length + 1}`,
+								user_id: kuki.get("user_id"),
+								nilai_ci: kuki.get("nilai_ci"),
+								nilai_cr: kuki.get("nilai_cr"),
+							});
 							API.saveWarga(
 								values,
 								kuki.get("user_id"),
@@ -191,6 +191,7 @@ const FormPendaftaranBantuan = () => {
 										name="nik"
 										variant="outlined"
 										label="Nomor Induk Kependudukan"
+										autoComplete="off"
 										fullWidth
 										as={TextField}
 										error={
@@ -206,6 +207,7 @@ const FormPendaftaranBantuan = () => {
 										name="nm_lengkap"
 										variant="outlined"
 										label="Nama Lengkap"
+										autoComplete="off"
 										fullWidth
 										as={TextField}
 										error={
@@ -228,6 +230,7 @@ const FormPendaftaranBantuan = () => {
 									name="alamat"
 									variant="outlined"
 									label="Alamat Tempat Tinggal"
+									autoComplete="off"
 									multiline
 									fullWidth
 									rows={3}
@@ -242,6 +245,7 @@ const FormPendaftaranBantuan = () => {
 										name="pekerjaan"
 										variant="outlined"
 										label="Pekerjaan"
+										autoComplete="off"
 										fullWidth
 										as={TextField}
 										error={
@@ -356,6 +360,7 @@ const FormPendaftaranBantuan = () => {
 									name="sumber_penerangan"
 									variant="outlined"
 									label="Sumber Penerangan"
+									autoComplete="off"
 									fullWidth
 									as={TextField}
 									error={

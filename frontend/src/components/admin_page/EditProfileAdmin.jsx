@@ -1,3 +1,5 @@
+// styling component linked in edit-profile-admin.scss file
+
 import React, { useState, useEffect } from "react";
 
 // components
@@ -23,7 +25,6 @@ import {
 import { useLocation } from "react-router-dom";
 import { Formik, Field } from "formik";
 import { BiShowAlt, BiHide } from "react-icons/bi";
-import axios from "axios";
 import * as Yup from "yup";
 
 const EditProfileAdmin = () => {
@@ -45,7 +46,7 @@ const EditProfileAdmin = () => {
 	});
 
 	useEffect(() => {
-		axios.get(`http://localhost:5000/users/${location.state}`).then((res) => {
+		API.getUserByID(location.state).then((res) => {
 			setUserById(res.data);
 		});
 	}, [location]);
@@ -79,17 +80,15 @@ const EditProfileAdmin = () => {
 											"gambar",
 											selectedFileImg.selectedFile
 										);
-										axios.post("http://localhost:5000/uploads", data);
-										axios.patch(
-											`http://localhost:5000/users/${location.state}`,
-											{
-												nm_depan: values.nm_depan,
-												nm_belakang: values.nm_belakang,
-												username: values.username,
-												password: values.password,
-												gambar: selectedFileImg.selectedFile.name,
-											}
-										);
+										API.saveIMG_USER(data);
+										API.updateUser(location.state, {
+											nm_depan: values.nm_depan,
+											nm_belakang: values.nm_belakang,
+											username: values.username,
+											password: values.password,
+											gambar: selectedFileImg.selectedFile.name,
+										});
+										API.deleteImgUser(userById.gambar);
 										setIsSuccess(false);
 									}}
 								>
@@ -111,12 +110,6 @@ const EditProfileAdmin = () => {
 																	userById.gambar ||
 																	"blank_img.png"
 															  }`
-														// showImg
-														// 	? showImg === "default_img.svg"
-														// 	: `http://localhost:5000/public/${
-														// 			userById.gambar ||
-														// 			"blank_img.png"
-														// 	  }`
 													}
 													alt="Foto Profile"
 												/>

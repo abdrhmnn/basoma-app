@@ -4,14 +4,8 @@ const PRIORITAS = {
     getAllPrioritas: () => {
         return axios.get(`/nilai-prioritas`)
     },
-    savePrioritas: (prioritasID, pilihan, userID, totalNilai, identitasNilai) => {
-        return axios.post(`/nilai-prioritas`, {
-            prioritas_id: `PRIO_${prioritasID}`,
-            user_id: userID,
-            pilihan: pilihan,
-            total_nilai: totalNilai,
-            identitas_pilihan: identitasNilai
-        })
+    savePrioritas: (data) => {
+        return axios.post(`/nilai-prioritas`, data)
     },
     getPrioritasByUserIDandIdentitasPilihan: (id) => {
         return axios.get(`/nilai-prioritas/orderIdentitas/${id}`)

@@ -1,11 +1,15 @@
+// styling component linked in kelola_bantuan_page.scss file
+
 import React, { useState, useEffect } from "react";
 
 // components
 import HeaderAdmin from "./HeaderAdmin";
 import NavbarAdmin from "./NavbarAdmin";
 
+// API storage
+import API from "../../api";
+
 // npm packages
-import axios from "axios";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import ReactExport from "react-export-excel";
@@ -37,7 +41,7 @@ const BantuanAdmin = () => {
 	});
 
 	const getAllBantuan = async () => {
-		const response = await axios.get("http://localhost:5000/bantuan");
+		const response = await API.getAllBantuan();
 		setBantuan(response.data);
 	};
 
@@ -65,7 +69,10 @@ const BantuanAdmin = () => {
 				<HeaderAdmin />
 				<div className="content_dashboard_admin">
 					<h2>Data Bantuan</h2>
+
+					{/* Bantuan admin content */}
 					<div className="wrap_tbl_bantuan">
+						{/* Flex element tambah, cari dan export bantuan */}
 						<div className="flex_element_bantuan">
 							<div className="add_bantuan_flex">
 								<Button
@@ -76,6 +83,8 @@ const BantuanAdmin = () => {
 								>
 									<AiOutlinePlusSquare size={30} />
 								</Button>
+
+								{/* cari bantuan section */}
 								<TextField
 									label="Cari Data"
 									name="nm_depan"
@@ -86,6 +95,7 @@ const BantuanAdmin = () => {
 									className="inp_cari"
 								/>
 							</div>
+							{/* export bantuan section */}
 							<div className="btn_export_bantuan">
 								<Button
 									variant="contained"
@@ -115,7 +125,10 @@ const BantuanAdmin = () => {
 									</ExcelSheet>
 								</ExcelFile>
 							</div>
+							{/* akhir export bantuan section */}
 						</div>
+						{/* Akhir flex tambah, cari dan export bantuan */}
+
 						<table className="tbl_class">
 							<thead className="tbl_class_head">
 								<tr>
@@ -162,18 +175,16 @@ const BantuanAdmin = () => {
 																dangerMode: true,
 															}).then((willDelete) => {
 																if (willDelete) {
-																	axios
-																		.delete(
-																			`http://localhost:5000/bantuan/${e.kd_bantuan}`
-																		)
-																		.then((res) => {
-																			swal(
-																				"Data berhasil dihapus!",
-																				{
-																					icon: "success",
-																				}
-																			);
-																		});
+																	API.deleteBantuanByID(
+																		e.kd_bantuan
+																	).then((res) => {
+																		swal(
+																			"Data berhasil dihapus!",
+																			{
+																				icon: "success",
+																			}
+																		);
+																	});
 																	getAllBantuan();
 																}
 															});
@@ -191,6 +202,7 @@ const BantuanAdmin = () => {
 							</tbody>
 						</table>
 					</div>
+					{/* Akhir bantuan admin content */}
 				</div>
 			</div>
 		</div>

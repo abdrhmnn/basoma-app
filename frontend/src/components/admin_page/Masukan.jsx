@@ -1,3 +1,5 @@
+// styling component linked in masukan_admin.scss file
+
 import React, { useState, useEffect } from "react";
 
 // components

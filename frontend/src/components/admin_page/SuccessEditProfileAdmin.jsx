@@ -1,3 +1,5 @@
+// styling component linked in success_edit_profile_admin.scss file
+
 import React from "react";
 
 // img
@@ -8,19 +10,15 @@ import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const SuccessEditProfile = () => {
-    return (
-        <div className="success_edit_profile_admin">
-            <img src={sucess_img} alt="Berhasil Update Profile" />
-            <h1>Update Profile Berhasil!</h1>
-            <Button 
-                variant="contained"
-                component={Link}
-                to="/dashboard"
-            >
-                Kembali ke dashboard
-            </Button>
-        </div>
-    )
-}
+	return (
+		<div className="success_edit_profile_admin">
+			<img src={sucess_img} alt="Berhasil Update Profile" />
+			<h1>Update Profile Berhasil!</h1>
+			<Button variant="contained" component={Link} to="/dashboard">
+				Kembali ke dashboard
+			</Button>
+		</div>
+	);
+};
 
-export default SuccessEditProfile
+export default SuccessEditProfile;

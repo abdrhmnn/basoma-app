@@ -1,3 +1,5 @@
+// styling component linked in pendaftaran_bantuan.scss file
+
 import React, { useState, useEffect } from "react";
 
 // API storage
@@ -57,7 +59,7 @@ const PendaftaranBantuan = () => {
 
 						<div style={{ fontSize: ".9em" }}>
 							<p>
-								Kapasitas: <span>{e.kapasitas}</span>
+								Kapasitas: <span>{e.kapasitas} orang</span>
 							</p>
 						</div>
 					</Box>

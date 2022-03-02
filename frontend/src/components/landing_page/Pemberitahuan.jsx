@@ -1,3 +1,5 @@
+// styling component linked in pemberitahuan.scss file
+
 import React, { useState, useEffect } from "react";
 
 // components

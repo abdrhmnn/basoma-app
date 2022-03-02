@@ -30,9 +30,11 @@ import * as Yup from "yup";
 const EditProfile = () => {
 	const [userByID, setUserByID] = useState([]);
 	const [showImg, setShowImg] = useState();
+
 	const [isShowPassword, setIsShowPassword] = useState(false);
 	const [isSuccessUpdate, setIsSuccessUpdate] = useState(false);
 	const [isValidImgType, setIsValidImgType] = useState(true);
+
 	const [selectedFileImg, setSelectedFileImg] = useState(null);
 
 	const location = useLocation();
@@ -45,9 +47,6 @@ const EditProfile = () => {
 	});
 
 	useEffect(() => {
-		// const params = new URLSearchParams(location.search);
-		// const ui = AES.decrypt(params.get("ui"), "userID").toString(enc.Utf8);
-
 		API.getUserByID(location.state).then((res) => {
 			setUserByID(res.data);
 		});
@@ -72,17 +71,24 @@ const EditProfile = () => {
 						validationSchema={schemaEditProfile}
 						onSubmit={(values, actions) => {
 							if (selectedFileImg === null) {
-								// API.updateUserByID(values, selectedFileImg, ui);
-								API.updateUserTanpaGambar(values, location.state);
+								API.updateUser(location.state, {
+									nm_depan: values.nm_depan,
+									nm_belakang: values.nm_belakang,
+									username: values.username,
+									password: values.password,
+								});
 							} else {
 								const data = new FormData();
 								data.append("gambar", selectedFileImg);
-								API.saveIMG(data);
-								API.updateUserByID(
-									values,
-									selectedFileImg,
-									location.state
-								);
+								API.saveIMG_USER(data);
+								API.updateUser(location.state, {
+									nm_depan: values.nm_depan,
+									nm_belakang: values.nm_belakang,
+									username: values.username,
+									password: values.password,
+									gambar: selectedFileImg.name,
+								});
+								API.deleteImgUser(userByID.gambar);
 							}
 							setIsSuccessUpdate(true);
 						}}
@@ -93,17 +99,17 @@ const EditProfile = () => {
 								{/* Edit foto profile section */}
 								<div className="edit_foto">
 									<img
-										style={{ width: 200 }}
+										style={{ width: 170 }}
 										src={
 											showImg
 												? showImg
 												: userByID.gambar === "default_img.svg"
-												? API.showIMG(
+												? API.showIMG_DEFAULT(
 														userByID.gambar || "blank_img.png"
 												  )
-												: `http://localhost:5000/public/user/${
+												: API.showIMG_USER(
 														userByID.gambar || "blank_img.png"
-												  }`
+												  )
 										}
 										alt="Foto Profile"
 									/>

@@ -1,15 +1,18 @@
+// styling component linked in kriteria_bantuan.scss file
+
 import React, { useState, useEffect } from "react";
 
 // components
 import HeaderAdmin from "./HeaderAdmin";
 import NavbarAdmin from "./NavbarAdmin";
 
+// API storage
+import API from "../../api";
+
 // npm packages
-import axios from "axios";
 import { Button, CircularProgress } from "@mui/material";
 import { AiOutlineEdit } from "react-icons/ai";
-import { useNavigate, createSearchParams } from "react-router-dom";
-import { AES } from "crypto-js";
+import { useNavigate } from "react-router-dom";
 import "jspdf-autotable";
 import { jsPDF } from "jspdf";
 
@@ -43,7 +46,7 @@ const KriteriaBantuan = () => {
 	}, []);
 
 	const getAllKriteria = async () => {
-		const response = await axios.get("http://localhost:5000/kriteria");
+		const response = await API.getAllKriteria();
 		setKriteriaBantuan(response.data);
 	};
 
@@ -148,7 +151,7 @@ const KriteriaBantuan = () => {
 
 	const handleClick = (e) => {
 		for (let i = 0; i < kriteriaBantuan.length + 1; i++) {
-			axios.patch(`http://localhost:5000/kriteria/KB_${i + 1}`, {
+			API.updateKriteriaByID(i + 1, {
 				nilai_prioritas: hasilAkhirNilaiPrioritas[i],
 				nilai_lamda: nilaiLamda[i],
 			});
@@ -231,32 +234,6 @@ const KriteriaBantuan = () => {
 												)}
 											</td>
 											<td>
-												{/* btn hapus */}
-												{/* <Button
-                                                        variant="contained"
-                                                        className="btn_delete_bantuan"
-                                                        onClick={() => {
-                                                            swal({
-                                                                title: "Yakin ingin hapus data?",
-                                                                text: "Jika iya, maka data tidak bisa dikembalikan lagi!",
-                                                                icon: "warning",
-                                                                buttons: ["Tidak", "Yakin"],
-                                                                dangerMode: true
-                                                            })
-                                                            .then((willDelete) => {
-                                                                if (willDelete) {
-                                                                    axios.delete(`http://localhost:5000/kriteria/${e.id_kriteria}`)
-                                                                    .then(res => {
-                                                                        swal("Kriteria berhasil dihapus!", {
-                                                                        icon: "success",
-                                                                        })
-                                                                    })
-                                                                    getAllKriteria()
-                                                                }
-                                                            });
-                                                        }}
-                                                ><RiDeleteBin6Line /></Button> */}
-
 												{/* btn edit */}
 												<Button
 													variant="contained"
@@ -265,20 +242,14 @@ const KriteriaBantuan = () => {
 														mr: 1,
 													}}
 													onClick={() => {
-														const encrypt = AES.encrypt(
-															e.id_kriteria,
-															"id_kriteria"
-														);
-														navigate({
-															pathname: "/edit-kriteria-bantuan",
-															search: `?${createSearchParams({
-																ki: encrypt,
-															}).toString()}`,
+														navigate("/edit-kriteria-bantuan", {
+															state: e.id_kriteria,
 														});
 													}}
 												>
 													<AiOutlineEdit />
 												</Button>
+												{/* akhir btn edit */}
 											</td>
 										</tr>
 									);

@@ -52,7 +52,7 @@ const Bantuan = () => {
 
 						<div className="kapasitas_bantuan">
 							<p>
-								Kapasitas: <span>{e.kapasitas}</span>
+								Kapasitas: <span>{e.kapasitas} orang</span>
 							</p>
 						</div>
 					</Box>
@@ -86,11 +86,11 @@ const Bantuan = () => {
 				{/* Akhir search data section */}
 
 				<div className="bantuan_content">
-					{/* Showing data based on search and filter */}
+					{/* Showing data based on search */}
 					<div className="result_bantuan">
 						{bantuan && showBantuan(bantuan)}
 					</div>
-					{/* Akhir showing data based on search and filter */}
+					{/* Akhir showing data based on search */}
 				</div>
 			</div>
 			{/* Akhir component bantuan content */}

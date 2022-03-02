@@ -1,3 +1,5 @@
+// styling component linked in tambah_bantuan.scss file
+
 import React, { useState, useEffect } from "react";
 
 // components
@@ -19,7 +21,6 @@ import {
 } from "@mui/material";
 import * as Yup from "yup";
 import { Formik, Field } from "formik";
-import axios from "axios";
 import API from "../../api";
 
 const TambahBantuan = () => {
@@ -45,7 +46,7 @@ const TambahBantuan = () => {
 	});
 
 	const getAllBantuan = async () => {
-		const response = await axios.get("http://localhost:5000/bantuan");
+		const response = await API.getAllBantuan();
 		setBantuan(response.data);
 	};
 

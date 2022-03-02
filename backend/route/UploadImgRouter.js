@@ -1,9 +1,9 @@
 import express from "express";
-import { deleteImgBangunan_User, deleteImgKTP_User, deleteImgUser, saveImg, saveImgBannerBantuan, saveImgFormBangunan, saveImgFormKTP } from "../controller/UploadImg.js";
+import { deleteImgBangunan_User, deleteImgKTP_User, deleteImgUser, saveImgBannerBantuan, saveImgFormBangunan, saveImgFormKTP, saveImgUser } from "../controller/UploadImg.js";
 
 const router = express.Router();
 
-router.post('/', saveImg);
+router.post('/user', saveImgUser);
 router.post('/ktp', saveImgFormKTP);
 router.post('/bangunan', saveImgFormBangunan);
 router.post('/bantuan', saveImgBannerBantuan);

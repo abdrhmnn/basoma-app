@@ -63,6 +63,7 @@ const WargaDetail = () => {
 						name="status_ditolak"
 						variant="outlined"
 						fullWidth
+						autoComplete="off"
 						multiline
 						rows={3}
 						onChange={(e) => setAlasanPenerimaan(e.target.value)}

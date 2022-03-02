@@ -1,10 +1,10 @@
 import axios from "axios";
 
 const UPLOAD = {
-    saveIMG: (data) => {
-        return axios.post(`/uploads`, data)
+    saveIMG_USER: (data) => {
+        return axios.post(`/uploads/user`, data)
     },
-    showIMG: (data) => {
+    showIMG_DEFAULT: (data) => {
         return `http://localhost:5000/public/${data}`
     },
     showIMG_USER: (data) => {

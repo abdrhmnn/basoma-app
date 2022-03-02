@@ -1,3 +1,5 @@
+// styling component linked in pendaftaran_bantuan_detail.scss file
+
 import React, { useState, useEffect } from "react";
 
 // components

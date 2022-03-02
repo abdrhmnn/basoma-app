@@ -42,13 +42,13 @@ const storageBannerBantuan = multer.diskStorage({
 })
 
 
-const upload = multer({ storage: storageUser }).single('gambar')
+const uploadImgUser = multer({ storage: storageUser }).single('gambar')
 const uploadFormKTP = multer({ storage: storageFormKTP }).single('gambar_form_ktp')
 const uploadFormBangunan = multer({ storage: storageFormBangunan }).single('gambar_form_bangunan')
 const uploadBannerBantuan = multer({ storage: storageBannerBantuan }).single('gambar_tambah_bantuan')
 
-export const saveImg = (req, res) => {
-    upload(req, res, function (err) {
+export const saveImgUser = (req, res) => {
+    uploadImgUser(req, res, function (err) {
         if (err instanceof multer.MulterError) {
             return res.status(500).json(err)
         } else if (err) {

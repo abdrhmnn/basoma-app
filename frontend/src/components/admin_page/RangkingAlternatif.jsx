@@ -1,3 +1,5 @@
+// styling component linked in rangking.scss file
+
 import React, { useState, useEffect } from "react";
 
 // API storage

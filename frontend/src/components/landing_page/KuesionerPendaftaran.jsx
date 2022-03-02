@@ -171,6 +171,7 @@ const KuesionerPendaftaran = () => {
 		const roundNilaiDecimalSumberPenerangan =
 			nilaiDecimalSumberPenerangan.map((e, i) => Math.floor(e * 100) / 100);
 
+		// kalkulasi nilai desimal dan push ke new array
 		for (let y = 0; y < kriteriaBantuan.length; y++) {
 			kalkulasiNilaiDecimal.push(
 				roundNilaiDecimalPendidikan[y] +
@@ -181,6 +182,7 @@ const KuesionerPendaftaran = () => {
 			);
 		}
 
+		// push nilai normalisasi per alternatif
 		for (let x = 0; x < kriteriaBantuan.length; x++) {
 			normalisasiPendidikan.push(
 				roundNilaiDecimalPendidikan[x] / kalkulasiNilaiDecimal[x]
@@ -268,17 +270,10 @@ const KuesionerPendaftaran = () => {
 			normalisasiLamda.reduce((accu, curr) => accu + curr) * 10
 		).toFixed(2);
 
-		// check jika user mendapatkan skor diatas rata-rata
 		kuki.set("nilai_ci", nilaiCI);
 		kuki.set("nilai_cr", nilaiCR);
 		kuki.set("nilai_rangking", nilaiRangkingAlternatif);
 		kuki.set("bantuan_id", location.state);
-		// if (Math.floor((hasilNilaiPrioritas / 10) * 1000) > 50) {
-		// 	kuki.set("nilai_ci", nilaiCI);
-		// 	kuki.set("nilai_cr", nilaiCR);
-		// 	kuki.set("nilai_rangking", nilaiRangkingAlternatif);
-		// 	kuki.set("bantuan_id", location.state);
-		// }
 	};
 
 	return (
@@ -634,22 +629,22 @@ const KuesionerPendaftaran = () => {
 												i < arrValueJawaban.length;
 												i++
 											) {
-												API.savePrioritas(
-													prioritasLength++,
-													arrValueJawaban[i],
-													kuki.get("user_id"),
-													Math.floor(
+												API.savePrioritas({
+													prioritas_id: `PRIO_${prioritasLength++}`,
+													user_id: kuki.get("user_id"),
+													pilihan: arrValueJawaban[i],
+													total_nilai: Math.floor(
 														(hasilNilaiPrioritas / 10) * 1000
 													),
-													i
-												).then((res) => {
+													identitas_pilihan: i,
+												}).then((res) => {
 													navigate("/hasil-kuesioner-pendaftaran");
 												});
 											}
 
-											API.updateStatusPengisianUser(
-												kuki.get("user_id")
-											);
+											API.updateUser(kuki.get("user_id"), {
+												status_pengisian: "sudah",
+											});
 										} else {
 											setIsValidSubmit(true);
 											setIsOpenSnackbar(true);

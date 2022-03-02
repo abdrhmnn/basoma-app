@@ -31,6 +31,9 @@ const BANTUAN = {
             deskripsi: props.deskripsi,
             banner: banner.name
         })
+    },
+    deleteBantuanByID: (id) => {
+        return axios.delete(`/bantuan/${id}`)
     }
 }
 

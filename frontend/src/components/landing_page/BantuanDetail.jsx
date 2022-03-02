@@ -12,9 +12,6 @@ import kuki from "../../kuki";
 // API storage
 import API from "../../api";
 
-// img
-import img1 from "./../../images/test.png";
-
 // npm packages
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button, CircularProgress, Alert } from "@mui/material";
@@ -29,13 +26,6 @@ const BantuanDetail = ({ activeNav }) => {
 	const location = useLocation();
 
 	useEffect(() => {
-		if (kuki.get("bantuan_id")) {
-			kuki.remove("bantuan_id");
-			kuki.remove("nilai_ci");
-			kuki.remove("nilai_cr");
-			kuki.remove("nilai_rangking");
-		}
-
 		document.title = "Detail Bantuan";
 		getUserByID();
 

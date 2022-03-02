@@ -1,12 +1,16 @@
+// styling component linked in head_admin.scss file
+
 import React, { useState, useEffect } from "react";
 
-// components or files
+// Cookie storage
 import kuki from "../../kuki";
+
+// API storage
+import API from "../../api";
 
 // npm packages
 import { Button, Menu, MenuItem, Avatar } from "@mui/material";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const HeaderAdmin = ({ isRendering }) => {
@@ -24,9 +28,7 @@ const HeaderAdmin = ({ isRendering }) => {
 	}, [isRendering]);
 
 	const getUserById = async () => {
-		const response = await axios.get(
-			`http://localhost:5000/users/${kuki.get("user_id")}`
-		);
+		const response = await API.getUserByID(kuki.get("user_id"));
 		setUserById(response.data);
 	};
 

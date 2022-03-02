@@ -1,5 +1,5 @@
 // styling component linked in hasil_kuesioner_pendaftaran.scss file
-// and App.scss for tbl_class, tbl_class_head, tbl_class_body class name
+// and App.scss for tbl_class, tbl_class_head, tbl_class_body class names
 
 import React, { useState, useEffect } from "react";
 
@@ -391,20 +391,6 @@ const HasilKuesionerPendaftaran = () => {
 						</Link>{" "}
 						untuk proses lebih lanjut.
 					</Alert>
-					{/* {hasilKuesioner[0].total_nilai > 50 ? (
-					) : (
-						<Alert
-							variant="outlined"
-							severity="error"
-							sx={{ mt: 2, fontSize: ".9em" }}
-						>
-							Maaf!, anda berkemungkinan sebesar{" "}
-							<span style={{ fontWeight: "bold" }}>
-								{hasilKuesioner[0].total_nilai + "%"}
-							</span>{" "}
-							untuk bisa mendapatkan bantuan sosial
-						</Alert>
-					)} */}
 					{/* Akhir alert hasil akhir section */}
 				</div>
 			)}

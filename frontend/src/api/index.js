@@ -31,27 +31,8 @@ const API = {
             status_pengisian: "belum",
         })
     },
-    updateUserByID: (props, img, id) => {
-        return axios.patch(`/users/${id}`, {
-            nm_depan: props.nm_depan,
-            nm_belakang: props.nm_belakang,
-            username: props.username,
-            password: props.password,
-            gambar: img.name
-        });
-    },
-    updateStatusPengisianUser: (id) => {
-        return axios.patch(`/users/${id}`, {
-            status_pengisian: 'sudah'
-        });
-    },
-    updateUserTanpaGambar: (props, id) => {
-        return axios.patch(`/users/${id}`, {
-            nm_depan: props.nm_depan,
-            nm_belakang: props.nm_belakang,
-            username: props.username,
-            password: props.password
-        });
+    updateUser: (id, data) => {
+        return axios.patch(`/users/${id}`, data)
     },
     deleteUserByUserID: (id) => {
         return axios.delete(`/users/${id}`)

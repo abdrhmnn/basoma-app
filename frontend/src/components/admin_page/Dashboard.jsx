@@ -1,3 +1,5 @@
+// styling component linked in dashboard.scss file
+
 import React, { useState, useEffect } from "react";
 
 // components
@@ -92,7 +94,10 @@ const Dashboard = () => {
 				<HeaderAdmin />
 				<div className="content_dashboard_admin">
 					<h2>Hi, Selamat Datang</h2>
+
+					{/* dashboard admin content */}
 					<div className="dahsboard_info">
+						{/* info bantuan */}
 						<div
 							className="info_item_1"
 							style={{
@@ -115,6 +120,9 @@ const Dashboard = () => {
 								<p>Bantuan Sosial</p>
 							</div>
 						</div>
+						{/* akhir info bantuan */}
+
+						{/* info user */}
 						<div
 							className="info_item_2"
 							style={{
@@ -137,6 +145,9 @@ const Dashboard = () => {
 								<p>Total User</p>
 							</div>
 						</div>
+						{/* akhir info user */}
+
+						{/* info pendaftaran bantuan */}
 						<div
 							className="info_item_3"
 							style={{
@@ -159,6 +170,9 @@ const Dashboard = () => {
 								<p>Pendaftaran Bantuan</p>
 							</div>
 						</div>
+						{/* akhir info pendaftaran bantuan */}
+
+						{/* info kriteria */}
 						<div
 							className="info_item_4"
 							style={{
@@ -181,7 +195,9 @@ const Dashboard = () => {
 								<p>Kriteria Bantuan</p>
 							</div>
 						</div>
+						{/* akhir info kriteria */}
 					</div>
+					{/* akhir dashboard admin content */}
 					<div className="dashboard_chart">
 						<h2>Data Pendaftaran Bantuan</h2>
 						<p>berdasarkan status penerimaan</p>

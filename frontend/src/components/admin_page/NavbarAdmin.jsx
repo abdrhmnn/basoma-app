@@ -1,3 +1,5 @@
+// styling component linked in navbar_admin.scss file
+
 import React from "react";
 
 // npm packages

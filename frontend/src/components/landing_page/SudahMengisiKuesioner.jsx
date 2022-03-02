@@ -17,17 +17,10 @@ import { Link } from "react-router-dom";
 
 const SudahMengisiKuesioner = () => {
 	const [userByID, setUserByID] = useState(null);
-	const [nilaiPrioritasByID, setNilaiPrioritasByID] = useState(null);
 
 	useEffect(() => {
 		getUserByID();
-		getNilaiPrioritasByID();
 	}, []);
-
-	const getNilaiPrioritasByID = async () => {
-		const response = await API.getPrioritasByUserID(kuki.get("user_id"));
-		setNilaiPrioritasByID(response.data);
-	};
 
 	const getUserByID = async () => {
 		const response = await API.getUserByID(kuki.get("user_id"));
@@ -45,13 +38,6 @@ const SudahMengisiKuesioner = () => {
 						alt="Maaf tidak bisa mengisi kuesioner lagi"
 					/>
 					<h2>Anda sudah mendaftar bantuan sosial sebelumnya!</h2>
-					{/* <p>
-						Hasil pengisian kuesioner sebelumnya dengan nama{" "}
-						<i>
-							{userByID.nm_depan} {userByID.nm_belakang}
-						</i>{" "}
-						adalah <b>{nilaiPrioritasByID.total_nilai + "%"}</b>
-					</p> */}
 					<p>
 						Batas pendaftaran hanya satu kali, Anda tidak bisa lagi
 						mendaftar bantuan sosial, silahkan menunggu hasil keputusan

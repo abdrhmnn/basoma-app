@@ -1,3 +1,5 @@
+// styling component linked in user_page.scss file
+
 import React, { useState, useEffect } from "react";
 
 // components
@@ -8,7 +10,6 @@ import NavbarAdmin from "./NavbarAdmin";
 import API from "../../api";
 
 // npm packages
-import axios from "axios";
 import { jsPDF } from "jspdf";
 import { Button } from "@mui/material";
 import "jspdf-autotable";
@@ -22,6 +23,7 @@ const User = () => {
 	const [valueCari, setValueCari] = useState("");
 	const [dataUserLength, setDataUserLength] = useState(5);
 	const [warga, setWarga] = useState(null);
+	const [bantuan, setBantuan] = useState(null);
 
 	const ExcelFile = ReactExport.ExcelFile;
 	const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
@@ -31,6 +33,7 @@ const User = () => {
 		document.title = "Kelola User";
 		getAllUser();
 		getAllWarga();
+		getAllBantuan();
 	}, []);
 
 	const dataSetUser = user.map((e, i) => {
@@ -42,13 +45,18 @@ const User = () => {
 	});
 
 	const getAllUser = async () => {
-		const response = await axios.get("http://localhost:5000/users");
+		const response = await API.getAllUser();
 		setUser(response.data);
 	};
 
 	const getAllWarga = async () => {
 		const response = await API.getAllWarga();
 		setWarga(response.data);
+	};
+
+	const getAllBantuan = async () => {
+		const response = await API.getAllBantuan();
+		setBantuan(response.data);
 	};
 
 	const handleChange = (e) => {
@@ -73,21 +81,6 @@ const User = () => {
 
 		return <span className="role_warga">{role}</span>;
 	};
-
-	// const getWargaByID = async (id) => {
-	// 	// let dataWarga = null;
-	// 	return await API.getWargaByUserID(id).then((res) =>
-	// 		setDataWarga(res.data)
-	// 	);
-	// };
-
-	// let dataWargaBaru = dataWarga;
-	// const deleteImgKTP_User = () => {
-	// 	// return API.deleteImgKTP_User(dataWarga.foto_ktp);
-	// 	console.log(dataWarga);
-	// };
-
-	// console.log(dataWarga);
 
 	return (
 		<div style={{ display: "flex" }}>
@@ -154,6 +147,7 @@ const User = () => {
 							<tbody className="tbl_class_body">
 								{user &&
 									warga &&
+									bantuan &&
 									user.slice(0, dataUserLength).map((e, i) => {
 										const stringData =
 											e.nm_depan + e.nm_belakang + e.username;
@@ -167,13 +161,15 @@ const User = () => {
 													<td width={100}>
 														{e.gambar === "default_img.svg" ? (
 															<img
-																src={`http://localhost:5000/public/${e.gambar}`}
+																src={API.showIMG_DEFAULT(
+																	e.gambar
+																)}
 																alt="Gambar Profile User"
 																width={50}
 															/>
 														) : (
 															<img
-																src={`http://localhost:5000/public/user/${e.gambar}`}
+																src={API.showIMG_USER(e.gambar)}
 																alt="Gambar Profile User"
 																width={50}
 															/>
@@ -204,22 +200,20 @@ const User = () => {
 																	buttons: ["Tidak", "Yakin"],
 																}).then((willUpdate) => {
 																	if (willUpdate) {
-																		axios
-																			.patch(
-																				`http://localhost:5000/users/${e.user_id}`,
+																		API.updateUser(
+																			e.user_id,
+																			{
+																				role: "admin",
+																			}
+																		).then((res) => {
+																			swal(
+																				"User berhasil dijadikan sebagai admin!",
 																				{
-																					role: "admin",
+																					icon: "success",
 																				}
-																			)
-																			.then((res) => {
-																				swal(
-																					"User berhasil dijadikan sebagai admin!",
-																					{
-																						icon: "success",
-																					}
-																				);
-																				getAllUser();
-																			});
+																			);
+																			getAllUser();
+																		});
 																	}
 																});
 															}}
@@ -234,7 +228,7 @@ const User = () => {
 															onClick={() => {
 																swal({
 																	title: "Yakin ingin hapus data?",
-																	text: "Jika iya, maka data tidak bisa dikembalikan lagi!",
+																	text: "Jika iya, maka data tidak bisa dikembalikan lagi (seperti data pendaftaran dan keputusan bantuan)",
 																	icon: "warning",
 																	buttons: ["Tidak", "Yakin"],
 																	dangerMode: true,
@@ -260,6 +254,34 @@ const User = () => {
 
 																				API.deleteImgBangunan_User(
 																					data.foto_bangunan_rumah
+																				);
+																			}
+
+																			if (
+																				data.user_id ===
+																					e.user_id &&
+																				data.status_penerimaan ===
+																					"diterima"
+																			) {
+																				bantuan.map(
+																					(
+																						dataBantuan,
+																						i
+																					) => {
+																						if (
+																							data.kd_bantuan ===
+																							dataBantuan.kd_bantuan
+																						) {
+																							API.updateKapasitasBantuan(
+																								data.kd_bantuan,
+																								parseInt(
+																									dataBantuan.kapasitas
+																								) + 1
+																							);
+																						}
+
+																						return null;
+																					}
 																				);
 																			}
 

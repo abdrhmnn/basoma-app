@@ -1,8 +1,13 @@
+// styling component linked in tambah_bantuan.scss file
+
 import React, { useState, useEffect } from "react";
 
 // components
 import HeaderAdmin from "./HeaderAdmin";
 import NavbarAdmin from "./NavbarAdmin";
+
+// API storage
+import API from "../../api";
 
 // npm packages
 import swal from "sweetalert";
@@ -10,8 +15,7 @@ import { BsFillImageFill } from "react-icons/bs";
 import { TextField, Button, Alert } from "@mui/material";
 import * as Yup from "yup";
 import { Formik, Field } from "formik";
-import API from "../../api";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 const EditBantuan = () => {
 	const [isValidImgTypeBantuan, setIsValidImgTypeBantuan] = useState(true);
@@ -231,7 +235,20 @@ const EditBantuan = () => {
 										}}
 										type="submit"
 									>
-										edit
+										submit
+									</Button>
+									<Button
+										variant="contained"
+										color="error"
+										component={Link}
+										to="/kelola-bantuan"
+										sx={{
+											p: 1,
+											fontWeight: "bold",
+											mt: 2,
+										}}
+									>
+										batal
 									</Button>
 								</form>
 							)}

@@ -4,13 +4,8 @@ const ALTERNATIF = {
     getAllAlternatif: () => {
         return axios.get(`/alternatif`)
     },
-    saveAlternatif: (idAlternatif, userId, nilaiCI, nilaiCR) => {
-        return axios.post(`/alternatif`, {
-            id_alternatif: `AI_${idAlternatif}`,
-            user_id: userId,
-            nilai_ci: nilaiCI,
-            nilai_cr: nilaiCR
-        })
+    saveAlternatif: (data) => {
+        return axios.post(`/alternatif`, data)
     },
     getAlternatifByUserID: (userId) => {
         return axios.get(`/alternatif/userId/${userId}`)
