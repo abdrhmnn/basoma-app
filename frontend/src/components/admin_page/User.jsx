@@ -4,6 +4,9 @@ import React, { useState, useEffect } from "react";
 import HeaderAdmin from "./HeaderAdmin";
 import NavbarAdmin from "./NavbarAdmin";
 
+// API storage
+import API from "../../api";
+
 // npm packages
 import axios from "axios";
 import { jsPDF } from "jspdf";
@@ -18,6 +21,7 @@ const User = () => {
 	const [user, setUser] = useState([]);
 	const [valueCari, setValueCari] = useState("");
 	const [dataUserLength, setDataUserLength] = useState(5);
+	const [warga, setWarga] = useState(null);
 
 	const ExcelFile = ReactExport.ExcelFile;
 	const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
@@ -26,6 +30,7 @@ const User = () => {
 	useEffect(() => {
 		document.title = "Kelola User";
 		getAllUser();
+		getAllWarga();
 	}, []);
 
 	const dataSetUser = user.map((e, i) => {
@@ -39,6 +44,11 @@ const User = () => {
 	const getAllUser = async () => {
 		const response = await axios.get("http://localhost:5000/users");
 		setUser(response.data);
+	};
+
+	const getAllWarga = async () => {
+		const response = await API.getAllWarga();
+		setWarga(response.data);
 	};
 
 	const handleChange = (e) => {
@@ -63,6 +73,21 @@ const User = () => {
 
 		return <span className="role_warga">{role}</span>;
 	};
+
+	// const getWargaByID = async (id) => {
+	// 	// let dataWarga = null;
+	// 	return await API.getWargaByUserID(id).then((res) =>
+	// 		setDataWarga(res.data)
+	// 	);
+	// };
+
+	// let dataWargaBaru = dataWarga;
+	// const deleteImgKTP_User = () => {
+	// 	// return API.deleteImgKTP_User(dataWarga.foto_ktp);
+	// 	console.log(dataWarga);
+	// };
+
+	// console.log(dataWarga);
 
 	return (
 		<div style={{ display: "flex" }}>
@@ -128,6 +153,7 @@ const User = () => {
 							</thead>
 							<tbody className="tbl_class_body">
 								{user &&
+									warga &&
 									user.slice(0, dataUserLength).map((e, i) => {
 										const stringData =
 											e.nm_depan + e.nm_belakang + e.username;
@@ -139,11 +165,19 @@ const User = () => {
 												<tr key={i}>
 													<td>{i + 1}</td>
 													<td width={100}>
-														<img
-															src={`http://localhost:5000/public/${e.gambar}`}
-															alt="Gambar Profile User"
-															width={50}
-														/>
+														{e.gambar === "default_img.svg" ? (
+															<img
+																src={`http://localhost:5000/public/${e.gambar}`}
+																alt="Gambar Profile User"
+																width={50}
+															/>
+														) : (
+															<img
+																src={`http://localhost:5000/public/user/${e.gambar}`}
+																alt="Gambar Profile User"
+																width={50}
+															/>
+														)}
 													</td>
 													<td>{e.nm_depan}</td>
 													<td>{e.nm_belakang}</td>
@@ -184,10 +218,10 @@ const User = () => {
 																						icon: "success",
 																					}
 																				);
+																				getAllUser();
 																			});
 																	}
 																});
-																getAllUser();
 															}}
 														>
 															<RiAdminLine />
@@ -206,22 +240,63 @@ const User = () => {
 																	dangerMode: true,
 																}).then((willDelete) => {
 																	if (willDelete) {
-																		axios.delete(
-																			`http://localhost:5000/masukan/${e.user_id}`
-																		);
-																		axios
-																			.delete(
-																				`http://localhost:5000/users/${e.user_id}`
-																			)
-																			.then((res) => {
-																				swal(
-																					"Data berhasil dihapus!",
-																					{
-																						icon: "success",
-																					}
+																		if (
+																			e.gambar !==
+																			"default_img.svg"
+																		) {
+																			API.deleteImgUser(
+																				e.gambar
+																			);
+																		}
+
+																		warga.map((data, i) => {
+																			if (
+																				data.user_id ===
+																				e.user_id
+																			) {
+																				API.deleteImgKTP_User(
+																					data.foto_ktp
 																				);
-																			});
-																		getAllUser();
+
+																				API.deleteImgBangunan_User(
+																					data.foto_bangunan_rumah
+																				);
+																			}
+
+																			return null;
+																		});
+
+																		API.deleteMasukanByUserID(
+																			e.user_id
+																		);
+
+																		API.deletePemberitahuanByUserID(
+																			e.user_id
+																		);
+
+																		API.deletePrioritasByUserID(
+																			e.user_id
+																		);
+
+																		API.deleteAlternatifByUserID(
+																			e.user_id
+																		);
+
+																		API.deleteWargaByUserID(
+																			e.user_id
+																		);
+
+																		API.deleteUserByUserID(
+																			e.user_id
+																		).then((res) => {
+																			swal(
+																				"Data berhasil dihapus!",
+																				{
+																					icon: "success",
+																				}
+																			);
+																			getAllUser();
+																		});
 																	}
 																});
 															}}

@@ -14,6 +14,9 @@ const PEMBERITAHUAN = {
             nama: `Pemberitahuan pendaftaran bantuan`,
             alasan: alasan
         })
+    },
+    deletePemberitahuanByUserID: (id) => {
+        return axios.delete(`/pemberitahuan/${id}`)
     }
 }
 

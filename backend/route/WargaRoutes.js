@@ -1,5 +1,5 @@
 import express from "express";
-import { createWarga, getAllWarga, getAllWargaAndSortByNilaiRangking, getWargaByBantuanID, getWargaByNoKTP, getWargaByUserID, updateStatusWargaByUserID } from "../controller/Warga.js";
+import { createWarga, deleteWargaByUserID, getAllWarga, getAllWargaAndSortByNilaiRangking, getWargaByBantuanID, getWargaByNoKTP, getWargaByUserID, updateStatusWargaByUserID } from "../controller/Warga.js";
 
 const router = express.Router();
 
@@ -10,5 +10,6 @@ router.get('/noKTP/:id', getWargaByNoKTP)
 router.get('/userId/:id', getWargaByUserID)
 router.get('/sortRangking/:id', getAllWargaAndSortByNilaiRangking)
 router.patch('/update/:id', updateStatusWargaByUserID)
+router.delete('/:id', deleteWargaByUserID)
 
 export default router;

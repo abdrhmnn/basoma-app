@@ -89,3 +89,18 @@ export const updateStatusWargaByUserID = async (req, res) => {
         res.json({ message: error.message })
     }
 }
+
+export const deleteWargaByUserID = async (req, res) => {
+    try{
+        await Warga.destroy({
+            where: {
+                user_id: req.params.id
+            }
+        });
+        res.json({
+            "message" : "Warga berhasil dihapus!"
+        });
+    }catch(error){
+        res.json({ message: error.message })
+    }
+}

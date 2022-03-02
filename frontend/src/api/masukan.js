@@ -22,6 +22,9 @@ const MASUKAN = {
     updateMasukanByUserID: (id) => {
         return axios.patch(`/masukan/userId/${id}`)
     },
+    deleteMasukanByUserID: (id) => {
+        return axios.delete(`/masukan/${id}`)
+    }
 }
 
 export default MASUKAN

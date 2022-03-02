@@ -6,16 +6,17 @@
     color: $white-color;
     border-radius: 5px;
     position: absolute;
-    top: 46%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, 170%);
 
     h1{
-        margin: 0;
+        margin: 0 0 10px 0;
+        font-size: 1.5em;
     }
 
     p{
-        margin: 0 0 30px 0;
+        margin: 0 0 15px 0;
     }
 
     .btn_join{
@@ -41,20 +42,28 @@
     .join_us{
         top: 78%;
         width: 80%;
+
+        .btn_join{
+            font-size: .8em;
+        }
     }
 }
 
 // for mobile
 @media screen and (max-width: 576px){
     .join_us{
-        top: 75%;
+        top: 75.5%;
 
         h1{
-            font-size: 1.6em;
+            font-size: 1.3em;
         }
 
         p{
             font-size: .9em;
+        }
+
+        .btn_join{
+            font-size: .85em;
         }
     }
 }

@@ -67,6 +67,7 @@
         .flex_fktp_fbangunan{
             display: flex;
             justify-content: space-between;
+            margin-bottom: 15px;
 
             .fktp{
                 .btn_upload_ktp{
@@ -125,7 +126,7 @@
     .form_pendaftaran{
         .form_title{
             h2{
-                font-size: 1.4em;
+                font-size: 1.3em;
             }
             p{
                 font-size: .85em;
@@ -169,8 +170,10 @@
                 }
             }
 
-            .flex_fktp_fbanguan{
+            .flex_fktp_fbangunan{
                 flex-direction: column;
+                margin-bottom: 0;
+
                 .fktp{
                     text-align: center;
                     margin-bottom: 20px;
@@ -191,9 +194,14 @@
                     p{
                         text-align: left;
                     }
+
                     .btn_upload_bangunan{
                         width: 100%;
                     }
+                }
+
+                .ml_bangunan{
+                    margin-left: 0;
                 }
             }
         }

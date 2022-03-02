@@ -1,6 +1,6 @@
 // styling for padding component footer when page is loaded
 .foot_foot{
-    padding: 100px 30px 20px 25px;
+    padding: 50px 30px 20px 25px;
 }
 
 .footer{
@@ -88,10 +88,14 @@
 // Responsive Breakpoints
 // for tablet
 @media screen and (max-width: 768px){
+    .foot_foot{
+        padding-top: 40px;
+    }
+
     .footer{
         .wrap_container{
             h1{
-                font-size: 1.4em;
+                font-size: 1.5em;
             }
 
             .footer_nav{

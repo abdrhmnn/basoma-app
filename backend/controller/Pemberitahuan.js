@@ -32,3 +32,18 @@ export const createPemberitahuan = async (req, res) => {
         res.json({ message: error.message })
     }
 }
+
+export const deletePemberitahuanByUserID = async (req, res) => {
+    try{
+        await Pemberitahuan.destroy({
+            where: {
+                user_id: req.params.id
+            }
+        });
+        res.json({
+            "message" : "Pemberitahuan berhasil dihapus!"
+        });
+    }catch(error){
+        res.json({ message: error.message })
+    }
+}

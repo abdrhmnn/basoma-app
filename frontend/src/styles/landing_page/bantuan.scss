@@ -34,6 +34,14 @@
             display: flex;
             flex-direction: column;
 
+            .judul_bantuan{
+                font-size: 1.5em;
+            }
+
+            .kapasitas_bantuan{
+                font-size: .9em;
+            }
+
             p{
                 margin: 10px 0 0 0;
             }
@@ -75,6 +83,14 @@
             .result_bantuan{
                 margin: 20px 0 0 0;
                 width: 100%;
+
+                .judul_bantuan{
+                    font-size: 1.3em;
+                }
+    
+                .kapasitas_bantuan{
+                    font-size: .8em;
+                }
             }
         }
     }
@@ -86,6 +102,14 @@
         .search_bantuan{
             .MuiTextField-root{
                 width: 100%;
+            }
+        }
+
+        .bantuan_content{
+            .result_bantuan{
+                .judul_bantuan{
+                    font-size: 1.3em;
+                }
             }
         }
     }

@@ -97,9 +97,13 @@ const EditProfile = () => {
 										src={
 											showImg
 												? showImg
-												: API.showIMG(
+												: userByID.gambar === "default_img.svg"
+												? API.showIMG(
 														userByID.gambar || "blank_img.png"
 												  )
+												: `http://localhost:5000/public/user/${
+														userByID.gambar || "blank_img.png"
+												  }`
 										}
 										alt="Foto Profile"
 									/>
@@ -139,6 +143,7 @@ const EditProfile = () => {
 										<p
 											style={{
 												color: "red",
+												fontSize: ".95em",
 											}}
 										>
 											Ekstensi yang diperbolehkan: .png, .jpeg, .jpg
@@ -146,6 +151,7 @@ const EditProfile = () => {
 										<p
 											style={{
 												color: "red",
+												fontSize: ".95em",
 											}}
 										>
 											Maks: 5MB

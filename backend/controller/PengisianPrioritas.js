@@ -48,3 +48,18 @@ export const createNilaiPrioritas = async (req, res) => {
         res.json({ message: error.message })
     }
 }
+
+export const deleteNilaiPrioritasByUserID = async (req, res) => {
+    try{
+        await NilaiPrioritas.destroy({
+            where: {
+                user_id: req.params.id
+            }
+        });
+        res.json({
+            "message" : "NilaiPrioritas berhasil dihapus!"
+        });
+    }catch(error){
+        res.json({ message: error.message })
+    }
+}

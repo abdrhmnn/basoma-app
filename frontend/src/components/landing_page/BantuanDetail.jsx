@@ -76,7 +76,12 @@ const BantuanDetail = ({ activeNav }) => {
 					)}
 
 					{kuki.get("user_id") ? null : (
-						<Alert variant="outlined" severity="warning" sx={{ mb: 2 }}>
+						<Alert
+							variant="outlined"
+							severity="warning"
+							sx={{ mb: 2 }}
+							className="alert_bantuan_detail"
+						>
 							<span style={{ fontWeight: "bold" }}>PERHATIKAN!</span>,
 							silahkan login terlebih dahulu untuk bisa melakukan
 							pendaftaran.

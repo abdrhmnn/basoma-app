@@ -46,11 +46,11 @@ const Bantuan = () => {
 							})
 						}
 					>
-						<Typography variant="h4" style={{ fontSize: "1.5em" }}>
+						<Typography variant="h4" className="judul_bantuan">
 							{e.nama}
 						</Typography>
 
-						<div style={{ fontSize: ".9em" }}>
+						<div className="kapasitas_bantuan">
 							<p>
 								Kapasitas: <span>{e.kapasitas}</span>
 							</p>

@@ -1,7 +1,6 @@
 .success_register{
     max-width: $max-width-container;
     margin: -40px auto 0 auto;
-    padding-bottom: 50px;
 
     .register_success{
         display: flex;
@@ -10,12 +9,13 @@
         align-items: center;
 
         img{
-            width: 450px;
+            width: 350px;
         }
 
         h1{
             margin: 0 0 10px 0;
             padding: 0;
+            font-size: 1.5em;
         }
 
         p{
@@ -24,19 +24,50 @@
         }
 
         .btn_kembali_login{
-            padding: 15px;
+            padding: 10px;
             font-weight: bold;
+            font-size: .8em;
         }
     }
 }
 
 // Responsive Breakpoints
+// for tablet
+@media screen and (max-width: 768px){
+    .success_register{
+        margin-top: 0;
+
+        .register_success{
+            img{
+                width: 300px;
+            }
+
+            h1{
+                font-size: 1.3em;
+            }
+        }
+    }
+}
+
 // for mobile
 @media screen and (max-width: 576px){
     .success_register{
         .register_success{
+            img{
+                width: 300px;
+            }
+
             h1{
-                font-size: 1.8em;
+                font-size: 1.2em;
+            }
+
+            p{
+                font-size: .9em;
+            }
+
+            .btn_kembali_login{
+                padding: 8px;
+                font-size: .8em;
             }
         }
     }

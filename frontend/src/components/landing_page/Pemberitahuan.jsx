@@ -37,11 +37,15 @@ const Pemberitahuan = () => {
 		<div>
 			<Navbar />
 			<div className="pemberitahuan_content">
-				<Alert variant="outlined" severity="info">
+				<Alert
+					variant="outlined"
+					severity="info"
+					className="alert_info_pemberitahuan"
+				>
 					<span style={{ fontWeight: "bold" }}>PERHATIKAN!</span>,
-					pemberitahuan tentang bantuan sosial akan ditampilkan disini.
+					Pemberitahuan tentang bantuan sosial akan ditampilkan disini.
 				</Alert>
-				{wargaByUserID && pemberitahuanByUserID && (
+				{wargaByUserID && pemberitahuanByUserID && pemberitahuanByUserID ? (
 					<div className="data_pemberitahuan">
 						<Alert
 							variant="outlined"
@@ -50,12 +54,8 @@ const Pemberitahuan = () => {
 									? "success"
 									: "error"
 							}
-							sx={{
-								width: "640px",
-								display: "block",
-								margin: "30px auto 0 auto",
-							}}
 							icon={false}
+							className="alert_pemberitahuan"
 						>
 							<div className="data_diri_pemberitahuan">
 								<div className="nik_nm_lengkap_pemberitahuan">
@@ -98,6 +98,10 @@ const Pemberitahuan = () => {
 								penerima bantuan sosial, terima kasih
 							</p>
 						)}
+					</div>
+				) : (
+					<div className="tidak_ada_pemberitahuan">
+						<p>Tidak ada pemberitahuan.</p>
 					</div>
 				)}
 			</div>

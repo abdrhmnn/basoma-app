@@ -5,7 +5,7 @@
 
         h2{
             margin: 0;
-            font-size: 1.4em;
+            font-size: 1.3em;
         }
     }
 
@@ -18,8 +18,8 @@
         padding: 0 5px 0 5px;
 
         h2{
-            margin: 0 0 10px 0;
-            font-size: 1.4em;
+            margin: 10px 0 10px 0;
+            font-size: 1.3em;
         }
 
         img{
@@ -48,17 +48,16 @@
 @media screen and (max-width: 768px){
     .sudah_mengisi{
         .sudah_title{
-            padding-left: 40px;
-
             h2{
-                font-size: 1.3em;
+                font-size: 1.25em;
             }
         }
 
         .sudah_content{
-            padding-top: 40px;
+            padding: 40px 10px 0 10px;
+
             h2{
-                font-size: 1.3em;
+                font-size: 1.25em;
             }
 
             img{
@@ -66,7 +65,36 @@
             }
 
             p{
+                width: 100%;
                 font-size: .85em;
+            }
+        }
+    }
+}
+
+// for mobile
+@media screen and (max-width: 576px){
+    .sudah_mengisi{
+        .sudah_title{
+            h2{
+                font-size: 1.1em;
+            }
+        }
+
+        .sudah_content{
+            padding: 40px 7px 0 7px;
+
+            h2{
+                font-size: 1.1em;
+            }
+
+            img{
+                width: 230px;
+            }
+
+            p{
+                width: 100%;
+                font-size: .8em;
             }
         }
     }

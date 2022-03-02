@@ -44,7 +44,9 @@ const HeaderAdmin = ({ isRendering }) => {
 						alt="Foto Profile"
 						src={
 							userById.gambar
-								? `http://localhost:5000/public/${userById.gambar}`
+								? userById.gambar === "default_img.svg"
+									? `http://localhost:5000/public/${userById.gambar}`
+									: `http://localhost:5000/public/user/${userById.gambar}`
 								: "blank_img.png"
 						}
 					/>

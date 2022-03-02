@@ -14,6 +14,9 @@ const ALTERNATIF = {
     },
     getAlternatifByUserID: (userId) => {
         return axios.get(`/alternatif/userId/${userId}`)
+    },
+    deleteAlternatifByUserID: (id) => {
+        return axios.delete(`/alternatif/${id}`)
     }
 }
 

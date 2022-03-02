@@ -5,6 +5,9 @@ import HeaderAdmin from "./HeaderAdmin";
 import NavbarAdmin from "./NavbarAdmin";
 import SuccessEditProfile from "./SuccessEditProfileAdmin";
 
+// API storage
+import API from "../../api";
+
 // npm packages
 import {
 	Button,
@@ -98,10 +101,22 @@ const EditProfileAdmin = () => {
 													src={
 														showImg
 															? showImg
-															: `http://localhost:5000/public/${
+															: userById.gambar ===
+															  "default_img.svg"
+															? API.showIMG(
+																	userById.gambar ||
+																		"blank_img.png"
+															  )
+															: `http://localhost:5000/public/user/${
 																	userById.gambar ||
 																	"blank_img.png"
 															  }`
+														// showImg
+														// 	? showImg === "default_img.svg"
+														// 	: `http://localhost:5000/public/${
+														// 			userById.gambar ||
+														// 			"blank_img.png"
+														// 	  }`
 													}
 													alt="Foto Profile"
 												/>

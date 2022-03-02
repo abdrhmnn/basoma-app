@@ -526,7 +526,7 @@ const FormPendaftaranBantuan = () => {
 									padding: 1,
 									width: "100%",
 									fontWeight: "bold",
-									mt: 3,
+									mt: 1,
 									mb: 5,
 								}}
 								type="submit"

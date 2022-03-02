@@ -17,6 +17,12 @@
     }
 
     .data_pemberitahuan{
+        .alert_pemberitahuan{
+            width: 640px;
+            display: block;
+            margin: 30px auto 0 auto;
+        }
+
         .data_diri_pemberitahuan{
             .nik_nm_lengkap_pemberitahuan{
                 display: flex;
@@ -38,6 +44,72 @@
             .masukan_admin{
                 margin-top: 10px;
                 font-size: 1.1em;
+            }
+        }
+    }
+
+    .tidak_ada_pemberitahuan{
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 300px;
+
+        p{
+            margin: 0;
+        }
+    }
+}
+
+// Responsive Breakpoints
+// for tablet
+@media screen and (max-width: 768px){
+    .pemberitahuan_content{
+        .data_pemberitahuan{
+            .alert_pemberitahuan{
+                width: 60%;
+            }
+
+            .nik_nm_lengkap_pemberitahuan{
+                flex-direction: column;
+
+                .nm_lengkap_alternatif{
+                    margin-top: 10px;
+                }
+            }
+
+            .alamat_status_pemberitahuan{
+                flex-direction: column;
+
+                .status_alternatif{
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+}
+
+// for mobile
+@media screen and (max-width: 576px){
+    .pemberitahuan_content{
+        .alert_info_pemberitahuan{
+            font-size: .85em;
+        }
+
+        .data_pemberitahuan{
+            .alert_pemberitahuan{
+                font-size: .85em;
+                width: auto;
+            }
+
+            p{
+                font-size: .9em;
+            }
+        }
+
+        .tidak_ada_pemberitahuan{
+            p{
+                font-size: .85em;
             }
         }
     }

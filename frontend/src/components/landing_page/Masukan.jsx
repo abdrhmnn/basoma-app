@@ -47,7 +47,12 @@ const Masukan = ({ data }) => {
 				<div className="masukan">
 					{/* Alert validasi login */}
 					{kuki.get("user_id") ? null : (
-						<Alert variant="outlined" severity="warning" sx={{ mb: 2 }}>
+						<Alert
+							variant="outlined"
+							severity="warning"
+							sx={{ mb: 2 }}
+							className="alert_masukan"
+						>
 							<span style={{ fontWeight: "bold" }}>PERHATIKAN!</span>,
 							silahkan login terlebih dahulu untuk bisa mengisi form
 							feedback.

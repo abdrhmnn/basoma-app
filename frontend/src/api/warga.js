@@ -39,6 +39,9 @@ const WARGA = {
     },
     getWargaByUserID: (userId) => {
         return axios.get(`/warga/userId/${userId}`)
+    },
+    deleteWargaByUserID: (id) => {
+        return axios.delete(`/warga/${id}`)
     }
 }
 

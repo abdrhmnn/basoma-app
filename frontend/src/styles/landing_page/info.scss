@@ -4,7 +4,7 @@
     .info{
         display: flex;
         justify-content: space-between;
-        margin-bottom: 230px;
+        margin-bottom: 220px;
 
         .info-content{
             display: flex;
@@ -13,11 +13,16 @@
 
             h2{
                 margin-bottom: 0;
+                font-size: 1.3em;
             }
 
             img{
                 width: 79%;
                 margin: auto;
+            }
+
+            p{
+                font-size: 1em;
             }
 
             &:nth-child(2){
@@ -59,6 +64,15 @@
                     }
                 }
             }
+        }
+    }
+}
+
+// for mobile
+@media screen and (max-width: 576px){
+    .wr_info{
+        .info{
+            margin-bottom: 230px;
         }
     }
 }

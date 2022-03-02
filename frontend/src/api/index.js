@@ -53,6 +53,9 @@ const API = {
             password: props.password
         });
     },
+    deleteUserByUserID: (id) => {
+        return axios.delete(`/users/${id}`)
+    },
     
     // IMPORTED APIS
     ...BANTUAN,

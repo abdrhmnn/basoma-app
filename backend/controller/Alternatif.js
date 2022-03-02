@@ -32,3 +32,18 @@ export const createAlternatif = async (req, res) => {
         res.json({ message: error.message })
     }
 }
+
+export const deleteAlternatif = async (req, res) => {
+    try{
+        await Alternatif.destroy({
+            where: {
+                user_id: req.params.id
+            }
+        });
+        res.json({
+            "message" : "Alternatif berhasil dihapus!"
+        });
+    }catch(error){
+        res.json({ message: error.message })
+    }
+}

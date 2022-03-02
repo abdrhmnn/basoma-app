@@ -7,6 +7,9 @@ const UPLOAD = {
     showIMG: (data) => {
         return `http://localhost:5000/public/${data}`
     },
+    showIMG_USER: (data) => {
+        return `http://localhost:5000/public/user/${data}`
+    },
     showImgKTP: (data) => {
         return `http://localhost:5000/public/fktp/${data}`
     },
@@ -24,6 +27,15 @@ const UPLOAD = {
     },
     saveIMG_BANTUAN: (data) => {
         return axios.post(`/uploads/bantuan`, data)
+    },
+    deleteImgUser: (image_name) => {
+        return axios.delete(`/uploads/delete/imgUser/${image_name}`)
+    },
+    deleteImgKTP_User: (image_name) => {
+        return axios.delete(`/uploads/delete/imgKtpUser/${image_name}`)
+    },
+    deleteImgBangunan_User: (image_name) => {
+        return axios.delete(`/uploads/delete/imgBangunanUser/${image_name}`)
     }
 }
 

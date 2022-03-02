@@ -252,6 +252,7 @@ const Register = () => {
 							to="/login"
 							style={{
 								color: "rgb(75, 75, 253)",
+								textDecoration: "underline",
 							}}
 						>
 							disini!

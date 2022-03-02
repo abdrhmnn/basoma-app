@@ -1,8 +1,13 @@
 import multer from "multer"
+import * as fs from 'fs';
 
-const storage = multer.diskStorage({
+const DIR_IMG_USER = 'public/user'
+const DIR_IMG_KTP_USER = 'public/fktp'
+const DIR_IMG_BANGUNAN_USER = 'public/fbangunan'
+
+const storageUser = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public')
+        cb(null, 'public/user')
     },
         filename: function (req, file, cb) {
         cb(null, file.originalname )
@@ -37,7 +42,7 @@ const storageBannerBantuan = multer.diskStorage({
 })
 
 
-const upload = multer({ storage: storage }).single('gambar')
+const upload = multer({ storage: storageUser }).single('gambar')
 const uploadFormKTP = multer({ storage: storageFormKTP }).single('gambar_form_ktp')
 const uploadFormBangunan = multer({ storage: storageFormBangunan }).single('gambar_form_bangunan')
 const uploadBannerBantuan = multer({ storage: storageBannerBantuan }).single('gambar_tambah_bantuan')
@@ -88,4 +93,37 @@ export const saveImgBannerBantuan = (req, res) => {
     
         return res.status(200).send(req.file)
     })
+}
+
+export const deleteImgUser = (req, res) => {
+    if(!req.params.imagename){
+        console.log("No file received");
+        return res.status(500).json('no file received')
+    }else{
+        console.log('file received');
+        fs.unlinkSync(DIR_IMG_USER + '/' + req.params.imagename)
+        return res.status(200).send('ok')
+    }
+}
+
+export const deleteImgKTP_User = (req, res) => {
+    if(!req.params.imagename){
+        console.log("No file received");
+        return res.status(500).json('no file received')
+    }else{
+        console.log('file received');
+        fs.unlinkSync(DIR_IMG_KTP_USER + '/' + req.params.imagename)
+        return res.status(200).send('ok')
+    }
+}
+
+export const deleteImgBangunan_User = (req, res) => {
+    if(!req.params.imagename){
+        console.log("No file received");
+        return res.status(500).json('no file received')
+    }else{
+        console.log('file received');
+        fs.unlinkSync(DIR_IMG_BANGUNAN_USER + '/' + req.params.imagename)
+        return res.status(200).send('ok')
+    }
 }

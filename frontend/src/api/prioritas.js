@@ -18,6 +18,9 @@ const PRIORITAS = {
     },
     getPrioritasByUserID: (id) => {
         return axios.get(`/nilai-prioritas/${id}`)
+    },
+    deletePrioritasByUserID: (id) => {
+        return axios.delete(`/nilai-prioritas/${id}`)
     }
 }
 
