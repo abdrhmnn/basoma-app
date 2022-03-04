@@ -4,6 +4,7 @@ import * as fs from 'fs';
 const DIR_IMG_USER = 'public/user'
 const DIR_IMG_KTP_USER = 'public/fktp'
 const DIR_IMG_BANGUNAN_USER = 'public/fbangunan'
+const DIR_IMG_BANTUAN = 'public/bantuan'
 
 const storageUser = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -124,6 +125,17 @@ export const deleteImgBangunan_User = (req, res) => {
     }else{
         console.log('file received');
         fs.unlinkSync(DIR_IMG_BANGUNAN_USER + '/' + req.params.imagename)
+        return res.status(200).send('ok')
+    }
+}
+
+export const deleteImgBantuan = (req, res) => {
+    if(!req.params.imagename){
+        console.log("No file received");
+        return res.status(500).json('no file received')
+    }else{
+        console.log('file received');
+        fs.unlinkSync(DIR_IMG_BANTUAN + '/' + req.params.imagename)
         return res.status(200).send('ok')
     }
 }

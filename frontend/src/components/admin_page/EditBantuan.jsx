@@ -21,6 +21,7 @@ const EditBantuan = () => {
 	const [isValidImgTypeBantuan, setIsValidImgTypeBantuan] = useState(true);
 	const [showImgBantuan, setShowImgBantuan] = useState();
 	const [selectedFileImgBantuan, setSelectedFileImgBantuan] = useState(null);
+	const [bantuanByID, setBantuanByID] = useState(null);
 
 	const [isCompleteSubmit, setIsCompleteSubmit] = useState(null);
 
@@ -28,7 +29,10 @@ const EditBantuan = () => {
 
 	useEffect(() => {
 		document.title = "Edit Data Bantuan";
-	}, []);
+		API.getBantuanByID(location.state).then((res) =>
+			setBantuanByID(res.data)
+		);
+	}, [location]);
 
 	const schemaEditBantuan = Yup.object({
 		nama: Yup.string().required("Nama bantuan tidak boleh kosong!"),
@@ -89,13 +93,16 @@ const EditBantuan = () => {
 										alamat: values.alamat,
 										deskripsi: values.deskripsi,
 										banner: selectedFileImgBantuan.name,
-									}).then((res) => {
-										swal("Data bantuan berhasil diubah!", {
-											icon: "success",
-										}).then(() => {
-											window.location.href = "/kelola-bantuan";
-										});
 									});
+									API.deleteImgBantuan(bantuanByID.banner).then(
+										(res) => {
+											swal("Data bantuan berhasil diubah!", {
+												icon: "success",
+											}).then(() => {
+												window.location.href = "/kelola-bantuan";
+											});
+										}
+									);
 								} else {
 									setIsCompleteSubmit(true);
 								}

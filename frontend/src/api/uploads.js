@@ -36,6 +36,9 @@ const UPLOAD = {
     },
     deleteImgBangunan_User: (image_name) => {
         return axios.delete(`/uploads/delete/imgBangunanUser/${image_name}`)
+    },
+    deleteImgBantuan: (image_name) => {
+        return axios.delete(`/uploads/delete/imgBantuan/${image_name}`)
     }
 }
 

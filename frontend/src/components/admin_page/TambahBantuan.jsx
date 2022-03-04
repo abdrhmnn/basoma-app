@@ -22,6 +22,7 @@ import {
 import * as Yup from "yup";
 import { Formik, Field } from "formik";
 import API from "../../api";
+import { Link } from "react-router-dom";
 
 const TambahBantuan = () => {
 	const [bantuan, setBantuan] = useState([]);
@@ -270,7 +271,20 @@ const TambahBantuan = () => {
 										}}
 										type="submit"
 									>
-										Tambah
+										tambah
+									</Button>
+									<Button
+										variant="contained"
+										color="error"
+										component={Link}
+										to="/kelola-bantuan"
+										sx={{
+											p: 1,
+											fontWeight: "bold",
+											mt: 2,
+										}}
+									>
+										batal
 									</Button>
 								</form>
 							)}

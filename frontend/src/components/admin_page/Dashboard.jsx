@@ -21,7 +21,7 @@ import {
 	Tooltip,
 	Legend,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+// import { Bar } from "react-chartjs-2";
 
 const Dashboard = () => {
 	const [user, setUser] = useState([]);
@@ -37,27 +37,39 @@ const Dashboard = () => {
 		Tooltip,
 		Legend
 	);
-	const labels = ["January", "February"];
 
-	const data = {
-		labels,
-		datasets: [
-			{
-				label: "Diterima",
-				data: labels.map(() => 10),
-				backgroundColor: "rgba(255, 99, 132, 0.5)",
-			},
-			{
-				label: "Ditolak",
-				data: labels.map(() => 20),
-				backgroundColor: "rgba(53, 162, 235, 0.5)",
-			},
-		],
-	};
+	// let labels = null;
 
-	const options = {
-		responsive: true,
-	};
+	// const labels = ["January", "February"];
+	// const labels = bantuan && bantuan;
+
+	// const data = {
+	// 	labels,
+	// 	datasets: [
+	// 		{
+	// 			label: "Diterima",
+	// 			data: labels.map(() => 10),
+	// 			backgroundColor: "rgba(255, 99, 132, 0.5)",
+	// 		},
+	// 		{
+	// 			label: "Ditolak",
+	// 			data: labels.map(() => 20),
+	// 			backgroundColor: "rgba(53, 162, 235, 0.5)",
+	// 		},
+	// 		{
+	// 			label: "Pending",
+	// 			data: labels.map(() => 15),
+	// 			backgroundColor: "rgba(53, 100, 235, 0.5)",
+	// 		},
+	// 	],
+	// 	// datasets: bantuan.map((e, i) => {
+
+	// 	// })
+	// };
+
+	// const options = {
+	// 	responsive: true,
+	// };
 
 	useEffect(() => {
 		document.title = "Dashboard Admin";
@@ -86,6 +98,8 @@ const Dashboard = () => {
 		const response = await API.getAllKriteria();
 		setKriteria(response.data);
 	};
+
+	// console.log(labels);
 
 	return (
 		<div style={{ display: "flex" }}>
@@ -198,15 +212,58 @@ const Dashboard = () => {
 						{/* akhir info kriteria */}
 					</div>
 					{/* akhir dashboard admin content */}
-					<div className="dashboard_chart">
-						<h2>Data Pendaftaran Bantuan</h2>
-						<p>berdasarkan status penerimaan</p>
-						<Bar options={options} data={data} />
-					</div>
+					{/* {bantuan && (
+						<div className="dashboard_chart">
+							<h2>Data Pendaftaran Bantuan</h2>
+							<p>berdasarkan status penerimaan</p>
+							<Bar
+								options={options}
+								data={{
+									labels: [].push(bantuan.map((e, i) => e.nama)),
+									datasets: [
+										{
+											label: "Diterima",
+											data: () => {
+												return this.labels.map((e, i) => 10);
+											},
+											backgroundColor: "rgba(255, 99, 132, 0.5)",
+										},
+									],
+								}}
+							/>
+						</div>
+					)} */}
 				</div>
 			</div>
 		</div>
 	);
 };
+
+// const labels = ["January", "February"];
+// const labels = bantuan && bantuan;
+
+// const data = {
+// 	labels,
+// 	datasets: [
+// 		{
+// 			label: "Diterima",
+// 			data: labels.map(() => 10),
+// 			backgroundColor: "rgba(255, 99, 132, 0.5)",
+// 		},
+// 		{
+// 			label: "Ditolak",
+// 			data: labels.map(() => 20),
+// 			backgroundColor: "rgba(53, 162, 235, 0.5)",
+// 		},
+// 		{
+// 			label: "Pending",
+// 			data: labels.map(() => 15),
+// 			backgroundColor: "rgba(53, 100, 235, 0.5)",
+// 		},
+// 	],
+// 	// datasets: bantuan.map((e, i) => {
+
+// 	// })
+// };
 
 export default Dashboard;

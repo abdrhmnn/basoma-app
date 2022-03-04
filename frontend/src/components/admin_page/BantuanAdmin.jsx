@@ -177,6 +177,9 @@ const BantuanAdmin = () => {
 																if (willDelete) {
 																	API.deleteBantuanByID(
 																		e.kd_bantuan
+																	);
+																	API.deleteImgBantuan(
+																		e.banner
 																	).then((res) => {
 																		swal(
 																			"Data berhasil dihapus!",
