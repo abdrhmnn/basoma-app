@@ -85,7 +85,7 @@ const KuesionerPendaftaran = () => {
 		setIsOpenSnackbar(false);
 	};
 
-	const hitungNilaiDecimalAlternatif = (hasilNilaiPrioritas) => {
+	const hitungNilaiDecimalAlternatif = () => {
 		const nilaiBobot = [];
 		const kalkulasiNilaiDecimal = [];
 		const nilaiEigen = [];
@@ -157,19 +157,21 @@ const KuesionerPendaftaran = () => {
 
 		// membulatkan nilai decimal yang didapat
 		const roundNilaiDecimalPendidikan = nilaiDecimalPendidikan.map(
-			(e, i) => Math.floor(e * 100) / 100
+			(e, i) => Math.floor(e * 1000) / 1000
 		);
 		const roundNilaiDecimalPekerjaan = nilaiDecimalPekerjaan.map(
-			(e, i) => Math.floor(e * 100) / 100
+			(e, i) => Math.floor(e * 1000) / 1000
 		);
 		const roundNilaiDecimalPenghasilan = nilaiDecimalPenghasilan.map(
-			(e, i) => Math.floor(e * 100) / 100
+			(e, i) => Math.floor(e * 1000) / 1000
 		);
 		const roundNilaiDecimalLuasRumah = nilaiDecimalLuasRumah.map(
-			(e, i) => Math.floor(e * 100) / 100
+			(e, i) => Math.floor(e * 1000) / 1000
 		);
 		const roundNilaiDecimalSumberPenerangan =
-			nilaiDecimalSumberPenerangan.map((e, i) => Math.floor(e * 100) / 100);
+			nilaiDecimalSumberPenerangan.map(
+				(e, i) => Math.floor(e * 1000) / 1000
+			);
 
 		// kalkulasi nilai desimal dan push ke new array
 		for (let y = 0; y < kriteriaBantuan.length; y++) {
@@ -181,6 +183,11 @@ const KuesionerPendaftaran = () => {
 					roundNilaiDecimalSumberPenerangan[y]
 			);
 		}
+
+		// round kalkulasi nilai perbandingan alternatif
+		const roundKalkulasiPerbandinganAlternatif = kalkulasiNilaiDecimal.map(
+			(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
+		);
 
 		// push nilai normalisasi per alternatif
 		for (let x = 0; x < kriteriaBantuan.length; x++) {
@@ -203,19 +210,19 @@ const KuesionerPendaftaran = () => {
 
 		// membulatkan hasil normalisasi
 		const roundNormalisasiPendidikan = normalisasiPendidikan.map(
-			(e, i) => Math.round(e * 100) / 100
+			(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
 		);
 		const roundNormalisasiPekerjaan = normalisasiPekerjaan.map(
-			(e, i) => Math.round(e * 100) / 100
+			(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
 		);
 		const roundNormalisasiPenghasilan = normalisasiPenghasilan.map(
-			(e, i) => Math.round(e * 100) / 100
+			(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
 		);
 		const roundNormalisasiLuasRumah = normalisasiLuasRumah.map(
-			(e, i) => Math.round(e * 100) / 100
+			(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
 		);
 		const roundNormalisasiSumberPenerangan = normalisasiSumberPenerangan.map(
-			(e, i) => Math.round(e * 100) / 100
+			(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
 		);
 
 		// kalkulasi data normalisasi
@@ -243,17 +250,43 @@ const KuesionerPendaftaran = () => {
 
 		// menghitung nilai eigen
 		nilaiEigen.push(
-			Math.round((jmlhNormalisasiPendidikan / jmlhKriteria) * 100) / 100,
-			Math.round((jmlhNormalisasiPekerjaan / jmlhKriteria) * 100) / 100,
-			Math.round((jmlhNormalisasiPenghasilan / jmlhKriteria) * 100) / 100,
-			Math.round((jmlhNormalisasiLuasRumah / jmlhKriteria) * 100) / 100,
-			Math.round((jmlhNormalisasiSumberPenerangan / jmlhKriteria) * 100) /
-				100
+			Math.round(
+				(Math.round(jmlhNormalisasiPendidikan.toFixed(3) * 1e3) /
+					1e3 /
+					jmlhKriteria) *
+					100
+			) / 100,
+			Math.round(
+				(Math.round(jmlhNormalisasiPekerjaan.toFixed(3) * 1e3) /
+					1e3 /
+					jmlhKriteria) *
+					100
+			) / 100,
+			Math.round(
+				(Math.round(jmlhNormalisasiPenghasilan.toFixed(3) * 1e3) /
+					1e3 /
+					jmlhKriteria) *
+					100
+			) / 100,
+			Math.round(
+				(Math.round(jmlhNormalisasiLuasRumah.toFixed(3) * 1e3) /
+					1e3 /
+					jmlhKriteria) *
+					100
+			) / 100,
+			Math.round(
+				(Math.round(jmlhNormalisasiSumberPenerangan.toFixed(3) * 1e3) /
+					1e3 /
+					jmlhKriteria) *
+					100
+			) / 100
 		);
 
 		// mencari nilai lamda, lamda maks, CI, dan CR
 		for (let i = 0; i < kriteriaBantuan.length; i++) {
-			nilaiLamda.push(nilaiEigen[i] * kalkulasiNilaiDecimal[i]);
+			nilaiLamda.push(
+				nilaiEigen[i] * roundKalkulasiPerbandinganAlternatif[i]
+			);
 		}
 
 		const nilaiLamdaMaks = nilaiLamda.reduce((accu, curr) => accu + curr, 0);
@@ -620,9 +653,7 @@ const KuesionerPendaftaran = () => {
 												parseFloat(jawabanEmpat) +
 												parseFloat(jawabanLima);
 
-											hitungNilaiDecimalAlternatif(
-												hasilNilaiPrioritas
-											);
+											hitungNilaiDecimalAlternatif();
 
 											for (
 												let i = 0;

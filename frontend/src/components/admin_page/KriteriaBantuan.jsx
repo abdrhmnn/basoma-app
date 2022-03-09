@@ -68,11 +68,21 @@ const KriteriaBantuan = () => {
 		);
 	}
 
-	const roundMatriks1 = nilaiMatriks1.map((e, i) => Math.floor(e * 100) / 100);
-	const roundMatriks2 = nilaiMatriks2.map((e, i) => Math.floor(e * 100) / 100);
-	const roundMatriks3 = nilaiMatriks3.map((e, i) => Math.floor(e * 100) / 100);
-	const roundMatriks4 = nilaiMatriks4.map((e, i) => Math.floor(e * 100) / 100);
-	const roundMatriks5 = nilaiMatriks5.map((e, i) => Math.floor(e * 100) / 100);
+	const roundMatriks1 = nilaiMatriks1.map(
+		(e, i) => Math.floor(e * 1000) / 1000
+	);
+	const roundMatriks2 = nilaiMatriks2.map(
+		(e, i) => Math.floor(e * 1000) / 1000
+	);
+	const roundMatriks3 = nilaiMatriks3.map(
+		(e, i) => Math.floor(e * 1000) / 1000
+	);
+	const roundMatriks4 = nilaiMatriks4.map(
+		(e, i) => Math.floor(e * 1000) / 1000
+	);
+	const roundMatriks5 = nilaiMatriks5.map(
+		(e, i) => Math.floor(e * 1000) / 1000
+	);
 
 	for (let y = 0; y < kriteriaBantuan.length; y++) {
 		hasilAkhir.push(
@@ -84,29 +94,44 @@ const KriteriaBantuan = () => {
 		);
 	}
 
+	// round kalkulasi nilai perbandingan kriteria
+	const roundKalkulasiPerbandinganKriteria = hasilAkhir.map(
+		(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
+	);
+
 	for (let x = 0; x < kriteriaBantuan.length; x++) {
-		normalisasiKriteria1.push(roundMatriks1[x] / hasilAkhir[x]);
-		normalisasiKriteria2.push(roundMatriks2[x] / hasilAkhir[x]);
-		normalisasiKriteria3.push(roundMatriks3[x] / hasilAkhir[x]);
-		normalisasiKriteria4.push(roundMatriks4[x] / hasilAkhir[x]);
-		normalisasiKriteria5.push(roundMatriks5[x] / hasilAkhir[x]);
+		normalisasiKriteria1.push(
+			roundMatriks1[x] / roundKalkulasiPerbandinganKriteria[x]
+		);
+		normalisasiKriteria2.push(
+			roundMatriks2[x] / roundKalkulasiPerbandinganKriteria[x]
+		);
+		normalisasiKriteria3.push(
+			roundMatriks3[x] / roundKalkulasiPerbandinganKriteria[x]
+		);
+		normalisasiKriteria4.push(
+			roundMatriks4[x] / roundKalkulasiPerbandinganKriteria[x]
+		);
+		normalisasiKriteria5.push(
+			roundMatriks5[x] / roundKalkulasiPerbandinganKriteria[x]
+		);
 	}
 
 	// membulatkan nilai normalisai kriteria
 	const roundNormalisasiKriteria1 = normalisasiKriteria1.map(
-		(e, i) => Math.round(e * 100) / 100
+		(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
 	);
 	const roundNormalisasiKriteria2 = normalisasiKriteria2.map(
-		(e, i) => Math.round(e * 100) / 100
+		(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
 	);
 	const roundNormalisasiKriteria3 = normalisasiKriteria3.map(
-		(e, i) => Math.round(e * 100) / 100
+		(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
 	);
 	const roundNormalisasiKriteria4 = normalisasiKriteria4.map(
-		(e, i) => Math.round(e * 100) / 100
+		(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
 	);
 	const roundNormalisasiKriteria5 = normalisasiKriteria5.map(
-		(e, i) => Math.round(e * 100) / 100
+		(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
 	);
 
 	// kalkulasi data normalisasi kriteria
@@ -133,16 +158,43 @@ const KriteriaBantuan = () => {
 
 	// menghitung nilai eigen / prioritas
 	hasilAkhirNilaiPrioritas.push(
-		Math.round((jmlhNormalisasiKriteria1 / jmlhKriteria) * 100) / 100,
-		Math.round((jmlhNormalisasiKriteria2 / jmlhKriteria) * 100) / 100,
-		Math.round((jmlhNormalisasiKriteria3 / jmlhKriteria) * 100) / 100,
-		Math.round((jmlhNormalisasiKriteria4 / jmlhKriteria) * 100) / 100,
-		Math.round((jmlhNormalisasiKriteria5 / jmlhKriteria) * 100) / 100
+		Math.round(
+			(Math.round(jmlhNormalisasiKriteria1.toFixed(3) * 1e3) /
+				1e3 /
+				jmlhKriteria) *
+				100
+		) / 100,
+		Math.round(
+			(Math.round(jmlhNormalisasiKriteria2.toFixed(3) * 1e3) /
+				1e3 /
+				jmlhKriteria) *
+				100
+		) / 100,
+		Math.round(
+			(Math.round(jmlhNormalisasiKriteria3.toFixed(3) * 1e3) /
+				1e3 /
+				jmlhKriteria) *
+				100
+		) / 100,
+		Math.round(
+			(Math.round(jmlhNormalisasiKriteria4.toFixed(3) * 1e3) /
+				1e3 /
+				jmlhKriteria) *
+				100
+		) / 100,
+		Math.round(
+			(Math.round(jmlhNormalisasiKriteria5.toFixed(3) * 1e3) /
+				1e3 /
+				jmlhKriteria) *
+				100
+		) / 100
 	);
 
 	// mencari nilai lamda, lamda maks, CI, dan CR
 	for (let i = 0; i < kriteriaBantuan.length; i++) {
-		nilaiLamda.push(hasilAkhirNilaiPrioritas[i] * hasilAkhir[i]);
+		nilaiLamda.push(
+			hasilAkhirNilaiPrioritas[i] * roundKalkulasiPerbandinganKriteria[i]
+		);
 	}
 
 	const nilaiLamdaMaks = nilaiLamda.reduce((accu, curr) => accu + curr, 0);
