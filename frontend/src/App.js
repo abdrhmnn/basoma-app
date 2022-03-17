@@ -22,6 +22,7 @@ import KuesionerPendaftaran from "./components/landing_page/KuesionerPendaftaran
 import HasilKuesionerPendaftaran from "./components/landing_page/HasilKuesionerPendaftaran";
 import FormPendaftaranBantuan from "./components/landing_page/FormPendaftaranBantuan";
 import SuccessPendaftaranBantuan from "./components/landing_page/SuccessPendaftaranBantuan";
+import Pemberitahuan from "./components/landing_page/Pemberitahuan";
 
 // admin page components
 import Dashboard from "./components/admin_page/Dashboard";
@@ -36,11 +37,10 @@ import PendaftaranBantuan from "./components/admin_page/PendaftaranBantuan";
 import PendaftaranBantuanDetail from "./components/admin_page/PendaftaranBantuanDetail";
 import WargaDetail from "./components/admin_page/WargaDetail";
 import RangkingAlternatif from "./components/admin_page/RangkingAlternatif";
+import EditBantuan from "./components/admin_page/EditBantuan";
 
 // npm packages
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
-import Pemberitahuan from "./components/landing_page/Pemberitahuan";
-import EditBantuan from "./components/admin_page/EditBantuan";
 
 const PrivateRouteAdmin = ({ children }) => {
   const isAuthenticated = kuki.get("admin")
