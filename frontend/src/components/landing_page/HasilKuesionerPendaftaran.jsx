@@ -16,7 +16,6 @@ import {
 	FormControlLabel,
 	Button,
 	Alert,
-	AlertTitle,
 } from "@mui/material";
 import { jsPDF } from "jspdf";
 import { Link } from "react-router-dom";
@@ -374,10 +373,9 @@ const HasilKuesionerPendaftaran = () => {
 					{/* Alert hasil akhir section */}
 					<Alert
 						variant="outlined"
-						severity="success"
+						severity="info"
 						sx={{ mt: 2, fontSize: ".9em" }}
 					>
-						<AlertTitle>Selamat!</AlertTitle>
 						Anda berkemungkinan sebesar{" "}
 						<span style={{ fontWeight: "bold" }}>
 							{hasilKuesioner[0].total_nilai + "%"}
