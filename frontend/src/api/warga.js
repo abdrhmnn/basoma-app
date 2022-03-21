@@ -20,7 +20,7 @@ const WARGA = {
         return axios.post(`/warga`, {
             no_ktp: props.nik,
             user_id: userID,
-            kd_bantuan: bantuanID,
+            id_bantuan: bantuanID,
             nama_lengkap: props.nm_lengkap,
             alamat: props.alamat,
             pekerjaan: props.pekerjaan,

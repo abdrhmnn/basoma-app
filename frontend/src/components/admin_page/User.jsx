@@ -269,11 +269,11 @@ const User = () => {
 																						i
 																					) => {
 																						if (
-																							data.kd_bantuan ===
-																							dataBantuan.kd_bantuan
+																							data.id_bantuan ===
+																							dataBantuan.id_bantuan
 																						) {
 																							API.updateKapasitasBantuan(
-																								data.kd_bantuan,
+																								data.id_bantuan,
 																								parseInt(
 																									dataBantuan.kapasitas
 																								) + 1

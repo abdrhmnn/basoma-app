@@ -5,9 +5,16 @@ import User from "./UserModel.js";
 const { DataTypes } = Sequelize;
 
 const Masukan = db.define('masukan_tbl', {
-    kd_masukan: {
+    id_masukan: {
         type: DataTypes.STRING,
         primaryKey: true
+    },
+    user_id: {
+        type: DataTypes.STRING,
+        references: {
+            model: User,
+            key: 'user_id'
+        }
     },
     nm_depan: {
         type: DataTypes.STRING
@@ -18,13 +25,6 @@ const Masukan = db.define('masukan_tbl', {
     pesan: {
         type: DataTypes.STRING
     },
-    user_id: {
-        type: DataTypes.STRING,
-        references: {
-            model: User,
-            key: 'user_id'
-        }
-    }
 }, {
     freezeTableName: true
 })

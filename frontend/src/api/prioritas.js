@@ -4,6 +4,9 @@ const PRIORITAS = {
     getAllPrioritas: () => {
         return axios.get(`/nilai-prioritas`)
     },
+    getPrioritasByUserID: (userId) => {
+        return axios.get(`/nilai-prioritas/userId/${userId}`)
+    },
     getPrioritasByUserIDandIdentitasPilihan: (id) => {
         return axios.get(`/nilai-prioritas/orderIdentitas/${id}`)
     },

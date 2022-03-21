@@ -13,7 +13,7 @@ export const getBantuanByID = async (req, res) => {
     try{
         const bantuan = await Bantuan.findAll({
             where: {
-                kd_bantuan: req.params.id
+                id_bantuan: req.params.id
             }
         });
         res.json(bantuan[0]);
@@ -37,7 +37,7 @@ export const updateBantuan = async (req, res) => {
     try{
         await Bantuan.update(req.body, {
             where: {
-                kd_bantuan: req.params.id
+                id_bantuan: req.params.id
             }
         });
         res.json({
@@ -52,7 +52,7 @@ export const deleteBantuan = async (req, res) => {
     try{
         await Bantuan.destroy({
             where: {
-                kd_bantuan: req.params.id
+                id_bantuan: req.params.id
             }
         });
         res.json({

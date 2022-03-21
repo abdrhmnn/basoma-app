@@ -121,7 +121,6 @@ const BantuanAdmin = () => {
 											label="Kapasitas"
 											value="kapasitas"
 										/>
-										<ExcelColumn label="Status" value="status" />
 									</ExcelSheet>
 								</ExcelFile>
 							</div>
@@ -154,7 +153,7 @@ const BantuanAdmin = () => {
 														sx={{ mr: 2 }}
 														onClick={() => {
 															navigate("/edit-bantuan", {
-																state: e.kd_bantuan,
+																state: e.id_bantuan,
 															});
 														}}
 													>
@@ -176,7 +175,7 @@ const BantuanAdmin = () => {
 															}).then((willDelete) => {
 																if (willDelete) {
 																	API.deleteBantuanByID(
-																		e.kd_bantuan
+																		e.id_bantuan
 																	);
 																	API.deleteImgBantuan(
 																		e.banner

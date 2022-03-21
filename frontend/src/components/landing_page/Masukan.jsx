@@ -66,7 +66,7 @@ const Masukan = ({ data }) => {
 					<div className="feed-form">
 						<Formik
 							initialValues={{
-								kd_masukan: "",
+								id_masukan: "",
 								nm_depan: "",
 								nm_belakang: "",
 								pesan: "",

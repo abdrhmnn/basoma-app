@@ -17,7 +17,7 @@ const Warga = db.define('warga_tbl', {
             key: 'user_id'
         }
     },
-    kd_bantuan: {
+    id_bantuan: {
         type: DataTypes.STRING,
         references: {
             model: Bantuan,

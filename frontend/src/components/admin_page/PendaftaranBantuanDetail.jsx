@@ -33,7 +33,7 @@ const PendaftaranBantuanDetail = () => {
 	const location = useLocation();
 
 	useEffect(() => {
-		API.getWargaByBantuanID(location.state.kd_bantuan).then((res) =>
+		API.getWargaByBantuanID(location.state.id_bantuan).then((res) =>
 			setPendaftaranBantuanByUserID(res.data)
 		);
 	}, [location]);
@@ -98,7 +98,7 @@ const PendaftaranBantuanDetail = () => {
 									className="rekomendasi_alternatif"
 									onClick={() => {
 										navigate("/rangking", {
-											state: location.state.kd_bantuan,
+											state: location.state.id_bantuan,
 										});
 									}}
 								>
@@ -147,7 +147,7 @@ const PendaftaranBantuanDetail = () => {
 																		state: {
 																			ui: e.no_ktp,
 																			uid: e.user_id,
-																			bi: e.kd_bantuan,
+																			bi: e.id_bantuan,
 																		},
 																	});
 																}}

@@ -9,7 +9,7 @@ const MASUKAN = {
     },
     saveMasukan: (props, msID, userID) => {
         return axios.post(`/masukan`, {
-            kd_masukan: `MS_${msID}`,
+            id_masukan: `MS_${msID}`,
             nm_depan: props.nm_depan,
             nm_belakang: props.nm_belakang,
             pesan: props.pesan,

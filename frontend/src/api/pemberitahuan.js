@@ -9,7 +9,7 @@ const PEMBERITAHUAN = {
     },
     savePemberitahuan: (pemberitahuanId, userId, alasan) => {
         return axios.post(`/pemberitahuan`, {
-            kd_pemberitahuan: `KP_${pemberitahuanId}`,
+            id_pemberitahuan: `KP_${pemberitahuanId}`,
             user_id: userId,
             nama: `Pemberitahuan pendaftaran bantuan`,
             alasan: alasan

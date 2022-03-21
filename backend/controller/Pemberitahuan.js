@@ -9,7 +9,7 @@ export const getAllPemberitahuan = async (req, res) => {
     }
 }
 
-export const getPemberitahuanByID = async (req, res) => {
+export const getPemberitahuanByUserID = async (req, res) => {
     try{
         const pemberitahuan = await Pemberitahuan.findAll({
             where: {

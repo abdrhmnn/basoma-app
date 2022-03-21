@@ -13,7 +13,7 @@ export const getMasukanByID = async (req, res) => {
     try{
         const masukan = await Masukan.findAll({
             where: {
-                kd_masukan: req.params.id
+                id_masukan: req.params.id
             }
         });
         res.json(masukan[0]);

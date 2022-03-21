@@ -72,7 +72,7 @@ const Masukan = () => {
 								className="btn_detail_masukan"
 								onClick={() => {
 									setOpenDialog(true);
-									API.getMasukanByID(e.kd_masukan).then((res) => {
+									API.getMasukanByID(e.id_masukan).then((res) => {
 										setMasukanByID(res.data);
 									});
 									setMasukanByID(null);

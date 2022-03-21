@@ -47,7 +47,7 @@ const PendaftaranBantuan = () => {
 						onClick={() => {
 							navigate("/pendaftaran-bantuan-detail", {
 								state: {
-									kd_bantuan: e.kd_bantuan,
+									id_bantuan: e.id_bantuan,
 									alert_penerimaan: false,
 								},
 							});

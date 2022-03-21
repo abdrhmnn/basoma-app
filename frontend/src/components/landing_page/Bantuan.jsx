@@ -42,7 +42,7 @@ const Bantuan = () => {
 						}}
 						onClick={() =>
 							navigate("/bantuan-detail", {
-								state: e.kd_bantuan,
+								state: e.id_bantuan,
 							})
 						}
 					>

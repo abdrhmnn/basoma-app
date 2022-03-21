@@ -51,9 +51,9 @@ const HasilKuesionerPendaftaran = () => {
 
 	const generatePdf = () => {
 		const today = new Date();
-		let keterangan = [];
+		let pertanyaan = [];
 		kriteriaBantuan.forEach((e, i) => {
-			keterangan.push(e.keterangan);
+			pertanyaan.push(e.pertanyaan);
 		});
 
 		var doc = new jsPDF({ orientation: "p", lineHeight: 1.5 });
@@ -70,7 +70,7 @@ const HasilKuesionerPendaftaran = () => {
 		doc.autoTable({
 			head: [["No", "Pertanyaan", "Jawaban"]],
 			body: hasilKuesioner.map((e, i) => {
-				return [i + 1, keterangan[i], e.pilihan];
+				return [i + 1, pertanyaan[i], e.pilihan];
 			}),
 			startY: 42,
 		});
@@ -115,7 +115,7 @@ const HasilKuesionerPendaftaran = () => {
 							<tr>
 								<td>1</td>
 								<td style={{ textAlign: "left" }}>
-									{kriteriaBantuan[0].keterangan}
+									{kriteriaBantuan[0].pertanyaan}
 								</td>
 								<td colSpan={2}>
 									<RadioGroup row>
@@ -166,7 +166,7 @@ const HasilKuesionerPendaftaran = () => {
 							<tr>
 								<td>2</td>
 								<td style={{ textAlign: "left" }}>
-									{kriteriaBantuan[1].keterangan}
+									{kriteriaBantuan[1].pertanyaan}
 								</td>
 								<td colSpan={2}>
 									<RadioGroup row>
@@ -217,7 +217,7 @@ const HasilKuesionerPendaftaran = () => {
 							<tr>
 								<td>3</td>
 								<td style={{ textAlign: "left" }}>
-									{kriteriaBantuan[2].keterangan}
+									{kriteriaBantuan[2].pertanyaan}
 								</td>
 								<td colSpan={2}>
 									<RadioGroup row>
@@ -268,7 +268,7 @@ const HasilKuesionerPendaftaran = () => {
 							<tr>
 								<td>4</td>
 								<td style={{ textAlign: "left" }}>
-									{kriteriaBantuan[3].keterangan}
+									{kriteriaBantuan[3].pertanyaan}
 								</td>
 								<td colSpan={2}>
 									<RadioGroup row>
@@ -319,7 +319,7 @@ const HasilKuesionerPendaftaran = () => {
 							<tr>
 								<td>5</td>
 								<td style={{ textAlign: "left" }}>
-									{kriteriaBantuan[3].keterangan}
+									{kriteriaBantuan[3].pertanyaan}
 								</td>
 								<td colSpan={2}>
 									<RadioGroup row>

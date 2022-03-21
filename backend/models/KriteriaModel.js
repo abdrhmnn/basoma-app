@@ -20,7 +20,7 @@ const Kriteria = db.define('kriteria_tbl', {
     nilai_lamda: {
         type: DataTypes.NUMBER
     },
-    keterangan: {
+    pertanyaan: {
         type: DataTypes.STRING
     },
     pilihan_satu: {

@@ -3,13 +3,13 @@ import {
     createPemberitahuan,
     deletePemberitahuan,
     getAllPemberitahuan,
-    getPemberitahuanByID
+    getPemberitahuanByUserID
 } from "../controller/Pemberitahuan.js";
 
 const router = express.Router();
 
 router.get('/', getAllPemberitahuan)
-router.get('/id/:id', getPemberitahuanByID)
+router.get('/id/:id', getPemberitahuanByUserID)
 router.post('/', createPemberitahuan)
 router.delete('/:id', deletePemberitahuan)
 

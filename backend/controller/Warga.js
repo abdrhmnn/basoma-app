@@ -13,7 +13,7 @@ export const getWargaByBantuanID = async (req, res) => {
     try{
         const warga = await Warga.findAll({
             where: {
-                kd_bantuan: req.params.id
+                id_bantuan: req.params.id
             }
         });
         res.json(warga);
@@ -52,7 +52,7 @@ export const getAllWargaAndSortByNilaiRangking = async (req, res) => {
     try{
         const warga = await Warga.findAll({
             where: {
-                kd_bantuan: req.params.id
+                id_bantuan: req.params.id
             },
             order: [
                 ['nilai_rangking', 'DESC']

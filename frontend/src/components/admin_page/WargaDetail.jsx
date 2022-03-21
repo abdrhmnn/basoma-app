@@ -317,7 +317,7 @@ const WargaDetail = () => {
 																	"kosong"
 																);
 																API.updateBantuan(
-																	wargaByNoKTP.kd_bantuan,
+																	wargaByNoKTP.id_bantuan,
 																	{
 																		kapasitas:
 																			bantuanByID.kapasitas -
@@ -328,8 +328,8 @@ const WargaDetail = () => {
 																	"/pendaftaran-bantuan-detail",
 																	{
 																		state: {
-																			kd_bantuan:
-																				wargaByNoKTP.kd_bantuan,
+																			id_bantuan:
+																				wargaByNoKTP.id_bantuan,
 																			alert_penerimaan: true,
 																		},
 																	}
@@ -359,8 +359,8 @@ const WargaDetail = () => {
 																	"/pendaftaran-bantuan-detail",
 																	{
 																		state: {
-																			kd_bantuan:
-																				wargaByNoKTP.kd_bantuan,
+																			id_bantuan:
+																				wargaByNoKTP.id_bantuan,
 																			alert_penerimaan: true,
 																		},
 																	}

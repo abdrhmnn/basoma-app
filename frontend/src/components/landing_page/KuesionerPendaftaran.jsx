@@ -358,7 +358,7 @@ const KuesionerPendaftaran = () => {
 										<tr>
 											<td>1</td>
 											<td style={{ textAlign: "left" }}>
-												{kriteriaBantuan[0].keterangan}
+												{kriteriaBantuan[0].pertanyaan}
 											</td>
 											<td colSpan={2}>
 												<RadioGroup
@@ -412,7 +412,7 @@ const KuesionerPendaftaran = () => {
 										<tr>
 											<td>2</td>
 											<td style={{ textAlign: "left" }}>
-												{kriteriaBantuan[1].keterangan}
+												{kriteriaBantuan[1].pertanyaan}
 											</td>
 											<td colSpan={2}>
 												<RadioGroup
@@ -465,7 +465,7 @@ const KuesionerPendaftaran = () => {
 										<tr>
 											<td>3</td>
 											<td style={{ textAlign: "left" }}>
-												{kriteriaBantuan[2].keterangan}
+												{kriteriaBantuan[2].pertanyaan}
 											</td>
 											<td colSpan={2}>
 												<RadioGroup
@@ -518,7 +518,7 @@ const KuesionerPendaftaran = () => {
 										<tr>
 											<td>4</td>
 											<td style={{ textAlign: "left" }}>
-												{kriteriaBantuan[3].keterangan}
+												{kriteriaBantuan[3].pertanyaan}
 											</td>
 											<td colSpan={2}>
 												<RadioGroup
@@ -571,7 +571,7 @@ const KuesionerPendaftaran = () => {
 										<tr>
 											<td>5</td>
 											<td style={{ textAlign: "left" }}>
-												{kriteriaBantuan[4].keterangan}
+												{kriteriaBantuan[4].pertanyaan}
 											</td>
 											<td colSpan={2}>
 												<RadioGroup
@@ -661,7 +661,7 @@ const KuesionerPendaftaran = () => {
 												i++
 											) {
 												API.savePrioritas({
-													prioritas_id: `PRIO_${prioritasLength++}`,
+													id_prioritas: `PRIO_${prioritasLength++}`,
 													user_id: kuki.get("user_id"),
 													pilihan: arrValueJawaban[i],
 													total_nilai: Math.floor(

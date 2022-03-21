@@ -5,7 +5,7 @@ import User from "./UserModel.js";
 const { DataTypes } = Sequelize;
 
 const Pemberitahuan = db.define('pemberitahuan_tbl', {
-    kd_pemberitahuan: {
+    id_pemberitahuan: {
         type: DataTypes.INTEGER,
         primaryKey: true
     },

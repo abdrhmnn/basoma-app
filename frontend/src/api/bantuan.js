@@ -9,7 +9,7 @@ const BANTUAN = {
     },
     saveBantuan: (bantuanId, props, banner) => {
         return axios.post(`/bantuan`, {
-            kd_bantuan: `BNT_${bantuanId}`,
+            id_bantuan: `BNT_${bantuanId}`,
             nama: props.nama,
             kapasitas: props.kapasitas,
             alamat: props.alamat,
