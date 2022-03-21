@@ -1,5 +1,10 @@
 import express from "express";
-import { createAlternatif, deleteAlternatif, getAllAlternatif, getAlternatifByUserID } from "../controller/Alternatif.js";
+import { 
+    createAlternatif,
+    deleteAlternatif,
+    getAllAlternatif,
+    getAlternatifByUserID
+} from "../controller/Alternatif.js";
 
 
 const router = express.Router();

@@ -9,17 +9,6 @@ export const getAllWarga = async (req, res) => {
     }
 }
 
-export const createWarga = async (req, res) => {
-    try{
-        await Warga.create(req.body);
-        res.json({
-            "message" : "Warga berhasil dibuat!"
-        });
-    }catch(error){
-        res.json({ message: error.message })
-    }
-}
-
 export const getWargaByBantuanID = async (req, res) => {
     try{
         const warga = await Warga.findAll({
@@ -75,6 +64,17 @@ export const getAllWargaAndSortByNilaiRangking = async (req, res) => {
     }
 }
 
+export const createWarga = async (req, res) => {
+    try{
+        await Warga.create(req.body);
+        res.json({
+            "message" : "Warga berhasil dibuat!"
+        });
+    }catch(error){
+        res.json({ message: error.message })
+    }
+}
+
 export const updateStatusWargaByUserID = async (req, res) => {
     try{
         await Warga.update(req.body, {
@@ -90,7 +90,7 @@ export const updateStatusWargaByUserID = async (req, res) => {
     }
 }
 
-export const deleteWargaByUserID = async (req, res) => {
+export const deleteWarga = async (req, res) => {
     try{
         await Warga.destroy({
             where: {

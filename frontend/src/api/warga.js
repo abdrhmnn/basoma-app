@@ -1,6 +1,21 @@
 import axios from "axios";
 
 const WARGA = {
+    getAllWarga: () => {
+        return axios.get(`/warga`)
+    },
+    getWargaByBantuanID: (id) => {
+        return axios.get(`/warga/bantuanID/${id}`)
+    },
+    getWargaByNoKTP: (no_ktp) => {
+        return axios.get(`/warga/noKTP/${no_ktp}`)
+    },
+    getWargaByUserID: (userId) => {
+        return axios.get(`/warga/userId/${userId}`)
+    },
+    getWargaByBantuanIDAndSortByNilaiRangking: (bantuanId) => {
+        return axios.get(`/warga/sortRangking/${bantuanId}`)
+    },
     saveWarga: (props, userID, bantuanID, penghasilan, pendidikan, luasRumah, imgKTP, imgBangunan, nilaiRangking) => {
         return axios.post(`/warga`, {
             no_ktp: props.nik,
@@ -19,26 +34,11 @@ const WARGA = {
             nilai_rangking: nilaiRangking
         })
     },
-    getAllWarga: () => {
-        return axios.get(`/warga`)
-    },
-    getWargaByBantuanID: (id) => {
-        return axios.get(`/warga/bantuanID/${id}`)
-    },
-    getWargaByNoKTP: (no_ktp) => {
-        return axios.get(`/warga/noKTP/${no_ktp}`)
-    },
-    getWargaByBantuanIDAndSortByNilaiRangking: (bantuanId) => {
-        return axios.get(`/warga/sortRangking/${bantuanId}`)
-    },
     updateStatusWargaByUserID: (userId, status) => {
         return axios.patch(`/warga/update/${userId}`, {
             user_id: userId,
             status_penerimaan: status
         })
-    },
-    getWargaByUserID: (userId) => {
-        return axios.get(`/warga/userId/${userId}`)
     },
     deleteWargaByUserID: (id) => {
         return axios.delete(`/warga/${id}`)

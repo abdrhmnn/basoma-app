@@ -1,12 +1,16 @@
 import express from "express";
-import { createNilaiPrioritas, deleteNilaiPrioritasByUserID, getAllNilaiPrioritas, getNilaiPrioritasByUserID, getNilaiPrioritasByUserIDandIdentity } from "../controller/PengisianPrioritas.js";
+import {
+    createNilaiPrioritas,
+    deleteNilaiPrioritas,
+    getAllNilaiPrioritas,
+    getNilaiPrioritasByUserIDandIdentity
+} from "../controller/PengisianPrioritas.js";
 
 const router = express.Router();
 
 router.get('/', getAllNilaiPrioritas)
-router.get('/:id', getNilaiPrioritasByUserID)
 router.get('/orderIdentitas/:id', getNilaiPrioritasByUserIDandIdentity)
 router.post('/', createNilaiPrioritas)
-router.delete('/:id', deleteNilaiPrioritasByUserID)
+router.delete('/:id', deleteNilaiPrioritas)
 
 export default router;

@@ -203,7 +203,7 @@ const KriteriaBantuan = () => {
 
 	const handleClick = (e) => {
 		for (let i = 0; i < kriteriaBantuan.length + 1; i++) {
-			API.updateKriteriaByID(i + 1, {
+			API.updateKriteriaByID(`KB_${i + 1}`, {
 				nilai_prioritas: hasilAkhirNilaiPrioritas[i],
 				nilai_lamda: nilaiLamda[i],
 			});

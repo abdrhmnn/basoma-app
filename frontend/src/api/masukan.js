@@ -4,6 +4,9 @@ const MASUKAN = {
     getAllMasukan: () => {
         return axios.get(`/masukan`)
     },
+    getMasukanByID: (id) => {
+        return axios.get(`/masukan/${id}`)
+    },
     saveMasukan: (props, msID, userID) => {
         return axios.post(`/masukan`, {
             kd_masukan: `MS_${msID}`,
@@ -12,18 +15,6 @@ const MASUKAN = {
             pesan: props.pesan,
             user_id: userID,
         })
-    },
-    getMasukanByID: (id) => {
-        return axios.get(`/masukan/${id}`)
-    },
-    getMasukanByUserID: (userId) => {
-        return axios.get(`/masukan/userId/${userId}`)
-    },
-    updateMasukanByUserID: (id) => {
-        return axios.patch(`/masukan/userId/${id}`)
-    },
-    deleteMasukanByUserID: (id) => {
-        return axios.delete(`/masukan/${id}`)
     }
 }
 

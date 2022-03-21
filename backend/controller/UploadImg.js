@@ -107,7 +107,7 @@ export const deleteImgUser = (req, res) => {
     }
 }
 
-export const deleteImgKTP_User = (req, res) => {
+export const deleteImgKTP = (req, res) => {
     if(!req.params.imagename){
         console.log("No file received");
         return res.status(500).json('no file received')
@@ -118,7 +118,7 @@ export const deleteImgKTP_User = (req, res) => {
     }
 }
 
-export const deleteImgBangunan_User = (req, res) => {
+export const deleteImgBangunan = (req, res) => {
     if(!req.params.imagename){
         console.log("No file received");
         return res.status(500).json('no file received')

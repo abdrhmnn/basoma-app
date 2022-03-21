@@ -316,9 +316,13 @@ const WargaDetail = () => {
 																	wargaByNoKTP.user_id,
 																	"kosong"
 																);
-																API.updateKapasitasBantuan(
+																API.updateBantuan(
 																	wargaByNoKTP.kd_bantuan,
-																	bantuanByID.kapasitas - 1
+																	{
+																		kapasitas:
+																			bantuanByID.kapasitas -
+																			1,
+																	}
 																);
 																navigate(
 																	"/pendaftaran-bantuan-detail",

@@ -9,19 +9,6 @@ export const getAllNilaiPrioritas = async (req, res) => {
     }
 }
 
-export const getNilaiPrioritasByUserID = async (req, res) => {
-    try{
-        const nilai_prioritas = await NilaiPrioritas.findAll({
-            where: {
-                user_id: req.params.id
-            }
-        });
-        res.json(nilai_prioritas[0]);
-    }catch(error){
-        res.json({ message: error.message })
-    }
-}
-
 export const getNilaiPrioritasByUserIDandIdentity = async (req, res) => {
     try{
         const nilai_prioritas = await NilaiPrioritas.findAll({
@@ -49,7 +36,7 @@ export const createNilaiPrioritas = async (req, res) => {
     }
 }
 
-export const deleteNilaiPrioritasByUserID = async (req, res) => {
+export const deleteNilaiPrioritas = async (req, res) => {
     try{
         await NilaiPrioritas.destroy({
             where: {

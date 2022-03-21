@@ -23,31 +23,3 @@ export const updateKriteria = async (req, res) => {
         res.json({ message: error.message })
     }
 }
-
-export const deleteKriteria = async (req, res) => {
-    try{
-        await Kriteria.destroy({
-            where: {
-                id_kriteria: req.params.id
-            }
-        });
-        res.json({
-            "message" : "Kriteria berhasil dihapus!"
-        });
-    }catch(error){
-        res.json({ message: error.message })
-    }
-}
-
-export const getKriteriaByID = async (req, res) => {
-    try{
-        const kriteria = await Kriteria.findAll({
-            where: {
-                id_kriteria: req.params.id
-            }
-        });
-        res.json(kriteria);
-    }catch(error){
-        res.json({ message: error.message })
-    }
-}

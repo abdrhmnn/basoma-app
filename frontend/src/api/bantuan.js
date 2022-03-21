@@ -7,21 +7,6 @@ const BANTUAN = {
     getBantuanByID: (id) => {
         return axios.get(`/bantuan/id/${id}`)
     },
-    getBantuanByNama: (nama) => {
-        return axios.get(`/bantuan/${nama}`)
-    },
-    getBantuanByKapasitas: (kapasitas) => {
-        return axios.get(`/bantuan/kapasitas/${kapasitas}`)
-    },
-    updateBantuan: (bantuanId, data) => {
-        return axios.patch(`/bantuan/${bantuanId}`, data)
-    },
-    updateKapasitasBantuan: (bantuanId, kapasitas) => {
-        return axios.patch(`/bantuan/${bantuanId}`, {
-            kd_bantuan: bantuanId,
-            kapasitas: kapasitas
-        })
-    },
     saveBantuan: (bantuanId, props, banner) => {
         return axios.post(`/bantuan`, {
             kd_bantuan: `BNT_${bantuanId}`,
@@ -31,6 +16,9 @@ const BANTUAN = {
             deskripsi: props.deskripsi,
             banner: banner.name
         })
+    },
+    updateBantuan: (bantuanId, data) => {
+        return axios.patch(`/bantuan/${bantuanId}`, data)
     },
     deleteBantuanByID: (id) => {
         return axios.delete(`/bantuan/${id}`)

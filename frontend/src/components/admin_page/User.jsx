@@ -248,11 +248,11 @@ const User = () => {
 																				data.user_id ===
 																				e.user_id
 																			) {
-																				API.deleteImgKTP_User(
+																				API.deleteImgKTP(
 																					data.foto_ktp
 																				);
 
-																				API.deleteImgBangunan_User(
+																				API.deleteImgBangunan(
 																					data.foto_bangunan_rumah
 																				);
 																			}

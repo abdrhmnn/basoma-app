@@ -44,7 +44,7 @@ const EditKriteriaBantuan = () => {
 							initialValues={{ nama: "" }}
 							validationSchema={schemaEditKriteria}
 							onSubmit={(values, actions) => {
-								API.updateKriteriaByID_EDIT(location.state, {
+								API.updateKriteriaByID(location.state, {
 									nama: values.nama,
 									nilai_bobot: nilaiBobot,
 									nilai_prioritas: 0,

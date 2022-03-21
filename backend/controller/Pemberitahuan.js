@@ -33,7 +33,7 @@ export const createPemberitahuan = async (req, res) => {
     }
 }
 
-export const deletePemberitahuanByUserID = async (req, res) => {
+export const deletePemberitahuan = async (req, res) => {
     try{
         await Pemberitahuan.destroy({
             where: {

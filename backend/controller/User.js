@@ -9,17 +9,6 @@ export const getAllUser = async (req, res) => {
     }
 }
 
-export const createUser = async (req, res) => {
-    try{
-        await User.create(req.body);
-        res.json({
-            "message" : "User berhasil dibuat!"
-        });
-    }catch(error){
-        res.json({ message: error.message })
-    }
-}
-
 export const getUserByID = async (req, res) => {
     try{
         const user = await User.findAll({
@@ -32,6 +21,18 @@ export const getUserByID = async (req, res) => {
         res.json({ message: error.message })
     }
 }
+
+export const createUser = async (req, res) => {
+    try{
+        await User.create(req.body);
+        res.json({
+            "message" : "User berhasil dibuat!"
+        });
+    }catch(error){
+        res.json({ message: error.message })
+    }
+}
+
 
 export const updateUser = async (req, res) => {
     try{

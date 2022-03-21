@@ -5,9 +5,6 @@ const KRITERIA = {
         return axios.get(`/kriteria`)
     },
     updateKriteriaByID: (id, data) => {
-        return axios.patch(`/kriteria/KB_${id}`, data)
-    },
-    updateKriteriaByID_EDIT: (id, data) => {
         return axios.patch(`/kriteria/${id}`, data)
     }
 }

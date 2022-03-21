@@ -1,10 +1,10 @@
 import axios from "axios";
-import ALTERNATIF from "./alternatif";
 
 // other API files
 import BANTUAN from "./bantuan";
 import KRITERIA from "./kriteria";
 import MASUKAN from "./masukan";
+import ALTERNATIF from "./alternatif";
 import PEMBERITAHUAN from "./pemberitahuan";
 import PRIORITAS from "./prioritas";
 import UPLOAD from "./uploads";
