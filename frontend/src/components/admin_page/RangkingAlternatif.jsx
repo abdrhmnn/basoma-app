@@ -61,7 +61,7 @@ const RangkingAlternatif = () => {
 								<thead className="tbl_class_head">
 									<tr>
 										<th>Rangking</th>
-										<th>NIK</th>
+										<th>NKK</th>
 										<th>Nama lengkap</th>
 										<th>Hasil akhir</th>
 										<th>Status</th>
@@ -79,7 +79,7 @@ const RangkingAlternatif = () => {
 												return (
 													<tr key={i}>
 														<td>{i + 1}</td>
-														<td>{e.no_ktp}</td>
+														<td>{e.no_kk}</td>
 														<td>{e.nama_lengkap}</td>
 														<td>{`${e.nilai_rangking}%`}</td>
 														<td>
@@ -94,7 +94,7 @@ const RangkingAlternatif = () => {
 																onClick={() => {
 																	navigate("/warga-detail", {
 																		state: {
-																			ui: e.no_ktp,
+																			ui: e.no_kk,
 																			uid: e.user_id,
 																		},
 																	});

@@ -23,27 +23,55 @@
     .form_content{
         margin-top: 30px;
 
-        .flex_nik_nm_lengkap{
+        .flex_no_kk_no_ktp{
             display: flex;
             justify-content: space-between;
             margin-bottom: 18px;
 
-            .text_nik{
+            .text_no_kk{
                 width: 380px;
             }
 
-            .text_nm_lengkap{
+            .text_no_ktp{
                 width: 400px;
             }
         }
 
-        .flex_pekerjaan_penghasilan{
+        .flex_makanan_pakaian{
             display: flex;
             justify-content: space-between;
             margin-top: 18px;
 
-            .text_pekerjaan{
+            .text_makanan{
                 width: 380px;    
+            }
+
+            .text_pakaian{
+                width: 400px;
+            }
+        }
+
+        .flex_kesehatan_asset{
+            display: flex;
+            justify-content: space-between;
+            margin-top: 18px;
+
+            .text_kesehatan{
+                width: 380px;    
+            }
+
+            .text_asset{
+                width: 400px;
+            }
+        }
+
+        .flex_pendidikan_penghasilan{
+            display: flex;
+            justify-content: space-between;
+            margin-top: 18px;
+
+            .text_pendidikan{
+                width: 380px;
             }
 
             .text_penghasilan{
@@ -51,26 +79,13 @@
             }
         }
 
-        .flex_pendidikan_luas_bangunan{
-            @extend .flex_pekerjaan_penghasilan;
-            margin-bottom: 18px;
-
-            .text_pendidikan{
-                width: 380px;
-            }
-
-            .text_luas_rumah{
-                width: 400px;
-            }
-        }
-
-        .flex_fktp_fbangunan{
+        .flex_fkk_fktp{
             display: flex;
             justify-content: space-between;
             margin-bottom: 15px;
 
-            .fktp{
-                .btn_upload_ktp{
+            .fkk{
+                .btn_upload_kk{
                     background-color: transparent;
                     border: 1px dashed $primary-color;
                     box-shadow: none;
@@ -91,8 +106,8 @@
                 }
             }
 
-            .fbangunan{
-                .btn_upload_bangunan{
+            .fktp{
+                .btn_upload_ktp{
                     background-color: transparent;
                     border: 1px dashed $primary-color;
                     box-shadow: none;
@@ -113,7 +128,7 @@
                 }
             }
 
-            .ml_bangunan{
+            .ml_ktp{
                 margin-left: 27px;
             }
         }

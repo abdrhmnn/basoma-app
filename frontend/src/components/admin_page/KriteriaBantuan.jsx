@@ -10,8 +10,10 @@ import NavbarAdmin from "./NavbarAdmin";
 import API from "../../api";
 
 // npm packages
-import { Button, CircularProgress } from "@mui/material";
+import { Button, CircularProgress, Menu, MenuItem } from "@mui/material";
 import { AiOutlineEdit } from "react-icons/ai";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { BsPrinter } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import "jspdf-autotable";
 import { jsPDF } from "jspdf";
@@ -22,20 +24,27 @@ const KriteriaBantuan = () => {
 	const [isShow, setIsShow] = useState(false);
 	const navigate = useNavigate();
 
-	const jmlhKriteria = 5;
-	const nilaiRI = 1.12;
+	const [anchorEl, setAnchorEl] = useState(null);
+	const open = Boolean(anchorEl);
+
+	const jmlhKriteria = 7;
+	const nilaiRI = 1.32;
 
 	let nilaiMatriks1 = [];
 	let nilaiMatriks2 = [];
 	let nilaiMatriks3 = [];
 	let nilaiMatriks4 = [];
 	let nilaiMatriks5 = [];
+	let nilaiMatriks6 = [];
+	let nilaiMatriks7 = [];
 
 	let normalisasiKriteria1 = [];
 	let normalisasiKriteria2 = [];
 	let normalisasiKriteria3 = [];
 	let normalisasiKriteria4 = [];
 	let normalisasiKriteria5 = [];
+	let normalisasiKriteria6 = [];
+	let normalisasiKriteria7 = [];
 	let hasilAkhir = [];
 	let hasilAkhirNilaiPrioritas = [];
 	let nilaiLamda = [];
@@ -66,6 +75,12 @@ const KriteriaBantuan = () => {
 		nilaiMatriks5.push(
 			kriteriaBantuan[4].nilai_bobot / kriteriaBantuan[i].nilai_bobot
 		);
+		nilaiMatriks6.push(
+			kriteriaBantuan[5].nilai_bobot / kriteriaBantuan[i].nilai_bobot
+		);
+		nilaiMatriks7.push(
+			kriteriaBantuan[6].nilai_bobot / kriteriaBantuan[i].nilai_bobot
+		);
 	}
 
 	const roundMatriks1 = nilaiMatriks1.map(
@@ -83,6 +98,12 @@ const KriteriaBantuan = () => {
 	const roundMatriks5 = nilaiMatriks5.map(
 		(e, i) => Math.floor(e * 1000) / 1000
 	);
+	const roundMatriks6 = nilaiMatriks6.map(
+		(e, i) => Math.floor(e * 1000) / 1000
+	);
+	const roundMatriks7 = nilaiMatriks7.map(
+		(e, i) => Math.floor(e * 1000) / 1000
+	);
 
 	for (let y = 0; y < kriteriaBantuan.length; y++) {
 		hasilAkhir.push(
@@ -90,7 +111,9 @@ const KriteriaBantuan = () => {
 				roundMatriks2[y] +
 				roundMatriks3[y] +
 				roundMatriks4[y] +
-				roundMatriks5[y]
+				roundMatriks5[y] +
+				roundMatriks6[y] +
+				roundMatriks7[y]
 		);
 	}
 
@@ -115,6 +138,12 @@ const KriteriaBantuan = () => {
 		normalisasiKriteria5.push(
 			roundMatriks5[x] / roundKalkulasiPerbandinganKriteria[x]
 		);
+		normalisasiKriteria6.push(
+			roundMatriks6[x] / roundKalkulasiPerbandinganKriteria[x]
+		);
+		normalisasiKriteria7.push(
+			roundMatriks7[x] / roundKalkulasiPerbandinganKriteria[x]
+		);
 	}
 
 	// membulatkan nilai normalisai kriteria
@@ -131,6 +160,12 @@ const KriteriaBantuan = () => {
 		(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
 	);
 	const roundNormalisasiKriteria5 = normalisasiKriteria5.map(
+		(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
+	);
+	const roundNormalisasiKriteria6 = normalisasiKriteria6.map(
+		(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
+	);
+	const roundNormalisasiKriteria7 = normalisasiKriteria7.map(
 		(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
 	);
 
@@ -152,6 +187,14 @@ const KriteriaBantuan = () => {
 		0
 	);
 	const jmlhNormalisasiKriteria5 = roundNormalisasiKriteria5.reduce(
+		(accu, curr) => accu + curr,
+		0
+	);
+	const jmlhNormalisasiKriteria6 = roundNormalisasiKriteria6.reduce(
+		(accu, curr) => accu + curr,
+		0
+	);
+	const jmlhNormalisasiKriteria7 = roundNormalisasiKriteria7.reduce(
 		(accu, curr) => accu + curr,
 		0
 	);
@@ -184,6 +227,18 @@ const KriteriaBantuan = () => {
 		) / 100,
 		Math.round(
 			(Math.round(jmlhNormalisasiKriteria5.toFixed(3) * 1e3) /
+				1e3 /
+				jmlhKriteria) *
+				100
+		) / 100,
+		Math.round(
+			(Math.round(jmlhNormalisasiKriteria6.toFixed(3) * 1e3) /
+				1e3 /
+				jmlhKriteria) *
+				100
+		) / 100,
+		Math.round(
+			(Math.round(jmlhNormalisasiKriteria7.toFixed(3) * 1e3) /
 				1e3 /
 				jmlhKriteria) *
 				100
@@ -227,11 +282,11 @@ const KriteriaBantuan = () => {
 			startY: 30,
 		});
 		doc.setFontSize(11);
-		doc.text(`Nilai lamda maks: ${nilaiLamdaMaks}`, 15, 85);
+		doc.text(`Nilai lamda maks: ${nilaiLamdaMaks}`, 15, 98);
 		doc.setFontSize(11);
-		doc.text(`Nilai CI: ${nilaiCI}`, 15, 91);
+		doc.text(`Nilai CI: ${nilaiCI}`, 15, 105);
 		doc.setFontSize(11);
-		doc.text(`Nilai CR: ${nilaiCR}`, 15, 97);
+		doc.text(`Nilai CR: ${nilaiCR}`, 15, 112);
 		doc.save("data_kriteria.pdf");
 	};
 
@@ -249,12 +304,51 @@ const KriteriaBantuan = () => {
 							</Button>
 							<div className="cetak_data_kriteria_bantuan">
 								<Button
+									id="basic-button"
+									aria-controls={open ? "basic-menu" : undefined}
+									aria-haspopup="true"
+									aria-expanded={open ? "true" : undefined}
+									onClick={(e) => setAnchorEl(e.currentTarget)}
+								>
+									<BsPrinter
+										size={20}
+										style={{
+											marginLeft: 5,
+											color: "rgb(75, 75, 253)",
+										}}
+									/>
+									<MdKeyboardArrowDown
+										size={20}
+										style={{
+											marginLeft: 5,
+											color: "rgb(117, 117, 117)",
+										}}
+									/>
+								</Button>
+								<Menu
+									id="basic-menu"
+									anchorEl={anchorEl}
+									open={open}
+									onClose={() => setAnchorEl(null)}
+									MenuListProps={{
+										"aria-labelledby": "basic-button",
+									}}
+								>
+									<MenuItem
+										onClick={() => {
+											generatePdf();
+										}}
+									>
+										PDF
+									</MenuItem>
+								</Menu>
+								{/* <Button
 									variant="contained"
 									className="generate_pdf_kriteria_bantuan"
 									onClick={generatePdf}
 								>
 									Cetak ke PDF
-								</Button>
+								</Button> */}
 							</div>
 						</div>
 						<table className="tbl_class">

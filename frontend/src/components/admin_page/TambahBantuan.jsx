@@ -9,16 +9,7 @@ import NavbarAdmin from "./NavbarAdmin";
 // npm packages
 import swal from "sweetalert";
 import { BsFillImageFill } from "react-icons/bs";
-import {
-	TextField,
-	Button,
-	Radio,
-	RadioGroup,
-	FormControl,
-	FormControlLabel,
-	FormLabel,
-	Alert,
-} from "@mui/material";
+import { TextField, Button, Alert } from "@mui/material";
 import * as Yup from "yup";
 import { Formik, Field } from "formik";
 import API from "../../api";
@@ -131,35 +122,12 @@ const TambahBantuan = () => {
 											props.touched.nama && props.errors.nama
 										}
 									/>
-									<FormControl
-										component="fieldset"
-										sx={{ mt: 2, mb: 2 }}
-									>
-										<FormLabel component="legend">
-											Kapasitas
-										</FormLabel>
-										<RadioGroup
-											row
-											name="kapasitas"
-											onChange={props.handleChange}
-										>
-											<FormControlLabel
-												value="50"
-												control={<Radio />}
-												label="50"
-											/>
-											<FormControlLabel
-												value="100"
-												control={<Radio />}
-												label="100"
-											/>
-										</RadioGroup>
-									</FormControl>
 									<Field
 										name="deskripsi"
 										variant="outlined"
 										label="Deskripsi Bantuan"
 										autoComplete="off"
+										sx={{ mt: 2 }}
 										multiline
 										rows={3}
 										as={TextField}

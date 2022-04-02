@@ -11,7 +11,6 @@ const BANTUAN = {
         return axios.post(`/bantuan`, {
             id_bantuan: `BNT_${bantuanId}`,
             nama: props.nama,
-            kapasitas: props.kapasitas,
             alamat: props.alamat,
             deskripsi: props.deskripsi,
             banner: banner.name

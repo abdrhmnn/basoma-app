@@ -40,7 +40,7 @@ const PendaftaranBantuan = () => {
 					<Box
 						key={i}
 						sx={{
-							height: 90,
+							height: 50,
 							p: 3,
 							borderRadius: 3,
 						}}
@@ -53,15 +53,9 @@ const PendaftaranBantuan = () => {
 							});
 						}}
 					>
-						<Typography variant="h4" style={{ fontSize: "1.7em" }}>
+						<Typography variant="h4" style={{ fontSize: "1.5em" }}>
 							{e.nama}
 						</Typography>
-
-						<div style={{ fontSize: ".9em" }}>
-							<p>
-								Kapasitas: <span>{e.kapasitas} orang</span>
-							</p>
-						</div>
 					</Box>
 				);
 			}
@@ -76,7 +70,7 @@ const PendaftaranBantuan = () => {
 			<div className="flex_header_admin">
 				<HeaderAdmin />
 				<div className="content_dashboard_admin">
-					<h2>Data Bantuan</h2>
+					<h2>Data Pendaftaran Bantuan</h2>
 					<div className="wrap_tbl_pendaftaran_bantuan">
 						<div className="flex_element_pendaftaran">
 							<TextField

@@ -77,7 +77,7 @@ const HasilKuesionerPendaftaran = () => {
 		doc.text(
 			`Hasil akhir yang diperoleh sebesar ${hasilKuesioner[0].total_nilai}%`,
 			14,
-			97
+			117
 		);
 		doc.save("data_pengisian.pdf");
 	};
@@ -118,7 +118,13 @@ const HasilKuesionerPendaftaran = () => {
 									{kriteriaBantuan[0].pertanyaan}
 								</td>
 								<td colSpan={2}>
-									<RadioGroup row>
+									<RadioGroup
+										row
+										style={{
+											width: "200px",
+											margin: "auto",
+										}}
+									>
 										<FormControlLabel
 											control={
 												<Radio
@@ -137,6 +143,9 @@ const HasilKuesionerPendaftaran = () => {
 												/>
 											}
 											label={kriteriaBantuan[0].pilihan_satu}
+											style={{
+												marginRight: "40px",
+											}}
 										/>
 										<FormControlLabel
 											control={
@@ -169,7 +178,13 @@ const HasilKuesionerPendaftaran = () => {
 									{kriteriaBantuan[1].pertanyaan}
 								</td>
 								<td colSpan={2}>
-									<RadioGroup row>
+									<RadioGroup
+										row
+										style={{
+											width: "200px",
+											margin: "auto",
+										}}
+									>
 										<FormControlLabel
 											control={
 												<Radio
@@ -188,6 +203,9 @@ const HasilKuesionerPendaftaran = () => {
 												/>
 											}
 											label={kriteriaBantuan[1].pilihan_satu}
+											style={{
+												marginRight: "40px",
+											}}
 										/>
 										<FormControlLabel
 											control={
@@ -220,7 +238,13 @@ const HasilKuesionerPendaftaran = () => {
 									{kriteriaBantuan[2].pertanyaan}
 								</td>
 								<td colSpan={2}>
-									<RadioGroup row>
+									<RadioGroup
+										row
+										style={{
+											width: "200px",
+											margin: "auto",
+										}}
+									>
 										<FormControlLabel
 											control={
 												<Radio
@@ -239,6 +263,9 @@ const HasilKuesionerPendaftaran = () => {
 												/>
 											}
 											label={kriteriaBantuan[2].pilihan_satu}
+											style={{
+												marginRight: "40px",
+											}}
 										/>
 										<FormControlLabel
 											control={
@@ -271,7 +298,13 @@ const HasilKuesionerPendaftaran = () => {
 									{kriteriaBantuan[3].pertanyaan}
 								</td>
 								<td colSpan={2}>
-									<RadioGroup row>
+									<RadioGroup
+										row
+										style={{
+											width: "200px",
+											margin: "auto",
+										}}
+									>
 										<FormControlLabel
 											control={
 												<Radio
@@ -290,6 +323,9 @@ const HasilKuesionerPendaftaran = () => {
 												/>
 											}
 											label={kriteriaBantuan[3].pilihan_satu}
+											style={{
+												marginRight: "40px",
+											}}
 										/>
 										<FormControlLabel
 											control={
@@ -319,10 +355,16 @@ const HasilKuesionerPendaftaran = () => {
 							<tr>
 								<td>5</td>
 								<td style={{ textAlign: "left" }}>
-									{kriteriaBantuan[3].pertanyaan}
+									{kriteriaBantuan[4].pertanyaan}
 								</td>
 								<td colSpan={2}>
-									<RadioGroup row>
+									<RadioGroup
+										row
+										style={{
+											width: "200px",
+											margin: "auto",
+										}}
+									>
 										<FormControlLabel
 											control={
 												<Radio
@@ -341,6 +383,9 @@ const HasilKuesionerPendaftaran = () => {
 												/>
 											}
 											label={kriteriaBantuan[4].pilihan_satu}
+											style={{
+												marginRight: "40px",
+											}}
 										/>
 										<FormControlLabel
 											control={
@@ -365,6 +410,126 @@ const HasilKuesionerPendaftaran = () => {
 								</td>
 							</tr>
 							{/* Akhir baris lima */}
+
+							{/* Baris enam */}
+							<tr>
+								<td>6</td>
+								<td style={{ textAlign: "left" }}>
+									{kriteriaBantuan[5].pertanyaan}
+								</td>
+								<td colSpan={2}>
+									<RadioGroup
+										row
+										style={{
+											width: "200px",
+											margin: "auto",
+										}}
+									>
+										<FormControlLabel
+											control={
+												<Radio
+													disabled={
+														hasilKuesioner[5].pilihan !==
+														kriteriaBantuan[5].pilihan_satu
+															? true
+															: false
+													}
+													checked={
+														hasilKuesioner[5].pilihan !==
+														kriteriaBantuan[5].pilihan_satu
+															? false
+															: true
+													}
+												/>
+											}
+											label={kriteriaBantuan[5].pilihan_satu}
+											style={{
+												marginRight: "40px",
+											}}
+										/>
+										<FormControlLabel
+											control={
+												<Radio
+													disabled={
+														hasilKuesioner[5].pilihan !==
+														kriteriaBantuan[5].pilihan_dua
+															? true
+															: false
+													}
+													checked={
+														hasilKuesioner[5].pilihan !==
+														kriteriaBantuan[5].pilihan_dua
+															? false
+															: true
+													}
+												/>
+											}
+											label={kriteriaBantuan[5].pilihan_dua}
+										/>
+									</RadioGroup>
+								</td>
+							</tr>
+							{/* Akhir baris enam */}
+
+							{/* Baris tujuh */}
+							<tr>
+								<td>7</td>
+								<td style={{ textAlign: "left" }}>
+									{kriteriaBantuan[6].pertanyaan}
+								</td>
+								<td colSpan={2}>
+									<RadioGroup
+										row
+										style={{
+											width: "200px",
+											margin: "auto",
+										}}
+									>
+										<FormControlLabel
+											control={
+												<Radio
+													disabled={
+														hasilKuesioner[6].pilihan !==
+														kriteriaBantuan[6].pilihan_satu
+															? true
+															: false
+													}
+													checked={
+														hasilKuesioner[6].pilihan !==
+														kriteriaBantuan[6].pilihan_satu
+															? false
+															: true
+													}
+												/>
+											}
+											label={kriteriaBantuan[6].pilihan_satu}
+											style={{
+												marginRight: "40px",
+											}}
+										/>
+										<FormControlLabel
+											control={
+												<Radio
+													disabled={
+														hasilKuesioner[6].pilihan !==
+														kriteriaBantuan[6].pilihan_dua
+															? true
+															: false
+													}
+													checked={
+														hasilKuesioner[6].pilihan !==
+														kriteriaBantuan[6].pilihan_dua
+															? false
+															: true
+													}
+												/>
+											}
+											label={kriteriaBantuan[6].pilihan_dua}
+										/>
+									</RadioGroup>
+								</td>
+							</tr>
+							{/* Akhir baris tujuh */}
 						</tbody>
 						{/* Akhir tabel body */}
 					</table>

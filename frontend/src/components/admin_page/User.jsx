@@ -11,12 +11,20 @@ import API from "../../api";
 
 // npm packages
 import { jsPDF } from "jspdf";
-import { Button } from "@mui/material";
 import "jspdf-autotable";
 import ReactExport from "react-export-excel";
 import swal from "sweetalert";
 import { RiDeleteBin6Line, RiAdminLine } from "react-icons/ri";
-import { TextField, FormControl, Select, MenuItem } from "@mui/material";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { BsPrinter } from "react-icons/bs";
+import {
+	TextField,
+	FormControl,
+	Select,
+	Menu,
+	MenuItem,
+	Button,
+} from "@mui/material";
 
 const User = () => {
 	const [user, setUser] = useState([]);
@@ -28,6 +36,9 @@ const User = () => {
 	const ExcelFile = ReactExport.ExcelFile;
 	const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 	const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
+
+	const [anchorEl, setAnchorEl] = useState(null);
+	const open = Boolean(anchorEl);
 
 	useEffect(() => {
 		document.title = "Kelola User";
@@ -99,37 +110,65 @@ const User = () => {
 								onChange={handleChange}
 								autoComplete="off"
 							/>
-							<div className="btn_export_user">
+							<div className="print_data_user">
 								<Button
-									variant="contained"
-									className="generate_pdf_user"
-									onClick={generatePdf}
+									id="basic-button"
+									aria-controls={open ? "basic-menu" : undefined}
+									aria-haspopup="true"
+									aria-expanded={open ? "true" : undefined}
+									onClick={(e) => setAnchorEl(e.currentTarget)}
 								>
-									Cetak ke PDF
+									<BsPrinter
+										size={20}
+										style={{
+											marginLeft: 5,
+											color: "rgb(75, 75, 253)",
+										}}
+									/>
+									<MdKeyboardArrowDown
+										size={20}
+										style={{
+											marginLeft: 5,
+											color: "rgb(117, 117, 117)",
+										}}
+									/>
 								</Button>
-								<ExcelFile
-									element={
-										<Button
-											variant="contained"
-											className="generate_excel_user"
-										>
-											Cetak ke Excel
-										</Button>
-									}
-									filename="data_user"
+								<Menu
+									id="basic-menu"
+									anchorEl={anchorEl}
+									open={open}
+									onClose={() => setAnchorEl(null)}
+									MenuListProps={{
+										"aria-labelledby": "basic-button",
+									}}
 								>
-									<ExcelSheet data={dataSetUser} name="dataUser">
-										<ExcelColumn
-											label="Nama Depan"
-											value="nm_depan"
-										/>
-										<ExcelColumn
-											label="Nama Belakang"
-											value="nm_belakang"
-										/>
-										<ExcelColumn label="Username" value="username" />
-									</ExcelSheet>
-								</ExcelFile>
+									<MenuItem
+										onClick={() => {
+											generatePdf();
+										}}
+									>
+										PDF
+									</MenuItem>
+									<ExcelFile
+										element={<MenuItem>EXCEL</MenuItem>}
+										filename="data_user"
+									>
+										<ExcelSheet data={dataSetUser} name="dataUser">
+											<ExcelColumn
+												label="Nama Depan"
+												value="nm_depan"
+											/>
+											<ExcelColumn
+												label="Nama Belakang"
+												value="nm_belakang"
+											/>
+											<ExcelColumn
+												label="Username"
+												value="username"
+											/>
+										</ExcelSheet>
+									</ExcelFile>
+								</Menu>
 							</div>
 						</div>
 						<table className="tbl_class">
@@ -248,42 +287,45 @@ const User = () => {
 																				data.user_id ===
 																				e.user_id
 																			) {
+																				API.deleteImgKK(
+																					data.foto_kk
+																				);
+
 																				API.deleteImgKTP(
 																					data.foto_ktp
 																				);
-
-																				API.deleteImgBangunan(
-																					data.foto_bangunan_rumah
-																				);
 																			}
 
-																			if (
-																				data.user_id ===
-																					e.user_id &&
-																				data.status_penerimaan ===
-																					"diterima"
-																			) {
-																				bantuan.map(
-																					(
-																						dataBantuan,
-																						i
-																					) => {
-																						if (
-																							data.id_bantuan ===
-																							dataBantuan.id_bantuan
-																						) {
-																							API.updateKapasitasBantuan(
-																								data.id_bantuan,
-																								parseInt(
-																									dataBantuan.kapasitas
-																								) + 1
-																							);
-																						}
+																			// if (
+																			// 	data.user_id ===
+																			// 		e.user_id &&
+																			// 	data.status_penerimaan ===
+																			// 		"diterima"
+																			// ) {
+																			// 	bantuan.map(
+																			// 		(
+																			// 			dataBantuan,
+																			// 			i
+																			// 		) => {
+																			// 			if (
+																			// 				data.id_bantuan ===
+																			// 				dataBantuan.id_bantuan
+																			// 			) {
+																			// 				API.updateKapasitasBantuan(
+																			// 					data.id_bantuan,
+																			// 					parseInt(
+																			// 						dataBantuan.kapasitas
+																			// 					) + 1
+																			// 				);
+																			// 				API.updateBantuan(data.id_bantuan, {
+																			// 					kapasitas:
+																			// 				})
+																			// 			}
 
-																						return null;
-																					}
-																				);
-																			}
+																			// 			return null;
+																			// 		}
+																			// 	);
+																			// }
 
 																			return null;
 																		});

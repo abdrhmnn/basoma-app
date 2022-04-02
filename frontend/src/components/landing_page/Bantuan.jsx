@@ -36,7 +36,7 @@ const Bantuan = () => {
 					<Box
 						key={i}
 						sx={{
-							height: 90,
+							height: 50,
 							p: 3,
 							borderRadius: 3,
 						}}
@@ -49,12 +49,6 @@ const Bantuan = () => {
 						<Typography variant="h4" className="judul_bantuan">
 							{e.nama}
 						</Typography>
-
-						<div className="kapasitas_bantuan">
-							<p>
-								Kapasitas: <span>{e.kapasitas} orang</span>
-							</p>
-						</div>
 					</Box>
 				);
 			}

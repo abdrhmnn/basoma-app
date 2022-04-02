@@ -50,34 +50,47 @@
             color:rgb(51, 51, 51);
         }
         
-        .flex_nik_nm_lengkap{
+        .flex_no_kk_no_ktp{
             display: flex;
             margin-top: 6px;
     
-            .nik{
+            .no_kk{
                 width: 60%;
                 margin-right: 20px;
             }
     
-            .nm_lengkap{
+            .no_ktp{
                 width: 100%;
             }
         }
     
-        .flex_pekerjaan_penghasilan{
+        .flex_makanan_pakaian{
             display: flex;
     
-            .pekerjaan{
+            .makanan{
                 width: 60%;
                 margin-right: 20px;
             }
     
-            .penghasilan{
+            .pakaian{
+                width: 100%;
+            }
+        }
+
+        .flex_kesehatan_asset{
+            display: flex;
+    
+            .kesehatan{
+                width: 60%;
+                margin-right: 20px;
+            }
+    
+            .asset{
                 width: 100%;
             }
         }
     
-        .flex_pendidikan_luas_rumah{
+        .flex_pendidikan_penghasilan{
             display: flex;
     
             .pendidikan{
@@ -85,7 +98,7 @@
                 margin-right: 20px;
             }
     
-            .luas_rumah{
+            .penghasilan{
                 width: 100%;
             }
         }

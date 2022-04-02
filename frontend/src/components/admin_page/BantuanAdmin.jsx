@@ -15,9 +15,11 @@ import "jspdf-autotable";
 import ReactExport from "react-export-excel";
 import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Menu, MenuItem } from "@mui/material";
 import { AiOutlinePlusSquare } from "react-icons/ai";
 import { RiDeleteBin6Line, RiEditLine } from "react-icons/ri";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { BsPrinter } from "react-icons/bs";
 
 const BantuanAdmin = () => {
 	const [bantuan, setBantuan] = useState([]);
@@ -25,6 +27,9 @@ const BantuanAdmin = () => {
 	const ExcelFile = ReactExport.ExcelFile;
 	const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 	const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
+
+	const [anchorEl, setAnchorEl] = useState(null);
+	const open = Boolean(anchorEl);
 
 	const navigate = useNavigate();
 
@@ -36,7 +41,7 @@ const BantuanAdmin = () => {
 	const dataSetBantuan = bantuan.map((e, i) => {
 		return {
 			nama: e.nama,
-			kapasitas: e.kapasitas,
+			alamat: e.alamat,
 		};
 	});
 
@@ -53,9 +58,9 @@ const BantuanAdmin = () => {
 		var doc = new jsPDF({ orientation: "p" });
 		doc.text("Data Bantuan Basoma", 80, 20);
 		doc.autoTable({
-			head: [["No", "Nama", "Kapasitas"]],
+			head: [["No", "Nama", "Alamat"]],
 			body: bantuan.map((e, i) => {
-				return [i + 1, e.nama, e.kapasitas];
+				return [i + 1, e.nama, e.alamat];
 			}),
 			startY: 30,
 		});
@@ -81,7 +86,7 @@ const BantuanAdmin = () => {
 									component={Link}
 									to="/tambah-bantuan"
 								>
-									<AiOutlinePlusSquare size={30} />
+									<AiOutlinePlusSquare size={35} />
 								</Button>
 
 								{/* cari bantuan section */}
@@ -96,33 +101,58 @@ const BantuanAdmin = () => {
 								/>
 							</div>
 							{/* export bantuan section */}
-							<div className="btn_export_bantuan">
+							<div className="print_data_bantuan">
 								<Button
-									variant="contained"
-									className="generate_pdf_bantuan"
-									onClick={generatePdf}
+									id="basic-button"
+									aria-controls={open ? "basic-menu" : undefined}
+									aria-haspopup="true"
+									aria-expanded={open ? "true" : undefined}
+									onClick={(e) => setAnchorEl(e.currentTarget)}
 								>
-									Cetak ke PDF
+									<BsPrinter
+										size={20}
+										style={{
+											marginLeft: 5,
+											color: "rgb(75, 75, 253)",
+										}}
+									/>
+									<MdKeyboardArrowDown
+										size={20}
+										style={{
+											marginLeft: 5,
+											color: "rgb(117, 117, 117)",
+										}}
+									/>
 								</Button>
-								<ExcelFile
-									element={
-										<Button
-											variant="contained"
-											className="generate_excel_bantuan"
-										>
-											Cetak ke Excel
-										</Button>
-									}
-									filename="data_bantuan"
+								<Menu
+									id="basic-menu"
+									anchorEl={anchorEl}
+									open={open}
+									onClose={() => setAnchorEl(null)}
+									MenuListProps={{
+										"aria-labelledby": "basic-button",
+									}}
 								>
-									<ExcelSheet data={dataSetBantuan} name="dataBantuan">
-										<ExcelColumn label="Nama" value="nama" />
-										<ExcelColumn
-											label="Kapasitas"
-											value="kapasitas"
-										/>
-									</ExcelSheet>
-								</ExcelFile>
+									<MenuItem
+										onClick={() => {
+											generatePdf();
+										}}
+									>
+										PDF
+									</MenuItem>
+									<ExcelFile
+										element={<MenuItem>EXCEL</MenuItem>}
+										filename="data_bantuan"
+									>
+										<ExcelSheet
+											data={dataSetBantuan}
+											name="dataBantuan"
+										>
+											<ExcelColumn label="Nama" value="nama" />
+											<ExcelColumn label="Alamat" value="alamat" />
+										</ExcelSheet>
+									</ExcelFile>
+								</Menu>
 							</div>
 							{/* akhir export bantuan section */}
 						</div>
@@ -133,7 +163,7 @@ const BantuanAdmin = () => {
 								<tr>
 									<th>No</th>
 									<th>Nama</th>
-									<th>Kapasitas</th>
+									<th>Alamat</th>
 									<th>Aksi</th>
 								</tr>
 							</thead>
@@ -144,7 +174,7 @@ const BantuanAdmin = () => {
 											<tr key={i}>
 												<td>{i + 1}</td>
 												<td>{e.nama}</td>
-												<td>{e.kapasitas}</td>
+												<td>{e.alamat}</td>
 												<td>
 													{/* btn edit */}
 													<Button
@@ -174,11 +204,11 @@ const BantuanAdmin = () => {
 																dangerMode: true,
 															}).then((willDelete) => {
 																if (willDelete) {
-																	API.deleteBantuanByID(
-																		e.id_bantuan
-																	);
 																	API.deleteImgBantuan(
 																		e.banner
+																	);
+																	API.deleteBantuanByID(
+																		e.id_bantuan
 																	).then((res) => {
 																		swal(
 																			"Data berhasil dihapus!",
@@ -186,8 +216,8 @@ const BantuanAdmin = () => {
 																				icon: "success",
 																			}
 																		);
+																		getAllBantuan();
 																	});
-																	getAllBantuan();
 																}
 															});
 														}}

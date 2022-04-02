@@ -37,6 +37,8 @@ const KuesionerPendaftaran = () => {
 	const [jawabanTiga, setJawabanTiga] = useState(null);
 	const [jawabanEmpat, setJawabanEmpat] = useState(null);
 	const [jawabanLima, setJawabanLima] = useState(null);
+	const [jawabanEnam, setJawabanEnam] = useState(null);
+	const [jawabanTujuh, setJawabanTujuh] = useState(null);
 
 	// state for get data value from radio button
 	const [valueRB1, setValueRB1] = useState("");
@@ -44,6 +46,8 @@ const KuesionerPendaftaran = () => {
 	const [valueRB3, setValueRB3] = useState("");
 	const [valueRB4, setValueRB4] = useState("");
 	const [valueRB5, setValueRB5] = useState("");
+	const [valueRB6, setValueRB6] = useState("");
+	const [valueRB7, setValueRB7] = useState("");
 
 	// state for check correct users answer
 	const [correctAnswer1, setCorrectAnswer1] = useState(false);
@@ -51,6 +55,8 @@ const KuesionerPendaftaran = () => {
 	const [correctAnswer3, setCorrectAnswer3] = useState(false);
 	const [correctAnswer4, setCorrectAnswer4] = useState(false);
 	const [correctAnswer5, setCorrectAnswer5] = useState(false);
+	const [correctAnswer6, setCorrectAnswer6] = useState(false);
+	const [correctAnswer7, setCorrectAnswer7] = useState(false);
 
 	const [isValidSubmit, setIsValidSubmit] = useState(false);
 	const [isOpenSnackbar, setIsOpenSnackbar] = useState(false);
@@ -90,22 +96,26 @@ const KuesionerPendaftaran = () => {
 		const kalkulasiNilaiDecimal = [];
 		const nilaiEigen = [];
 		const nilaiLamda = [];
-		const jmlhKriteria = 5;
-		const nilaiRI = 1.12;
+		const jmlhKriteria = 7;
+		const nilaiRI = 1.32;
 
 		// variable untuk menyimpan nilai decimal per jawaban yang sesuai dgn kriteria
+		const nilaiDecimalMakanan = [];
+		const nilaiDecimalPakaian = [];
+		const nilaiDecimalKesehatan = [];
 		const nilaiDecimalPendidikan = [];
-		const nilaiDecimalPekerjaan = [];
+		const nilaiDecimalAsset = [];
+		const nilaiDecimalRumah = [];
 		const nilaiDecimalPenghasilan = [];
-		const nilaiDecimalLuasRumah = [];
-		const nilaiDecimalSumberPenerangan = [];
 
 		// variabel untuk menyimpan nilai normalisasi alternatif
+		const normalisasiMakanan = [];
+		const normalisasiPakaian = [];
+		const normalisasiKesehatan = [];
 		const normalisasiPendidikan = [];
-		const normalisasiPekerjaan = [];
+		const normalisasiAsset = [];
+		const normalisasiRumah = [];
 		const normalisasiPenghasilan = [];
-		const normalisasiLuasRumah = [];
-		const normalisasiSumberPenerangan = [];
 
 		// variabel untuk menangkap nilai normalisasi lamda alternatif
 		const normalisasiLamda = [];
@@ -117,70 +127,93 @@ const KuesionerPendaftaran = () => {
 		// loop per jawaban untuk mendapatkan nilai decimal per kriteria
 		if (correctAnswer1) {
 			for (let i = 0; i < kriteriaBantuan.length; i++) {
-				nilaiDecimalPendidikan.push(nilaiBobot[0] / nilaiBobot[i]);
+				nilaiDecimalMakanan.push(nilaiBobot[0] / nilaiBobot[i]);
 			}
 		} else {
-			nilaiDecimalPendidikan.push(1, 0, 0, 0, 0);
+			nilaiDecimalMakanan.push(1, 0, 0, 0, 0, 0, 0);
 		}
 
 		if (correctAnswer2) {
 			for (let i = 0; i < kriteriaBantuan.length; i++) {
-				nilaiDecimalPekerjaan.push(nilaiBobot[1] / nilaiBobot[i]);
+				nilaiDecimalPakaian.push(nilaiBobot[1] / nilaiBobot[i]);
 			}
 		} else {
-			nilaiDecimalPekerjaan.push(0, 1, 0, 0, 0);
+			nilaiDecimalPakaian.push(0, 1, 0, 0, 0, 0, 0);
 		}
 
 		if (correctAnswer3) {
 			for (let i = 0; i < kriteriaBantuan.length; i++) {
-				nilaiDecimalPenghasilan.push(nilaiBobot[2] / nilaiBobot[i]);
+				nilaiDecimalKesehatan.push(nilaiBobot[2] / nilaiBobot[i]);
 			}
 		} else {
-			nilaiDecimalPenghasilan.push(0, 0, 1, 0, 0);
+			nilaiDecimalKesehatan.push(0, 0, 1, 0, 0, 0, 0);
 		}
 
 		if (correctAnswer4) {
 			for (let i = 0; i < kriteriaBantuan.length; i++) {
-				nilaiDecimalLuasRumah.push(nilaiBobot[3] / nilaiBobot[i]);
+				nilaiDecimalPendidikan.push(nilaiBobot[3] / nilaiBobot[i]);
 			}
 		} else {
-			nilaiDecimalLuasRumah.push(0, 0, 0, 1, 0);
+			nilaiDecimalPendidikan.push(0, 0, 0, 1, 0, 0, 0);
 		}
 
 		if (correctAnswer5) {
 			for (let i = 0; i < kriteriaBantuan.length; i++) {
-				nilaiDecimalSumberPenerangan.push(nilaiBobot[4] / nilaiBobot[i]);
+				nilaiDecimalAsset.push(nilaiBobot[4] / nilaiBobot[i]);
 			}
 		} else {
-			nilaiDecimalSumberPenerangan.push(0, 0, 0, 0, 1);
+			nilaiDecimalAsset.push(0, 0, 0, 0, 1, 0, 0);
+		}
+
+		if (correctAnswer6) {
+			for (let i = 0; i < kriteriaBantuan.length; i++) {
+				nilaiDecimalRumah.push(nilaiBobot[5] / nilaiBobot[i]);
+			}
+		} else {
+			nilaiDecimalRumah.push(0, 0, 0, 0, 0, 1, 0);
+		}
+
+		if (correctAnswer7) {
+			for (let i = 0; i < kriteriaBantuan.length; i++) {
+				nilaiDecimalPenghasilan.push(nilaiBobot[6] / nilaiBobot[i]);
+			}
+		} else {
+			nilaiDecimalPenghasilan.push(0, 0, 0, 0, 0, 0, 1);
 		}
 
 		// membulatkan nilai decimal yang didapat
+		const roundNilaiDecimalMakanan = nilaiDecimalMakanan.map(
+			(e, i) => Math.floor(e * 1000) / 1000
+		);
+		const roundNilaiDecimalPakaian = nilaiDecimalPakaian.map(
+			(e, i) => Math.floor(e * 1000) / 1000
+		);
+		const roundNilaiDecimalKesehatan = nilaiDecimalKesehatan.map(
+			(e, i) => Math.floor(e * 1000) / 1000
+		);
 		const roundNilaiDecimalPendidikan = nilaiDecimalPendidikan.map(
 			(e, i) => Math.floor(e * 1000) / 1000
 		);
-		const roundNilaiDecimalPekerjaan = nilaiDecimalPekerjaan.map(
+		const roundNilaiDecimalAsset = nilaiDecimalAsset.map(
+			(e, i) => Math.floor(e * 1000) / 1000
+		);
+		const roundNilaiDecimalRumah = nilaiDecimalRumah.map(
 			(e, i) => Math.floor(e * 1000) / 1000
 		);
 		const roundNilaiDecimalPenghasilan = nilaiDecimalPenghasilan.map(
 			(e, i) => Math.floor(e * 1000) / 1000
 		);
-		const roundNilaiDecimalLuasRumah = nilaiDecimalLuasRumah.map(
-			(e, i) => Math.floor(e * 1000) / 1000
-		);
-		const roundNilaiDecimalSumberPenerangan =
-			nilaiDecimalSumberPenerangan.map(
-				(e, i) => Math.floor(e * 1000) / 1000
-			);
 
 		// kalkulasi nilai desimal dan push ke new array
 		for (let y = 0; y < kriteriaBantuan.length; y++) {
 			kalkulasiNilaiDecimal.push(
-				roundNilaiDecimalPendidikan[y] +
-					roundNilaiDecimalPekerjaan[y] +
-					roundNilaiDecimalPenghasilan[y] +
-					roundNilaiDecimalLuasRumah[y] +
-					roundNilaiDecimalSumberPenerangan[y]
+				roundNilaiDecimalMakanan[y] +
+					roundNilaiDecimalPakaian[y] +
+					roundNilaiDecimalKesehatan[y] +
+					roundNilaiDecimalPendidikan[y] +
+					roundNilaiDecimalAsset[y] +
+					roundNilaiDecimalRumah[y] +
+					roundNilaiDecimalPenghasilan[y]
 			);
 		}
 
@@ -191,46 +224,74 @@ const KuesionerPendaftaran = () => {
 
 		// push nilai normalisasi per alternatif
 		for (let x = 0; x < kriteriaBantuan.length; x++) {
+			normalisasiMakanan.push(
+				roundNilaiDecimalMakanan[x] / kalkulasiNilaiDecimal[x]
+			);
+			normalisasiPakaian.push(
+				roundNilaiDecimalPakaian[x] / kalkulasiNilaiDecimal[x]
+			);
+			normalisasiKesehatan.push(
+				roundNilaiDecimalKesehatan[x] / kalkulasiNilaiDecimal[x]
+			);
 			normalisasiPendidikan.push(
 				roundNilaiDecimalPendidikan[x] / kalkulasiNilaiDecimal[x]
 			);
-			normalisasiPekerjaan.push(
-				roundNilaiDecimalPekerjaan[x] / kalkulasiNilaiDecimal[x]
+			normalisasiAsset.push(
+				roundNilaiDecimalAsset[x] / kalkulasiNilaiDecimal[x]
+			);
+			normalisasiRumah.push(
+				roundNilaiDecimalRumah[x] / kalkulasiNilaiDecimal[x]
 			);
 			normalisasiPenghasilan.push(
 				roundNilaiDecimalPenghasilan[x] / kalkulasiNilaiDecimal[x]
 			);
-			normalisasiLuasRumah.push(
-				roundNilaiDecimalLuasRumah[x] / kalkulasiNilaiDecimal[x]
-			);
-			normalisasiSumberPenerangan.push(
-				roundNilaiDecimalSumberPenerangan[x] / kalkulasiNilaiDecimal[x]
-			);
 		}
 
 		// membulatkan hasil normalisasi
+		const roundNormalisasiMakanan = normalisasiMakanan.map(
+			(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
+		);
+		const roundNormalisasiPakaian = normalisasiPakaian.map(
+			(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
+		);
+		const roundNormalisasiKesehatan = normalisasiKesehatan.map(
+			(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
+		);
 		const roundNormalisasiPendidikan = normalisasiPendidikan.map(
 			(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
 		);
-		const roundNormalisasiPekerjaan = normalisasiPekerjaan.map(
+		const roundNormalisasiAsset = normalisasiAsset.map(
+			(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
+		);
+		const roundNormalisasiRumah = normalisasiRumah.map(
 			(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
 		);
 		const roundNormalisasiPenghasilan = normalisasiPenghasilan.map(
 			(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
 		);
-		const roundNormalisasiLuasRumah = normalisasiLuasRumah.map(
-			(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
-		);
-		const roundNormalisasiSumberPenerangan = normalisasiSumberPenerangan.map(
-			(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
-		);
 
 		// kalkulasi data normalisasi
+		const jmlhNormalisasiMakanan = roundNormalisasiMakanan.reduce(
+			(accu, curr) => accu + curr,
+			0
+		);
+		const jmlhNormalisasiPakaian = roundNormalisasiPakaian.reduce(
+			(accu, curr) => accu + curr,
+			0
+		);
+		const jmlhNormalisasiKesehatan = roundNormalisasiKesehatan.reduce(
+			(accu, curr) => accu + curr,
+			0
+		);
 		const jmlhNormalisasiPendidikan = roundNormalisasiPendidikan.reduce(
 			(accu, curr) => accu + curr,
 			0
 		);
-		const jmlhNormalisasiPekerjaan = roundNormalisasiPekerjaan.reduce(
+		const jmlhNormalisasiAsset = roundNormalisasiAsset.reduce(
+			(accu, curr) => accu + curr,
+			0
+		);
+		const jmlhNormalisasiRumah = roundNormalisasiRumah.reduce(
 			(accu, curr) => accu + curr,
 			0
 		);
@@ -238,18 +299,27 @@ const KuesionerPendaftaran = () => {
 			(accu, curr) => accu + curr,
 			0
 		);
-		const jmlhNormalisasiLuasRumah = roundNormalisasiLuasRumah.reduce(
-			(accu, curr) => accu + curr,
-			0
-		);
-		const jmlhNormalisasiSumberPenerangan =
-			roundNormalisasiSumberPenerangan.reduce(
-				(accu, curr) => accu + curr,
-				0
-			);
 
 		// menghitung nilai eigen
 		nilaiEigen.push(
+			Math.round(
+				(Math.round(jmlhNormalisasiMakanan.toFixed(3) * 1e3) /
+					1e3 /
+					jmlhKriteria) *
+					100
+			) / 100,
+			Math.round(
+				(Math.round(jmlhNormalisasiPakaian.toFixed(3) * 1e3) /
+					1e3 /
+					jmlhKriteria) *
+					100
+			) / 100,
+			Math.round(
+				(Math.round(jmlhNormalisasiKesehatan.toFixed(3) * 1e3) /
+					1e3 /
+					jmlhKriteria) *
+					100
+			) / 100,
 			Math.round(
 				(Math.round(jmlhNormalisasiPendidikan.toFixed(3) * 1e3) /
 					1e3 /
@@ -257,25 +327,19 @@ const KuesionerPendaftaran = () => {
 					100
 			) / 100,
 			Math.round(
-				(Math.round(jmlhNormalisasiPekerjaan.toFixed(3) * 1e3) /
+				(Math.round(jmlhNormalisasiAsset.toFixed(3) * 1e3) /
+					1e3 /
+					jmlhKriteria) *
+					100
+			) / 100,
+			Math.round(
+				(Math.round(jmlhNormalisasiRumah.toFixed(3) * 1e3) /
 					1e3 /
 					jmlhKriteria) *
 					100
 			) / 100,
 			Math.round(
 				(Math.round(jmlhNormalisasiPenghasilan.toFixed(3) * 1e3) /
-					1e3 /
-					jmlhKriteria) *
-					100
-			) / 100,
-			Math.round(
-				(Math.round(jmlhNormalisasiLuasRumah.toFixed(3) * 1e3) /
-					1e3 /
-					jmlhKriteria) *
-					100
-			) / 100,
-			Math.round(
-				(Math.round(jmlhNormalisasiSumberPenerangan.toFixed(3) * 1e3) /
 					1e3 /
 					jmlhKriteria) *
 					100
@@ -367,6 +431,10 @@ const KuesionerPendaftaran = () => {
 													onChange={(e) =>
 														setJawabanSatu(e.target.value)
 													}
+													style={{
+														width: "200px",
+														margin: "auto",
+													}}
 												>
 													<FormControlLabel
 														value={
@@ -387,6 +455,9 @@ const KuesionerPendaftaran = () => {
 														label={
 															kriteriaBantuan[0].pilihan_satu
 														}
+														style={{
+															marginRight: "40px",
+														}}
 													/>
 													<FormControlLabel
 														value={0}
@@ -421,24 +492,11 @@ const KuesionerPendaftaran = () => {
 													onChange={(e) =>
 														setJawabanDua(e.target.value)
 													}
+													style={{
+														width: "200px",
+														margin: "auto",
+													}}
 												>
-													<FormControlLabel
-														value={0}
-														control={
-															<Radio
-																onChange={() => {
-																	setValueRB2(
-																		kriteriaBantuan[1]
-																			.pilihan_satu
-																	);
-																	setCorrectAnswer2(false);
-																}}
-															/>
-														}
-														label={
-															kriteriaBantuan[1].pilihan_satu
-														}
-													/>
 													<FormControlLabel
 														value={
 															kriteriaBantuan[1].nilai_prioritas
@@ -448,9 +506,29 @@ const KuesionerPendaftaran = () => {
 																onChange={() => {
 																	setValueRB2(
 																		kriteriaBantuan[1]
-																			.pilihan_dua
+																			.pilihan_satu
 																	);
 																	setCorrectAnswer2(true);
+																}}
+															/>
+														}
+														label={
+															kriteriaBantuan[1].pilihan_satu
+														}
+														style={{
+															marginRight: "40px",
+														}}
+													/>
+													<FormControlLabel
+														value={0}
+														control={
+															<Radio
+																onChange={() => {
+																	setValueRB2(
+																		kriteriaBantuan[1]
+																			.pilihan_dua
+																	);
+																	setCorrectAnswer2(false);
 																}}
 															/>
 														}
@@ -474,6 +552,10 @@ const KuesionerPendaftaran = () => {
 													onChange={(e) =>
 														setJawabanTiga(e.target.value)
 													}
+													style={{
+														width: "200px",
+														margin: "auto",
+													}}
 												>
 													<FormControlLabel
 														value={
@@ -493,6 +575,9 @@ const KuesionerPendaftaran = () => {
 														label={
 															kriteriaBantuan[2].pilihan_satu
 														}
+														style={{
+															marginRight: "40px",
+														}}
 													/>
 													<FormControlLabel
 														value={0}
@@ -527,6 +612,10 @@ const KuesionerPendaftaran = () => {
 													onChange={(e) =>
 														setJawabanEmpat(e.target.value)
 													}
+													style={{
+														width: "200px",
+														margin: "auto",
+													}}
 												>
 													<FormControlLabel
 														value={
@@ -546,6 +635,9 @@ const KuesionerPendaftaran = () => {
 														label={
 															kriteriaBantuan[3].pilihan_satu
 														}
+														style={{
+															marginRight: "40px",
+														}}
 													/>
 													<FormControlLabel
 														value={0}
@@ -580,24 +672,11 @@ const KuesionerPendaftaran = () => {
 													onChange={(e) =>
 														setJawabanLima(e.target.value)
 													}
+													style={{
+														width: "200px",
+														margin: "auto",
+													}}
 												>
-													<FormControlLabel
-														value={0}
-														control={
-															<Radio
-																onChange={() => {
-																	setValueRB5(
-																		kriteriaBantuan[4]
-																			.pilihan_satu
-																	);
-																	setCorrectAnswer5(false);
-																}}
-															/>
-														}
-														label={
-															kriteriaBantuan[4].pilihan_satu
-														}
-													/>
 													<FormControlLabel
 														value={
 															kriteriaBantuan[4].nilai_prioritas
@@ -607,9 +686,29 @@ const KuesionerPendaftaran = () => {
 																onChange={() => {
 																	setValueRB5(
 																		kriteriaBantuan[4]
-																			.pilihan_dua
+																			.pilihan_satu
 																	);
 																	setCorrectAnswer5(true);
+																}}
+															/>
+														}
+														label={
+															kriteriaBantuan[4].pilihan_satu
+														}
+														style={{
+															marginRight: "40px",
+														}}
+													/>
+													<FormControlLabel
+														value={0}
+														control={
+															<Radio
+																onChange={() => {
+																	setValueRB5(
+																		kriteriaBantuan[4]
+																			.pilihan_dua
+																	);
+																	setCorrectAnswer5(false);
 																}}
 															/>
 														}
@@ -619,6 +718,126 @@ const KuesionerPendaftaran = () => {
 											</td>
 										</tr>
 										{/* Akhir baris lima */}
+
+										{/* Baris enam */}
+										<tr>
+											<td>6</td>
+											<td style={{ textAlign: "left" }}>
+												{kriteriaBantuan[5].pertanyaan}
+											</td>
+											<td colSpan={2}>
+												<RadioGroup
+													row
+													name="jwb_kuesioner_6"
+													onChange={(e) =>
+														setJawabanEnam(e.target.value)
+													}
+													style={{
+														width: "200px",
+														margin: "auto",
+													}}
+												>
+													<FormControlLabel
+														value={
+															kriteriaBantuan[5].nilai_prioritas
+														}
+														control={
+															<Radio
+																onChange={() => {
+																	setValueRB6(
+																		kriteriaBantuan[5]
+																			.pilihan_satu
+																	);
+																	setCorrectAnswer6(true);
+																}}
+															/>
+														}
+														label={
+															kriteriaBantuan[5].pilihan_satu
+														}
+														style={{
+															marginRight: "40px",
+														}}
+													/>
+													<FormControlLabel
+														value={0}
+														control={
+															<Radio
+																onChange={() => {
+																	setValueRB6(
+																		kriteriaBantuan[5]
+																			.pilihan_dua
+																	);
+																	setCorrectAnswer6(false);
+																}}
+															/>
+														}
+														label={kriteriaBantuan[5].pilihan_dua}
+													/>
+												</RadioGroup>
+											</td>
+										</tr>
+										{/* Akhir baris enam */}
+
+										{/* Baris enam */}
+										<tr>
+											<td>7</td>
+											<td style={{ textAlign: "left" }}>
+												{kriteriaBantuan[6].pertanyaan}
+											</td>
+											<td colSpan={2}>
+												<RadioGroup
+													row
+													name="jwb_kuesioner_7"
+													onChange={(e) =>
+														setJawabanTujuh(e.target.value)
+													}
+													style={{
+														width: "200px",
+														margin: "auto",
+													}}
+												>
+													<FormControlLabel
+														value={
+															kriteriaBantuan[6].nilai_prioritas
+														}
+														control={
+															<Radio
+																onChange={() => {
+																	setValueRB7(
+																		kriteriaBantuan[6]
+																			.pilihan_satu
+																	);
+																	setCorrectAnswer7(true);
+																}}
+															/>
+														}
+														label={
+															kriteriaBantuan[6].pilihan_satu
+														}
+														style={{
+															marginRight: "40px",
+														}}
+													/>
+													<FormControlLabel
+														value={0}
+														control={
+															<Radio
+																onChange={() => {
+																	setValueRB7(
+																		kriteriaBantuan[6]
+																			.pilihan_dua
+																	);
+																	setCorrectAnswer7(false);
+																}}
+															/>
+														}
+														label={kriteriaBantuan[6].pilihan_dua}
+													/>
+												</RadioGroup>
+											</td>
+										</tr>
+										{/* Akhir baris enam */}
 									</tbody>
 									{/* Akhir tabel body */}
 								</table>
@@ -636,7 +855,9 @@ const KuesionerPendaftaran = () => {
 											valueRB2,
 											valueRB3,
 											valueRB4,
-											valueRB5
+											valueRB5,
+											valueRB6,
+											valueRB7
 										);
 
 										if (
@@ -644,14 +865,18 @@ const KuesionerPendaftaran = () => {
 											jawabanDua &&
 											jawabanTiga &&
 											jawabanEmpat &&
-											jawabanLima
+											jawabanLima &&
+											jawabanEnam &&
+											jawabanTujuh
 										) {
 											const hasilNilaiPrioritas =
 												parseFloat(jawabanSatu) +
 												parseFloat(jawabanDua) +
 												parseFloat(jawabanTiga) +
 												parseFloat(jawabanEmpat) +
-												parseFloat(jawabanLima);
+												parseFloat(jawabanLima) +
+												parseFloat(jawabanEnam) +
+												parseFloat(jawabanTujuh);
 
 											hitungNilaiDecimalAlternatif();
 
@@ -683,7 +908,7 @@ const KuesionerPendaftaran = () => {
 									}}
 									type="submit"
 								>
-									kirim
+									submit
 								</Button>
 							</div>
 							{/* Akhir kuesioner pendaftaran content */}

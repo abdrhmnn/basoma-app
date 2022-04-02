@@ -4,11 +4,11 @@ const UPLOAD = {
     saveIMG_USER: (data) => {
         return axios.post(`/uploads/user`, data)
     },
+    saveIMG_KK: (data) => {
+        return axios.post(`/uploads/kk`, data)
+    },
     saveIMG_KTP: (data) => {
         return axios.post(`/uploads/ktp`, data)
-    },
-    saveIMG_BANGUNAN: (data) => {
-        return axios.post(`/uploads/bangunan`, data)
     },
     saveIMG_BANTUAN: (data) => {
         return axios.post(`/uploads/bantuan`, data)
@@ -16,11 +16,11 @@ const UPLOAD = {
     deleteImgUser: (image_name) => {
         return axios.delete(`/uploads/delete/imgUser/${image_name}`)
     },
+    deleteImgKK: (image_name) => {
+        return axios.delete(`/uploads/delete/imgKkUser/${image_name}`)
+    },
     deleteImgKTP: (image_name) => {
         return axios.delete(`/uploads/delete/imgKtpUser/${image_name}`)
-    },
-    deleteImgBangunan: (image_name) => {
-        return axios.delete(`/uploads/delete/imgBangunanUser/${image_name}`)
     },
     deleteImgBantuan: (image_name) => {
         return axios.delete(`/uploads/delete/imgBantuan/${image_name}`)
@@ -31,11 +31,11 @@ const UPLOAD = {
     showIMG_USER: (data) => {
         return `http://localhost:5000/public/user/${data}`
     },
+    showImgKK: (data) => {
+        return `http://localhost:5000/public/fkk/${data}`
+    },
     showImgKTP: (data) => {
         return `http://localhost:5000/public/fktp/${data}`
-    },
-    showImgBangunan: (data) => {
-        return `http://localhost:5000/public/fbangunan/${data}`
     },
     showImgBantuan: (data) => {
         return `http://localhost:5000/public/bantuan/${data}`

@@ -93,13 +93,9 @@ const BantuanDetail = ({ activeNav }) => {
 						</div>
 						{/* Akhir info nama dan deskripsi bantuan */}
 
-						{/* Info kapasitas bantuan */}
+						{/* Info alamat bantuan */}
 						<div className="group_kapasitas_and_btn">
 							<div className="info_kapasitas">
-								<div className="kapasitas">
-									<h2>Kapasitas</h2>
-									<p>{bantuanByID.kapasitas} Orang</p>
-								</div>
 								<div className="alamat">
 									<h2>Lokasi</h2>
 									<p>{bantuanByID.alamat}</p>
@@ -118,7 +114,7 @@ const BantuanDetail = ({ activeNav }) => {
 								Daftar
 							</Button>
 						</div>
-						{/* Akhir info kapasitas bantuan */}
+						{/* Akhir info alamat bantuan */}
 					</div>
 				</div>
 			) : (

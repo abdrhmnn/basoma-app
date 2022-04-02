@@ -109,10 +109,10 @@ const PendaftaranBantuanDetail = () => {
 						<table className="tbl_class">
 							<thead className="tbl_class_head">
 								<tr>
-									<th>NIK</th>
+									<th>NKK</th>
 									<th>Nama lengkap</th>
-									<th>Pekerjaan</th>
 									<th>Pendidikan terakhir</th>
+									<th>Asset barang</th>
 									<th>Status</th>
 									<th>Aksi</th>
 								</tr>
@@ -131,8 +131,8 @@ const PendaftaranBantuanDetail = () => {
 													<tr key={i}>
 														<td>{e.no_ktp}</td>
 														<td>{e.nama_lengkap}</td>
-														<td>{e.pekerjaan}</td>
 														<td>{e.pendidikan}</td>
+														<td>{e.asset}</td>
 														<td>
 															{highlightRole(
 																e.status_penerimaan
@@ -145,7 +145,7 @@ const PendaftaranBantuanDetail = () => {
 																onClick={() => {
 																	navigate("/warga-detail", {
 																		state: {
-																			ui: e.no_ktp,
+																			ui: e.no_kk,
 																			uid: e.user_id,
 																			bi: e.id_bantuan,
 																		},

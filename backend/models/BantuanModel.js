@@ -11,9 +11,6 @@ const Bantuan = db.define('bantuan_tbl', {
     nama: {
         type: DataTypes.STRING
     },
-    kapasitas: {
-        type: DataTypes.STRING
-    },
     alamat: {
         type: DataTypes.STRING
     },

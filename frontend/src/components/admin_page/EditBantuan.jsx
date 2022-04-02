@@ -88,21 +88,19 @@ const EditBantuan = () => {
 										selectedFileImgBantuan
 									);
 									API.saveIMG_BANTUAN(dataImgBantuan);
+									API.deleteImgBantuan(bantuanByID.banner);
 									API.updateBantuan(location.state, {
 										nama: values.nama,
 										alamat: values.alamat,
 										deskripsi: values.deskripsi,
 										banner: selectedFileImgBantuan.name,
+									}).then((res) => {
+										swal("Data bantuan berhasil diubah!", {
+											icon: "success",
+										}).then(() => {
+											window.location.href = "/kelola-bantuan";
+										});
 									});
-									API.deleteImgBantuan(bantuanByID.banner).then(
-										(res) => {
-											swal("Data bantuan berhasil diubah!", {
-												icon: "success",
-											}).then(() => {
-												window.location.href = "/kelola-bantuan";
-											});
-										}
-									);
 								} else {
 									setIsCompleteSubmit(true);
 								}
@@ -242,7 +240,7 @@ const EditBantuan = () => {
 										}}
 										type="submit"
 									>
-										submit
+										ubah
 									</Button>
 									<Button
 										variant="contained"

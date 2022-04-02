@@ -140,7 +140,7 @@ const Masukan = ({ data }) => {
 									<Button
 										variant="contained"
 										sx={{
-											p: 2,
+											padding: "10px",
 											fontWeight: "bold",
 										}}
 										type="submit"

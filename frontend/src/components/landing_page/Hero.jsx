@@ -19,7 +19,7 @@ const Hero = () => {
 				</h3>
 				<p>
 					Tempat untuk menemukan bantuan sosial yang dibutuhkan <br />
-					dengan mudah dan terpecaya
+					dengan mudah
 				</p>
 				<Button
 					variant="contained"

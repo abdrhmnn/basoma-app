@@ -62,7 +62,7 @@ const Pemberitahuan = () => {
 							<div className="data_diri_pemberitahuan">
 								<div className="nik_nm_lengkap_pemberitahuan">
 									<div className="nik_alternatif">
-										<span>Nomor Induk Kependudukan : </span>
+										<span>Nomor Kartu Keluarga : </span>
 										<span>{wargaByUserID.no_ktp}</span>
 									</div>
 									<div className="nm_lengkap_alternatif">
@@ -91,13 +91,13 @@ const Pemberitahuan = () => {
 						{wargaByUserID.status_penerimaan === "diterima" ? (
 							<p style={{ marginTop: "40px" }}>
 								<b>SELAMAT!</b>, Anda diterima untuk sebagai calon
-								penerima bantuan sosial, silahkan datang ke lokasi
-								bantuan, terima kasih
+								penerima bantuan sosial, silahkan datang ke kecamatan
+								untuk mengambil kartu e-bantuan, terima kasih
 							</p>
 						) : (
 							<p style={{ marginTop: "40px" }}>
 								<b>MOHON MAAF!</b>, Anda tidak diterima sebagai calon
-								penerima bantuan sosial, terima kasih
+								penerima bantuan sosial, terima kasih.
 							</p>
 						)}
 					</div>

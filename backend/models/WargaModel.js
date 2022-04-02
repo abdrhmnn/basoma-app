@@ -6,9 +6,12 @@ import Bantuan from "./BantuanModel.js";
 const { DataTypes } = Sequelize;
 
 const Warga = db.define('warga_tbl', {
-    no_ktp: {
+    no_kk: {
         type: DataTypes.STRING,
         primaryKey: true
+    },
+    no_ktp: {
+        type: DataTypes.STRING
     },
     user_id: {
         type: DataTypes.STRING,
@@ -30,28 +33,34 @@ const Warga = db.define('warga_tbl', {
     alamat: {
         type: DataTypes.STRING
     },
-    pekerjaan: {
+    konsumsi_makanan: {
         type: DataTypes.STRING
     },
-    penghasilan: {
+    kondisi_pakaian: {
+        type: DataTypes.STRING
+    },
+    kesehatan: {
+        type: DataTypes.STRING
+    },
+    asset: {
         type: DataTypes.STRING
     },
     pendidikan: {
         type: DataTypes.STRING
     },
+    penghasilan: {
+        type: DataTypes.STRING
+    },
     luas_bangunan: {
         type: DataTypes.STRING
     },
-    sumber_penerangan_rumah: {
-        type: DataTypes.STRING
-    },
-    status_penerimaan: {
+    foto_kk: {
         type: DataTypes.STRING
     },
     foto_ktp: {
         type: DataTypes.STRING
     },
-    foto_bangunan_rumah: {
+    status_penerimaan: {
         type: DataTypes.STRING
     },
     nilai_rangking: {

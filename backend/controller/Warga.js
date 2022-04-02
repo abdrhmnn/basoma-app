@@ -22,11 +22,11 @@ export const getWargaByBantuanID = async (req, res) => {
     }
 }
 
-export const getWargaByNoKTP = async (req, res) => {
+export const getWargaByNoKK = async (req, res) => {
     try{
         const warga = await Warga.findAll({
             where: {
-                no_ktp: req.params.id
+                no_kk: req.params.id
             }
         });
         res.json(warga[0]);

@@ -7,8 +7,8 @@ const WARGA = {
     getWargaByBantuanID: (id) => {
         return axios.get(`/warga/bantuanID/${id}`)
     },
-    getWargaByNoKTP: (no_ktp) => {
-        return axios.get(`/warga/noKTP/${no_ktp}`)
+    getWargaByNoKK: (no_kk) => {
+        return axios.get(`/warga/noKK/${no_kk}`)
     },
     getWargaByUserID: (userId) => {
         return axios.get(`/warga/userId/${userId}`)
@@ -16,21 +16,24 @@ const WARGA = {
     getWargaByBantuanIDAndSortByNilaiRangking: (bantuanId) => {
         return axios.get(`/warga/sortRangking/${bantuanId}`)
     },
-    saveWarga: (props, userID, bantuanID, penghasilan, pendidikan, luasRumah, imgKTP, imgBangunan, nilaiRangking) => {
+    saveWarga: (props, userID, bantuanID, kesehatan, penghasilan, pendidikan, imgKK, imgKTP, nilaiRangking) => {
         return axios.post(`/warga`, {
-            no_ktp: props.nik,
+            no_kk: props.no_kk,
+            no_ktp: props.no_ktp,
             user_id: userID,
             id_bantuan: bantuanID,
             nama_lengkap: props.nm_lengkap,
             alamat: props.alamat,
-            pekerjaan: props.pekerjaan,
-            penghasilan: penghasilan,
+            konsumsi_makanan: props.konsumsi_makanan,
+            kondisi_pakaian: props.kondisi_pakaian,
+            kesehatan: kesehatan,
+            asset: props.asset,
             pendidikan: pendidikan,
-            luas_bangunan: luasRumah,
-            sumber_penerangan_rumah: props.sumber_penerangan,
+            penghasilan: penghasilan,
+            luas_bangunan: props.luas_bangunan,
             status_penerimaan: 'pending',
+            foto_kk: imgKK.name,
             foto_ktp: imgKTP.name,
-            foto_bangunan_rumah: imgBangunan.name,
             nilai_rangking: nilaiRangking
         })
     },

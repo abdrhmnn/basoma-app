@@ -52,12 +52,11 @@ const Masukan = () => {
 				return (
 					<tr key={i}>
 						<td>{i + 1}</td>
-						<td style={{ textAlign: "left" }}>
+						<td>
 							{e.nm_depan} {e.nm_belakang}
 						</td>
 						<td
 							style={{
-								textAlign: "left",
 								overflow: "hidden",
 								textOverflow: "ellipsis",
 								whiteSpace: "nowrap",

@@ -9,16 +9,9 @@
         justify-content: space-between;
 
         .cetak_data_kriteria_bantuan{
-            display: flex;
-            align-items: center;
-
-            p{
-                margin: 0 15px 0 0;
-                font-size: 1em;
-            }
-
-            .generate_pdf_kriteria_bantuan{
-                background-color: rgb(255, 46, 46);
+            button{
+                height: 50px;
+                border: 1px dashed rgb(71, 71, 71);
             }
         }
     }

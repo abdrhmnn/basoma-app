@@ -15,6 +15,9 @@ const MASUKAN = {
             pesan: props.pesan,
             user_id: userID,
         })
+    },
+    deleteMasukanByUserID: (userID) => {
+        return axios.delete(`/masukan/${userID}`)
     }
 }
 

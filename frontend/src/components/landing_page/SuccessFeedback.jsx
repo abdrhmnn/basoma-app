@@ -26,7 +26,7 @@ const SuccessFeedback = () => {
 					<div className="flex_success">
 						<img src={thanks} alt="Terima Kasih" />
 						<h1>Terima kasih!</h1>
-						<p>Sudah memberikan masukan untuk aplikasi ini</p>
+						<p>Sudah memberikan masukan untuk aplikasi ini!</p>
 						<Button
 							variant="contained"
 							component={Link}

@@ -102,14 +102,14 @@ const EditProfileAdmin = () => {
 															? showImg
 															: userById.gambar ===
 															  "default_img.svg"
-															? API.showIMG(
+															? API.showIMG_DEFAULT(
 																	userById.gambar ||
 																		"blank_img.png"
 															  )
-															: `http://localhost:5000/public/user/${
+															: API.showIMG_USER(
 																	userById.gambar ||
-																	"blank_img.png"
-															  }`
+																		"blank_img.png"
+															  )
 													}
 													alt="Foto Profile"
 												/>
