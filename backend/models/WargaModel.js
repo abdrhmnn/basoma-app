@@ -24,7 +24,7 @@ const Warga = db.define('warga_tbl', {
         type: DataTypes.STRING,
         references: {
             model: Bantuan,
-            key: 'bantuan_id'
+            key: 'id_bantuan'
         }
     },
     nama_lengkap: {
@@ -33,25 +33,10 @@ const Warga = db.define('warga_tbl', {
     alamat: {
         type: DataTypes.STRING
     },
-    konsumsi_makanan: {
+    no_telepon: {
         type: DataTypes.STRING
     },
-    kondisi_pakaian: {
-        type: DataTypes.STRING
-    },
-    kesehatan: {
-        type: DataTypes.STRING
-    },
-    asset: {
-        type: DataTypes.STRING
-    },
-    pendidikan: {
-        type: DataTypes.STRING
-    },
-    penghasilan: {
-        type: DataTypes.STRING
-    },
-    luas_bangunan: {
+    status_rekomendasi: {
         type: DataTypes.STRING
     },
     foto_kk: {
@@ -59,12 +44,6 @@ const Warga = db.define('warga_tbl', {
     },
     foto_ktp: {
         type: DataTypes.STRING
-    },
-    status_penerimaan: {
-        type: DataTypes.STRING
-    },
-    nilai_rangking: {
-        type: DataTypes.INTEGER
     }
 }, {
     freezeTableName: true

@@ -3,10 +3,8 @@
     margin: auto;
 
     .logo_app_kuesioner{
-        padding: 30px 0 0 0;
-
         h2{
-            margin: 0 0 0 40px;
+            font-size: 1.2em;
         }
     }
 
@@ -16,6 +14,8 @@
         justify-content: center;
         align-items: center;
         padding: 0 40px 100px 40px;
+        max-width: 1000px;
+        margin: auto;
 
         .btn_submit_kuesioner{
             font-weight: bold;

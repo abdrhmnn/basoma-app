@@ -1,0 +1,393 @@
+.warga_petugas_detail{
+    max-width: $max-width-container;
+    margin: 0 auto 80px auto;
+
+    .logo_app{
+        h2{
+            font-size: 1.2em;
+        }
+    }
+
+    .content{
+        width: 900px;
+        margin: auto;
+
+        .data_diri{
+            h2{
+                text-align: center;
+                font-size: 1.4em;
+            }
+    
+            .no_kk_no_ktp{
+                display: flex;
+    
+                .no_kk{
+                    width: 48%;
+                    margin-right: 20px;
+                }
+    
+                .no_ktp{
+                    width: 50%;
+                }
+            }
+    
+            .nm_lengkap_no_tlp{
+                @extend .no_kk_no_ktp;
+    
+                .nm_lengkap{
+                    width: 48%;
+                    margin-right: 20px;
+                }
+    
+                .no_tlp{
+                    width: 50%;
+                }
+            }
+    
+            .foto_kk_ktp{
+                display: flex;
+    
+                .foto_kk{
+                    width: 48%;
+                    margin-right: 20px;
+                }
+    
+                .foto_ktp{
+                    width: 50%;
+                }
+            }
+        }
+
+        .verifikasi_kondisi{
+            // accordion parrent
+            .MuiButtonBase-root{
+                padding: 0;
+                height: 55px;
+                // background-color: red;
+                margin-top: 10px;
+
+                .MuiAccordionSummary-content{
+                    margin: 0;
+
+                    .title{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        p{
+                            color: $primary-color;
+                        }
+
+                        .line{
+                            width: 720px;
+                            height: 2px;
+                            background-color: $primary-color;
+                            margin-left: 10px;
+                            border-radius: 5px;
+                        }
+                    }
+                }
+            }
+
+            // when accordion expanded
+            .css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root.Mui-expanded{
+                min-height: 49px;
+            }
+
+            .css-1elwnq4-MuiPaper-root-MuiAccordion-root{
+                box-shadow: none;
+            }
+
+            .css-15v22id-MuiAccordionDetails-root{
+                padding: 0;
+
+                .verifikasi_content{
+                    .wrap_verifikasi_content{
+                        .pertanyaan_jawaban_1{
+                            display: flex;
+    
+                            .pertanyaan_1{
+                                width: 50%;
+                                margin-right: 20px;
+                            }
+                
+                            .jawaban_1{
+                                width: 45%;
+                            }
+                        }
+
+                        // pertanyaan 2 css
+                        .line_pertanyaan_2{
+                            height: 1.5px;
+                            background-color: $primary-color;
+                            border-radius: 5px;
+                            margin: 20px 0 20px 0;
+                        }
+
+                        .pertanyaan_jawaban_2{
+                            display: flex;
+    
+                            .pertanyaan_2{
+                                width: 50%;
+                                margin-right: 20px;
+                            }
+                
+                            .jawaban_2{
+                                width: 45%;
+                            }
+                        }
+
+                        // pertanyaan 3 css
+                        .line_pertanyaan_3{
+                            height: 1.4px;
+                            background-color: $primary-color;
+                            border-radius: 5px;
+                            margin: 20px 0 20px 0;
+                        }
+
+                        .pertanyaan_jawaban_3{
+                            display: flex;
+    
+                            .pertanyaan_3{
+                                width: 50%;
+                                margin-right: 20px;
+                            }
+                
+                            .jawaban_3{
+                                width: 45%;
+                            }
+                        }
+
+                        // pertanyaan 4 css
+                        .line_pertanyaan_4{
+                            height: 1.4px;
+                            background-color: $primary-color;
+                            border-radius: 5px;
+                            margin: 20px 0 20px 0;
+                        }
+
+                        .pertanyaan_jawaban_4{
+                            display: flex;
+                            margin-top: 20px;
+    
+                            .pertanyaan_4{
+                                width: 50%;
+                                margin-right: 20px;
+                            }
+                
+                            .jawaban_4{
+                                width: 45%;
+                            }
+                        }
+
+                        // pertanyaan 5 css
+                        .line_pertanyaan_5{
+                            height: 1.4px;
+                            background-color: $primary-color;
+                            border-radius: 5px;
+                            margin: 20px 0 20px 0;
+                        }
+
+                        .pertanyaan_jawaban_5{
+                            display: flex;
+                            margin-top: 20px;
+    
+                            .pertanyaan_5{
+                                width: 50%;
+                                margin-right: 20px;
+                            }
+                
+                            .jawaban_5{
+                                width: 45%;
+                            }
+                        }
+
+                        // pertanyaan 6 css
+                        .line_pertanyaan_6{
+                            height: 1.4px;
+                            background-color: $primary-color;
+                            border-radius: 5px;
+                            margin: 20px 0 20px 0;
+                        }
+
+                        .pertanyaan_jawaban_6{
+                            display: flex;
+                            margin-top: 20px;
+    
+                            .pertanyaan_6{
+                                width: 50%;
+                                margin-right: 20px;
+                            }
+                
+                            .jawaban_6{
+                                width: 45%;
+                            }
+                        }
+
+                        // pertanyaan 7 css
+                        .line_pertanyaan_7{
+                            height: 1.4px;
+                            background-color: $primary-color;
+                            border-radius: 5px;
+                            margin: 20px 0 20px 0;
+                        }
+                        
+                        .pertanyaan_jawaban_7{
+                            display: flex;
+                            margin-top: 20px;
+    
+                            .pertanyaan_7{
+                                width: 50%;
+                                margin-right: 20px;
+                            }
+                
+                            .jawaban_7{
+                                width: 45%;
+                            }
+                        }
+
+                        .verifikasi_pertanyaan_1{
+                            p{
+                                margin: 18px 0 5px 0;
+                            }
+
+                            .MuiButtonBase-root{
+                                margin: 0;
+                            }
+
+                            .verif_1{
+                                padding-left: 8px;
+                            }
+
+                            .status_tidak_sesuai{
+                                p{
+                                    margin: 15px 0 14px 0;
+                                }
+                            }
+                        }
+
+                        .verifikasi_pertanyaan_2{
+                            p{
+                                margin: 18px 0 5px 0;
+                            }
+
+                            .MuiButtonBase-root{
+                                margin: 0;
+                            }
+
+                            .verif_2{
+                                padding-left: 8px;
+                            }
+
+                            .status_tidak_sesuai{
+                                p{
+                                    margin: 15px 0 14px 0;
+                                }
+                            }
+                        }
+
+                        .verifikasi_pertanyaan_3{
+                            p{
+                                margin: 18px 0 5px 0;
+                            }
+
+                            .MuiButtonBase-root{
+                                margin: 0;
+                            }
+
+                            .verif_3{
+                                padding-left: 8px;
+                            }
+
+                            .status_tidak_sesuai{
+                                p{
+                                    margin: 15px 0 14px 0;
+                                }
+                            }
+                        }
+
+                        .verifikasi_pertanyaan_4{
+                            p{
+                                margin: 18px 0 5px 0;
+                            }
+
+                            .MuiButtonBase-root{
+                                margin: 0;
+                            }
+
+                            .verif_4{
+                                padding-left: 8px;
+                            }
+
+                            .status_tidak_sesuai{
+                                p{
+                                    margin: 15px 0 14px 0;
+                                }
+                            }
+                        }
+
+                        .verifikasi_pertanyaan_5{
+                            p{
+                                margin: 18px 0 5px 0;
+                            }
+
+                            .MuiButtonBase-root{
+                                margin: 0;
+                            }
+
+                            .verif_5{
+                                padding-left: 8px;
+                            }
+
+                            .status_tidak_sesuai{
+                                p{
+                                    margin: 15px 0 14px 0;
+                                }
+                            }
+                        }
+
+                        .verifikasi_pertanyaan_6{
+                            p{
+                                margin: 18px 0 5px 0;
+                            }
+
+                            .MuiButtonBase-root{
+                                margin: 0;
+                            }
+
+                            .verif_6{
+                                padding-left: 8px;
+                            }
+
+                            .status_tidak_sesuai{
+                                p{
+                                    margin: 15px 0 14px 0;
+                                }
+                            }
+                        }
+
+                        .verifikasi_pertanyaan_7{
+                            p{
+                                margin: 18px 0 5px 0;
+                            }
+
+                            .MuiButtonBase-root{
+                                margin: 0;
+                            }
+
+                            .verif_7{
+                                padding-left: 8px;
+                            }
+
+                            .status_tidak_sesuai{
+                                p{
+                                    margin: 15px 0 14px 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

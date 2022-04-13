@@ -3,19 +3,15 @@
     margin: auto;
 
     .logo_app_hasil_kuesioner{
-        padding-top: 30px;
-        padding-left: 30px;
-        margin-bottom: 40px;
-
         h2{
-            margin: 0;
+            font-size: 1.2em;
         }
     }
 
     .hasil_kuesioner_pendaftaran{
-        padding-left: 30px;
-        padding-right: 30px;
-        margin-bottom: 50px;
+        max-width: 1000px;
+        margin: auto;
+        padding: 10px 0 40px 0;
     }
 }
 

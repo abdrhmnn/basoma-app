@@ -541,18 +541,17 @@ const HasilKuesionerPendaftaran = () => {
 						severity="info"
 						sx={{ mt: 2, fontSize: ".9em" }}
 					>
-						Anda berkemungkinan sebesar{" "}
-						<span style={{ fontWeight: "bold" }}>
-							{hasilKuesioner[0].total_nilai + "%"}
-						</span>{" "}
-						untuk bisa mendapatkan bantuan sosial, silahkan klik{" "}
+						Terima kasih sudah melakukan pendaftaran bantuan, petugas
+						bantuan akan meng-survey lokasi tempat tinggal anda dan
+						mengecek kondisi anda apakah sesuai dengan jawaban yang anda
+						pilih sebelumnya atau tidak. Untuk informasi hasil keputusan
+						bantuan dapat dilihat{" "}
 						<Link
-							to="/form-pendaftaran"
+							to="/pemberitahuan"
 							style={{ color: "#334620", fontWeight: "bold" }}
 						>
 							disini!
-						</Link>{" "}
-						untuk proses lebih lanjut.
+						</Link>
 					</Alert>
 					{/* Akhir alert hasil akhir section */}
 				</div>

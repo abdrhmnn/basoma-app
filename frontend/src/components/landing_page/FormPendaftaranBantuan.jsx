@@ -146,9 +146,6 @@ const FormPendaftaranBantuan = () => {
 					}}
 					validationSchema={schemaFormPendaftaranBantuan}
 					onSubmit={(values, actions) => {
-						// console.log(values, kesehatan, pendidikan, penghasilan);
-						console.log(selectedFileImgKK);
-						console.log(selectedFileImgKTP);
 						if (
 							kesehatan &&
 							pendidikan &&

@@ -75,11 +75,11 @@ export const createWarga = async (req, res) => {
     }
 }
 
-export const updateStatusWargaByUserID = async (req, res) => {
+export const updateWarga = async (req, res) => {
     try{
         await Warga.update(req.body, {
             where: {
-                user_id: req.params.id
+                no_kk: req.params.id
             }
         });
         res.json({

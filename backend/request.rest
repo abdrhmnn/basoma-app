@@ -1,4 +1,4 @@
-GET http://localhost:5000/pendaftaran/noKTP/44444
+GET http://localhost:5000/survey
 
 ###
 
@@ -6,15 +6,16 @@ GET http://localhost:5000/nilai-prioritas/USER_6
 
 ###
 
-POST http://localhost:5000/nilai-prioritas
+POST http://localhost:5000/survey
 Content-Type: application/json
 
 {
-    "prioritas_id": "PRIO_7",
-    "user_id": "USER_11",
-    "id_kriteria": "KB_3",
-    "pilihan": "test lagi",
-    "total_nilai": 20
+    "id_survey": "SRVY_2",
+    "no_kk": "2222",
+    "verifikasi_kondisi": "Tidak sesuai",
+    "nilai_rekomendasi": 50,
+    "keterangan": "20",
+    "identitas_survey": 1
 }
 
 ###
@@ -39,11 +40,11 @@ GET http://localhost:5000/warga/userId/USER_5
 
 ###
 
-PATCH  http://localhost:5000/warga/update/USER_5
+PATCH  http://localhost:5000/warga/update/2222
 Content-Type: application/json
 
 {
-    "status_penerimaan": "diterima"
+    "status_rekomendasi": "tidak memenuhi"
 }
 ###
 

@@ -7,7 +7,7 @@ import {
     getWargaByBantuanID,
     getWargaByNoKK,
     getWargaByUserID,
-    updateStatusWargaByUserID
+    updateWarga
 } from "../controller/Warga.js";
 
 const router = express.Router();
@@ -18,7 +18,7 @@ router.get('/bantuanID/:id', getWargaByBantuanID)
 router.get('/noKK/:id', getWargaByNoKK)
 router.get('/userId/:id', getWargaByUserID)
 router.get('/sortRangking/:id', getAllWargaAndSortByNilaiRangking)
-router.patch('/update/:id', updateStatusWargaByUserID)
+router.patch('/update/:id', updateWarga)
 router.delete('/:id', deleteWarga)
 
 export default router;

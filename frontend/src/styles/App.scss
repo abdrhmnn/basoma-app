@@ -197,6 +197,7 @@ body {
 @import "./landing_page/sudah_mengisi_kuesioner.scss";
 @import "./landing_page/success_edit_profile.scss";
 @import "./landing_page/pemberitahuan.scss";
+@import "./landing_page/form_data_diri.scss";
 
 
 // admin page styles
@@ -216,6 +217,14 @@ body {
 @import "./admin_page/warga_detail.scss";
 @import "./admin_page/rangking.scss";
 
+
+// petugas page styles
+@import "./petugas_page/dashboard_petugas.scss";
+@import "./petugas_page/head_petugas.scss";
+@import "./petugas_page/navbar_petugas.scss";
+@import "./petugas_page/pendaftaran_bantuan_petugas.scss";
+@import "./petugas_page/pendaftaran_bantuan_petugas_detail.scss";
+@import "./petugas_page/warga_petugas_detail.scss";
 
 // Empty page style
 @import "./empty_page.scss";

@@ -89,6 +89,10 @@ const Login = () => {
 									kuki.set("admin", "admin");
 									window.location.href = "/dashboard";
 									return;
+								} else if (element.role === "petugas") {
+									kuki.set("petugas", "petugas");
+									window.location.href = "/dashboard-petugas";
+									return;
 								} else {
 									kuki.set("warga", "warga");
 									window.location.href = "/";

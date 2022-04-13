@@ -16,32 +16,22 @@ const WARGA = {
     getWargaByBantuanIDAndSortByNilaiRangking: (bantuanId) => {
         return axios.get(`/warga/sortRangking/${bantuanId}`)
     },
-    saveWarga: (props, userID, bantuanID, kesehatan, penghasilan, pendidikan, imgKK, imgKTP, nilaiRangking) => {
+    saveWarga: (props, userId, bantuanId, imgKK, imgKTP) => {
         return axios.post(`/warga`, {
             no_kk: props.no_kk,
             no_ktp: props.no_ktp,
-            user_id: userID,
-            id_bantuan: bantuanID,
+            user_id: userId,
+            id_bantuan: bantuanId,
             nama_lengkap: props.nm_lengkap,
             alamat: props.alamat,
-            konsumsi_makanan: props.konsumsi_makanan,
-            kondisi_pakaian: props.kondisi_pakaian,
-            kesehatan: kesehatan,
-            asset: props.asset,
-            pendidikan: pendidikan,
-            penghasilan: penghasilan,
-            luas_bangunan: props.luas_bangunan,
-            status_penerimaan: 'pending',
+            no_telepon: props.no_telepon,
+            status_rekomendasi: "pending",
             foto_kk: imgKK.name,
-            foto_ktp: imgKTP.name,
-            nilai_rangking: nilaiRangking
+            foto_ktp: imgKTP.name
         })
     },
-    updateStatusWargaByUserID: (userId, status) => {
-        return axios.patch(`/warga/update/${userId}`, {
-            user_id: userId,
-            status_penerimaan: status
-        })
+    updateWarga: (noKK, data) => {
+        return axios.patch(`/warga/update/${noKK}`, data)
     },
     deleteWargaByUserID: (id) => {
         return axios.delete(`/warga/${id}`)

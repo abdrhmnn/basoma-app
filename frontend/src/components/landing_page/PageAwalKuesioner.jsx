@@ -17,16 +17,19 @@ const PageAwalKuesioner = () => {
 			</div>
 			<div className="panduan_pendaftaran">
 				<h1>Sebelum melakukan pendaftaran</h1>
-				<p>Silahkan lengkapi beberapa pertanyaan yang akan diberikan</p>
+				<p>
+					Silahkan lengkapi formulir data diri dan mengisi beberapa
+					pertanyaan yang akan diberikan!
+				</p>
 				<Button
 					variant="contained"
 					onClick={() =>
-						navigate("/kuesioner-pendaftaran", {
+						navigate("/form-data-diri", {
 							state: location.state,
 						})
 					}
 				>
-					mulai
+					mengerti
 				</Button>
 			</div>
 		</div>

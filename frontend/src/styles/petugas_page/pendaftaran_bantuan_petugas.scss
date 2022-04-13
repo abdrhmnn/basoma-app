@@ -1,0 +1,18 @@
+.pendaftaran_bantuan_petugas{
+    margin: 20px 0 100px 0;
+
+    .list_bantuan_petugas{
+        margin-top: 20px;
+
+        // styling for box result data bantuan
+        .MuiBox-root{
+            transition: .5s;
+            margin-bottom: 20px;
+
+            &:hover{
+                box-shadow: $card-box-shadow;
+                cursor: pointer;
+            }
+        }
+    }
+}

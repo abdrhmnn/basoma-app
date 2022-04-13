@@ -41,12 +41,30 @@ import EditBantuan from "./components/admin_page/EditBantuan";
 
 // npm packages
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import FormDataDiri from "./components/landing_page/FormDataDiri";
+import DashboardPetugas from "./components/petugas_page/DashboardPetugas";
+import PendaftaranBantuanPetugas from "./components/petugas_page/PendaftaranBantuanPetugas";
+import PendaftaranBantuanPetugasDetail from "./components/petugas_page/PendaftaranBantuanPetugasDetail";
+import WargaPetugasDetail from "./components/petugas_page/WargaPetugasDetail";
 
 const PrivateRouteAdmin = ({ children }) => {
   const isAuthenticated = kuki.get("admin")
 
   if (isAuthenticated ) {
     return children
+  }
+
+  return <Navigate to="/" />;
+};
+
+const PrivateRoutePetugas = ({ children }) => {
+  const isAuthenticated = kuki.get("petugas")
+  const isAuthenticatedAdmin = kuki.get("admin")
+
+  if (isAuthenticated ) {
+    return children
+  }else if (isAuthenticatedAdmin){
+    return <Navigate to="/dashboard" />;
   }
 
   return <Navigate to="/" />;
@@ -236,6 +254,18 @@ class App extends Component{
                   <Pemberitahuan />
                 }
               />
+
+              <Route
+                exact
+                path="/form-data-diri"
+                element={
+                  kuki.get("warga") || kuki.get("admin") ? 
+                  <PrivateRouteWarga>
+                    <FormDataDiri />
+                  </PrivateRouteWarga> :
+                  <FormDataDiri />
+                }
+              />
               {/* Akhir landing page components */}
 
               {/* Admin page components */}
@@ -369,6 +399,48 @@ class App extends Component{
                 }
               />
               {/* Akhir admin page components */}
+
+              {/* Petugas page components */}
+              <Route
+                exact
+                path="/dashboard-petugas"
+                element={
+                  <PrivateRoutePetugas>
+                    <DashboardPetugas />
+                  </PrivateRoutePetugas>
+                }
+              />
+
+              <Route
+                exact
+                path="/pendaftaran-bantuan-petugas"
+                element={
+                  <PrivateRoutePetugas>
+                    <PendaftaranBantuanPetugas />
+                  </PrivateRoutePetugas>
+                }
+              />
+
+              <Route
+                exact
+                path="/pendaftaran-bantuan-petugas-detail"
+                element={
+                  <PrivateRoutePetugas>
+                    <PendaftaranBantuanPetugasDetail />
+                  </PrivateRoutePetugas>
+                }
+              />
+
+              <Route
+                exact
+                path="/pendaftaran-bantuan-warga-detail"
+                element={
+                  <PrivateRoutePetugas>
+                    <WargaPetugasDetail />
+                  </PrivateRoutePetugas>
+                }
+              />
+              {/* Akhir petugas page components */}
 
               {/* Empty Page */}
               <Route exact path="*" element={<EmptyPage />} />
