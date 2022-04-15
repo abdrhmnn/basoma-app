@@ -102,6 +102,23 @@ body {
         }
 
         .btn_as_admin{
+            background-color: rgba(4, 0, 255, 0.815);
+            color: $white-color;
+
+            .btn_yakin{
+                background-color: red;
+            }
+            
+            &:hover{
+                background-color: rgba(3, 0, 166, 0.87);
+            }
+
+            &:disabled{
+                background-color: rgb(61, 61, 61);
+            }
+        }
+
+        .btn_as_petugas{
             background-color: rgb(255, 185, 55);
             color: $white-color;
 
@@ -131,6 +148,15 @@ body {
         .role_warga{
             background-color: rgba(78, 252, 165, 0.397);
             color: rgba(43, 170, 31, 0.836);
+            font-weight: bold;
+            font-size: .85em;
+            padding: 7px;
+            border-radius: 8px;
+        }
+
+        .role_petugas{
+            background-color: rgba(226, 252, 78, 0.397);
+            color: rgba(206, 224, 9, 0.836);
             font-weight: bold;
             font-size: .85em;
             padding: 7px;
@@ -216,6 +242,7 @@ body {
 @import "./admin_page/pendaftaran_bantuan_detail.scss";
 @import "./admin_page/warga_detail.scss";
 @import "./admin_page/rangking.scss";
+@import "./admin_page/history_kebijakan.scss";
 
 
 // petugas page styles

@@ -1,3 +1,4 @@
+import HistoryKebijakan from "../models/HistoryKebijakanModel.js";
 import Warga from "../models/WargaModel.js";
 
 export const getAllWarga = async (req, res) => {
@@ -100,6 +101,21 @@ export const deleteWarga = async (req, res) => {
         res.json({
             "message" : "Warga berhasil dihapus!"
         });
+    }catch(error){
+        res.json({ message: error.message })
+    }
+}
+
+export const getJoinHistoryAndWarga = async (req, res) => {
+    try{
+        const warga = await Warga.findAll({
+            include: [{
+                model: HistoryKebijakan,
+                required: true
+            }]
+        });
+        
+        console.log(JSON.stringify(warga, null, 2))
     }catch(error){
         res.json({ message: error.message })
     }

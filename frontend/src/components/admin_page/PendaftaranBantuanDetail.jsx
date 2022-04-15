@@ -2,32 +2,19 @@
 
 import React, { useState, useEffect } from "react";
 
-// components
-import NavbarAdmin from "./NavbarAdmin";
-import HeaderAdmin from "./HeaderAdmin";
-
 // API storage
 import API from "../../api";
 
 // npm packages
-import {
-	TextField,
-	Button,
-	FormControl,
-	Select,
-	MenuItem,
-	Alert,
-	Snackbar,
-} from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
+import { RiHistoryFill } from "react-icons/ri";
 
 const PendaftaranBantuanDetail = () => {
 	const [pendaftaranBantuanByUserID, setPendaftaranBantuanByUserID] =
 		useState(null);
+	// const [survey, setSurvey] = useState(null);
 	const [searchDataPendaftaran, setSearchDataPendaftaran] = useState("");
-	const [dataPendaftaranLength, setDataPendaftaranLength] = useState(5);
-
-	const [isOpenSnackbar, setIsOpenSnackbar] = useState(true);
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -36,6 +23,9 @@ const PendaftaranBantuanDetail = () => {
 		API.getWargaByBantuanID(location.state.id_bantuan).then((res) =>
 			setPendaftaranBantuanByUserID(res.data)
 		);
+		// API.getSurveyByNoKK().then((res) => {
+		// 	setSurvey(res.data);
+		// });
 	}, [location]);
 
 	const handleChange = (e) => {
@@ -45,144 +35,102 @@ const PendaftaranBantuanDetail = () => {
 	const highlightRole = (role) => {
 		if (role === "pending")
 			return <span className="role_pending">{role}</span>;
-		else if (role === "diterima")
-			return <span className="role_diterima">{role}</span>;
+		else if (role === "memenuhi")
+			return <span className="role_memenuhi">{role}</span>;
 
-		return <span className="role_ditolak">{role}</span>;
-	};
-
-	const handleCloseSnackbar = (event, reason) => {
-		if (reason === "clickaway") {
-			return;
-		}
-
-		location.state.alert_penerimaan = false;
-		setIsOpenSnackbar(false);
+		return <span className="role_tidak_memenuhi">{role}</span>;
 	};
 
 	return (
-		<div style={{ display: "flex" }}>
-			<NavbarAdmin />
-			<div className="flex_header_admin">
-				<HeaderAdmin />
-				<div className="content_dashboard_admin">
-					<h2>Data Pendaftaran Bantuan</h2>
-					{location.state.alert_penerimaan ? (
-						<Snackbar
-							open={isOpenSnackbar}
-							autoHideDuration={4000}
-							onClose={handleCloseSnackbar}
+		<div className="pendaftaran_bantuan_detail">
+			<div className="logo_app">
+				<h2>Basoma</h2>
+			</div>
+			<div className="wrap_tbl_pendaftaran_detail">
+				<div className="flex_element_pendaftaran_detail">
+					<div className="cari_data_warga">
+						{/* cari bantuan section */}
+						<TextField
+							label="Cari berdasarkan nama"
+							name="nm_depan"
+							variant="outlined"
+							onChange={handleChange}
+							autoComplete="off"
+							className="inp_cari"
+						/>
+					</div>
+					<div className="history_kebijakan_bantuan">
+						<Button
+							variant="contained"
+							onClick={() => {
+								navigate("/history_kebijakan");
+							}}
 						>
-							<Alert
-								onClose={handleCloseSnackbar}
-								severity="info"
-								variant="filled"
-							>
-								Status penerimaan berhasil diperbarui!
-							</Alert>
-						</Snackbar>
-					) : null}
-					<div className="wrap_tbl_pendaftaran_bantuan_detail">
-						<div className="flex_element_pendaftaran_bantuan_detail">
-							<TextField
-								label="Cari data berdasarkan nama"
-								name="cari_pendaftaran"
-								variant="outlined"
-								sx={{ width: "30%" }}
-								onChange={handleChange}
-								autoComplete="off"
-							/>
-							<div className="rekomendasi_alternatif">
-								<Button
-									variant="contained"
-									className="rekomendasi_alternatif"
-									onClick={() => {
-										navigate("/rangking", {
-											state: location.state.id_bantuan,
-										});
-									}}
-								>
-									Rekomendasi
-								</Button>
-							</div>
-						</div>
-						<table className="tbl_class">
-							<thead className="tbl_class_head">
-								<tr>
-									<th>NKK</th>
-									<th>Nama lengkap</th>
-									<th>Pendidikan terakhir</th>
-									<th>Asset barang</th>
-									<th>Status</th>
-									<th>Aksi</th>
-								</tr>
-							</thead>
-							<tbody className="tbl_class_body">
-								{pendaftaranBantuanByUserID &&
-									pendaftaranBantuanByUserID
-										.slice(0, dataPendaftaranLength)
-										.map((e, i) => {
-											if (
-												e.nama_lengkap
-													.toLowerCase()
-													.includes(searchDataPendaftaran)
-											) {
-												return (
-													<tr key={i}>
-														<td>{e.no_ktp}</td>
-														<td>{e.nama_lengkap}</td>
-														<td>{e.pendidikan}</td>
-														<td>{e.asset}</td>
-														<td>
-															{highlightRole(
-																e.status_penerimaan
-															)}
-														</td>
-														<td>
-															<Button
-																variant="contained"
-																className="btn_detail_pendaftaran"
-																onClick={() => {
-																	navigate("/warga-detail", {
-																		state: {
-																			ui: e.no_kk,
-																			uid: e.user_id,
-																			bi: e.id_bantuan,
-																		},
-																	});
-																}}
-															>
-																detail
-															</Button>
-														</td>
-													</tr>
-												);
-											}
-
-											return null;
-										})}
-							</tbody>
-						</table>
-						<div className="show_length_data_pendaftaran">
-							<p>Liat baris: </p>
-							<FormControl>
-								<Select
-									id="pendaftaran_data_length"
-									value={dataPendaftaranLength}
-									onChange={(e) => {
-										setDataPendaftaranLength(e.target.value);
-									}}
-								>
-									<MenuItem value={5}>5</MenuItem>
-									<MenuItem value={10}>10</MenuItem>
-									<MenuItem value={20}>20</MenuItem>
-									<MenuItem value={50}>50</MenuItem>
-								</Select>
-							</FormControl>
-						</div>
+							<RiHistoryFill size={25} />
+						</Button>
 					</div>
 				</div>
+				{/* Akhir flex tambah, cari dan export bantuan */}
+
+				<div className="table_pendaftaran_detail">
+					<table className="tbl_class">
+						<thead className="tbl_class_head">
+							<tr>
+								<th>No</th>
+								<th>Nomor KK</th>
+								<th>Nama lengkap</th>
+								<th>Alamat</th>
+								<th>No. tlp</th>
+								{/* <th>Hasil rekomendasi</th> */}
+								<th>Status</th>
+								<th>Aksi</th>
+							</tr>
+						</thead>
+						<tbody className="tbl_class_body">
+							{pendaftaranBantuanByUserID &&
+								pendaftaranBantuanByUserID.map((e, i) => {
+									if (
+										e.nama_lengkap
+											.toLowerCase()
+											.includes(searchDataPendaftaran)
+									) {
+										return (
+											<tr key={i}>
+												<td>{i + 1}</td>
+												<td>{e.no_kk}</td>
+												<td>{e.nama_lengkap}</td>
+												<td>{e.alamat}</td>
+												<td>{e.no_telepon}</td>
+												{/* <td>{survey[0].nilai_rekomendasi}%</td> */}
+												<td>
+													{highlightRole(e.status_rekomendasi)}
+												</td>
+												<td>
+													<Button
+														variant="contained"
+														className="btn_detail_pendaftaran_bantuan"
+														onClick={() => {
+															navigate("/warga-detail", {
+																state: {
+																	ui: e.no_kk,
+																	uid: e.user_id,
+																},
+															});
+														}}
+													>
+														detail
+													</Button>
+												</td>
+											</tr>
+										);
+									}
+									return null;
+								})}
+						</tbody>
+					</table>
+				</div>
 			</div>
+			{/* Akhir bantuan admin content */}
 		</div>
 	);
 };

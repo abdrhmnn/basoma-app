@@ -46,6 +46,7 @@ import DashboardPetugas from "./components/petugas_page/DashboardPetugas";
 import PendaftaranBantuanPetugas from "./components/petugas_page/PendaftaranBantuanPetugas";
 import PendaftaranBantuanPetugasDetail from "./components/petugas_page/PendaftaranBantuanPetugasDetail";
 import WargaPetugasDetail from "./components/petugas_page/WargaPetugasDetail";
+import HistoryKebijakan from "./components/admin_page/HistoryKebijakan";
 
 const PrivateRouteAdmin = ({ children }) => {
   const isAuthenticated = kuki.get("admin")
@@ -395,6 +396,16 @@ class App extends Component{
                 element={
                   <PrivateRouteAdmin>
                     <EditBantuan />
+                  </PrivateRouteAdmin>
+                }
+              />
+
+              <Route
+                exact
+                path="/history_kebijakan"
+                element={
+                  <PrivateRouteAdmin>
+                    <HistoryKebijakan />
                   </PrivateRouteAdmin>
                 }
               />

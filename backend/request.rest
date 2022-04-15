@@ -1,8 +1,8 @@
-GET http://localhost:5000/survey
+GET http://localhost:5000/warga/rahman/abdu
 
 ###
 
-GET http://localhost:5000/nilai-prioritas/USER_6
+GET http://localhost:5000/survey/2222111
 
 ###
 

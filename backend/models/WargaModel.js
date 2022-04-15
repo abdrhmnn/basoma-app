@@ -49,4 +49,7 @@ const Warga = db.define('warga_tbl', {
     freezeTableName: true
 })
 
+// Warga.hasMany(HistoryKebijakan)
+// HistoryKebijakan.belongsTo(Warga)
+
 export default Warga

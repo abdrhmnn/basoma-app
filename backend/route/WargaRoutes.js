@@ -4,6 +4,7 @@ import {
     deleteWarga,
     getAllWarga,
     getAllWargaAndSortByNilaiRangking,
+    getJoinHistoryAndWarga,
     getWargaByBantuanID,
     getWargaByNoKK,
     getWargaByUserID,
@@ -18,6 +19,7 @@ router.get('/bantuanID/:id', getWargaByBantuanID)
 router.get('/noKK/:id', getWargaByNoKK)
 router.get('/userId/:id', getWargaByUserID)
 router.get('/sortRangking/:id', getAllWargaAndSortByNilaiRangking)
+router.get('/rahman/abdu', getJoinHistoryAndWarga)
 router.patch('/update/:id', updateWarga)
 router.delete('/:id', deleteWarga)
 

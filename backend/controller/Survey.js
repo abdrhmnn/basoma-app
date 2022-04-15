@@ -19,3 +19,19 @@ export const createSurvey = async (req, res) => {
         res.json({ message: error.message })
     }
 }
+
+export const getSurveyByID = async (req, res) => {
+    try{
+        const survey = await Survey.findAll({
+            where: {
+                no_kk: req.params.id
+            },
+            order: [
+                ['identitas_survey', 'ASC']
+            ]
+        });
+        res.json(survey);
+    }catch(error){
+        res.json({ message: error.message })
+    }
+}

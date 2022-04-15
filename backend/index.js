@@ -9,6 +9,7 @@ import nilaiPrioritasRoutes from "./route/PengisianPrioritasRoutes.js";
 import pemberitahuanRoutes from "./route/PemberitahuanRoutes.js";
 import alternatifRoutes from "./route/AlternatifRoutes.js";
 import surveyRoutes from "./route/SurveyRoutes.js";
+import historyRoutes from "./route/HistoryKebijakanRoutes.js";
 import cors from "cors";
 import uploadRouter from "./route/UploadImgRouter.js";
 
@@ -34,5 +35,6 @@ app.use('/nilai-prioritas', nilaiPrioritasRoutes)
 app.use('/pemberitahuan', pemberitahuanRoutes)
 app.use('/alternatif', alternatifRoutes)
 app.use('/survey', surveyRoutes)
+app.use('/history-kebijakan', historyRoutes)
 app.use('/public', express.static('public'));
 app.listen(5000, () => console.log(`Server sedang berjalan di port http://localhost:5000`))

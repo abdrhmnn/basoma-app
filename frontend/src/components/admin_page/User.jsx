@@ -16,7 +16,7 @@ import ReactExport from "react-export-excel";
 import swal from "sweetalert";
 import { RiDeleteBin6Line, RiAdminLine } from "react-icons/ri";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { BsPrinter } from "react-icons/bs";
+import { BsPerson, BsPrinter } from "react-icons/bs";
 import {
 	TextField,
 	FormControl,
@@ -88,7 +88,11 @@ const User = () => {
 	};
 
 	const highlightRole = (role) => {
-		if (role === "admin") return <span className="role_admin">{role}</span>;
+		if (role === "admin") {
+			return <span className="role_admin">{role}</span>;
+		} else if (role === "petugas") {
+			return <span className="role_petugas">{role}</span>;
+		}
 
 		return <span className="role_warga">{role}</span>;
 	};
@@ -258,6 +262,47 @@ const User = () => {
 															}}
 														>
 															<RiAdminLine />
+														</Button>
+
+														{/* set as petugas button */}
+														<Button
+															variant="contained"
+															className="btn_as_petugas"
+															sx={{
+																mr: 1,
+															}}
+															disabled={
+																e.role === "petugas"
+																	? true
+																	: false
+															}
+															onClick={() => {
+																swal({
+																	title: "Yakin ingin jadikan sebagai petugas?",
+																	text: "Jika iya, maka user dapat memverifikasi kondisi warga!",
+																	icon: "warning",
+																	buttons: ["Tidak", "Yakin"],
+																}).then((willUpdate) => {
+																	if (willUpdate) {
+																		API.updateUser(
+																			e.user_id,
+																			{
+																				role: "petugas",
+																			}
+																		).then((res) => {
+																			swal(
+																				"User berhasil dijadikan sebagai petugas!",
+																				{
+																					icon: "success",
+																				}
+																			);
+																			getAllUser();
+																		});
+																	}
+																});
+															}}
+														>
+															<BsPerson />
 														</Button>
 
 														{/* delete user button */}

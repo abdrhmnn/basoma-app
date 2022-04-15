@@ -383,7 +383,7 @@ const KriteriaBantuan = () => {
 												{/* btn edit */}
 												<Button
 													variant="contained"
-													className="btn_as_admin"
+													className="btn_as_petugas"
 													sx={{
 														mr: 1,
 													}}

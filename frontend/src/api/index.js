@@ -10,6 +10,7 @@ import PRIORITAS from "./prioritas";
 import UPLOAD from "./uploads";
 import WARGA from "./warga";
 import SURVEY from "./survey";
+import HISTORY_KEBIJAKAN from "./history_kebijakan";
 
 axios.defaults.baseURL = "http://localhost:5000";
 
@@ -48,7 +49,8 @@ const API = {
     ...MASUKAN,
     ...PEMBERITAHUAN,
     ...ALTERNATIF,
-    ...SURVEY
+    ...SURVEY,
+    ...HISTORY_KEBIJAKAN
 }
 
 export default API
