@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../config/database.js";
+// import Warga from "./WargaModel.js";
 
 const { DataTypes } = Sequelize;
 
@@ -32,5 +33,7 @@ const User = db.define('users', {
 }, {
     freezeTableName: true
 })
+
+// User.hasMany(Warga, {foreignKey: 'user_id'})
 
 export default User

@@ -7,9 +7,6 @@ export const getAllHistoryKebijakan = async (req, res) => {
         const historyKebijakan = await HistoryKebijakan.findAll({
             attributes: {
                 include: [
-                    "id_history",
-                    "user_id",
-                    "no_kk",
                     [
                         Sequelize.fn
                         (
@@ -18,8 +15,7 @@ export const getAllHistoryKebijakan = async (req, res) => {
                           `%d-%m-%Y %H:%i`
                         ),
                         "waktu_kebijakan",
-                      ],
-                      "keterangan"
+                      ]
                 ]
             }
         });
@@ -64,6 +60,21 @@ export const createHistoryKebijakan = async (req, res) => {
         await HistoryKebijakan.create(req.body);
         res.json({
             "message" : "History kebijakan berhasil dibuat!"
+        });
+    }catch(error){
+        res.json({ message: error.message })
+    }
+}
+
+export const deleteHistoryKebijakan = async (req, res) => {
+    try{
+        await HistoryKebijakan.destroy({
+            where: {
+                no_kk: req.params.id
+            }
+        });
+        res.json({
+            "message" : "History kebijakan berhasil dihapus!"
         });
     }catch(error){
         res.json({ message: error.message })

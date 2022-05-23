@@ -2,7 +2,11 @@ import Kriteria from "../models/KriteriaModel.js";
 
 export const getAllKriteria = async (req, res) => {
     try{
-        const kriteria = await Kriteria.findAll();
+        const kriteria = await Kriteria.findAll({
+            order: [
+                ['nilai_bobot', 'ASC']
+            ]
+        });
         res.json(kriteria);
     }catch(error){
         res.json({ message: error.message })

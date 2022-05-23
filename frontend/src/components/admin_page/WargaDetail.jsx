@@ -120,21 +120,17 @@ const WargaDetail = () => {
 								rows={3}
 							/>
 						</div>
-						<div className="foto_kk_ktp">
-							<div className="foto_kk">
-								<p>Foto kartu keluarga</p>
+						<div className="foto_rumah">
+							<div className="f_rumah">
+								<p>Foto lokasi tempat tinggal</p>
 								<img
-									src={API.showImgKK(wargaByNoKK.foto_kk)}
-									alt="Foto KK"
+									src={API.showImgRumah(wargaByNoKK.foto_rumah)}
+									alt="Foto lokasi tempat tinggal"
 									width={400}
-								/>
-							</div>
-							<div className="foto_ktp">
-								<p>Foto kartu tanda penduduk</p>
-								<img
-									src={API.showImgKK(wargaByNoKK.foto_ktp)}
-									alt="Foto KTP"
-									width={400}
+									style={{
+										margin: "auto",
+										display: "block",
+									}}
 								/>
 							</div>
 						</div>
@@ -918,29 +914,444 @@ const WargaDetail = () => {
 													false
 												)}
 											</div>
-											{wargaByNoKK.status_rekomendasi ===
-											"memenuhi" ? (
-												<Alert
-													severity="success"
-													variant="outlined"
-													sx={{ marginTop: "30px" }}
-												>
-													Warga sudah dinyatakan memenuhi untuk
-													mendapatkan bantuan dengan hasil akhir
-													sebesar {survey[0].nilai_rekomendasi}%
-												</Alert>
-											) : (
-												<Alert
-													severity="error"
-													variant="outlined"
-													sx={{ marginTop: "30px" }}
-												>
-													Warga sudah dinyatakan tidak memenuhi
-													untuk mendapatkan bantuan dengan hasil
-													akhir sebesar{" "}
-													{survey[0].nilai_rekomendasi}%
-												</Alert>
-											)}
+
+											<div className="line_pertanyaan_8"></div>
+
+											<div className="pertanyaan_jawaban_8">
+												<div className="pertanyaan_8">
+													<p>Pertanyaan</p>
+													<TextField
+														name="pertanyaan_8"
+														variant="outlined"
+														fullWidth
+														defaultValue={`${kriteria[7].pertanyaan}`}
+														disabled={true}
+														multiline
+														rows={2}
+													/>
+												</div>
+												<div className="jawaban_8">
+													<p>Jawaban</p>
+													<TextField
+														name="jawaban_8"
+														variant="outlined"
+														fullWidth
+														defaultValue={`${jawaban[7].pilihan}`}
+														disabled={true}
+														multiline
+														rows={2}
+													/>
+												</div>
+											</div>
+											<div className="verifikasi_pertanyaan_8">
+												<p>Verifikasi</p>
+												<FormControl>
+													<RadioGroup
+														row
+														name="verifikasi_kondisi_8"
+														className="verif_8"
+													>
+														<FormControlLabel
+															control={
+																<Radio
+																	style={{
+																		marginRight: "3px",
+																	}}
+																	disabled={
+																		survey[7]
+																			.verifikasi_kondisi !==
+																		"Sesuai"
+																			? true
+																			: false
+																	}
+																	checked={
+																		survey[7]
+																			.verifikasi_kondisi !==
+																		"Sesuai"
+																			? false
+																			: true
+																	}
+																/>
+															}
+															label="Sesuai"
+															style={{
+																marginRight: "30px",
+															}}
+														/>
+														<FormControlLabel
+															control={
+																<Radio
+																	style={{
+																		marginRight: "3px",
+																	}}
+																	disabled={
+																		survey[7]
+																			.verifikasi_kondisi !==
+																		"Tidak sesuai"
+																			? true
+																			: false
+																	}
+																	checked={
+																		survey[7]
+																			.verifikasi_kondisi !==
+																		"Tidak sesuai"
+																			? false
+																			: true
+																	}
+																/>
+															}
+															label="Tidak sesuai"
+														/>
+													</RadioGroup>
+												</FormControl>
+												{survey[7].verifikasi_kondisi ===
+												"Tidak sesuai" ? (
+													<div className="status_tidak_sesuai">
+														<p>Keterangan</p>
+														<TextField
+															name="status_tidak_sesuai"
+															variant="outlined"
+															fullWidth
+															autoComplete="off"
+															multiline
+															rows={3}
+															disabled
+															defaultValue={survey[7].keterangan}
+														/>
+													</div>
+												) : (
+													false
+												)}
+											</div>
+
+											<div className="line_pertanyaan_9"></div>
+
+											<div className="pertanyaan_jawaban_9">
+												<div className="pertanyaan_9">
+													<p>Pertanyaan</p>
+													<TextField
+														name="pertanyaan_9"
+														variant="outlined"
+														fullWidth
+														defaultValue={`${kriteria[8].pertanyaan}`}
+														disabled={true}
+														multiline
+														rows={2}
+													/>
+												</div>
+												<div className="jawaban_9">
+													<p>Jawaban</p>
+													<TextField
+														name="jawaban_9"
+														variant="outlined"
+														fullWidth
+														defaultValue={`${jawaban[8].pilihan}`}
+														disabled={true}
+														multiline
+														rows={2}
+													/>
+												</div>
+											</div>
+											<div className="verifikasi_pertanyaan_9">
+												<p>Verifikasi</p>
+												<FormControl>
+													<RadioGroup
+														row
+														name="verifikasi_kondisi_9"
+														className="verif_9"
+													>
+														<FormControlLabel
+															control={
+																<Radio
+																	style={{
+																		marginRight: "3px",
+																	}}
+																	disabled={
+																		survey[8]
+																			.verifikasi_kondisi !==
+																		"Sesuai"
+																			? true
+																			: false
+																	}
+																	checked={
+																		survey[8]
+																			.verifikasi_kondisi !==
+																		"Sesuai"
+																			? false
+																			: true
+																	}
+																/>
+															}
+															label="Sesuai"
+															style={{
+																marginRight: "30px",
+															}}
+														/>
+														<FormControlLabel
+															control={
+																<Radio
+																	style={{
+																		marginRight: "3px",
+																	}}
+																	disabled={
+																		survey[8]
+																			.verifikasi_kondisi !==
+																		"Tidak sesuai"
+																			? true
+																			: false
+																	}
+																	checked={
+																		survey[8]
+																			.verifikasi_kondisi !==
+																		"Tidak sesuai"
+																			? false
+																			: true
+																	}
+																/>
+															}
+															label="Tidak sesuai"
+														/>
+													</RadioGroup>
+												</FormControl>
+												{survey[8].verifikasi_kondisi ===
+												"Tidak sesuai" ? (
+													<div className="status_tidak_sesuai">
+														<p>Keterangan</p>
+														<TextField
+															name="status_tidak_sesuai"
+															variant="outlined"
+															fullWidth
+															autoComplete="off"
+															multiline
+															rows={3}
+															disabled
+															defaultValue={survey[8].keterangan}
+														/>
+													</div>
+												) : (
+													false
+												)}
+											</div>
+
+											<div className="line_pertanyaan_10"></div>
+
+											<div className="pertanyaan_jawaban_10">
+												<div className="pertanyaan_10">
+													<p>Pertanyaan</p>
+													<TextField
+														name="pertanyaan_10"
+														variant="outlined"
+														fullWidth
+														defaultValue={`${kriteria[9].pertanyaan}`}
+														disabled={true}
+														multiline
+														rows={2}
+													/>
+												</div>
+												<div className="jawaban_10">
+													<p>Jawaban</p>
+													<TextField
+														name="jawaban_10"
+														variant="outlined"
+														fullWidth
+														defaultValue={`${jawaban[9].pilihan}`}
+														disabled={true}
+														multiline
+														rows={2}
+													/>
+												</div>
+											</div>
+											<div className="verifikasi_pertanyaan_10">
+												<p>Verifikasi</p>
+												<FormControl>
+													<RadioGroup
+														row
+														name="verifikasi_kondisi_10"
+														className="verif_10"
+													>
+														<FormControlLabel
+															control={
+																<Radio
+																	style={{
+																		marginRight: "3px",
+																	}}
+																	disabled={
+																		survey[9]
+																			.verifikasi_kondisi !==
+																		"Sesuai"
+																			? true
+																			: false
+																	}
+																	checked={
+																		survey[9]
+																			.verifikasi_kondisi !==
+																		"Sesuai"
+																			? false
+																			: true
+																	}
+																/>
+															}
+															label="Sesuai"
+															style={{
+																marginRight: "30px",
+															}}
+														/>
+														<FormControlLabel
+															control={
+																<Radio
+																	style={{
+																		marginRight: "3px",
+																	}}
+																	disabled={
+																		survey[9]
+																			.verifikasi_kondisi !==
+																		"Tidak sesuai"
+																			? true
+																			: false
+																	}
+																	checked={
+																		survey[9]
+																			.verifikasi_kondisi !==
+																		"Tidak sesuai"
+																			? false
+																			: true
+																	}
+																/>
+															}
+															label="Tidak sesuai"
+														/>
+													</RadioGroup>
+												</FormControl>
+												{survey[9].verifikasi_kondisi ===
+												"Tidak sesuai" ? (
+													<div className="status_tidak_sesuai">
+														<p>Keterangan</p>
+														<TextField
+															name="status_tidak_sesuai"
+															variant="outlined"
+															fullWidth
+															autoComplete="off"
+															multiline
+															rows={3}
+															disabled
+															defaultValue={survey[9].keterangan}
+														/>
+													</div>
+												) : (
+													false
+												)}
+											</div>
+
+											<div className="line_pertanyaan_11"></div>
+
+											<div className="pertanyaan_jawaban_11">
+												<div className="pertanyaan_11">
+													<p>Pertanyaan</p>
+													<TextField
+														name="pertanyaan_11"
+														variant="outlined"
+														fullWidth
+														defaultValue={`${kriteria[10].pertanyaan}`}
+														disabled={true}
+														multiline
+														rows={2}
+													/>
+												</div>
+												<div className="jawaban_11">
+													<p>Jawaban</p>
+													<TextField
+														name="jawaban_11"
+														variant="outlined"
+														fullWidth
+														defaultValue={`${jawaban[10].pilihan}`}
+														disabled={true}
+														multiline
+														rows={2}
+													/>
+												</div>
+											</div>
+											<div className="verifikasi_pertanyaan_11">
+												<p>Verifikasi</p>
+												<FormControl>
+													<RadioGroup
+														row
+														name="verifikasi_kondisi_11"
+														className="verif_11"
+													>
+														<FormControlLabel
+															control={
+																<Radio
+																	style={{
+																		marginRight: "3px",
+																	}}
+																	disabled={
+																		survey[10]
+																			.verifikasi_kondisi !==
+																		"Sesuai"
+																			? true
+																			: false
+																	}
+																	checked={
+																		survey[10]
+																			.verifikasi_kondisi !==
+																		"Sesuai"
+																			? false
+																			: true
+																	}
+																/>
+															}
+															label="Sesuai"
+															style={{
+																marginRight: "30px",
+															}}
+														/>
+														<FormControlLabel
+															control={
+																<Radio
+																	style={{
+																		marginRight: "3px",
+																	}}
+																	disabled={
+																		survey[10]
+																			.verifikasi_kondisi !==
+																		"Tidak sesuai"
+																			? true
+																			: false
+																	}
+																	checked={
+																		survey[10]
+																			.verifikasi_kondisi !==
+																		"Tidak sesuai"
+																			? false
+																			: true
+																	}
+																/>
+															}
+															label="Tidak sesuai"
+														/>
+													</RadioGroup>
+												</FormControl>
+												{survey[10].verifikasi_kondisi ===
+												"Tidak sesuai" ? (
+													<div className="status_tidak_sesuai">
+														<p>Keterangan</p>
+														<TextField
+															name="status_tidak_sesuai"
+															variant="outlined"
+															fullWidth
+															autoComplete="off"
+															multiline
+															rows={3}
+															disabled
+															defaultValue={
+																survey[10].keterangan
+															}
+														/>
+													</div>
+												) : (
+													false
+												)}
+											</div>
 										</div>
 									)}
 								</div>
@@ -963,103 +1374,117 @@ const WargaDetail = () => {
 								</div>
 							</AccordionSummary>
 							<AccordionDetails>
-								<div className="verifikasi_kebijakan">
-									{isValidKebijakan ? (
-										<Alert severity="warning" variant="outlined">
-											Silahkan lakukan verifikasi dan mengisi
-											keterangan terlebih dahulu!
-										</Alert>
-									) : (
-										false
-									)}
-									<p>Verifikasi Kebijakan</p>
-									<FormControl>
-										<RadioGroup
-											row
-											name="verifikasi_kebijakan"
-											className="verif_kebijakan"
-											onChange={(e) =>
-												setKebijakanBantuan(e.target.value)
-											}
-										>
-											<FormControlLabel
-												value="memenuhi"
-												control={
-													<Radio
-														style={{
-															marginRight: "3px",
-														}}
-													/>
+								{wargaByNoKK.status_rekomendasi === "memenuhi" ? (
+									<Alert severity="success" variant="outlined">
+										Warga sudah dinyatakan memenuhi untuk mendapatkan
+										bantuan.
+									</Alert>
+								) : (
+									<div className="verifikasi_kebijakan">
+										{isValidKebijakan ? (
+											<Alert severity="warning" variant="outlined">
+												Silahkan lakukan verifikasi dan mengisi
+												keterangan terlebih dahulu!
+											</Alert>
+										) : (
+											false
+										)}
+										<p>Verifikasi Kebijakan</p>
+										<FormControl>
+											<RadioGroup
+												row
+												name="verifikasi_kebijakan"
+												className="verif_kebijakan"
+												onChange={(e) =>
+													setKebijakanBantuan(e.target.value)
 												}
-												label="Memenuhi"
+											>
+												<FormControlLabel
+													value="memenuhi"
+													control={
+														<Radio
+															style={{
+																marginRight: "3px",
+															}}
+														/>
+													}
+													label="Memenuhi"
+												/>
+											</RadioGroup>
+										</FormControl>
+
+										<div className="keterangan_kebijakan">
+											<p>Keterangan</p>
+											<TextField
+												name="keterangan_kebijakan"
+												variant="outlined"
+												fullWidth
+												autoComplete="off"
+												multiline
+												rows={3}
+												onChange={(e) => {
+													setKeteranganKebijakan(e.target.value);
+												}}
 											/>
-										</RadioGroup>
-									</FormControl>
+										</div>
 
-									<div className="keterangan_kebijakan">
-										<p>Keterangan</p>
-										<TextField
-											name="keterangan_kebijakan"
-											variant="outlined"
+										<Button
+											variant="contained"
 											fullWidth
-											autoComplete="off"
-											multiline
-											rows={3}
-											onChange={(e) => {
-												setKeteranganKebijakan(e.target.value);
+											style={{
+												fontWeight: "bold",
+												padding: 0,
+												height: "40px",
+												marginTop: "25px",
 											}}
-										/>
-									</div>
+											onClick={() => {
+												let historyKebijakanLength =
+													history.length + 1;
+												const date = new Date();
+												const [month, day, year] = [
+													date.getMonth() + 1,
+													date.getDate(),
+													date.getFullYear(),
+												];
+												const [hour, minute, seconds] = [
+													date.getHours(),
+													date.getMinutes(),
+													date.getSeconds(),
+												];
 
-									<Button
-										variant="contained"
-										fullWidth
-										style={{
-											fontWeight: "bold",
-											padding: 0,
-											height: "40px",
-											marginTop: "25px",
-										}}
-										onClick={() => {
-											let historyKebijakanLength =
-												history.length + 1;
-											const date = new Date();
-											const [month, day, year] = [
-												date.getMonth() + 1,
-												date.getDate(),
-												date.getFullYear(),
-											];
-											const [hour, minute, seconds] = [
-												date.getHours(),
-												date.getMinutes(),
-												date.getSeconds(),
-											];
-
-											if (kebijakanBantuan && keteranganKebijakan) {
-												API.updateWarga(wargaByNoKK.no_kk, {
-													status_rekomendasi: "memenuhi",
-												});
-												API.saveHistoryKebijakan({
-													id_history: `HSTY_${historyKebijakanLength}`,
-													user_id: kuki.get("user_id"),
-													no_kk: location.state.ui,
-													waktu_kebijakan: `${year}-0${month}-${day} ${hour}:${minute}:${seconds}`,
-													keterangan: keteranganKebijakan,
-												}).then((res) => {
-													navigate("/pendaftaran-bantuan-detail", {
-														state: {
-															id_bantuan: wargaByNoKK.id_bantuan,
-														},
+												if (
+													kebijakanBantuan &&
+													keteranganKebijakan
+												) {
+													API.updateWarga(wargaByNoKK.no_kk, {
+														status_rekomendasi: "memenuhi",
 													});
-												});
-											} else {
-												setIsValidKebijakan(true);
-											}
-										}}
-									>
-										submit
-									</Button>
-								</div>
+													API.saveHistoryKebijakan({
+														id_history: `HSTY_${historyKebijakanLength}`,
+														user_id: kuki.get("user_id"),
+														no_kk: location.state.ui,
+														waktu_kebijakan: `${year}-0${month}-${day} ${hour}:${minute}:${seconds}`,
+														keterangan: keteranganKebijakan,
+													}).then((res) => {
+														navigate(
+															"/pendaftaran-bantuan-detail",
+															{
+																state: {
+																	id_bantuan:
+																		wargaByNoKK.id_bantuan,
+																},
+															}
+														);
+													});
+												} else {
+													setIsValidKebijakan(true);
+												}
+											}}
+										>
+											submit
+										</Button>
+									</div>
+								)}
 							</AccordionDetails>
 						</Accordion>
 					</div>

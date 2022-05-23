@@ -6,26 +6,36 @@ import React, { useState, useEffect } from "react";
 import API from "../../api";
 
 // npm packages
-import { TextField, Button } from "@mui/material";
+import {
+	TextField,
+	Button,
+	FormControl,
+	Select,
+	MenuItem,
+} from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { RiHistoryFill } from "react-icons/ri";
+import { GoTasklist } from "react-icons/go";
+import swal from "sweetalert";
 
 const PendaftaranBantuanDetail = () => {
 	const [pendaftaranBantuanByUserID, setPendaftaranBantuanByUserID] =
 		useState(null);
-	// const [survey, setSurvey] = useState(null);
 	const [searchDataPendaftaran, setSearchDataPendaftaran] = useState("");
+	const [dataPendaftaranLength, setDataPendaftaranLength] = useState(10);
+	const [pemberitahuan, setPemberitahuan] = useState(null);
 
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	useEffect(() => {
+		document.title = "Pendaftaran Bantuan Detail";
 		API.getWargaByBantuanID(location.state.id_bantuan).then((res) =>
 			setPendaftaranBantuanByUserID(res.data)
 		);
-		// API.getSurveyByNoKK().then((res) => {
-		// 	setSurvey(res.data);
-		// });
+		API.getAllPemberitahuan().then((res) => {
+			setPemberitahuan(res.data);
+		});
 	}, [location]);
 
 	const handleChange = (e) => {
@@ -61,12 +71,60 @@ const PendaftaranBantuanDetail = () => {
 					</div>
 					<div className="history_kebijakan_bantuan">
 						<Button
-							variant="contained"
+							variant="outlined"
+							color="success"
+							onClick={() => {
+								let pemberitahuanLoop = pemberitahuan + 1;
+								swal({
+									title: "Konfirmasi calon penerima bantuan",
+									text: "Jika iya, maka daftar warga sudah tidak bisa diubah lagi!",
+									icon: "warning",
+									buttons: ["Tidak", "Ya"],
+								}).then((willApprove) => {
+									if (willApprove) {
+										for (
+											let i = 0;
+											i < pendaftaranBantuanByUserID.length;
+											i++
+										) {
+											if (
+												pendaftaranBantuanByUserID[i]
+													.status_rekomendasi === "memenuhi"
+											) {
+												API.savePemberitahuan(
+													pemberitahuanLoop++,
+													pendaftaranBantuanByUserID[i].user_id,
+													"layak"
+												);
+											} else {
+												API.savePemberitahuan(
+													pemberitahuanLoop++,
+													pendaftaranBantuanByUserID[i].user_id,
+													"tidak layak"
+												);
+											}
+
+											swal("Konfirmasi berhasil dilakukan!", {
+												icon: "success",
+											});
+										}
+									}
+								});
+							}}
+							className="btn_history_kebijakan"
+							sx={{ mr: 2 }}
+						>
+							<GoTasklist size={29} />
+						</Button>
+						<Button
+							variant="outlined"
+							color="secondary"
 							onClick={() => {
 								navigate("/history_kebijakan");
 							}}
+							className="btn_history_kebijakan"
 						>
-							<RiHistoryFill size={25} />
+							<RiHistoryFill size={29} />
 						</Button>
 					</div>
 				</div>
@@ -81,53 +139,71 @@ const PendaftaranBantuanDetail = () => {
 								<th>Nama lengkap</th>
 								<th>Alamat</th>
 								<th>No. tlp</th>
-								{/* <th>Hasil rekomendasi</th> */}
+								<th>Hasil rekomendasi</th>
 								<th>Status</th>
 								<th>Aksi</th>
 							</tr>
 						</thead>
 						<tbody className="tbl_class_body">
 							{pendaftaranBantuanByUserID &&
-								pendaftaranBantuanByUserID.map((e, i) => {
-									if (
-										e.nama_lengkap
-											.toLowerCase()
-											.includes(searchDataPendaftaran)
-									) {
-										return (
-											<tr key={i}>
-												<td>{i + 1}</td>
-												<td>{e.no_kk}</td>
-												<td>{e.nama_lengkap}</td>
-												<td>{e.alamat}</td>
-												<td>{e.no_telepon}</td>
-												{/* <td>{survey[0].nilai_rekomendasi}%</td> */}
-												<td>
-													{highlightRole(e.status_rekomendasi)}
-												</td>
-												<td>
-													<Button
-														variant="contained"
-														className="btn_detail_pendaftaran_bantuan"
-														onClick={() => {
-															navigate("/warga-detail", {
-																state: {
-																	ui: e.no_kk,
-																	uid: e.user_id,
-																},
-															});
-														}}
-													>
-														detail
-													</Button>
-												</td>
-											</tr>
-										);
-									}
-									return null;
-								})}
+								pendaftaranBantuanByUserID
+									.slice(0, dataPendaftaranLength)
+									.map((e, i) => {
+										if (
+											e.nama_lengkap
+												.toLowerCase()
+												.includes(searchDataPendaftaran)
+										) {
+											return (
+												<tr key={i}>
+													<td>{i + 1}</td>
+													<td>{e.no_kk}</td>
+													<td>{e.nama_lengkap}</td>
+													<td>{e.alamat}</td>
+													<td>{e.no_telepon}</td>
+													<td>{e.nilai_rekomendasi}%</td>
+													<td>
+														{highlightRole(e.status_rekomendasi)}
+													</td>
+													<td>
+														<Button
+															variant="contained"
+															className="btn_detail_pendaftaran_bantuan"
+															onClick={() => {
+																navigate("/warga-detail", {
+																	state: {
+																		ui: e.no_kk,
+																		uid: e.user_id,
+																	},
+																});
+															}}
+														>
+															detail
+														</Button>
+													</td>
+												</tr>
+											);
+										}
+										return null;
+									})}
 						</tbody>
 					</table>
+					<div className="show_length_data_pendaftaran_detail">
+						<p>Liat baris: </p>
+						<FormControl>
+							<Select
+								id="pendaftaran_detail_data_length"
+								value={dataPendaftaranLength}
+								onChange={(e) => {
+									setDataPendaftaranLength(e.target.value);
+								}}
+							>
+								<MenuItem value={10}>10</MenuItem>
+								<MenuItem value={20}>20</MenuItem>
+								<MenuItem value={50}>50</MenuItem>
+							</Select>
+						</FormControl>
+					</div>
 				</div>
 			</div>
 			{/* Akhir bantuan admin content */}

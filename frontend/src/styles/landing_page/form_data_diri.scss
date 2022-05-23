@@ -45,23 +45,20 @@
                 }
             }
 
-            .flex_fkk_fktp{
-                display: flex;
-                justify-content: space-between;
+            .flex_frumah{
                 margin-bottom: 30px;
-    
-                .fkk{
+
+                .frumah{
                     p{
                         margin: 0 0 18px 0;
                     }
 
-                    .btn_upload_kk{
+                    .btn_upload_rumah{
                         background-color: transparent;
                         border: 1px dashed $primary-color;
                         box-shadow: none;
                         display: flex;
                         flex-direction: column;
-                        width: 380px;
                         height: 160px;
                         color: rgb(155, 155, 155);
     

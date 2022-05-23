@@ -4,7 +4,6 @@ import axios from "axios";
 import BANTUAN from "./bantuan";
 import KRITERIA from "./kriteria";
 import MASUKAN from "./masukan";
-import ALTERNATIF from "./alternatif";
 import PEMBERITAHUAN from "./pemberitahuan";
 import PRIORITAS from "./prioritas";
 import UPLOAD from "./uploads";
@@ -48,7 +47,6 @@ const API = {
     ...PRIORITAS,
     ...MASUKAN,
     ...PEMBERITAHUAN,
-    ...ALTERNATIF,
     ...SURVEY,
     ...HISTORY_KEBIJAKAN
 }

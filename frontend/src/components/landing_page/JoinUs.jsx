@@ -12,7 +12,7 @@ const JoinUs = () => {
 			<h1>Siap untuk membantu</h1>
 			<p>
 				Basoma hadir untuk membantu warga yang berhak untuk mendapatkan
-				bantuan sosial
+				bantuan pangan non tunai
 			</p>
 			<Button
 				variant="contained"

@@ -19,9 +19,6 @@ const Survey = db.define('survey_tbl', {
     verifikasi_kondisi: {
         type: DataTypes.STRING
     },
-    nilai_rekomendasi: {
-        type: DataTypes.INTEGER
-    },
     keterangan: {
         type: DataTypes.STRING
     },

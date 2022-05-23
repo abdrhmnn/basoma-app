@@ -9,6 +9,9 @@ const HISTORY_KEBIJAKAN = {
     },
     saveHistoryKebijakan: (data) => {
         return axios.post(`/history-kebijakan`, data)
+    },
+    deleteHistoryByNoKK: (no_kk) => {
+        return axios.delete(`/history-kebijakan/${no_kk}`)
     }
 }
 

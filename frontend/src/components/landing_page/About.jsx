@@ -28,10 +28,43 @@ const About = () => {
 				<p>
 					Bantuan Sosial Masyarakat (Basoma) adalah sistem pendukung
 					keputusan yang dapat membantu dalam menentukan masyarakat yang
-					tepat untuk menerima bantuan sosial yang akan diberikan. Dalam
-					proses menentukan calon penerima bantuan sosial, sistem Basoma
-					menggunakan metode <i>Analytical Hierarchy Process</i>.
+					tepat untuk menerima bantuan pangan non tunai yang akan
+					diberikan. Dalam proses menentukan calon penerima BPNT, sistem
+					Basoma menggunakan metode <i>Analytical Hierarchy Process</i>.
 				</p>
+				<p>
+					Analytical Hierarchy Process merupakan salah satu bentuk model
+					pengambilan keputusan dengan multiple kriteria yang kompleks
+					menjadi suatu hierarki yang merepresentasikan sebuah permasalahan
+					dalam suatu struktur multilevel dimana level tersebut terdiri
+					dari kriteria, sub kriteria hingga ke level terakhir yaitu
+					alternatif. Metode AHP digunakan karena dapat menyelesaikan
+					masalah multikriteria yang kompleks menjadi suatu hierarki.
+					Masalah yang kompleks dapat diartikan bahwa kriteria dari suatu
+					masalah yang begitu banyak (multikriteria), struktur masalah yang
+					belum jelas serta ketidakpastian pendapat dari pengambil
+					keputusan sehingga metode AHP dapat menggambarkan permasalahan
+					menjadi terlihat lebih terstruktur dan sistematis.
+				</p>
+				<p>
+					Dalam menentukan calon penerima BPNT, sistem Basoma menggunakan
+					kriteria yang ditentukan oleh Kementerian Sosial nomor
+					146/HUK/2013 yang dijadikan sebagai dasar penilaian calon
+					penerima BPNT, diantaranya :
+				</p>
+				<ul>
+					<li>Pendidikan</li>
+					<li>Sumber air minum</li>
+					<li>Dinding rumah</li>
+					<li>Kondisi lantai</li>
+					<li>Kemampuan membeli pakaian</li>
+					<li>Atap rumah</li>
+					<li>Luas lantai</li>
+					<li>Sumber penerangan</li>
+					<li>Pekerjaan</li>
+					<li>Konsumsi makanan</li>
+					<li>Kemampuan berobat</li>
+				</ul>
 				<p>
 					Kami adalah mahasiswa{" "}
 					<a

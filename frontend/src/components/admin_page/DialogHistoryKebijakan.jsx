@@ -1,11 +1,7 @@
 import React from "react";
 
-// API storage
-import API from "../../api";
-
 // npm packages
 import {
-	Box,
 	Avatar,
 	Dialog,
 	DialogTitle,
@@ -56,7 +52,7 @@ const DialogHistoryKebijakan = ({ open, close, userById, historyById }) => {
 					<div className="tanggal_waktu">
 						<div className="tanggal">
 							<p>Tanggal Kebijakan</p>
-							<p>{tanggal}</p>
+							<p>{tanggal.replace(/-/g, "/")}</p>
 						</div>
 						<div className="waktu">
 							<p>Waktu Kebijakan</p>

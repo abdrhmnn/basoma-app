@@ -13,8 +13,8 @@ const HasilRekomendasiPetugas = ({ status_rekomendasi, hasil_survey }) => {
 				</Alert>
 			) : (
 				<Alert severity="error" variant="outlined">
-					Warga sudah dinyatakan tidak memenuhi untuk mendapatkan bantuan
-					dengan hasil akhir sebesar {hasil_survey}%
+					Warga dinyatakan tidak memenuhi untuk mendapatkan bantuan dengan
+					hasil akhir sebesar {hasil_survey}%
 				</Alert>
 			)}
 		</div>

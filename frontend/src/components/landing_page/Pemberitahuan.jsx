@@ -45,14 +45,15 @@ const Pemberitahuan = () => {
 					className="alert_info_pemberitahuan"
 				>
 					<span style={{ fontWeight: "bold" }}>PERHATIKAN!</span>,
-					Pemberitahuan tentang bantuan sosial akan ditampilkan disini.
+					Pemberitahuan mengenai hasil keputusan calon penerimaan BPNT akan
+					ditampilkan disini.
 				</Alert>
 				{wargaByUserID && pemberitahuanByUserID && pemberitahuanByUserID ? (
 					<div className="data_pemberitahuan">
 						<Alert
 							variant="outlined"
 							severity={
-								wargaByUserID.status_penerimaan === "diterima"
+								wargaByUserID.status_rekomendasi === "memenuhi"
 									? "success"
 									: "error"
 							}
@@ -63,7 +64,7 @@ const Pemberitahuan = () => {
 								<div className="nik_nm_lengkap_pemberitahuan">
 									<div className="nik_alternatif">
 										<span>Nomor Kartu Keluarga : </span>
-										<span>{wargaByUserID.no_ktp}</span>
+										<span>{wargaByUserID.no_kk}</span>
 									</div>
 									<div className="nm_lengkap_alternatif">
 										<span>Nama lengkap : </span>
@@ -77,27 +78,38 @@ const Pemberitahuan = () => {
 									</div>
 									<div className="status_alternatif">
 										<span>Hasil keputusan : </span>
-										<span>{wargaByUserID.status_penerimaan}</span>
+										<span>
+											{wargaByUserID.status_rekomendasi}{" "}
+											{wargaByUserID.status_rekomendasi
+												? "(Diterima)"
+												: "(Ditolak)"}
+										</span>
 									</div>
 								</div>
-								{wargaByUserID.status_penerimaan === "ditolak" ? (
+								{wargaByUserID.status_rekomendasi ===
+								"tidak memenuhi" ? (
 									<div className="masukan_admin">
-										<span>Pesan dari admin : </span>
+										<span>Keterangan : </span>
 										<span>{pemberitahuanByUserID.alasan}</span>
 									</div>
 								) : null}
 							</div>
 						</Alert>
-						{wargaByUserID.status_penerimaan === "diterima" ? (
+						{wargaByUserID.status_rekomendasi === "memenuhi" ? (
 							<p style={{ marginTop: "40px" }}>
-								<b>SELAMAT!</b>, Anda diterima untuk sebagai calon
-								penerima bantuan sosial, silahkan datang ke kecamatan
-								untuk mengambil kartu e-bantuan, terima kasih
+								<b>SELAMAT!</b>, Anda diterima sebagai calon penerima
+								bantuan pangan non tunai, silahkan datang ke kelurahan
+								Porisgaga untuk mengambil kartu elektronik yang dapat
+								ditukarkan dengan sembako senilai Rp. 200.000 melalui
+								E-warung. Pastikan anda membawa KK atau KTP asli pada
+								saat pengambilan, terima kasih.
 							</p>
 						) : (
 							<p style={{ marginTop: "40px" }}>
 								<b>MOHON MAAF!</b>, Anda tidak diterima sebagai calon
-								penerima bantuan sosial, terima kasih.
+								penerima bantuan pangan non tunai karena berdasarkan
+								hasil akhir keputusan anda dinyatakan tidak layak untuk
+								menerima bantuan, terima kasih.
 							</p>
 						)}
 					</div>

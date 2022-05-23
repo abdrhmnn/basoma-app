@@ -15,7 +15,10 @@ export const getWargaByBantuanID = async (req, res) => {
         const warga = await Warga.findAll({
             where: {
                 id_bantuan: req.params.id
-            }
+            },
+            order: [
+                ['nilai_rekomendasi', 'DESC']
+            ]
         });
         res.json(warga);
     }catch(error){
@@ -106,17 +109,32 @@ export const deleteWarga = async (req, res) => {
     }
 }
 
-export const getJoinHistoryAndWarga = async (req, res) => {
+export const deleteWargaByBantuanID = async (req, res) => {
     try{
-        const warga = await Warga.findAll({
-            include: [{
-                model: HistoryKebijakan,
-                required: true
-            }]
+        await Warga.destroy({
+            where: {
+                id_bantuan: req.params.id
+            }
         });
-        
-        console.log(JSON.stringify(warga, null, 2))
+        res.json({
+            "message" : "Warga berhasil dihapus!"
+        });
     }catch(error){
         res.json({ message: error.message })
     }
 }
+
+// export const getJoinHistoryAndWarga = async (req, res) => {
+//     try{
+//         const warga = await Warga.findAll({
+//             include: [{
+//                 model: HistoryKebijakan,
+//                 required: true
+//             }]
+//         });
+        
+//         console.log(JSON.stringify(warga, null, 2))
+//     }catch(error){
+//         res.json({ message: error.message })
+//     }
+// }

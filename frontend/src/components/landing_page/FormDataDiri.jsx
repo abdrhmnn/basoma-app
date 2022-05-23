@@ -12,7 +12,7 @@ import kuki from "../../kuki";
 import API from "../../api";
 
 // npm packages
-import { TextField, Button, Alert } from "@mui/material";
+import { TextField, Button, Alert, Box } from "@mui/material";
 import * as Yup from "yup";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Formik, Field } from "formik";
@@ -21,14 +21,11 @@ import { BsFillImageFill } from "react-icons/bs";
 const FormDataDiri = () => {
 	const [userByID, setUserByID] = useState(null);
 
-	const [isValidImgTypeKK, setIsValidImgTypeKK] = useState(true);
-	const [isValidImgTypeKTP, setIsValidImgTypeKTP] = useState(true);
+	const [isValidImgTypeRumah, setIsValidImgTypeRumah] = useState(true);
 
-	const [showImgKK, setShowImgKK] = useState();
-	const [showImgKTP, setShowImgKTP] = useState();
+	const [showImgRumah, setShowImgRumah] = useState();
 
-	const [selectedFileImgKK, setSelectedFileImgKK] = useState(null);
-	const [selectedFileImgKTP, setSelectedFileImgKTP] = useState(null);
+	const [selectedFileImgRumah, setSelectedFileImgRumah] = useState(null);
 
 	const [isCompleteSubmit, setIsCompleteSubmit] = useState(null);
 
@@ -59,39 +56,21 @@ const FormDataDiri = () => {
 			.required("Nomor telepon masih kosong!"),
 	});
 
-	const generateImgKK = (e, props) => {
+	const generateImgRumah = (e, props) => {
 		e.preventDefault();
 		const file = e.target.files[0];
-		setShowImgKK(URL.createObjectURL(file));
+		setShowImgRumah(URL.createObjectURL(file));
 		const sizeFile = file.size;
 		const dataFile = file.name.split(".");
 		const typeFile = dataFile[dataFile.length - 1];
 		const validType = ["png", "jpeg", "jpg"];
 
 		if (validType.includes(typeFile) || sizeFile > 5000000) {
-			setIsValidImgTypeKK(true);
+			setIsValidImgTypeRumah(true);
 			props.setFieldValue("file", e.currentTarget.files[0]);
-			setSelectedFileImgKK(file);
+			setSelectedFileImgRumah(file);
 		} else {
-			setIsValidImgTypeKK(null);
-		}
-	};
-
-	const generateImgKTP = (e, props) => {
-		e.preventDefault();
-		const file = e.target.files[0];
-		setShowImgKTP(URL.createObjectURL(file));
-		const sizeFile = file.size;
-		const dataFile = file.name.split(".");
-		const typeFile = dataFile[dataFile.length - 1];
-		const validType = ["png", "jpeg", "jpg"];
-
-		if (validType.includes(typeFile) || sizeFile > 5000000) {
-			setIsValidImgTypeKTP(true);
-			props.setFieldValue("file", e.currentTarget.files[0]);
-			setSelectedFileImgKTP(file);
-		} else {
-			setIsValidImgTypeKTP(null);
+			setIsValidImgTypeRumah(null);
 		}
 	};
 
@@ -137,26 +116,19 @@ const FormDataDiri = () => {
 								}}
 								validationSchema={schemaFormDataDiri}
 								onSubmit={(values, actions) => {
-									if (selectedFileImgKK && selectedFileImgKTP) {
+									if (selectedFileImgRumah) {
 										setIsCompleteSubmit(false);
-										const dataImgKK = new FormData();
-										const dataImgKTP = new FormData();
-										dataImgKK.append(
-											"gambar_form_kk",
-											selectedFileImgKK
+										const dataImgRumah = new FormData();
+										dataImgRumah.append(
+											"gambar_form_rumah",
+											selectedFileImgRumah
 										);
-										dataImgKTP.append(
-											"gambar_form_ktp",
-											selectedFileImgKTP
-										);
-										API.saveIMG_KK(dataImgKK);
-										API.saveIMG_KTP(dataImgKTP);
+										API.saveIMG_RUMAH(dataImgRumah);
 										API.saveWarga(
 											values,
 											kuki.get("user_id"),
 											location.state,
-											selectedFileImgKK,
-											selectedFileImgKTP
+											selectedFileImgRumah
 										).then(() => {
 											navigate("/kuesioner-pendaftaran", {
 												state: location.state,
@@ -278,32 +250,38 @@ const FormDataDiri = () => {
 											}
 										/>
 
-										{/* Group button fkk dan fktp */}
-										<div className="flex_fkk_fktp">
-											{/* Button fkk section */}
-											<div className="fkk">
-												<p>Foto kartu keluarga</p>
-												{showImgKK ? (
-													<div style={{ paddingRight: 20 }}>
+										{/* Group button foto rumah */}
+										<div className="flex_frumah">
+											{/* Button foto rumah section */}
+											<div className="frumah">
+												<p>Foto lokasi tempat tinggal</p>
+												{showImgRumah ? (
+													<div>
 														<img
-															src={showImgKK}
+															src={showImgRumah}
 															width={380}
-															style={{ margin: "auto" }}
-															alt="-"
+															style={{
+																margin: "auto",
+																display: "block",
+															}}
+															alt="Lokasi tempat tinggal"
 														/>
 														<br />
-														{isValidImgTypeKK ? (
-															<Button
-																variant="contained"
-																color="error"
-																sx={{ mt: 2 }}
-																onClick={() => {
-																	setShowImgKK(false);
-																	setSelectedFileImgKK(null);
-																}}
-															>
-																remove foto
-															</Button>
+														{isValidImgTypeRumah ? (
+															<Box textAlign="center">
+																<Button
+																	variant="contained"
+																	color="error"
+																	onClick={() => {
+																		setShowImgRumah(false);
+																		setSelectedFileImgRumah(
+																			null
+																		);
+																	}}
+																>
+																	remove foto
+																</Button>
+															</Box>
 														) : (
 															<div>
 																<Alert
@@ -320,7 +298,7 @@ const FormDataDiri = () => {
 																	color="success"
 																	sx={{ mt: 2 }}
 																	onClick={() => {
-																		setShowImgKK(false);
+																		setShowImgRumah(false);
 																	}}
 																>
 																	pilih kembali
@@ -331,7 +309,7 @@ const FormDataDiri = () => {
 												) : (
 													<Button
 														variant="contained"
-														className="btn_upload_kk"
+														className="btn_upload_rumah"
 														component="label"
 													>
 														<BsFillImageFill
@@ -347,99 +325,18 @@ const FormDataDiri = () => {
 														<input
 															id="file"
 															type="file"
-															name="gambar_form_kk"
+															name="gambar_form_rumah"
 															hidden
 															onChange={(e) =>
-																generateImgKK(e, props)
+																generateImgRumah(e, props)
 															}
 														/>
 													</Button>
 												)}
 											</div>
-											{/* Akhir button fkk section */}
-
-											{/* Button fktp section */}
-											<div
-												className={`fktp ${
-													isValidImgTypeKTP ? "" : "ml_ktp"
-												}`}
-											>
-												<p>Foto kartu tanda penduduk</p>
-												{showImgKTP ? (
-													<div>
-														<img
-															src={showImgKTP}
-															width={390}
-															alt="-"
-														/>
-														<br />
-														{isValidImgTypeKTP ? (
-															<Button
-																variant="contained"
-																color="error"
-																sx={{ mt: 2 }}
-																onClick={() => {
-																	setShowImgKTP(false);
-																	setSelectedFileImgKTP(null);
-																}}
-															>
-																remove foto
-															</Button>
-														) : (
-															<div>
-																<Alert
-																	variant="outlined"
-																	severity="warning"
-																	sx={{ mt: 2 }}
-																>
-																	Perhatikan jenis ekstensi dan
-																	ukuran file yang
-																	diperbolehkan
-																</Alert>
-																<Button
-																	variant="contained"
-																	color="success"
-																	sx={{ mt: 2 }}
-																	onClick={() => {
-																		setShowImgKTP(false);
-																	}}
-																>
-																	pilih kembali
-																</Button>
-															</div>
-														)}
-													</div>
-												) : (
-													<Button
-														variant="contained"
-														className="btn_upload_ktp"
-														component="label"
-													>
-														<BsFillImageFill
-															style={{
-																color: "rgb(182, 182, 182)",
-															}}
-															size={60}
-														/>
-														<p>Pilih foto</p>
-														<p>
-															Ekstensi: .png, .jpeg, .jpg || 5MB
-														</p>
-														<input
-															id="file"
-															type="file"
-															name="gambar_form_ktp"
-															hidden
-															onChange={(e) => {
-																generateImgKTP(e, props);
-															}}
-														/>
-													</Button>
-												)}
-											</div>
-											{/* Akhir button fktp section */}
+											{/* Akhir button foto rumah section */}
 										</div>
-										{/* Akhir group button fkk dan fktp */}
+										{/* Akhir group button foto rumah */}
 
 										<Button
 											variant="contained"

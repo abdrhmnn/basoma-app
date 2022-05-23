@@ -2,9 +2,10 @@ import express from "express";
 import {
     createWarga,
     deleteWarga,
+    deleteWargaByBantuanID,
     getAllWarga,
     getAllWargaAndSortByNilaiRangking,
-    getJoinHistoryAndWarga,
+    // getJoinHistoryAndWarga,
     getWargaByBantuanID,
     getWargaByNoKK,
     getWargaByUserID,
@@ -19,8 +20,9 @@ router.get('/bantuanID/:id', getWargaByBantuanID)
 router.get('/noKK/:id', getWargaByNoKK)
 router.get('/userId/:id', getWargaByUserID)
 router.get('/sortRangking/:id', getAllWargaAndSortByNilaiRangking)
-router.get('/rahman/abdu', getJoinHistoryAndWarga)
+// router.get('/rahman/abdu', getJoinHistoryAndWarga)
 router.patch('/update/:id', updateWarga)
 router.delete('/:id', deleteWarga)
+router.delete('/bantuanId/:id', deleteWargaByBantuanID)
 
 export default router;

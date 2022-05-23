@@ -1,6 +1,6 @@
 .history_kebijakan{
     max-width: $max-width-container;
-    margin: auto;
+    margin: 0 auto 100px auto;
 
     .logo_app{
         h2{
@@ -18,19 +18,87 @@
         }
 
         // styling for box result data bantuan
-        .MuiBox-root{
+        .MuiPaper-root{
             transition: .5s;
-            margin-bottom: 20px;
+            box-shadow: none;
+            margin-top: 30px;
+
+            &::before{
+                height: 0;
+            }
 
             &:hover{
                 box-shadow: $card-box-shadow;
                 cursor: pointer;
             }
-        }
 
+            .MuiAccordionSummary-content{
+                box-shadow: none;
+                margin: 0;
+            }
+        }
+        
+        .content_history{
+            cursor: default;
+            box-shadow: none;
+            
+            .creator_history{
+                // background-color: red;
+                margin-bottom: 20px;
+                
+                p{
+                    margin: 0 0 12px 0;
+                }
+                
+                .profile_user{
+                    display: flex;
+                    align-items: center;
+
+                    .foto{
+                        margin-right: 10px;
+                    }
+
+                    .data_diri{
+                        .nm_lengkap{
+                            text-transform: capitalize;
+                            font-size: .9em;
+                        }
+
+                        .jabatan{
+                            background-color: rgba(122, 180, 255, 0.397);
+                            color: rgba(4, 0, 255, 0.815);
+                            font-weight: bold;
+                            font-size: .8em;
+                            padding: 3px;
+                            margin-top: 5px;
+                            width: 45px;
+                            border-radius: 8px;
+                        }
+                    }
+                }
+            }
+            
+            .ket_history{
+                margin-bottom: 20px;
+                p{
+                    margin-top: 0;
+                }
+            }
+        }
+        
         .judul_history{
-            font-size: 1.3em;
-            margin-bottom: 6px;
+            box-shadow: none;
+            p{
+                margin-top: 10px;
+                font-size: .9em;
+                text-decoration: underline;
+
+                &:nth-child(1){
+                    font-size: 1em;
+                    margin-bottom: 0;
+                    text-decoration: none;
+                }
+            }
         }
 
         .click_history{

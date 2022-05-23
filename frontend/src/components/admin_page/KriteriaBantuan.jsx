@@ -27,8 +27,8 @@ const KriteriaBantuan = () => {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
 
-	const jmlhKriteria = 7;
-	const nilaiRI = 1.32;
+	const jmlhKriteria = 11;
+	const nilaiRI = 1.51;
 
 	let nilaiMatriks1 = [];
 	let nilaiMatriks2 = [];
@@ -37,6 +37,10 @@ const KriteriaBantuan = () => {
 	let nilaiMatriks5 = [];
 	let nilaiMatriks6 = [];
 	let nilaiMatriks7 = [];
+	let nilaiMatriks8 = [];
+	let nilaiMatriks9 = [];
+	let nilaiMatriks10 = [];
+	let nilaiMatriks11 = [];
 
 	let normalisasiKriteria1 = [];
 	let normalisasiKriteria2 = [];
@@ -45,6 +49,10 @@ const KriteriaBantuan = () => {
 	let normalisasiKriteria5 = [];
 	let normalisasiKriteria6 = [];
 	let normalisasiKriteria7 = [];
+	let normalisasiKriteria8 = [];
+	let normalisasiKriteria9 = [];
+	let normalisasiKriteria10 = [];
+	let normalisasiKriteria11 = [];
 	let hasilAkhir = [];
 	let hasilAkhirNilaiPrioritas = [];
 	let nilaiLamda = [];
@@ -81,6 +89,18 @@ const KriteriaBantuan = () => {
 		nilaiMatriks7.push(
 			kriteriaBantuan[6].nilai_bobot / kriteriaBantuan[i].nilai_bobot
 		);
+		nilaiMatriks8.push(
+			kriteriaBantuan[7].nilai_bobot / kriteriaBantuan[i].nilai_bobot
+		);
+		nilaiMatriks9.push(
+			kriteriaBantuan[8].nilai_bobot / kriteriaBantuan[i].nilai_bobot
+		);
+		nilaiMatriks10.push(
+			kriteriaBantuan[9].nilai_bobot / kriteriaBantuan[i].nilai_bobot
+		);
+		nilaiMatriks11.push(
+			kriteriaBantuan[10].nilai_bobot / kriteriaBantuan[i].nilai_bobot
+		);
 	}
 
 	const roundMatriks1 = nilaiMatriks1.map(
@@ -104,6 +124,18 @@ const KriteriaBantuan = () => {
 	const roundMatriks7 = nilaiMatriks7.map(
 		(e, i) => Math.floor(e * 1000) / 1000
 	);
+	const roundMatriks8 = nilaiMatriks8.map(
+		(e, i) => Math.floor(e * 1000) / 1000
+	);
+	const roundMatriks9 = nilaiMatriks9.map(
+		(e, i) => Math.floor(e * 1000) / 1000
+	);
+	const roundMatriks10 = nilaiMatriks10.map(
+		(e, i) => Math.floor(e * 1000) / 1000
+	);
+	const roundMatriks11 = nilaiMatriks11.map(
+		(e, i) => Math.floor(e * 1000) / 1000
+	);
 
 	for (let y = 0; y < kriteriaBantuan.length; y++) {
 		hasilAkhir.push(
@@ -113,7 +145,11 @@ const KriteriaBantuan = () => {
 				roundMatriks4[y] +
 				roundMatriks5[y] +
 				roundMatriks6[y] +
-				roundMatriks7[y]
+				roundMatriks7[y] +
+				roundMatriks8[y] +
+				roundMatriks9[y] +
+				roundMatriks10[y] +
+				roundMatriks11[y]
 		);
 	}
 
@@ -144,6 +180,18 @@ const KriteriaBantuan = () => {
 		normalisasiKriteria7.push(
 			roundMatriks7[x] / roundKalkulasiPerbandinganKriteria[x]
 		);
+		normalisasiKriteria8.push(
+			roundMatriks8[x] / roundKalkulasiPerbandinganKriteria[x]
+		);
+		normalisasiKriteria9.push(
+			roundMatriks9[x] / roundKalkulasiPerbandinganKriteria[x]
+		);
+		normalisasiKriteria10.push(
+			roundMatriks10[x] / roundKalkulasiPerbandinganKriteria[x]
+		);
+		normalisasiKriteria11.push(
+			roundMatriks11[x] / roundKalkulasiPerbandinganKriteria[x]
+		);
 	}
 
 	// membulatkan nilai normalisai kriteria
@@ -166,6 +214,18 @@ const KriteriaBantuan = () => {
 		(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
 	);
 	const roundNormalisasiKriteria7 = normalisasiKriteria7.map(
+		(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
+	);
+	const roundNormalisasiKriteria8 = normalisasiKriteria8.map(
+		(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
+	);
+	const roundNormalisasiKriteria9 = normalisasiKriteria9.map(
+		(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
+	);
+	const roundNormalisasiKriteria10 = normalisasiKriteria10.map(
+		(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
+	);
+	const roundNormalisasiKriteria11 = normalisasiKriteria11.map(
 		(e, i) => Math.round(e.toFixed(3) * 1e3) / 1e3
 	);
 
@@ -195,6 +255,22 @@ const KriteriaBantuan = () => {
 		0
 	);
 	const jmlhNormalisasiKriteria7 = roundNormalisasiKriteria7.reduce(
+		(accu, curr) => accu + curr,
+		0
+	);
+	const jmlhNormalisasiKriteria8 = roundNormalisasiKriteria8.reduce(
+		(accu, curr) => accu + curr,
+		0
+	);
+	const jmlhNormalisasiKriteria9 = roundNormalisasiKriteria9.reduce(
+		(accu, curr) => accu + curr,
+		0
+	);
+	const jmlhNormalisasiKriteria10 = roundNormalisasiKriteria10.reduce(
+		(accu, curr) => accu + curr,
+		0
+	);
+	const jmlhNormalisasiKriteria11 = roundNormalisasiKriteria11.reduce(
 		(accu, curr) => accu + curr,
 		0
 	);
@@ -242,6 +318,30 @@ const KriteriaBantuan = () => {
 				1e3 /
 				jmlhKriteria) *
 				100
+		) / 100,
+		Math.round(
+			(Math.round(jmlhNormalisasiKriteria8.toFixed(3) * 1e3) /
+				1e3 /
+				jmlhKriteria) *
+				100
+		) / 100,
+		Math.round(
+			(Math.round(jmlhNormalisasiKriteria9.toFixed(3) * 1e3) /
+				1e3 /
+				jmlhKriteria) *
+				100
+		) / 100,
+		Math.round(
+			(Math.round(jmlhNormalisasiKriteria10.toFixed(3) * 1e3) /
+				1e3 /
+				jmlhKriteria) *
+				100
+		) / 100,
+		Math.round(
+			(Math.round(jmlhNormalisasiKriteria11.toFixed(3) * 1e3) /
+				1e3 /
+				jmlhKriteria) *
+				100
 		) / 100
 	);
 
@@ -273,20 +373,21 @@ const KriteriaBantuan = () => {
 
 	const generatePdf = () => {
 		var doc = new jsPDF({ orientation: "p" });
-		doc.text("Data Kriteria Bantuan", 80, 20);
+		doc.setFontSize(13);
+		doc.text("Data Kriteria BPNT", 90, 20);
 		doc.autoTable({
-			head: [["Nama", "Nilai Bobot", "Nilai Prioritas", "Nilai Lamda"]],
+			head: [["Kriteria", "Nilai Bobot", "Nilai Prioritas", "Nilai Lamda"]],
 			body: kriteriaBantuan.map((e, i) => {
 				return [e.nama, e.nilai_bobot, e.nilai_prioritas, nilaiLamda[i]];
 			}),
 			startY: 30,
 		});
 		doc.setFontSize(11);
-		doc.text(`Nilai lamda maks: ${nilaiLamdaMaks}`, 15, 98);
+		doc.text(`Nilai lamda maks: ${nilaiLamdaMaks}`, 15, 130);
 		doc.setFontSize(11);
-		doc.text(`Nilai CI: ${nilaiCI}`, 15, 105);
+		doc.text(`Nilai CI: ${nilaiCI}`, 15, 137);
 		doc.setFontSize(11);
-		doc.text(`Nilai CR: ${nilaiCR}`, 15, 112);
+		doc.text(`Nilai CR: ${nilaiCR}`, 15, 144);
 		doc.save("data_kriteria.pdf");
 	};
 
@@ -299,7 +400,11 @@ const KriteriaBantuan = () => {
 					<h2 style={{ marginBottom: 10 }}>Data Kriteria</h2>
 					<div className="wrap_tbl_kriteria">
 						<div className="flex_element_kriteria_bantuan">
-							<Button variant="contained" onClick={handleClick}>
+							<Button
+								variant="contained"
+								onClick={handleClick}
+								sx={{ fontWeight: "bold" }}
+							>
 								Hitung nilai prioritas
 							</Button>
 							<div className="cetak_data_kriteria_bantuan">

@@ -5,22 +5,21 @@ import API from "../../api";
 
 // npm packages
 import {
-	Box,
-	Typography,
-	Dialog,
-	DialogTitle,
-	DialogContent,
 	TextField,
+	Accordion,
+	AccordionSummary,
+	AccordionDetails,
+	Avatar,
 } from "@mui/material";
-import DialogHistoryKebijakan from "./DialogHistoryKebijakan";
+import { MdExpandMore } from "react-icons/md";
 
 const HistoryKebijakan = () => {
 	const [history, setHistory] = useState(null);
-	const [historyByID, setHistoryByID] = useState(null);
 	const [user, setUser] = useState(null);
-	const [userByID, setUserByID] = useState(null);
-
-	const [openDialog, setOpenDialog] = useState(false);
+	const [warga, setWarga] = useState(null);
+	const [historyUserID, setHistoryUserID] = useState(null);
+	const [historyNoKK, setHistoryNoKK] = useState(null);
+	const [historyKet, setHistoryKet] = useState(null);
 
 	useEffect(() => {
 		document.title = "History Kebijakan Bantuan";
@@ -29,6 +28,9 @@ const HistoryKebijakan = () => {
 		});
 		API.getAllUser().then((res) => {
 			setUser(res.data);
+		});
+		API.getAllWarga().then((res) => {
+			setWarga(res.data);
 		});
 	}, []);
 
@@ -40,56 +42,131 @@ const HistoryKebijakan = () => {
 			<div className="content">
 				<h3>History kebijakan bantuan</h3>
 				{history &&
-					user &&
+					// coba pakai for untuk dptin loop user_id dan check duplicates values
 					history.map((e, i) => {
-						const userId = [];
-						user.map((element, i) => {
-							userId.push(element.user_id);
-						});
+						const splitWaktuHistory = e.waktu_kebijakan.split(" ");
+						const tanggal = splitWaktuHistory[0];
+						const waktu = splitWaktuHistory[1];
 
 						return (
-							<Box
-								key={i}
-								sx={{
-									height: 50,
-									p: 3,
-									borderRadius: 3,
-								}}
-								onClick={() => {
-									if (userId.includes(e.user_id)) {
-										setOpenDialog(true);
-										API.getUserByID(e.user_id).then((res) => {
-											setUserByID(res.data);
-										});
-										API.getHistoryByID(e.id_history).then((res) => {
-											setHistoryByID(res.data);
-										});
+							<Accordion key={i}>
+								<AccordionSummary
+									expandIcon={
+										<MdExpandMore size={23} color="rgb(23, 23, 23)" />
 									}
+									aria-controls="panelia-content"
+									id="panel1a-header"
+									onClick={() => {
+										setHistoryUserID(e.user_id);
+										setHistoryNoKK(e.no_kk);
+										setHistoryKet(e.keterangan);
+									}}
+								>
+									<div className="judul_history">
+										<p>
+											Kebijakan bantuan telah dilakukan pada tanggal{" "}
+											<b>{tanggal}</b> dan jam <b>{waktu}</b> WIB.
+										</p>
+										<p>Lihat detail</p>
+									</div>
+								</AccordionSummary>
+								<AccordionDetails>
+									<div className="content_history">
+										<div className="creator_history">
+											<p>Kebijakan dilakukan oleh</p>
+											{user &&
+												user.map((e, i) => {
+													if (e.user_id === historyUserID) {
+														return (
+															<div
+																className="profile_user"
+																key={i}
+															>
+																<div className="foto">
+																	<Avatar
+																		alt="Foto Profile"
+																		src={
+																			e.gambar
+																				? e.gambar ===
+																				  "default_img.svg"
+																					? `http://localhost:5000/public/${e.gambar}`
+																					: `http://localhost:5000/public/user/${e.gambar}`
+																				: "blank_img.png"
+																		}
+																	/>
+																</div>
+																<div className="data_diri">
+																	<div className="nm_lengkap">
+																		{e.nm_depan}{" "}
+																		{e.nm_belakang}
+																	</div>
+																	<div className="jabatan">
+																		{e.role}
+																	</div>
+																</div>
+															</div>
+														);
+													}
 
-									// const splitWaktuHistory =
-									// 	historyByID.waktu_kebijakan.split(" ");
-									// setWaktuKebijakan(splitWaktuHistory);
-								}}
-							>
-								<Typography variant="h4" className="judul_history">
-									History kebijakan {i + 1}
-								</Typography>
-								<Typography variant="p" className="click_history">
-									Klik untuk melihat detail
-								</Typography>
-							</Box>
+													return null;
+												})}
+										</div>
+
+										<div className="ket_history">
+											<p>Keterangan</p>
+											<TextField
+												name="keterangan"
+												variant="outlined"
+												defaultValue={historyKet}
+												className="text_keterangan"
+												disabled={true}
+												fullWidth
+												multiline
+												rows={3}
+											/>
+										</div>
+
+										<div className="changer_history">
+											<div className="table_history" key={i}>
+												<table className="tbl_class">
+													<thead className="tbl_class_head">
+														<tr>
+															<th>Nomor KK</th>
+															<th>Nomor KTP</th>
+															<th>Nama lengkap</th>
+															<th>Alamat</th>
+															<th>No telp</th>
+														</tr>
+													</thead>
+
+													<tbody className="tbl_class_body">
+														{warga &&
+															warga.map((e, i) => {
+																if (e.no_kk === historyNoKK) {
+																	return (
+																		<tr key={i}>
+																			<td>{e.no_kk}</td>
+																			<td>{e.no_ktp}</td>
+																			<td>
+																				{e.nama_lengkap}
+																			</td>
+																			<td>{e.alamat}</td>
+																			<td>{e.no_telepon}</td>
+																		</tr>
+																	);
+																}
+
+																return null;
+															})}
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</AccordionDetails>
+							</Accordion>
 						);
 					})}
-				{userByID && historyByID && (
-					<DialogHistoryKebijakan
-						open={openDialog}
-						close={() => {
-							setOpenDialog(false);
-						}}
-						userById={userByID}
-						historyById={historyByID}
-					/>
-				)}
 			</div>
 		</div>
 	);

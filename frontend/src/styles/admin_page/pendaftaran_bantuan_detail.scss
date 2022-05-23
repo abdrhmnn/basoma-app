@@ -16,6 +16,12 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+
+            .history_kebijakan_bantuan{
+                .btn_history_kebijakan{
+                    height: 55px;
+                }
+            }
         }
 
         .table_pendaftaran_detail{
@@ -58,6 +64,17 @@
                     background-color: rgba(122, 180, 255, 0.397);
                     box-shadow: none;
                 }
+            }
+        }
+
+        .show_length_data_pendaftaran_detail{
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 10px;
+    
+            p{
+                margin: 0 10px 0 0;
             }
         }
     }

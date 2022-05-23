@@ -9,7 +9,10 @@ const SURVEY = {
     },
     saveSurvey: (data) => {
         return axios.post(`/survey`, data)
-    }
+    },
+    deleteSurveyByNoKK: (no_kk) => {
+        return axios.delete(`/survey/${no_kk}`)
+    },
 }
 
 export default SURVEY

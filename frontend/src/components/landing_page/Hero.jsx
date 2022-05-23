@@ -15,10 +15,11 @@ const Hero = () => {
 		<section className="hero">
 			<div className="content-hero">
 				<h3>
-					Temukan Bantuan Sosial Dengan <span>Mudah</span>
+					Temukan Bantuan Pangan Non Tunai Dengan <span>Mudah</span>
 				</h3>
 				<p>
-					Tempat untuk menemukan bantuan sosial yang dibutuhkan <br />
+					Tempat untuk menemukan bantuan pangan non tunai yang dibutuhkan{" "}
+					<br />
 					dengan mudah
 				</p>
 				<Button

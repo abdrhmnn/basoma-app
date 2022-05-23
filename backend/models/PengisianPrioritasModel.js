@@ -19,9 +19,6 @@ const NilaiPrioritas = db.define('pengisian_prioritas_tbl', {
     pilihan: {
         type: DataTypes.STRING,
     },
-    total_nilai: {
-        type: DataTypes.NUMBER
-    },
     identitas_pilihan: {
         type: DataTypes.NUMBER
     }

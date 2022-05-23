@@ -9,6 +9,9 @@
     }
 
     .wrap_tbl_pendaftaran_petugas{
+        max-width: 1000px;
+        margin: auto;
+
         .table_pendaftaran_petugas{
             .role_pending{
                 background-color: rgba(122, 180, 255, 0.397);
@@ -48,6 +51,17 @@
                 &:hover{
                     background-color: rgba(122, 180, 255, 0.397);
                     box-shadow: none;
+                }
+            }
+
+            .show_length_data_verifikasi_bantuan{
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                margin-top: 10px;
+
+                p{
+                    margin: 0 10px 0 0;
                 }
             }
         }

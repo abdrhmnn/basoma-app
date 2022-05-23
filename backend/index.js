@@ -7,7 +7,6 @@ import kriteriaRoutes from "./route/KriteriaRoutes.js";
 import wargaRoutes from "./route/WargaRoutes.js";
 import nilaiPrioritasRoutes from "./route/PengisianPrioritasRoutes.js";
 import pemberitahuanRoutes from "./route/PemberitahuanRoutes.js";
-import alternatifRoutes from "./route/AlternatifRoutes.js";
 import surveyRoutes from "./route/SurveyRoutes.js";
 import historyRoutes from "./route/HistoryKebijakanRoutes.js";
 import cors from "cors";
@@ -33,7 +32,6 @@ app.use('/kriteria', kriteriaRoutes)
 app.use('/warga', wargaRoutes)
 app.use('/nilai-prioritas', nilaiPrioritasRoutes)
 app.use('/pemberitahuan', pemberitahuanRoutes)
-app.use('/alternatif', alternatifRoutes)
 app.use('/survey', surveyRoutes)
 app.use('/history-kebijakan', historyRoutes)
 app.use('/public', express.static('public'));

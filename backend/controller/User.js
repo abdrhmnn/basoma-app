@@ -63,3 +63,18 @@ export const deleteUser = async (req, res) => {
         res.json({ message: error.message })
     }
 }
+
+// export const getJoinUserAndWarga = async (req, res) => {
+//     try{
+//         const warga = await Warga.findAll({
+//             include: [{
+//                 model: HistoryKebijakan,
+//                 required: true
+//             }]
+//         });
+        
+//         console.log(JSON.stringify(warga, null, 2))
+//     }catch(error){
+//         res.json({ message: error.message })
+//     }
+// }

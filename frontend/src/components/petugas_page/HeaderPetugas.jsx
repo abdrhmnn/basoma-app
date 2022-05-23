@@ -11,13 +11,13 @@ import API from "../../api";
 // npm packages
 import { Button, Menu, MenuItem, Avatar } from "@mui/material";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const HeaderPetugas = () => {
 	const [userById, setUserById] = useState({});
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
 	const handleClose = () => {
 		setAnchorEl(null);

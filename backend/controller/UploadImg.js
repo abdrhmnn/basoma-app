@@ -2,8 +2,7 @@ import multer from "multer"
 import * as fs from 'fs';
 
 const DIR_IMG_USER = 'public/user'
-const DIR_IMG_KK_USER = 'public/fkk'
-const DIR_IMG_KTP_USER = 'public/fktp'
+const DIR_IMG_RUMAH = 'public/frumah'
 const DIR_IMG_BANTUAN = 'public/bantuan'
 
 const storageUser = multer.diskStorage({
@@ -15,18 +14,9 @@ const storageUser = multer.diskStorage({
     }
 })
 
-const storageFormKK = multer.diskStorage({
+const storageFormRumah = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/fkk')
-    },
-        filename: function (req, file, cb) {
-        cb(null, file.originalname )
-    }
-})
-
-const storageFormKTP = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/fktp')
+        cb(null, 'public/frumah')
     },
         filename: function (req, file, cb) {
         cb(null, file.originalname )
@@ -42,10 +32,8 @@ const storageBannerBantuan = multer.diskStorage({
     }
 })
 
-
 const uploadImgUser = multer({ storage: storageUser }).single('gambar')
-const uploadFormKK = multer({ storage: storageFormKK }).single('gambar_form_kk')
-const uploadFormKTP = multer({ storage: storageFormKTP }).single('gambar_form_ktp')
+const uploadFormRumah = multer({ storage: storageFormRumah }).single('gambar_form_rumah')
 const uploadBannerBantuan = multer({ storage: storageBannerBantuan }).single('gambar_tambah_bantuan')
 
 export const saveImgUser = (req, res) => {
@@ -60,20 +48,8 @@ export const saveImgUser = (req, res) => {
     })
 }
 
-export const saveImgFormKK = (req, res) => {
-    uploadFormKK(req, res, function (err) {
-        if (err instanceof multer.MulterError) {
-            return res.status(500).json(err)
-        } else if (err) {
-            return res.status(500).json(err)
-        }
-    
-        return res.status(200).send(req.file)
-    })
-}
-
-export const saveImgFormKTP = (req, res) => {
-    uploadFormKTP(req, res, function (err) {
+export const saveImgFormRumah = (req, res) => {
+    uploadFormRumah(req, res, function (err) {
         if (err instanceof multer.MulterError) {
             return res.status(500).json(err)
         } else if (err) {
@@ -107,24 +83,13 @@ export const deleteImgUser = (req, res) => {
     }
 }
 
-export const deleteImgKK = (req, res) => {
+export const deleteImgRumah = (req, res) => {
     if(!req.params.imagename){
         console.log("No file received");
         return res.status(500).json('no file received')
     }else{
         console.log('file received');
-        fs.unlinkSync(DIR_IMG_KK_USER + '/' + req.params.imagename)
-        return res.status(200).send('ok')
-    }
-}
-
-export const deleteImgKTP = (req, res) => {
-    if(!req.params.imagename){
-        console.log("No file received");
-        return res.status(500).json('no file received')
-    }else{
-        console.log('file received');
-        fs.unlinkSync(DIR_IMG_KTP_USER + '/' + req.params.imagename)
+        fs.unlinkSync(DIR_IMG_RUMAH + '/' + req.params.imagename)
         return res.status(200).send('ok')
     }
 }

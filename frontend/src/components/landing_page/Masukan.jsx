@@ -54,7 +54,7 @@ const Masukan = ({ data }) => {
 							className="alert_masukan"
 						>
 							<span style={{ fontWeight: "bold" }}>PERHATIKAN!</span>,
-							silahkan login terlebih dahulu untuk bisa mengisi form
+							silahkan login terlebih dahulu untuk bisa memberikan
 							feedback.
 						</Alert>
 					)}

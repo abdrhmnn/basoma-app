@@ -57,11 +57,12 @@ const HasilKuesionerPendaftaran = () => {
 		});
 
 		var doc = new jsPDF({ orientation: "p", lineHeight: 1.5 });
-		doc.text("Data Pengisian Pendaftaran Bantuan", 65, 20);
+		doc.setFontSize(13);
+		doc.text("Data Pengisian Pendaftaran Bantuan", 70, 20);
 		doc.setFontSize(11);
 		doc.text(`Nama : ${userByID.nm_depan} ${userByID.nm_belakang}`, 14, 30);
 		doc.text(
-			`Tanggal cetak : ${today.getDate()} - ${
+			`Tanggal cetak : ${today.getDate()} - 0${
 				today.getMonth() + 1
 			} - ${today.getFullYear()}`,
 			14,
@@ -74,11 +75,6 @@ const HasilKuesionerPendaftaran = () => {
 			}),
 			startY: 42,
 		});
-		doc.text(
-			`Hasil akhir yang diperoleh sebesar ${hasilKuesioner[0].total_nilai}%`,
-			14,
-			117
-		);
 		doc.save("data_pengisian.pdf");
 	};
 
@@ -530,6 +526,246 @@ const HasilKuesionerPendaftaran = () => {
 								</td>
 							</tr>
 							{/* Akhir baris tujuh */}
+
+							{/* Baris delapan */}
+							<tr>
+								<td>8</td>
+								<td style={{ textAlign: "left" }}>
+									{kriteriaBantuan[7].pertanyaan}
+								</td>
+								<td colSpan={2}>
+									<RadioGroup
+										row
+										style={{
+											width: "200px",
+											margin: "auto",
+										}}
+									>
+										<FormControlLabel
+											control={
+												<Radio
+													disabled={
+														hasilKuesioner[7].pilihan !==
+														kriteriaBantuan[7].pilihan_satu
+															? true
+															: false
+													}
+													checked={
+														hasilKuesioner[7].pilihan !==
+														kriteriaBantuan[7].pilihan_satu
+															? false
+															: true
+													}
+												/>
+											}
+											label={kriteriaBantuan[7].pilihan_satu}
+											style={{
+												marginRight: "40px",
+											}}
+										/>
+										<FormControlLabel
+											control={
+												<Radio
+													disabled={
+														hasilKuesioner[7].pilihan !==
+														kriteriaBantuan[7].pilihan_dua
+															? true
+															: false
+													}
+													checked={
+														hasilKuesioner[7].pilihan !==
+														kriteriaBantuan[7].pilihan_dua
+															? false
+															: true
+													}
+												/>
+											}
+											label={kriteriaBantuan[7].pilihan_dua}
+										/>
+									</RadioGroup>
+								</td>
+							</tr>
+							{/* Akhir baris delapan */}
+
+							{/* Baris sembilan */}
+							<tr>
+								<td>9</td>
+								<td style={{ textAlign: "left" }}>
+									{kriteriaBantuan[8].pertanyaan}
+								</td>
+								<td colSpan={2}>
+									<RadioGroup
+										row
+										style={{
+											width: "200px",
+											margin: "auto",
+										}}
+									>
+										<FormControlLabel
+											control={
+												<Radio
+													disabled={
+														hasilKuesioner[8].pilihan !==
+														kriteriaBantuan[8].pilihan_satu
+															? true
+															: false
+													}
+													checked={
+														hasilKuesioner[8].pilihan !==
+														kriteriaBantuan[8].pilihan_satu
+															? false
+															: true
+													}
+												/>
+											}
+											label={kriteriaBantuan[8].pilihan_satu}
+											style={{
+												marginRight: "40px",
+											}}
+										/>
+										<FormControlLabel
+											control={
+												<Radio
+													disabled={
+														hasilKuesioner[8].pilihan !==
+														kriteriaBantuan[8].pilihan_dua
+															? true
+															: false
+													}
+													checked={
+														hasilKuesioner[8].pilihan !==
+														kriteriaBantuan[8].pilihan_dua
+															? false
+															: true
+													}
+												/>
+											}
+											label={kriteriaBantuan[8].pilihan_dua}
+										/>
+									</RadioGroup>
+								</td>
+							</tr>
+							{/* Akhir baris sembilan */}
+
+							{/* Baris sepuluh */}
+							<tr>
+								<td>10</td>
+								<td style={{ textAlign: "left" }}>
+									{kriteriaBantuan[9].pertanyaan}
+								</td>
+								<td colSpan={2}>
+									<RadioGroup
+										row
+										style={{
+											width: "200px",
+											margin: "auto",
+										}}
+									>
+										<FormControlLabel
+											control={
+												<Radio
+													disabled={
+														hasilKuesioner[9].pilihan !==
+														kriteriaBantuan[9].pilihan_satu
+															? true
+															: false
+													}
+													checked={
+														hasilKuesioner[9].pilihan !==
+														kriteriaBantuan[9].pilihan_satu
+															? false
+															: true
+													}
+												/>
+											}
+											label={kriteriaBantuan[9].pilihan_satu}
+											style={{
+												marginRight: "40px",
+											}}
+										/>
+										<FormControlLabel
+											control={
+												<Radio
+													disabled={
+														hasilKuesioner[9].pilihan !==
+														kriteriaBantuan[9].pilihan_dua
+															? true
+															: false
+													}
+													checked={
+														hasilKuesioner[9].pilihan !==
+														kriteriaBantuan[9].pilihan_dua
+															? false
+															: true
+													}
+												/>
+											}
+											label={kriteriaBantuan[9].pilihan_dua}
+										/>
+									</RadioGroup>
+								</td>
+							</tr>
+							{/* Akhir baris sepuluh */}
+
+							{/* Baris sebelas */}
+							<tr>
+								<td>11</td>
+								<td style={{ textAlign: "left" }}>
+									{kriteriaBantuan[10].pertanyaan}
+								</td>
+								<td colSpan={2}>
+									<RadioGroup
+										row
+										style={{
+											width: "200px",
+											margin: "auto",
+										}}
+									>
+										<FormControlLabel
+											control={
+												<Radio
+													disabled={
+														hasilKuesioner[10].pilihan !==
+														kriteriaBantuan[10].pilihan_satu
+															? true
+															: false
+													}
+													checked={
+														hasilKuesioner[10].pilihan !==
+														kriteriaBantuan[10].pilihan_satu
+															? false
+															: true
+													}
+												/>
+											}
+											label={kriteriaBantuan[10].pilihan_satu}
+											style={{
+												marginRight: "40px",
+											}}
+										/>
+										<FormControlLabel
+											control={
+												<Radio
+													disabled={
+														hasilKuesioner[10].pilihan !==
+														kriteriaBantuan[10].pilihan_dua
+															? true
+															: false
+													}
+													checked={
+														hasilKuesioner[10].pilihan !==
+														kriteriaBantuan[10].pilihan_dua
+															? false
+															: true
+													}
+												/>
+											}
+											label={kriteriaBantuan[10].pilihan_dua}
+										/>
+									</RadioGroup>
+								</td>
+							</tr>
+							{/* Akhir baris sebelas */}
 						</tbody>
 						{/* Akhir tabel body */}
 					</table>

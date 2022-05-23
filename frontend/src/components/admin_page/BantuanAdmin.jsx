@@ -207,6 +207,9 @@ const BantuanAdmin = () => {
 																	API.deleteImgBantuan(
 																		e.banner
 																	);
+																	API.deleteWargaByBantuanID(
+																		e.id_bantuan
+																	);
 																	API.deleteBantuanByID(
 																		e.id_bantuan
 																	).then((res) => {

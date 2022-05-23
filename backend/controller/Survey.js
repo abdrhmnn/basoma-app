@@ -35,3 +35,18 @@ export const getSurveyByID = async (req, res) => {
         res.json({ message: error.message })
     }
 }
+
+export const deleteSurvey = async (req, res) => {
+    try{
+        await Survey.destroy({
+            where: {
+                no_kk: req.params.id
+            }
+        });
+        res.json({
+            "message" : "Survey berhasil dihapus!"
+        });
+    }catch(error){
+        res.json({ message: error.message })
+    }
+}

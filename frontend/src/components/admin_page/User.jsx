@@ -32,6 +32,8 @@ const User = () => {
 	const [dataUserLength, setDataUserLength] = useState(5);
 	const [warga, setWarga] = useState(null);
 	const [bantuan, setBantuan] = useState(null);
+	const [survey, setSurvey] = useState(null);
+	const [historyKebijakan, setHistoryKebijakan] = useState(null);
 
 	const ExcelFile = ReactExport.ExcelFile;
 	const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
@@ -45,6 +47,8 @@ const User = () => {
 		getAllUser();
 		getAllWarga();
 		getAllBantuan();
+		getAllSurvey();
+		getAllHistoryKebijakan();
 	}, []);
 
 	const dataSetUser = user.map((e, i) => {
@@ -52,6 +56,7 @@ const User = () => {
 			nm_depan: e.nm_depan,
 			nm_belakang: e.nm_belakang,
 			username: e.username,
+			role: e.role,
 		};
 	});
 
@@ -70,6 +75,16 @@ const User = () => {
 		setBantuan(response.data);
 	};
 
+	const getAllSurvey = async () => {
+		const response = await API.getAllSurvey();
+		setSurvey(response.data);
+	};
+
+	const getAllHistoryKebijakan = async () => {
+		const response = await API.getAllHistoryKebijakan();
+		setHistoryKebijakan(response.data);
+	};
+
 	const handleChange = (e) => {
 		setValueCari(e.target.value);
 	};
@@ -78,9 +93,9 @@ const User = () => {
 		var doc = new jsPDF({ orientation: "p" });
 		doc.text("Data User Basoma", 80, 20);
 		doc.autoTable({
-			head: [["No", "Nama Depan", "Nama Belakang", "Username"]],
+			head: [["No", "Nama Depan", "Nama Belakang", "Username", "Role"]],
 			body: user.map((e, i) => {
-				return [i + 1, e.nm_depan, e.nm_belakang, e.username];
+				return [i + 1, e.nm_depan, e.nm_belakang, e.username, e.role];
 			}),
 			startY: 30,
 		});
@@ -170,6 +185,7 @@ const User = () => {
 												label="Username"
 												value="username"
 											/>
+											<ExcelColumn label="Role" value="role" />
 										</ExcelSheet>
 									</ExcelFile>
 								</Menu>
@@ -191,6 +207,8 @@ const User = () => {
 								{user &&
 									warga &&
 									bantuan &&
+									survey &&
+									historyKebijakan &&
 									user.slice(0, dataUserLength).map((e, i) => {
 										const stringData =
 											e.nm_depan + e.nm_belakang + e.username;
@@ -328,49 +346,56 @@ const User = () => {
 																		}
 
 																		warga.map((data, i) => {
+																			// console.log(
+																			// 	data.no_kk
+																			// );
+																			// console.log(
+																			// 	survey[i].no_kk
+																			// );
+																			// console.log(
+																			// 	historyKebijakan
+																			// );
+
+																			// delete img user
 																			if (
 																				data.user_id ===
 																				e.user_id
 																			) {
-																				API.deleteImgKK(
-																					data.foto_kk
-																				);
-
-																				API.deleteImgKTP(
-																					data.foto_ktp
+																				API.deleteImgRumah(
+																					data.foto_rumah
 																				);
 																			}
 
-																			// if (
-																			// 	data.user_id ===
-																			// 		e.user_id &&
-																			// 	data.status_penerimaan ===
-																			// 		"diterima"
-																			// ) {
-																			// 	bantuan.map(
-																			// 		(
-																			// 			dataBantuan,
-																			// 			i
-																			// 		) => {
-																			// 			if (
-																			// 				data.id_bantuan ===
-																			// 				dataBantuan.id_bantuan
-																			// 			) {
-																			// 				API.updateKapasitasBantuan(
-																			// 					data.id_bantuan,
-																			// 					parseInt(
-																			// 						dataBantuan.kapasitas
-																			// 					) + 1
-																			// 				);
-																			// 				API.updateBantuan(data.id_bantuan, {
-																			// 					kapasitas:
-																			// 				})
-																			// 			}
+																			// delete data survey user
+																			if (
+																				survey.length !== 0
+																			) {
+																				if (
+																					data.no_kk ===
+																					survey[i].no_kk
+																				) {
+																					API.deleteSurveyByNoKK(
+																						data.no_kk
+																					);
+																				}
+																			}
 
-																			// 			return null;
-																			// 		}
-																			// 	);
-																			// }
+																			// delete data history kebijakan user
+																			if (
+																				historyKebijakan.length !==
+																				0
+																			) {
+																				if (
+																					data.no_kk ===
+																					historyKebijakan[
+																						i
+																					].no_kk
+																				) {
+																					API.deleteHistoryByNoKK(
+																						data.no_kk
+																					);
+																				}
+																			}
 
 																			return null;
 																		});
@@ -384,10 +409,6 @@ const User = () => {
 																		);
 
 																		API.deletePrioritasByUserID(
-																			e.user_id
-																		);
-
-																		API.deleteAlternatifByUserID(
 																			e.user_id
 																		);
 

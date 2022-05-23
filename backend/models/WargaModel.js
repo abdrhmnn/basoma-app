@@ -39,17 +39,16 @@ const Warga = db.define('warga_tbl', {
     status_rekomendasi: {
         type: DataTypes.STRING
     },
-    foto_kk: {
-        type: DataTypes.STRING
+    nilai_rekomendasi: {
+        type: DataTypes.INTEGER
     },
-    foto_ktp: {
+    foto_rumah: {
         type: DataTypes.STRING
     }
 }, {
     freezeTableName: true
 })
 
-// Warga.hasMany(HistoryKebijakan)
-// HistoryKebijakan.belongsTo(Warga)
+// Warga.belongsTo(User, {foreignKey: 'user_id'})
 
 export default Warga

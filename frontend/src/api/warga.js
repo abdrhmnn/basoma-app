@@ -16,7 +16,7 @@ const WARGA = {
     getWargaByBantuanIDAndSortByNilaiRangking: (bantuanId) => {
         return axios.get(`/warga/sortRangking/${bantuanId}`)
     },
-    saveWarga: (props, userId, bantuanId, imgKK, imgKTP) => {
+    saveWarga: (props, userId, bantuanId, imgRumah) => {
         return axios.post(`/warga`, {
             no_kk: props.no_kk,
             no_ktp: props.no_ktp,
@@ -26,8 +26,8 @@ const WARGA = {
             alamat: props.alamat,
             no_telepon: props.no_telepon,
             status_rekomendasi: "pending",
-            foto_kk: imgKK.name,
-            foto_ktp: imgKTP.name
+            nilai_rekomendasi: 0,
+            foto_rumah: imgRumah.name
         })
     },
     updateWarga: (noKK, data) => {
@@ -35,6 +35,9 @@ const WARGA = {
     },
     deleteWargaByUserID: (id) => {
         return axios.delete(`/warga/${id}`)
+    },
+    deleteWargaByBantuanID: (id) => {
+        return axios.delete(`/bantuanId/${id}`)
     }
 }
 
