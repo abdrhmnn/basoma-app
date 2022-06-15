@@ -51,6 +51,8 @@ const HasilKuesionerPendaftaran = () => {
 
 	const generatePdf = () => {
 		const today = new Date();
+		const img = new Image();
+		img.src = "/logo_basoma.png";
 		let pertanyaan = [];
 		kriteriaBantuan.forEach((e, i) => {
 			pertanyaan.push(e.pertanyaan);
@@ -58,24 +60,44 @@ const HasilKuesionerPendaftaran = () => {
 
 		var doc = new jsPDF({ orientation: "p", lineHeight: 1.5 });
 		doc.setFontSize(13);
-		doc.text("Data Pengisian Pendaftaran Bantuan", 70, 20);
+		doc.text("Laporan Pengisian Pendaftaran Bantuan", 70, 21);
 		doc.setFontSize(11);
-		doc.text(`Nama : ${userByID.nm_depan} ${userByID.nm_belakang}`, 14, 30);
+		doc.addImage(img, "PNG", 13, 10, 17, 17);
+		doc.line(13, 31, 197, 31);
+		doc.text(
+			`Nama Pendaftar : ${userByID.nm_depan} ${userByID.nm_belakang}`,
+			14,
+			40
+		);
 		doc.text(
 			`Tanggal cetak : ${today.getDate()} - 0${
 				today.getMonth() + 1
 			} - ${today.getFullYear()}`,
 			14,
-			37
+			47
 		);
 		doc.autoTable({
 			head: [["No", "Pertanyaan", "Jawaban"]],
 			body: hasilKuesioner.map((e, i) => {
-				return [i + 1, pertanyaan[i], e.pilihan];
+				return [`${i + 1}.`, pertanyaan[i], e.pilihan];
 			}),
-			startY: 42,
+			startY: 52,
+			theme: "grid",
+			columnStyles: {
+				0: { halign: "center" },
+				1: { halign: "left" },
+				2: { halign: "center" },
+			},
+			headStyles: {
+				fillColor: "rgb(75, 75, 253)",
+			},
+			alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
 		});
-		doc.save("data_pengisian.pdf");
+		// doc.save("data_pengisian.pdf");
+		// doc.output("dataurlnewwindow", {
+		// 	filename: "laporan_pengisian_prioritas",
+		// });
+		window.open(doc.output("bloburl"), "_blank");
 	};
 
 	return (

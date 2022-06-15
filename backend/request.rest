@@ -6,16 +6,18 @@ GET http://localhost:5000/survey/2222
 
 ###
 
-POST http://localhost:5000/survey
+POST http://localhost:5000/users
 Content-Type: application/json
 
 {
-    "id_survey": "SRVY_2",
-    "no_kk": "2222",
-    "verifikasi_kondisi": "Tidak sesuai",
-    "nilai_rekomendasi": 50,
-    "keterangan": "20",
-    "identitas_survey": 1
+    "user_id": "USER_10",
+    "nm_depan": "2222",
+    "nm_belakang": "Tidak sesuai",
+    "username": "50",
+    "password": "20",
+    "role": "test",
+    "gambar": "test",
+    "status_pengisian": "test"
 }
 
 ###

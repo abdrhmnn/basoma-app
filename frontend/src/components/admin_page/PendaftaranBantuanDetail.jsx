@@ -2,6 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 
+// Cookie storage
+import kuki from "../../kuki";
+
 // API storage
 import API from "../../api";
 
@@ -12,10 +15,17 @@ import {
 	FormControl,
 	Select,
 	MenuItem,
+	Modal,
+	Box,
+	Typography,
+	InputLabel,
+	Alert,
 } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
+import { jsPDF } from "jspdf";
 import { RiHistoryFill } from "react-icons/ri";
 import { GoTasklist } from "react-icons/go";
+import { BsPrinter } from "react-icons/bs";
 import swal from "sweetalert";
 
 const PendaftaranBantuanDetail = () => {
@@ -24,6 +34,19 @@ const PendaftaranBantuanDetail = () => {
 	const [searchDataPendaftaran, setSearchDataPendaftaran] = useState("");
 	const [dataPendaftaranLength, setDataPendaftaranLength] = useState(10);
 	const [pemberitahuan, setPemberitahuan] = useState(null);
+	const [userByID, setUserByID] = useState(null);
+
+	const [statusVerifikasi, setStatusVerifikasi] = useState("");
+	const [alertVerifikasi, setAlertVerifikasi] = useState(false);
+
+	// modal state
+	const [open, setOpen] = useState(false);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => {
+		setStatusVerifikasi("");
+		setAlertVerifikasi(false);
+		setOpen(false);
+	};
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -35,6 +58,9 @@ const PendaftaranBantuanDetail = () => {
 		);
 		API.getAllPemberitahuan().then((res) => {
 			setPemberitahuan(res.data);
+		});
+		API.getUserByID(kuki.get("user_id")).then((res) => {
+			setUserByID(res.data);
 		});
 	}, [location]);
 
@@ -49,6 +75,137 @@ const PendaftaranBantuanDetail = () => {
 			return <span className="role_memenuhi">{role}</span>;
 
 		return <span className="role_tidak_memenuhi">{role}</span>;
+	};
+
+	const modalStyle = {
+		position: "absolute",
+		top: "50%",
+		left: "50%",
+		transform: "translate(-50%, -50%)",
+		width: 400,
+		bgcolor: "background.paper",
+		borderRadius: 2,
+		boxShadow: 24,
+		p: 4,
+	};
+
+	const generatePdf = () => {
+		if (statusVerifikasi === "") {
+			setAlertVerifikasi(true);
+			return;
+		}
+
+		const today = new Date();
+		const img = new Image();
+		img.src = "/logo_basoma.png";
+
+		var doc = new jsPDF({ orientation: "p", lineHeight: 1.5 });
+		doc.setFontSize(13);
+		doc.text("Laporan Hasil Verifikasi Petugas Pendaftaran Bantuan", 57, 21);
+		doc.setFontSize(11);
+		doc.addImage(img, "PNG", 13, 10, 17, 17);
+		doc.line(13, 31, 197, 31);
+		doc.text(
+			`Nama Kepala Kelurahan : ${userByID.nm_depan} ${userByID.nm_belakang}`,
+			14,
+			40
+		);
+		doc.text(
+			`Tanggal cetak : ${today.getDate()} - 0${
+				today.getMonth() + 1
+			} - ${today.getFullYear()}`,
+			14,
+			47
+		);
+
+		if (statusVerifikasi === "memenuhi") {
+			doc.autoTable({
+				head: [
+					[
+						"No",
+						"No KK",
+						"Nama lengkap",
+						"Alamat",
+						"No. tlp",
+						"Status Verifikasi",
+						"Hasil Rekomendasi",
+					],
+				],
+				body: pendaftaranBantuanByUserID
+					.filter((e) => e.status_rekomendasi === "memenuhi")
+					.map((e, i) => {
+						return [
+							`${i + 1}.`,
+							e.no_kk,
+							e.nama_lengkap,
+							e.alamat,
+							e.no_telepon,
+							e.status_rekomendasi,
+							`${e.nilai_rekomendasi}%`,
+						];
+					}),
+				startY: 52,
+				theme: "grid",
+				columnStyles: {
+					0: { halign: "center" },
+					1: { halign: "left" },
+					2: { halign: "left" },
+					3: { halign: "left" },
+					4: { halign: "center" },
+					5: { halign: "center" },
+					6: { halign: "center" },
+				},
+				headStyles: {
+					fillColor: "rgb(75, 75, 253)",
+					halign: "center",
+				},
+				alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
+			});
+		} else {
+			doc.autoTable({
+				head: [
+					[
+						"No",
+						"No KK",
+						"Nama lengkap",
+						"Alamat",
+						"No. tlp",
+						"Status Verifikasi",
+						"Hasil Rekomendasi",
+					],
+				],
+				body: pendaftaranBantuanByUserID
+					.filter((e) => e.status_rekomendasi !== "memenuhi")
+					.map((e, i) => {
+						return [
+							`${i + 1}.`,
+							e.no_kk,
+							e.nama_lengkap,
+							e.alamat,
+							e.no_telepon,
+							e.status_rekomendasi,
+							`${e.nilai_rekomendasi}%`,
+						];
+					}),
+				startY: 52,
+				theme: "grid",
+				columnStyles: {
+					0: { halign: "center" },
+					1: { halign: "left" },
+					2: { halign: "left" },
+					3: { halign: "left" },
+					4: { halign: "center" },
+					5: { halign: "center" },
+					6: { halign: "center" },
+				},
+				headStyles: {
+					fillColor: "rgb(75, 75, 253)",
+					halign: "center",
+				},
+				alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
+			});
+		}
+		window.open(doc.output("bloburl"), "_blank");
 	};
 
 	return (
@@ -116,6 +273,8 @@ const PendaftaranBantuanDetail = () => {
 						>
 							<GoTasklist size={29} />
 						</Button>
+
+						{/* btn 2 */}
 						<Button
 							variant="outlined"
 							color="secondary"
@@ -123,9 +282,78 @@ const PendaftaranBantuanDetail = () => {
 								navigate("/history_kebijakan");
 							}}
 							className="btn_history_kebijakan"
+							sx={{ mr: 2 }}
 						>
 							<RiHistoryFill size={29} />
 						</Button>
+
+						{/* btn 3 */}
+						<Button
+							variant="outlined"
+							color="info"
+							onClick={handleOpen}
+							className="btn_history_kebijakan"
+						>
+							<BsPrinter size={29} />
+						</Button>
+						<Modal
+							open={open}
+							onClose={handleClose}
+							aria-labelledby="modal-modal-title"
+							aria-describedby="modal-modal-description"
+						>
+							<Box sx={modalStyle}>
+								<Typography
+									id="modal-modal-title"
+									variant="h6"
+									component="h2"
+								>
+									Cetak laporan
+								</Typography>
+								{alertVerifikasi ? (
+									<Alert
+										severity="warning"
+										variant="outlined"
+										sx={{ mt: 2 }}
+									>
+										Pilih status verifikasi terlebih dahulu!
+									</Alert>
+								) : null}
+								<Typography id="modal-modal-description" sx={{ mt: 3 }}>
+									Status verifikasi
+									<FormControl fullWidth sx={{ mt: 2, mb: 2 }}>
+										<InputLabel id="nilai_bobot">
+											Pilih status
+										</InputLabel>
+										<Select
+											labelId="nilai_bobot"
+											id="nilai_bobot"
+											value={statusVerifikasi}
+											label="Nilai Bobot"
+											onChange={(e) => {
+												setStatusVerifikasi(e.target.value);
+											}}
+										>
+											<MenuItem value="memenuhi">Memenuhi</MenuItem>
+											<MenuItem value="tidak_memenuhi">
+												Tidak memenuhi
+											</MenuItem>
+										</Select>
+									</FormControl>
+									<Button
+										variant="contained"
+										color="success"
+										fullWidth
+										onClick={() => {
+											generatePdf();
+											// console.log(statusVerifikasi);
+										}}
+									>
+										cetak
+									</Button>
+								</Typography>
+							</Box>
+						</Modal>
 					</div>
 				</div>
 				{/* Akhir flex tambah, cari dan export bantuan */}

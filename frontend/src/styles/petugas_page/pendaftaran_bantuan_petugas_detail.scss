@@ -12,6 +12,18 @@
         max-width: 1000px;
         margin: auto;
 
+        .flex_element_pendaftaran_petugas{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .btn_cetak{
+                .btn_history_kebijakan{
+                    height: 55px;
+                }
+            }
+        }
+
         .table_pendaftaran_petugas{
             .role_pending{
                 background-color: rgba(122, 180, 255, 0.397);
