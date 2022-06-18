@@ -13,6 +13,18 @@
         margin: auto;
         padding-top: 10px;
 
+        .flex_element_bantuan{
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            .history_kebijakan_bantuan{
+                .btn_history_kebijakan{
+                    height: 55px;
+                }
+            }
+        }
+
         h3{
             text-align: center;
         }
@@ -146,6 +158,55 @@
         .keterangan_kebijakan{
             p{
                 margin-top: 10px;
+            }
+        }
+    }
+}
+
+.MuiPaper-root{
+    .MuiList-root{
+        padding: 0;
+
+        .MuiMenuItem-root{
+            padding: 12px;
+
+            .profile_pengguna{
+                // background-color: red;
+                width: 100%;
+                display: flex;
+                align-items: center;
+    
+                .img_pengguna{
+                    margin-right: 10px;
+                }
+    
+                .nama_pengguna{
+                    text-transform: capitalize;
+                }
+            }
+        }
+    }
+}
+
+.MuiBox-root{
+    .MuiTypography-root{
+        margin-bottom: 15px;
+    
+        .MuiFormControl-root{
+            .MuiOutlinedInput-root{
+                .profile_pengguna{
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+        
+                    .img_pengguna{
+                        margin-right: 10px;
+                    }
+        
+                    .nama_pengguna{
+                        text-transform: capitalize;
+                    }
+                }
             }
         }
     }

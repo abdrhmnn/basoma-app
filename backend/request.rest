@@ -1,4 +1,8 @@
-GET http://localhost:5000/history-kebijakan
+GET http://localhost:5000/history-kebijakan/join/table
+
+###
+
+GET http://localhost:5000/history-kebijakan/join/table/USER_2
 
 ###
 

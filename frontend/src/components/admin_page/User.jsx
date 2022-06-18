@@ -12,7 +12,6 @@ import API from "../../api";
 // npm packages
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
-import ReactExport from "react-export-excel";
 import swal from "sweetalert";
 import { RiDeleteBin6Line, RiAdminLine } from "react-icons/ri";
 import { MdKeyboardArrowDown } from "react-icons/md";
@@ -35,10 +34,6 @@ const User = () => {
 	const [survey, setSurvey] = useState(null);
 	const [historyKebijakan, setHistoryKebijakan] = useState(null);
 
-	const ExcelFile = ReactExport.ExcelFile;
-	const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
-	const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
-
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
 
@@ -50,15 +45,6 @@ const User = () => {
 		getAllSurvey();
 		getAllHistoryKebijakan();
 	}, []);
-
-	const dataSetUser = user.map((e, i) => {
-		return {
-			nm_depan: e.nm_depan,
-			nm_belakang: e.nm_belakang,
-			username: e.username,
-			role: e.role,
-		};
-	});
 
 	const getAllUser = async () => {
 		const response = await API.getAllUser();
@@ -90,16 +76,44 @@ const User = () => {
 	};
 
 	const generatePdf = () => {
+		const today = new Date();
+		const img = new Image();
+		img.src = "/logo_basoma.png";
+
 		var doc = new jsPDF({ orientation: "p" });
-		doc.text("Data User Basoma", 80, 20);
+		doc.setFontSize(13);
+		doc.text("Laporan Pengguna Aplikasi", 80, 21);
+		doc.setFontSize(11);
+		doc.addImage(img, "PNG", 13, 10, 17, 17);
+		doc.line(13, 31, 197, 31);
+		doc.text(
+			`Tanggal cetak : ${today.getDate()} - 0${
+				today.getMonth() + 1
+			} - ${today.getFullYear()}`,
+			14,
+			39
+		);
 		doc.autoTable({
 			head: [["No", "Nama Depan", "Nama Belakang", "Username", "Role"]],
 			body: user.map((e, i) => {
-				return [i + 1, e.nm_depan, e.nm_belakang, e.username, e.role];
+				return [`${i + 1}.`, e.nm_depan, e.nm_belakang, e.username, e.role];
 			}),
-			startY: 30,
+			startY: 44,
+			theme: "grid",
+			columnStyles: {
+				0: { halign: "center" },
+				1: { halign: "center" },
+				2: { halign: "center" },
+				3: { halign: "center" },
+				4: { halign: "center" },
+			},
+			headStyles: {
+				fillColor: "rgb(75, 75, 253)",
+				halign: "center",
+			},
+			alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
 		});
-		doc.save("data_user.pdf");
+		window.open(doc.output("bloburl"), "_blank");
 	};
 
 	const highlightRole = (role) => {
@@ -168,26 +182,6 @@ const User = () => {
 									>
 										PDF
 									</MenuItem>
-									<ExcelFile
-										element={<MenuItem>EXCEL</MenuItem>}
-										filename="data_user"
-									>
-										<ExcelSheet data={dataSetUser} name="dataUser">
-											<ExcelColumn
-												label="Nama Depan"
-												value="nm_depan"
-											/>
-											<ExcelColumn
-												label="Nama Belakang"
-												value="nm_belakang"
-											/>
-											<ExcelColumn
-												label="Username"
-												value="username"
-											/>
-											<ExcelColumn label="Role" value="role" />
-										</ExcelSheet>
-									</ExcelFile>
 								</Menu>
 							</div>
 						</div>
@@ -218,7 +212,7 @@ const User = () => {
 										) {
 											return (
 												<tr key={i}>
-													<td>{i + 1}</td>
+													<td>{i + 1}.</td>
 													<td width={100}>
 														{e.gambar === "default_img.svg" ? (
 															<img

@@ -12,7 +12,6 @@ import API from "../../api";
 // npm packages
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
-import ReactExport from "react-export-excel";
 import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import { TextField, Button, Menu, MenuItem } from "@mui/material";
@@ -24,9 +23,6 @@ import { BsPrinter } from "react-icons/bs";
 const BantuanAdmin = () => {
 	const [bantuan, setBantuan] = useState([]);
 	const [valueCari, setValueCari] = useState("");
-	const ExcelFile = ReactExport.ExcelFile;
-	const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
-	const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
@@ -38,13 +34,6 @@ const BantuanAdmin = () => {
 		getAllBantuan();
 	}, []);
 
-	const dataSetBantuan = bantuan.map((e, i) => {
-		return {
-			nama: e.nama,
-			alamat: e.alamat,
-		};
-	});
-
 	const getAllBantuan = async () => {
 		const response = await API.getAllBantuan();
 		setBantuan(response.data);
@@ -55,16 +44,43 @@ const BantuanAdmin = () => {
 	};
 
 	const generatePdf = () => {
+		const today = new Date();
+		const img = new Image();
+		img.src = "/logo_basoma.png";
+
 		var doc = new jsPDF({ orientation: "p" });
-		doc.text("Data Bantuan Basoma", 80, 20);
+		doc.setFontSize(13);
+		doc.text("Laporan Bantuan Berlangsung", 76, 21);
+		doc.setFontSize(11);
+		doc.addImage(img, "PNG", 13, 10, 17, 17);
+		doc.line(13, 31, 197, 31);
+		doc.text(
+			`Tanggal cetak : ${today.getDate()} - 0${
+				today.getMonth() + 1
+			} - ${today.getFullYear()}`,
+			14,
+			39
+		);
+
 		doc.autoTable({
 			head: [["No", "Nama", "Alamat"]],
 			body: bantuan.map((e, i) => {
-				return [i + 1, e.nama, e.alamat];
+				return [`${i + 1}.`, e.nama, e.alamat];
 			}),
-			startY: 30,
+			startY: 44,
+			theme: "grid",
+			columnStyles: {
+				0: { halign: "center" },
+				1: { halign: "center" },
+				2: { halign: "left" },
+			},
+			headStyles: {
+				fillColor: "rgb(75, 75, 253)",
+				halign: "center",
+			},
+			alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
 		});
-		doc.save("data_bantuan.pdf");
+		window.open(doc.output("bloburl"), "_blank");
 	};
 
 	return (
@@ -140,18 +156,6 @@ const BantuanAdmin = () => {
 									>
 										PDF
 									</MenuItem>
-									<ExcelFile
-										element={<MenuItem>EXCEL</MenuItem>}
-										filename="data_bantuan"
-									>
-										<ExcelSheet
-											data={dataSetBantuan}
-											name="dataBantuan"
-										>
-											<ExcelColumn label="Nama" value="nama" />
-											<ExcelColumn label="Alamat" value="alamat" />
-										</ExcelSheet>
-									</ExcelFile>
 								</Menu>
 							</div>
 							{/* akhir export bantuan section */}
@@ -172,7 +176,7 @@ const BantuanAdmin = () => {
 									if (e.nama.toLowerCase().includes(valueCari)) {
 										return (
 											<tr key={i}>
-												<td>{i + 1}</td>
+												<td>{i + 1}.</td>
 												<td>{e.nama}</td>
 												<td>{e.alamat}</td>
 												<td>

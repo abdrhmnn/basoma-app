@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import HistoryKebijakan from "../models/HistoryKebijakanModel.js";
+import User from "../models/UserModel.js";
 import Warga from "../models/WargaModel.js";
 
 export const getAllHistoryKebijakan = async (req, res) => {
@@ -76,6 +77,90 @@ export const deleteHistoryKebijakan = async (req, res) => {
         res.json({
             "message" : "History kebijakan berhasil dihapus!"
         });
+    }catch(error){
+        res.json({ message: error.message })
+    }
+}
+
+export const getHistoryInTableUser = async (req, res) => {
+    try{
+        const history = await HistoryKebijakan.findAll({
+            attributes: {
+                include: [
+                    "id_history",
+                    "user_id",
+                    "no_kk",
+                    [
+                        Sequelize.fn
+                        (
+                          "DATE_FORMAT", 
+                          Sequelize.col("waktu_kebijakan"), 
+                          `%d-%m-%Y %H:%i`
+                        ),
+                        "waktu_kebijakan",
+                      ],
+                      "keterangan"
+                ]
+            },
+            include: [
+                { 
+                    model: User,
+                    as: 'pengguna', 
+                    required: true,
+                },
+                { 
+                    model: Warga,
+                    as: 'warga', 
+                    required: true,
+                },
+            ]
+        });
+        res.json(history);
+    }catch(error){
+        res.json({ message: error.message })
+    }
+}
+
+export const getHistoryInTableUserByID = async (req, res) => {
+    try{
+        const history = await HistoryKebijakan.findAll({
+            where: {
+                user_id: req.params.id
+            },
+            attributes: {
+                include: [
+                    "id_history",
+                    "user_id",
+                    "no_kk",
+                    [
+                        Sequelize.fn
+                        (
+                          "DATE_FORMAT", 
+                          Sequelize.col("waktu_kebijakan"), 
+                          `%d-%m-%Y %H:%i`
+                        ),
+                        "waktu_kebijakan",
+                      ],
+                      "keterangan"
+                ]
+            },
+            include: [
+                { 
+                    model: User,
+                    as: 'pengguna', 
+                    required: true,
+                    // distinct: true
+                    // where : { user_id : Sequelize.col('user_id') }
+                },
+                { 
+                    model: Warga,
+                    as: 'warga', 
+                    required: true,
+                    // where : { user_id : Sequelize.col('user_id') }
+                },
+            ]
+        });
+        res.json(history);
     }catch(error){
         res.json({ message: error.message })
     }

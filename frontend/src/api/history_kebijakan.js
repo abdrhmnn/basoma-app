@@ -7,6 +7,12 @@ const HISTORY_KEBIJAKAN = {
     getHistoryByID: (id) => {
         return axios.get(`/history-kebijakan/${id}`)
     },
+    getJoinTableHistory: () => {
+        return axios.get(`/history-kebijakan/join/table`)
+    },
+    getJoinTableHistoryByID: (id) => {
+        return axios.get(`/history-kebijakan/join/table/${id}`)
+    },
     saveHistoryKebijakan: (data) => {
         return axios.post(`/history-kebijakan`, data)
     },

@@ -2,9 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 
-// Cookie storage
-import kuki from "../../kuki";
-
 // API storage
 import API from "../../api";
 
@@ -34,7 +31,6 @@ const PendaftaranBantuanDetail = () => {
 	const [searchDataPendaftaran, setSearchDataPendaftaran] = useState("");
 	const [dataPendaftaranLength, setDataPendaftaranLength] = useState(10);
 	const [pemberitahuan, setPemberitahuan] = useState(null);
-	const [userByID, setUserByID] = useState(null);
 
 	const [statusVerifikasi, setStatusVerifikasi] = useState("");
 	const [alertVerifikasi, setAlertVerifikasi] = useState(false);
@@ -58,9 +54,6 @@ const PendaftaranBantuanDetail = () => {
 		);
 		API.getAllPemberitahuan().then((res) => {
 			setPemberitahuan(res.data);
-		});
-		API.getUserByID(kuki.get("user_id")).then((res) => {
-			setUserByID(res.data);
 		});
 	}, [location]);
 
@@ -106,16 +99,11 @@ const PendaftaranBantuanDetail = () => {
 		doc.addImage(img, "PNG", 13, 10, 17, 17);
 		doc.line(13, 31, 197, 31);
 		doc.text(
-			`Nama Kepala Kelurahan : ${userByID.nm_depan} ${userByID.nm_belakang}`,
-			14,
-			40
-		);
-		doc.text(
 			`Tanggal cetak : ${today.getDate()} - 0${
 				today.getMonth() + 1
 			} - ${today.getFullYear()}`,
 			14,
-			47
+			39
 		);
 
 		if (statusVerifikasi === "memenuhi") {
@@ -144,7 +132,7 @@ const PendaftaranBantuanDetail = () => {
 							`${e.nilai_rekomendasi}%`,
 						];
 					}),
-				startY: 52,
+				startY: 44,
 				theme: "grid",
 				columnStyles: {
 					0: { halign: "center" },
@@ -187,7 +175,7 @@ const PendaftaranBantuanDetail = () => {
 							`${e.nilai_rekomendasi}%`,
 						];
 					}),
-				startY: 52,
+				startY: 44,
 				theme: "grid",
 				columnStyles: {
 					0: { halign: "center" },
@@ -319,7 +307,11 @@ const PendaftaranBantuanDetail = () => {
 										Pilih status verifikasi terlebih dahulu!
 									</Alert>
 								) : null}
-								<Typography id="modal-modal-description" sx={{ mt: 3 }}>
+								<Typography
+									id="modal-modal-description"
+									sx={{ mt: 3 }}
+									component={"span"}
+								>
 									Status verifikasi
 									<FormControl fullWidth sx={{ mt: 2, mb: 2 }}>
 										<InputLabel id="nilai_bobot">
