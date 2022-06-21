@@ -7,12 +7,11 @@ const PEMBERITAHUAN = {
     getPemberitahuanByUserID: (id) => {
         return axios.get(`/pemberitahuan/id/${id}`)
     },
-    savePemberitahuan: (pemberitahuanId, userId, alasan) => {
+    savePemberitahuan: (pemberitahuanId, userId, status) => {
         return axios.post(`/pemberitahuan`, {
             id_pemberitahuan: `KP_${pemberitahuanId}`,
             user_id: userId,
-            nama: `Pemberitahuan pendaftaran bantuan`,
-            alasan: alasan
+            status_pemberitahuan: status,
         })
     },
     deletePemberitahuanByUserID: (id) => {

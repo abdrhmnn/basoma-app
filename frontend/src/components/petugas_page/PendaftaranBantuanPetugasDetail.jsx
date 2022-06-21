@@ -2,9 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 
-// Cookie storage
-import kuki from "../../kuki";
-
 // API storage
 import API from "./../../api";
 
@@ -29,7 +26,7 @@ const PendaftaranBantuanPetugasDetail = () => {
 	const [wargaByBantuanID, setWargaByBantuanID] = useState(null);
 	const [valueCari, setValueCari] = useState("");
 	const [dataVerifikasiLength, setDataVerifikasiLength] = useState(10);
-	const [userByID, setUserByID] = useState(null);
+	const [dataJoinSurvey, setDataJoinSurvey] = useState(null);
 
 	const [statusVerifikasi, setStatusVerifikasi] = useState("");
 	const [alertVerifikasi, setAlertVerifikasi] = useState(false);
@@ -46,13 +43,15 @@ const PendaftaranBantuanPetugasDetail = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
+	const seen = new Set();
+
 	useEffect(() => {
 		document.title = "Pendaftaran Bantuan Petugas Detail";
 		API.getWargaByBantuanID(location.state.id_bantuan).then((res) => {
 			setWargaByBantuanID(res.data);
 		});
-		API.getUserByID(kuki.get("user_id")).then((res) => {
-			setUserByID(res.data);
+		API.getDataJoinSurvey().then((res) => {
+			setDataJoinSurvey(res.data);
 		});
 	}, [location]);
 
@@ -94,19 +93,14 @@ const PendaftaranBantuanPetugasDetail = () => {
 		doc.addImage(img, "PNG", 13, 10, 17, 17);
 		doc.line(13, 31, 197, 31);
 		doc.text(
-			`Nama Petugas : ${userByID.nm_depan} ${userByID.nm_belakang}`,
-			14,
-			40
-		);
-		doc.text(
 			`Tanggal cetak : ${today.getDate()} - 0${
 				today.getMonth() + 1
 			} - ${today.getFullYear()}`,
 			14,
-			47
+			39
 		);
 
-		if (statusVerifikasi === "pending") {
+		if (statusVerifikasi !== "pending") {
 			doc.autoTable({
 				head: [
 					[
@@ -116,21 +110,28 @@ const PendaftaranBantuanPetugasDetail = () => {
 						"Alamat",
 						"No. tlp",
 						"Status Verifikasi",
+						"Petugas Verifikasi",
 					],
 				],
-				body: wargaByBantuanID
-					.filter((e) => e.status_rekomendasi === "pending")
+				body: dataJoinSurvey
+					.filter((el, index) => {
+						const duplicate = seen.has(el.user_id);
+						seen.add(el.user_id);
+						return !duplicate;
+					})
+					.filter((abdu, i) => abdu.warga.status_rekomendasi !== "pending")
 					.map((e, i) => {
 						return [
 							`${i + 1}.`,
-							e.no_kk,
-							e.nama_lengkap,
-							e.alamat,
-							e.no_telepon,
-							"Belum terverifikasi",
+							e.warga.no_kk,
+							e.warga.nama_lengkap,
+							e.warga.alamat,
+							e.warga.no_telepon,
+							"Sudah terverifikasi",
+							`${e.pengguna.nm_depan} ${e.pengguna.nm_belakang}`,
 						];
 					}),
-				startY: 52,
+				startY: 44,
 				theme: "grid",
 				columnStyles: {
 					0: { halign: "center" },
@@ -139,6 +140,7 @@ const PendaftaranBantuanPetugasDetail = () => {
 					3: { halign: "left" },
 					4: { halign: "center" },
 					5: { halign: "center" },
+					6: { halign: "center" },
 				},
 				headStyles: {
 					fillColor: "rgb(75, 75, 253)",
@@ -159,7 +161,7 @@ const PendaftaranBantuanPetugasDetail = () => {
 					],
 				],
 				body: wargaByBantuanID
-					.filter((e) => e.status_rekomendasi !== "pending")
+					.filter((abdu, i) => abdu.status_rekomendasi === "pending")
 					.map((e, i) => {
 						return [
 							`${i + 1}.`,
@@ -167,10 +169,10 @@ const PendaftaranBantuanPetugasDetail = () => {
 							e.nama_lengkap,
 							e.alamat,
 							e.no_telepon,
-							"Sudah terverifikasi",
+							"Belum terverifikasi",
 						];
 					}),
-				startY: 52,
+				startY: 44,
 				theme: "grid",
 				columnStyles: {
 					0: { halign: "center" },
@@ -179,6 +181,7 @@ const PendaftaranBantuanPetugasDetail = () => {
 					3: { halign: "left" },
 					4: { halign: "center" },
 					5: { halign: "center" },
+					6: { halign: "center" },
 				},
 				headStyles: {
 					fillColor: "rgb(75, 75, 253)",
@@ -187,6 +190,88 @@ const PendaftaranBantuanPetugasDetail = () => {
 				alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
 			});
 		}
+
+		// if (statusVerifikasi === "pending") {
+		// 	doc.autoTable({
+		// 		head: [
+		// 			[
+		// 				"No",
+		// 				"No KK",
+		// 				"Nama lengkap",
+		// 				"Alamat",
+		// 				"No. tlp",
+		// 				"Status Verifikasi",
+		// 			],
+		// 		],
+		// 		body: wargaByBantuanID
+		// 			.filter((e) => e.status_rekomendasi === "pending")
+		// 			.map((e, i) => {
+		// 				return [
+		// `${i + 1}.`,
+		// e.no_kk,
+		// e.nama_lengkap,
+		// e.alamat,
+		// e.no_telepon,
+		// "Belum terverifikasi",
+		// 				];
+		// 			}),
+		// 		startY: 44,
+		// 		theme: "grid",
+		// 		columnStyles: {
+		// 			0: { halign: "center" },
+		// 			1: { halign: "left" },
+		// 			2: { halign: "left" },
+		// 			3: { halign: "left" },
+		// 			4: { halign: "center" },
+		// 			5: { halign: "center" },
+		// 		},
+		// 		headStyles: {
+		// 			fillColor: "rgb(75, 75, 253)",
+		// 			halign: "center",
+		// 		},
+		// 		alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
+		// 	});
+		// } else {
+		// 	doc.autoTable({
+		// 		head: [
+		// 			[
+		// 				"No",
+		// 				"No KK",
+		// 				"Nama lengkap",
+		// 				"Alamat",
+		// 				"No. tlp",
+		// 				"Status Verifikasi",
+		// 			],
+		// 		],
+		// 		body: wargaByBantuanID
+		// 			.filter((e) => e.status_rekomendasi !== "pending")
+		// 			.map((e, i) => {
+		// 				return [
+		// 					`${i + 1}.`,
+		// 					e.no_kk,
+		// 					e.nama_lengkap,
+		// 					e.alamat,
+		// 					e.no_telepon,
+		// 					"Sudah terverifikasi",
+		// 				];
+		// 			}),
+		// 		startY: 44,
+		// 		theme: "grid",
+		// 		columnStyles: {
+		// 			0: { halign: "center" },
+		// 			1: { halign: "left" },
+		// 			2: { halign: "left" },
+		// 			3: { halign: "left" },
+		// 			4: { halign: "center" },
+		// 			5: { halign: "center" },
+		// 		},
+		// 		headStyles: {
+		// 			fillColor: "rgb(75, 75, 253)",
+		// 			halign: "center",
+		// 		},
+		// 		alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
+		// 	});
+		// }
 		window.open(doc.output("bloburl"), "_blank");
 	};
 
@@ -211,7 +296,7 @@ const PendaftaranBantuanPetugasDetail = () => {
 					<div className="btn_cetak">
 						<Button
 							variant="outlined"
-							color="success"
+							color="primary"
 							onClick={handleOpen}
 							className="btn_history_kebijakan"
 						>
@@ -240,7 +325,11 @@ const PendaftaranBantuanPetugasDetail = () => {
 										Pilih status verifikasi terlebih dahulu!
 									</Alert>
 								) : null}
-								<Typography id="modal-modal-description" sx={{ mt: 3 }}>
+								<Typography
+									id="modal-modal-description"
+									sx={{ mt: 3 }}
+									component={"span"}
+								>
 									Status verifikasi
 									<FormControl fullWidth sx={{ mt: 2, mb: 2 }}>
 										<InputLabel id="nilai_bobot">

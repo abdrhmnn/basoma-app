@@ -60,6 +60,7 @@ const KriteriaBantuan = () => {
 	let hasilAkhir = [];
 	let hasilNormalisasiKriteriaAkhir = [];
 	let hasilAkhirNilaiPrioritas = [];
+	let hasilAkhirNilaiPrioritasToExcel = [];
 	let nilaiLamda = [];
 
 	useEffect(() => {
@@ -263,6 +264,20 @@ const KriteriaBantuan = () => {
 
 	// menghitung nilai eigen / prioritas
 	hasilAkhirNilaiPrioritas.push(
+		jmlhNormalisasiKriteria1 / jmlhKriteria,
+		jmlhNormalisasiKriteria2 / jmlhKriteria,
+		jmlhNormalisasiKriteria3 / jmlhKriteria,
+		jmlhNormalisasiKriteria4 / jmlhKriteria,
+		jmlhNormalisasiKriteria5 / jmlhKriteria,
+		jmlhNormalisasiKriteria6 / jmlhKriteria,
+		jmlhNormalisasiKriteria7 / jmlhKriteria,
+		jmlhNormalisasiKriteria8 / jmlhKriteria,
+		jmlhNormalisasiKriteria9 / jmlhKriteria,
+		jmlhNormalisasiKriteria10 / jmlhKriteria,
+		jmlhNormalisasiKriteria11 / jmlhKriteria
+	);
+
+	hasilAkhirNilaiPrioritasToExcel.push(
 		Math.round((jmlhNormalisasiKriteria1 / jmlhKriteria) * 100) / 100,
 		Math.round((jmlhNormalisasiKriteria2 / jmlhKriteria) * 100) / 100,
 		Math.round((jmlhNormalisasiKriteria3 / jmlhKriteria) * 100) / 100,
@@ -295,7 +310,8 @@ const KriteriaBantuan = () => {
 	const handleClick = (e) => {
 		for (let i = 0; i < kriteriaBantuan.length + 1; i++) {
 			API.updateKriteriaByID(`KB_${i + 1}`, {
-				nilai_prioritas: hasilAkhirNilaiPrioritas[i],
+				nilai_prioritas:
+					Math.round(hasilAkhirNilaiPrioritas[i] * 100) / 100,
 				nilai_lamda: nilaiLamda[i],
 			});
 		}
@@ -1016,7 +1032,7 @@ const KriteriaBantuan = () => {
 						value: jmlhNormalisasiKriteria1,
 					},
 					{
-						value: hasilAkhirNilaiPrioritas[0],
+						value: hasilAkhirNilaiPrioritasToExcel[0],
 					},
 					{
 						value: nilaiLamda[0],
@@ -1065,7 +1081,7 @@ const KriteriaBantuan = () => {
 						value: jmlhNormalisasiKriteria2,
 					},
 					{
-						value: hasilAkhirNilaiPrioritas[1],
+						value: hasilAkhirNilaiPrioritasToExcel[1],
 					},
 					{
 						value: nilaiLamda[1],
@@ -1114,7 +1130,7 @@ const KriteriaBantuan = () => {
 						value: jmlhNormalisasiKriteria3,
 					},
 					{
-						value: hasilAkhirNilaiPrioritas[2],
+						value: hasilAkhirNilaiPrioritasToExcel[2],
 					},
 					{
 						value: nilaiLamda[2],
@@ -1163,7 +1179,7 @@ const KriteriaBantuan = () => {
 						value: jmlhNormalisasiKriteria4,
 					},
 					{
-						value: hasilAkhirNilaiPrioritas[3],
+						value: hasilAkhirNilaiPrioritasToExcel[3],
 					},
 					{
 						value: nilaiLamda[3],
@@ -1212,7 +1228,7 @@ const KriteriaBantuan = () => {
 						value: jmlhNormalisasiKriteria5,
 					},
 					{
-						value: hasilAkhirNilaiPrioritas[4],
+						value: hasilAkhirNilaiPrioritasToExcel[4],
 					},
 					{
 						value: nilaiLamda[4],
@@ -1261,7 +1277,7 @@ const KriteriaBantuan = () => {
 						value: jmlhNormalisasiKriteria6,
 					},
 					{
-						value: hasilAkhirNilaiPrioritas[5],
+						value: hasilAkhirNilaiPrioritasToExcel[5],
 					},
 					{
 						value: nilaiLamda[5],
@@ -1310,7 +1326,7 @@ const KriteriaBantuan = () => {
 						value: jmlhNormalisasiKriteria7,
 					},
 					{
-						value: hasilAkhirNilaiPrioritas[6],
+						value: hasilAkhirNilaiPrioritasToExcel[6],
 					},
 					{
 						value: nilaiLamda[6],
@@ -1359,7 +1375,7 @@ const KriteriaBantuan = () => {
 						value: jmlhNormalisasiKriteria8,
 					},
 					{
-						value: hasilAkhirNilaiPrioritas[7],
+						value: hasilAkhirNilaiPrioritasToExcel[7],
 					},
 					{
 						value: nilaiLamda[7],
@@ -1408,7 +1424,7 @@ const KriteriaBantuan = () => {
 						value: jmlhNormalisasiKriteria9,
 					},
 					{
-						value: hasilAkhirNilaiPrioritas[8],
+						value: hasilAkhirNilaiPrioritasToExcel[8],
 					},
 					{
 						value: nilaiLamda[8],
@@ -1457,7 +1473,7 @@ const KriteriaBantuan = () => {
 						value: jmlhNormalisasiKriteria10,
 					},
 					{
-						value: hasilAkhirNilaiPrioritas[9],
+						value: hasilAkhirNilaiPrioritasToExcel[9],
 					},
 					{
 						value: nilaiLamda[9],
@@ -1506,7 +1522,7 @@ const KriteriaBantuan = () => {
 						value: jmlhNormalisasiKriteria11,
 					},
 					{
-						value: hasilAkhirNilaiPrioritas[10],
+						value: hasilAkhirNilaiPrioritasToExcel[10],
 					},
 					{
 						value: nilaiLamda[10],

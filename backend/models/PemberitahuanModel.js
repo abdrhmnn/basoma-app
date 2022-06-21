@@ -16,10 +16,7 @@ const Pemberitahuan = db.define('pemberitahuan_tbl', {
             key: 'user_id'
         }
     },
-    nama: {
-        type: DataTypes.STRING
-    },
-    alasan: {
+    status_pemberitahuan: {
         type: DataTypes.STRING
     }
 }, {

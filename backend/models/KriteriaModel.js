@@ -28,6 +28,9 @@ const Kriteria = db.define('kriteria_tbl', {
     },
     pilihan_dua: {
         type: DataTypes.STRING
+    },
+    identitas_kriteria: {
+        type: DataTypes.NUMBER
     }
 }, {
     freezeTableName: true

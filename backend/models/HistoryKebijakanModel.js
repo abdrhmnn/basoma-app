@@ -34,12 +34,9 @@ const HistoryKebijakan = db.define('history_kebijakan_tbl', {
     freezeTableName: true
 })
 
-// HistoryKebijakan.belongsTo(User, { foreignKey: 'user_id', constraints: false})
-// HistoryKebijakan.belongsTo(User, { foreignKey : 'user_id'});
 HistoryKebijakan.hasMany(User, { foreignKey: 'user_id' });
 HistoryKebijakan.belongsTo(User, { as: 'pengguna', foreignKey: 'user_id' });
 HistoryKebijakan.hasMany(Warga, { foreignKey: 'no_kk' });
 HistoryKebijakan.belongsTo(Warga, { as: 'warga', foreignKey: 'no_kk' });
-// HistoryKebijakan.belongsTo(Warga, { as: 'warga', foreignKey : 'no_kk' , constraints:false});
 
 export default HistoryKebijakan

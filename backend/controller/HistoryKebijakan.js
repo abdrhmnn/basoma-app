@@ -149,14 +149,11 @@ export const getHistoryInTableUserByID = async (req, res) => {
                     model: User,
                     as: 'pengguna', 
                     required: true,
-                    // distinct: true
-                    // where : { user_id : Sequelize.col('user_id') }
                 },
                 { 
                     model: Warga,
                     as: 'warga', 
                     required: true,
-                    // where : { user_id : Sequelize.col('user_id') }
                 },
             ]
         });

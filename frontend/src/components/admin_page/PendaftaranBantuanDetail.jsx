@@ -94,7 +94,7 @@ const PendaftaranBantuanDetail = () => {
 
 		var doc = new jsPDF({ orientation: "p", lineHeight: 1.5 });
 		doc.setFontSize(13);
-		doc.text("Laporan Hasil Verifikasi Petugas Pendaftaran Bantuan", 57, 21);
+		doc.text("Laporan Hasil Verifikasi Pendaftaran Bantuan", 57, 21);
 		doc.setFontSize(11);
 		doc.addImage(img, "PNG", 13, 10, 17, 17);
 		doc.line(13, 31, 197, 31);
@@ -222,7 +222,7 @@ const PendaftaranBantuanDetail = () => {
 								let pemberitahuanLoop = pemberitahuan + 1;
 								swal({
 									title: "Konfirmasi calon penerima bantuan",
-									text: "Jika iya, maka daftar warga sudah tidak bisa diubah lagi!",
+									text: "Jika iya, maka hasil keputusan sudah tidak bisa diubah lagi!",
 									icon: "warning",
 									buttons: ["Tidak", "Ya"],
 								}).then((willApprove) => {
@@ -239,13 +239,13 @@ const PendaftaranBantuanDetail = () => {
 												API.savePemberitahuan(
 													pemberitahuanLoop++,
 													pendaftaranBantuanByUserID[i].user_id,
-													"layak"
+													"memenuhi"
 												);
 											} else {
 												API.savePemberitahuan(
 													pemberitahuanLoop++,
 													pendaftaranBantuanByUserID[i].user_id,
-													"tidak layak"
+													"tidak memenuhi"
 												);
 											}
 

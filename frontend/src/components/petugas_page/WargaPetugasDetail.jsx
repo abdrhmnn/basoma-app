@@ -2,6 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 
+// Cookie storage
+import kuki from "../../kuki";
+
 // API storage
 import API from "../../api";
 
@@ -46,28 +49,17 @@ const WargaPetugasDetail = () => {
 	const [verifikasiJawaban11, setVerifikasiJawaban11] = useState(null);
 
 	// state for catch keterangan verification condition
-	const [keteranganJawaban1, setKeteranganJawaban1] =
-		useState("keterangan sesuai");
-	const [keteranganJawaban2, setKeteranganJawaban2] =
-		useState("keterangan sesuai");
-	const [keteranganJawaban3, setKeteranganJawaban3] =
-		useState("keterangan sesuai");
-	const [keteranganJawaban4, setKeteranganJawaban4] =
-		useState("keterangan sesuai");
-	const [keteranganJawaban5, setKeteranganJawaban5] =
-		useState("keterangan sesuai");
-	const [keteranganJawaban6, setKeteranganJawaban6] =
-		useState("keterangan sesuai");
-	const [keteranganJawaban7, setKeteranganJawaban7] =
-		useState("keterangan sesuai");
-	const [keteranganJawaban8, setKeteranganJawaban8] =
-		useState("keterangan sesuai");
-	const [keteranganJawaban9, setKeteranganJawaban9] =
-		useState("keterangan sesuai");
-	const [keteranganJawaban10, setKeteranganJawaban10] =
-		useState("keterangan sesuai");
-	const [keteranganJawaban11, setKeteranganJawaban11] =
-		useState("keterangan sesuai");
+	const [keteranganJawaban1, setKeteranganJawaban1] = useState("Sesuai");
+	const [keteranganJawaban2, setKeteranganJawaban2] = useState("Sesuai");
+	const [keteranganJawaban3, setKeteranganJawaban3] = useState("Sesuai");
+	const [keteranganJawaban4, setKeteranganJawaban4] = useState("Sesuai");
+	const [keteranganJawaban5, setKeteranganJawaban5] = useState("Sesuai");
+	const [keteranganJawaban6, setKeteranganJawaban6] = useState("Sesuai");
+	const [keteranganJawaban7, setKeteranganJawaban7] = useState("Sesuai");
+	const [keteranganJawaban8, setKeteranganJawaban8] = useState("Sesuai");
+	const [keteranganJawaban9, setKeteranganJawaban9] = useState("Sesuai");
+	const [keteranganJawaban10, setKeteranganJawaban10] = useState("Sesuai");
+	const [keteranganJawaban11, setKeteranganJawaban11] = useState("Sesuai");
 
 	// state for catch value of verification condition
 	const [valueVerifikasi1, setValueVerifikasi1] = useState(null);
@@ -1461,149 +1453,182 @@ const WargaPetugasDetail = () => {
 																verifikasiJawaban11
 															)}
 														</div>
+
+														<Button
+															variant="contained"
+															fullWidth
+															style={{
+																fontWeight: "bold",
+																padding: 0,
+																height: "40px",
+																marginTop: "20px",
+															}}
+															onClick={() => {
+																const arrValueVerifikasiJawaban =
+																	[];
+																const arrKeteranganJawaban = [];
+																let surveyLength =
+																	survey.length + 1;
+																arrValueVerifikasiJawaban.push(
+																	valueVerifikasi1,
+																	valueVerifikasi2,
+																	valueVerifikasi3,
+																	valueVerifikasi4,
+																	valueVerifikasi5,
+																	valueVerifikasi6,
+																	valueVerifikasi7,
+																	valueVerifikasi8,
+																	valueVerifikasi9,
+																	valueVerifikasi10,
+																	valueVerifikasi11
+																);
+
+																arrKeteranganJawaban.push(
+																	keteranganJawaban1,
+																	keteranganJawaban2,
+																	keteranganJawaban3,
+																	keteranganJawaban4,
+																	keteranganJawaban5,
+																	keteranganJawaban6,
+																	keteranganJawaban7,
+																	keteranganJawaban8,
+																	keteranganJawaban9,
+																	keteranganJawaban10,
+																	keteranganJawaban11
+																);
+
+																if (
+																	verifikasiJawaban1 &&
+																	verifikasiJawaban2 &&
+																	verifikasiJawaban3 &&
+																	verifikasiJawaban4 &&
+																	verifikasiJawaban5 &&
+																	verifikasiJawaban6 &&
+																	verifikasiJawaban7 &&
+																	verifikasiJawaban8 &&
+																	verifikasiJawaban9 &&
+																	verifikasiJawaban10 &&
+																	verifikasiJawaban11
+																) {
+																	const hasilNilaiRekomendasi =
+																		parseFloat(
+																			verifikasiJawaban1
+																		) +
+																		parseFloat(
+																			verifikasiJawaban2
+																		) +
+																		parseFloat(
+																			verifikasiJawaban3
+																		) +
+																		parseFloat(
+																			verifikasiJawaban4
+																		) +
+																		parseFloat(
+																			verifikasiJawaban5
+																		) +
+																		parseFloat(
+																			verifikasiJawaban6
+																		) +
+																		parseFloat(
+																			verifikasiJawaban7
+																		) +
+																		parseFloat(
+																			verifikasiJawaban8
+																		) +
+																		parseFloat(
+																			verifikasiJawaban9
+																		) +
+																		parseFloat(
+																			verifikasiJawaban10
+																		) +
+																		parseFloat(
+																			verifikasiJawaban11
+																		);
+
+																	if (
+																		Math.floor(
+																			(hasilNilaiRekomendasi /
+																				10) *
+																				1000
+																		) > 43
+																	) {
+																		API.updateWarga(
+																			location.state.ui,
+																			{
+																				status_rekomendasi:
+																					"memenuhi",
+																			}
+																		);
+																	} else {
+																		API.updateWarga(
+																			location.state.ui,
+																			{
+																				status_rekomendasi:
+																					"tidak memenuhi",
+																			}
+																		);
+																	}
+
+																	for (
+																		let i = 0;
+																		i <
+																		arrValueVerifikasiJawaban.length;
+																		i++
+																	) {
+																		API.updateWarga(
+																			location.state.ui,
+																			{
+																				nilai_rekomendasi:
+																					Math.floor(
+																						(hasilNilaiRekomendasi /
+																							10) *
+																							1000
+																					),
+																			}
+																		);
+
+																		API.saveSurvey({
+																			id_survey: `SRVY_${surveyLength++}`,
+																			user_id:
+																				kuki.get("user_id"),
+																			no_kk: location.state
+																				.ui,
+																			id_kriteria:
+																				kriteria[i]
+																					.id_kriteria,
+																			id_prioritas:
+																				jawaban[i]
+																					.id_prioritas,
+																			verifikasi_kondisi:
+																				arrValueVerifikasiJawaban[
+																					i
+																				],
+																			keterangan:
+																				arrKeteranganJawaban[
+																					i
+																				],
+																			identitas_survey: i,
+																		}).then(() => {
+																			navigate(
+																				"/pendaftaran-bantuan-petugas-detail",
+																				{
+																					state: {
+																						id_bantuan:
+																							wargaByNoKK.id_bantuan,
+																					},
+																				}
+																			);
+																		});
+																	}
+																} else {
+																	setIsValidSubmit(true);
+																}
+															}}
+														>
+															submit
+														</Button>
 													</div>
 												)}
-												<Button
-													variant="contained"
-													fullWidth
-													style={{
-														fontWeight: "bold",
-														padding: 0,
-														height: "40px",
-														marginTop: "20px",
-													}}
-													onClick={() => {
-														const arrValueVerifikasiJawaban = [];
-														const arrKeteranganJawaban = [];
-														let surveyLength = survey.length + 1;
-
-														arrValueVerifikasiJawaban.push(
-															valueVerifikasi1,
-															valueVerifikasi2,
-															valueVerifikasi3,
-															valueVerifikasi4,
-															valueVerifikasi5,
-															valueVerifikasi6,
-															valueVerifikasi7,
-															valueVerifikasi8,
-															valueVerifikasi9,
-															valueVerifikasi10,
-															valueVerifikasi11
-														);
-
-														arrKeteranganJawaban.push(
-															keteranganJawaban1,
-															keteranganJawaban2,
-															keteranganJawaban3,
-															keteranganJawaban4,
-															keteranganJawaban5,
-															keteranganJawaban6,
-															keteranganJawaban7,
-															keteranganJawaban8,
-															keteranganJawaban9,
-															keteranganJawaban10,
-															keteranganJawaban11
-														);
-
-														if (
-															verifikasiJawaban1 &&
-															verifikasiJawaban2 &&
-															verifikasiJawaban3 &&
-															verifikasiJawaban4 &&
-															verifikasiJawaban5 &&
-															verifikasiJawaban6 &&
-															verifikasiJawaban7 &&
-															verifikasiJawaban8 &&
-															verifikasiJawaban9 &&
-															verifikasiJawaban10 &&
-															verifikasiJawaban11
-														) {
-															const hasilNilaiRekomendasi =
-																parseFloat(verifikasiJawaban1) +
-																parseFloat(verifikasiJawaban2) +
-																parseFloat(verifikasiJawaban3) +
-																parseFloat(verifikasiJawaban4) +
-																parseFloat(verifikasiJawaban5) +
-																parseFloat(verifikasiJawaban6) +
-																parseFloat(verifikasiJawaban7) +
-																parseFloat(verifikasiJawaban8) +
-																parseFloat(verifikasiJawaban9) +
-																parseFloat(
-																	verifikasiJawaban10
-																) +
-																parseFloat(verifikasiJawaban11);
-
-															if (
-																Math.floor(
-																	(hasilNilaiRekomendasi /
-																		10) *
-																		1000
-																) > 43
-															) {
-																API.updateWarga(
-																	location.state.ui,
-																	{
-																		status_rekomendasi:
-																			"memenuhi",
-																	}
-																);
-															} else {
-																API.updateWarga(
-																	location.state.ui,
-																	{
-																		status_rekomendasi:
-																			"tidak memenuhi",
-																	}
-																);
-															}
-
-															for (
-																let i = 0;
-																i <
-																arrValueVerifikasiJawaban.length;
-																i++
-															) {
-																API.updateWarga(
-																	location.state.ui,
-																	{
-																		nilai_rekomendasi:
-																			Math.floor(
-																				(hasilNilaiRekomendasi /
-																					10) *
-																					1000
-																			),
-																	}
-																);
-
-																API.saveSurvey({
-																	id_survey: `SRVY_${surveyLength++}`,
-																	no_kk: location.state.ui,
-																	verifikasi_kondisi:
-																		arrValueVerifikasiJawaban[
-																			i
-																		],
-																	keterangan:
-																		arrKeteranganJawaban[i],
-																	identitas_survey: i,
-																}).then(() => {
-																	navigate(
-																		"/pendaftaran-bantuan-petugas-detail",
-																		{
-																			state: {
-																				id_bantuan:
-																					wargaByNoKK.id_bantuan,
-																			},
-																		}
-																	);
-																});
-															}
-														} else {
-															setIsValidSubmit(true);
-														}
-													}}
-												>
-													submit
-												</Button>
 											</div>
 										)}
 									</div>

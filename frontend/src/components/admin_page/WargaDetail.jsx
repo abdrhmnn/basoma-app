@@ -19,6 +19,8 @@ import {
 } from "@mui/material";
 import { MdExpandMore } from "react-icons/md";
 import kuki from "../../kuki";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
 
 const WargaDetail = () => {
 	const [wargaByNoKK, setWargaByNoKK] = useState(null);
@@ -26,6 +28,8 @@ const WargaDetail = () => {
 	const [kriteria, setKriteria] = useState(null);
 	const [jawaban, setJawaban] = useState(null);
 	const [history, setHistory] = useState(null);
+
+	const [detailDataJoinSurvey, setDetailDataJoinSurvey] = useState(null);
 
 	const [kebijakanBantuan, setKebijakanBantuan] = useState(null);
 	const [keteranganKebijakan, setKeteranganKebijakan] = useState("");
@@ -53,7 +57,83 @@ const WargaDetail = () => {
 		API.getAllHistoryKebijakan().then((res) => {
 			setHistory(res.data);
 		});
+		API.getDetailDataJoinSurvey(location.state.ui).then((res) => {
+			setDetailDataJoinSurvey(res.data);
+		});
 	}, [location]);
+
+	const generatePdf = () => {
+		const today = new Date();
+		const img = new Image();
+		const seen = new Set();
+		img.src = "/logo_basoma.png";
+
+		var doc = new jsPDF({ orientation: "p" });
+		doc.setFontSize(13);
+		doc.text("Laporan Hasil Verifikasi Pendaftaran Bantuan", 65, 21);
+		doc.setFontSize(11);
+		doc.addImage(img, "PNG", 13, 10, 17, 17);
+		doc.line(13, 31, 197, 31);
+		doc.text(`Nama lengkap : ${wargaByNoKK.nama_lengkap}`, 14, 39);
+		doc.text(
+			`Tanggal cetak : ${today.getDate()} - 0${
+				today.getMonth() + 1
+			} - ${today.getFullYear()}`,
+			142,
+			39
+		);
+		doc.text(`Alamat lengkap : ${wargaByNoKK.alamat}`, 14, 47, {
+			maxWidth: "120",
+		});
+		doc.text(`No. telepon : ${wargaByNoKK.no_telepon}`, 142, 47);
+
+		doc.autoTable({
+			head: [["No", "Pertanyaan", "Jawaban", "Verifikasi", "Keterangan"]],
+			body: detailDataJoinSurvey.map((e, i) => {
+				return [
+					`${i + 1}.`,
+					e.kriteria.pertanyaan,
+					e.prioritas.pilihan,
+					e.verifikasi_kondisi,
+					e.keterangan,
+				];
+			}),
+			startY: 52,
+			theme: "grid",
+			columnStyles: {
+				0: { halign: "center" },
+				1: { halign: "left" },
+				2: { halign: "center" },
+				3: { halign: "left" },
+				4: { halign: "left" },
+			},
+			headStyles: {
+				fillColor: "rgb(75, 75, 253)",
+				halign: "center",
+			},
+			alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
+		});
+
+		detailDataJoinSurvey
+			.filter((el, index) => {
+				const duplicate = seen.has(el.user_id);
+				seen.add(el.user_id);
+				return !duplicate;
+			})
+			.map((e, i) => {
+				doc.text(
+					`Warga diatas telah selesai diverifikasi oleh ${e.pengguna.nm_depan} ${e.pengguna.nm_belakang} dan memperoleh hasil akhir nilai rekomendasi`,
+					14,
+					195,
+					{
+						maxWidth: "180",
+					}
+				);
+				doc.text(`sebesar ${e.warga.nilai_rekomendasi}%.`, 14, 201);
+				return true;
+			});
+		window.open(doc.output("bloburl"), "_blank");
+	};
 
 	return (
 		<div className="warga_detail">
@@ -152,6 +232,22 @@ const WargaDetail = () => {
 							</AccordionSummary>
 							<AccordionDetails>
 								<div className="hasil_verifikasi_content">
+									<Button
+										variant="contained"
+										fullWidth
+										style={{
+											fontWeight: "bold",
+											padding: 0,
+											height: "40px",
+											marginTop: "15px",
+											marginBottom: "20px",
+										}}
+										onClick={() => {
+											generatePdf();
+										}}
+									>
+										cetak hasil verifikasi
+									</Button>
 									{kriteria && jawaban && survey && (
 										<div className="wrap_hasil_verifikasi">
 											<div className="pertanyaan_jawaban_1">

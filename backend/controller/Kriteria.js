@@ -4,7 +4,7 @@ export const getAllKriteria = async (req, res) => {
     try{
         const kriteria = await Kriteria.findAll({
             order: [
-                ['nilai_bobot', 'ASC']
+                ['identitas_kriteria', 'ASC']
             ]
         });
         res.json(kriteria);

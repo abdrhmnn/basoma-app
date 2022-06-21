@@ -375,20 +375,19 @@ const User = () => {
 																			}
 
 																			// delete data history kebijakan user
+																			// if (
+																			// 	historyKebijakan.length !==
+																			// 	0
+																			// ) {
+																			// }
 																			if (
-																				historyKebijakan.length !==
-																				0
+																				data.no_kk ===
+																				historyKebijakan[i]
+																					.no_kk
 																			) {
-																				if (
-																					data.no_kk ===
-																					historyKebijakan[
-																						i
-																					].no_kk
-																				) {
-																					API.deleteHistoryByNoKK(
-																						data.no_kk
-																					);
-																				}
+																				API.deleteHistoryByNoKK(
+																					data.no_kk
+																				);
 																			}
 
 																			return null;

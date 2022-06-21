@@ -49,7 +49,7 @@
             // accordion parrent
             .MuiButtonBase-root{
                 padding: 0;
-                height: 55px;
+                // height: 45px;
                 // background-color: red;
                 margin-top: 10px;
 
@@ -60,9 +60,10 @@
                         display: flex;
                         justify-content: center;
                         align-items: center;
-
+                        
                         p{
                             color: $primary-color;
+                            margin: 0;
                         }
 
                         .line{
@@ -323,7 +324,7 @@
 
                         .verifikasi_pertanyaan_1{
                             p{
-                                margin: 18px 0 5px 0;
+                                margin: 18px 0 15px 0;
                             }
 
                             .MuiButtonBase-root{
@@ -343,7 +344,7 @@
 
                         .verifikasi_pertanyaan_2{
                             p{
-                                margin: 18px 0 5px 0;
+                                margin: 18px 0 15px 0;
                             }
 
                             .MuiButtonBase-root{
@@ -363,7 +364,7 @@
 
                         .verifikasi_pertanyaan_3{
                             p{
-                                margin: 18px 0 5px 0;
+                                margin: 18px 0 15px 0;
                             }
 
                             .MuiButtonBase-root{
@@ -383,7 +384,7 @@
 
                         .verifikasi_pertanyaan_4{
                             p{
-                                margin: 18px 0 5px 0;
+                                margin: 18px 0 15px 0;
                             }
 
                             .MuiButtonBase-root{
@@ -403,7 +404,7 @@
 
                         .verifikasi_pertanyaan_5{
                             p{
-                                margin: 18px 0 5px 0;
+                                margin: 18px 0 15px 0;
                             }
 
                             .MuiButtonBase-root{
@@ -423,7 +424,7 @@
 
                         .verifikasi_pertanyaan_6{
                             p{
-                                margin: 18px 0 5px 0;
+                                margin: 18px 0 15px 0;
                             }
 
                             .MuiButtonBase-root{
@@ -443,7 +444,7 @@
 
                         .verifikasi_pertanyaan_7{
                             p{
-                                margin: 18px 0 5px 0;
+                                margin: 18px 0 15px 0;
                             }
 
                             .MuiButtonBase-root{
@@ -463,7 +464,7 @@
 
                         .verifikasi_pertanyaan_8{
                             p{
-                                margin: 18px 0 5px 0;
+                                margin: 18px 0 15px 0;
                             }
 
                             .MuiButtonBase-root{
@@ -483,7 +484,7 @@
 
                         .verifikasi_pertanyaan_9{
                             p{
-                                margin: 18px 0 5px 0;
+                                margin: 18px 0 15px 0;
                             }
 
                             .MuiButtonBase-root{
@@ -503,7 +504,7 @@
 
                         .verifikasi_pertanyaan_10{
                             p{
-                                margin: 18px 0 5px 0;
+                                margin: 18px 0 15px 0;
                             }
 
                             .MuiButtonBase-root{
@@ -523,7 +524,7 @@
 
                         .verifikasi_pertanyaan_11{
                             p{
-                                margin: 18px 0 5px 0;
+                                margin: 18px 0 15px 0;
                             }
 
                             .MuiButtonBase-root{

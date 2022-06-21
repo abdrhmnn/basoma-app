@@ -23,13 +23,13 @@ import { Link } from "react-router-dom";
 const HasilKuesionerPendaftaran = () => {
 	const [hasilKuesioner, setHasilKuesioner] = useState(null);
 	const [kriteriaBantuan, setKriteriaBantuan] = useState(null);
-	const [userByID, setUserByID] = useState(null);
+	const [wargaByUserID, setWargaByUserID] = useState(null);
 
 	useEffect(() => {
 		document.title = "Hasil Kuesioner Pendaftaran Bantuan";
 		getAllHasilKuesionerByUserIDandIdentitasPilihan();
 		getAllKriteria();
-		getUserByID();
+		getWargaByUserID();
 	}, []);
 
 	const getAllHasilKuesionerByUserIDandIdentitasPilihan = async () => {
@@ -44,9 +44,9 @@ const HasilKuesionerPendaftaran = () => {
 		setKriteriaBantuan(response.data);
 	};
 
-	const getUserByID = async () => {
-		const response = await API.getUserByID(kuki.get("user_id"));
-		setUserByID(response.data);
+	const getWargaByUserID = async () => {
+		const response = await API.getWargaByUserID(kuki.get("user_id"));
+		setWargaByUserID(response.data);
 	};
 
 	const generatePdf = () => {
@@ -64,18 +64,18 @@ const HasilKuesionerPendaftaran = () => {
 		doc.setFontSize(11);
 		doc.addImage(img, "PNG", 13, 10, 17, 17);
 		doc.line(13, 31, 197, 31);
-		doc.text(
-			`Nama Pendaftar : ${userByID.nm_depan} ${userByID.nm_belakang}`,
-			14,
-			40
-		);
+		doc.text(`Nama pendaftar : ${wargaByUserID.nama_lengkap}`, 14, 40);
 		doc.text(
 			`Tanggal cetak : ${today.getDate()} - 0${
 				today.getMonth() + 1
 			} - ${today.getFullYear()}`,
-			14,
-			47
+			142,
+			40
 		);
+		doc.text(`Alamat lengkap : ${wargaByUserID.alamat}`, 14, 47, {
+			maxWidth: "120",
+		});
+		doc.text(`No. telepon : ${wargaByUserID.no_telepon}`, 142, 47);
 		doc.autoTable({
 			head: [["No", "Pertanyaan", "Jawaban"]],
 			body: hasilKuesioner.map((e, i) => {
@@ -93,10 +93,6 @@ const HasilKuesionerPendaftaran = () => {
 			},
 			alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
 		});
-		// doc.save("data_pengisian.pdf");
-		// doc.output("dataurlnewwindow", {
-		// 	filename: "laporan_pengisian_prioritas",
-		// });
 		window.open(doc.output("bloburl"), "_blank");
 	};
 
