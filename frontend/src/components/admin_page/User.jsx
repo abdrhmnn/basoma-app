@@ -330,96 +330,82 @@ const User = () => {
 																	dangerMode: true,
 																}).then((willDelete) => {
 																	if (willDelete) {
-																		if (
-																			e.gambar !==
-																			"default_img.svg"
-																		) {
-																			API.deleteImgUser(
-																				e.gambar
-																			);
-																		}
-
-																		warga.map((data, i) => {
-																			// console.log(
-																			// 	data.no_kk
-																			// );
-																			// console.log(
-																			// 	survey[i].no_kk
-																			// );
-																			// console.log(
-																			// 	historyKebijakan
-																			// );
-
-																			// delete img user
+																		if (e.role !== "warga") {
 																			if (
-																				data.user_id ===
+																				e.gambar !==
+																				"default_img.svg"
+																			) {
+																				API.deleteImgUser(
+																					e.gambar
+																				);
+																			}
+
+																			API.deleteUserByUserID(
 																				e.user_id
-																			) {
-																				API.deleteImgRumah(
-																					data.foto_rumah
-																				);
-																			}
+																			);
 
-																			// delete data survey user
-																			if (
-																				survey.length !== 0
-																			) {
-																				if (
-																					data.no_kk ===
-																					survey[i].no_kk
-																				) {
-																					API.deleteSurveyByNoKK(
-																						data.no_kk
-																					);
-																				}
-																			}
-
-																			// delete data history kebijakan user
-																			// if (
-																			// 	historyKebijakan.length !==
-																			// 	0
-																			// ) {
-																			// }
-																			if (
-																				data.no_kk ===
-																				historyKebijakan[i]
-																					.no_kk
-																			) {
-																				API.deleteHistoryByNoKK(
-																					data.no_kk
-																				);
-																			}
-
-																			return null;
-																		});
-
-																		API.deleteMasukanByUserID(
-																			e.user_id
-																		);
-
-																		API.deletePemberitahuanByUserID(
-																			e.user_id
-																		);
-
-																		API.deletePrioritasByUserID(
-																			e.user_id
-																		);
-
-																		API.deleteWargaByUserID(
-																			e.user_id
-																		);
-
-																		API.deleteUserByUserID(
-																			e.user_id
-																		).then((res) => {
-																			swal(
+																			return swal(
 																				"Data berhasil dihapus!",
 																				{
 																					icon: "success",
 																				}
+																			).then(function () {
+																				getAllUser();
+																			});
+																		} else {
+																			warga.map(
+																				async (data, i) => {
+																					if (
+																						data.user_id ===
+																						e.user_id
+																					) {
+																						API.deleteImgRumah(
+																							data.foto_rumah
+																						);
+
+																						API.deleteImgUser(
+																							e.gambar
+																						);
+
+																						API.deleteSurveyByNoKK(
+																							data.no_kk
+																						);
+
+																						API.deleteHistoryByNoKK(
+																							data.no_kk
+																						);
+
+																						API.deleteMasukanByUserID(
+																							e.user_id
+																						);
+
+																						API.deletePemberitahuanByUserID(
+																							e.user_id
+																						);
+
+																						API.deletePrioritasByUserID(
+																							e.user_id
+																						);
+
+																						API.deleteWargaByUserID(
+																							e.user_id
+																						);
+
+																						API.deleteUserByUserID(
+																							e.user_id
+																						);
+																					}
+
+																					await swal(
+																						"Data berhasil dihapus!",
+																						{
+																							icon: "success",
+																						}
+																					);
+																					getAllUser();
+																				}
 																			);
-																			getAllUser();
-																		});
+																		}
 																	}
 																});
 															}}

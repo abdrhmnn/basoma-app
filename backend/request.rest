@@ -44,6 +44,9 @@ Content-Type: application/json
 DELETE http://localhost:5000/kriteria/KB_5
 
 ###
+DELETE http://localhost:5000/uploads/delete/imgUser/null
+
+###
 
 GET http://localhost:5000/warga/userId/USER_5
 

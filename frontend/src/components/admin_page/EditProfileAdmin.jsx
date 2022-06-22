@@ -88,7 +88,10 @@ const EditProfileAdmin = () => {
 											password: values.password,
 											gambar: selectedFileImg.selectedFile.name,
 										});
-										API.deleteImgUser(userById.gambar);
+
+										if (userById.gambar !== "default_img.svg") {
+											API.deleteImgUser(userById.gambar);
+										}
 										setIsSuccess(false);
 									}}
 								>

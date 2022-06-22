@@ -385,21 +385,30 @@ const PendaftaranBantuanDetail = () => {
 													<td>
 														{highlightRole(e.status_rekomendasi)}
 													</td>
-													<td>
-														<Button
-															variant="contained"
-															className="btn_detail_pendaftaran_bantuan"
-															onClick={() => {
-																navigate("/warga-detail", {
-																	state: {
-																		ui: e.no_kk,
-																		uid: e.user_id,
-																	},
-																});
-															}}
-														>
-															detail
-														</Button>
+													<td
+														style={{
+															color: "red",
+														}}
+													>
+														{e.status_rekomendasi ===
+														"pending" ? (
+															"Belum diverifikasi"
+														) : (
+															<Button
+																variant="contained"
+																className="btn_detail_pendaftaran_bantuan"
+																onClick={() => {
+																	navigate("/warga-detail", {
+																		state: {
+																			ui: e.no_kk,
+																			uid: e.user_id,
+																		},
+																	});
+																}}
+															>
+																detail
+															</Button>
+														)}
 													</td>
 												</tr>
 											);
