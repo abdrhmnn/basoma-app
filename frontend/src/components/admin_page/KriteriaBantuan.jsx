@@ -326,20 +326,34 @@ const KriteriaBantuan = () => {
 	const generatePdf = () => {
 		const today = new Date();
 		const img = new Image();
-		img.src = "/logo_basoma.png";
+		img.src = "/logo_kelurahan.png";
 
 		var doc = new jsPDF({ orientation: "p" });
-		doc.setFontSize(13);
-		doc.text("Laporan Hasil Perhitungan AHP", 79, 21);
+		doc.setFontSize(16);
+		doc.setFont("helvetica", "bold");
+		doc.text("PEMERINTAH KOTA TANGERANG", 62, 14);
+		doc.setFontSize(14);
+		doc.text("KECAMATAN BATUCEPER", 77, 21);
+		doc.setFontSize(21);
+		doc.text("KELURAHAN PORIS GAGA", 62, 29);
+		doc.setFontSize(12);
+		doc.text("Jl. KH. Maulana Hasanuddin Perumahan Poris Indah", 58, 35);
+		doc.setFontSize(12);
+		doc.text("TANGERANG - BANTEN", 85, 41);
 		doc.setFontSize(11);
-		doc.addImage(img, "PNG", 13, 10, 17, 17);
-		doc.line(13, 31, 197, 31);
+		doc.addImage(img, "PNG", 13, 15, 23, 23);
+		doc.setLineWidth(0.5);
+		doc.line(13, 45, 198, 45);
+		doc.setFontSize(12);
+		doc.setFont("helvetica", "normal");
+		doc.text("Daftar Kriteria Calon Penerima Bantuan", 75, 53);
+		doc.setFontSize(11);
 		doc.text(
 			`Tanggal cetak : ${today.getDate()} - 0${
 				today.getMonth() + 1
 			} - ${today.getFullYear()}`,
-			14,
-			39
+			13,
+			64
 		);
 
 		doc.autoTable({
@@ -355,7 +369,11 @@ const KriteriaBantuan = () => {
 					nilaiLamda[i],
 				];
 			}),
-			startY: 44,
+			startY: 69,
+			margin: {
+				left: 12,
+				right: 12,
+			},
 			theme: "grid",
 			columnStyles: {
 				0: { halign: "center" },
@@ -371,11 +389,11 @@ const KriteriaBantuan = () => {
 			alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
 		});
 		doc.setFontSize(11);
-		doc.text(`Nilai lamda maks: ${nilaiLamdaMaks}`, 14, 143);
+		doc.text(`Nilai lamda maks: ${nilaiLamdaMaks}`, 13, 167);
 		doc.setFontSize(11);
-		doc.text(`Nilai CI: ${nilaiCI}`, 14, 150);
+		doc.text(`Nilai CI: ${nilaiCI}`, 13, 174);
 		doc.setFontSize(11);
-		doc.text(`Nilai CR: ${nilaiCR}`, 14, 157);
+		doc.text(`Nilai CR: ${nilaiCR}`, 13, 181);
 		window.open(doc.output("bloburl"), "_blank");
 	};
 

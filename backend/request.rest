@@ -1,4 +1,4 @@
-GET http://localhost:5000/survey/join-survey/cetakDetail/213123
+GET http://localhost:5000/survey/join-survey/cetakDetail/
 
 ###
 GET http://localhost:5000/kriteria

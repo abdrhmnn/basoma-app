@@ -42,6 +42,9 @@ const Warga = db.define('warga_tbl', {
     nilai_rekomendasi: {
         type: DataTypes.INTEGER
     },
+    status_kebijakan: {
+        type: DataTypes.STRING
+    },
     foto_rumah: {
         type: DataTypes.STRING
     }

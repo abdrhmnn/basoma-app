@@ -22,9 +22,14 @@ import {
 	FormControlLabel,
 	Alert,
 	CircularProgress,
+	Menu,
+	MenuItem,
 } from "@mui/material";
 import { MdExpandMore } from "react-icons/md";
 import HasilRekomendasiPetugas from "./HasilRekomendasiPetugas";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { BsPrinter } from "react-icons/bs";
+import { jsPDF } from "jspdf";
 
 const WargaPetugasDetail = () => {
 	const [wargaByNoKK, setWargaByNoKK] = useState(null);
@@ -32,8 +37,14 @@ const WargaPetugasDetail = () => {
 	const [jawaban, setJawaban] = useState(null);
 	const [survey, setSurvey] = useState(null);
 
+	const [wargaByUserID, setWargaByUserID] = useState(null);
+	const [hasilKuesioner, setHasilKuesioner] = useState(null);
+
 	const [isValidSubmit, setIsValidSubmit] = useState(false);
 	const [isLoadContent, setIsLoadContent] = useState(false);
+
+	const [anchorEl, setAnchorEl] = useState(null);
+	const open = Boolean(anchorEl);
 
 	// state for catch verification condition
 	const [verifikasiJawaban1, setVerifikasiJawaban1] = useState(null);
@@ -85,6 +96,14 @@ const WargaPetugasDetail = () => {
 		API.getPrioritasByUserIDandIdentitasPilihan(location.state.uid).then(
 			(res) => {
 				setJawaban(res.data);
+			}
+		);
+		API.getWargaByUserID(location.state.uid).then((res) => {
+			setWargaByUserID(res.data);
+		});
+		API.getPrioritasByUserIDandIdentitasPilihan(location.state.uid).then(
+			(res) => {
+				setHasilKuesioner(res.data);
 			}
 		);
 		getAllKriteria();
@@ -323,6 +342,148 @@ const WargaPetugasDetail = () => {
 		return null;
 	};
 
+	const generatePengisianPrioritas = () => {
+		const today = new Date();
+		const img = new Image();
+		img.src = "/logo_kelurahan.png";
+		let pertanyaan = [];
+		kriteria.forEach((e, i) => {
+			pertanyaan.push(e.pertanyaan);
+		});
+
+		var doc = new jsPDF({ orientation: "p", lineHeight: 1.5 });
+		doc.setFontSize(16);
+		doc.setFont("helvetica", "bold");
+		doc.text("PEMERINTAH KOTA TANGERANG", 62, 14);
+		doc.setFontSize(14);
+		doc.text("KECAMATAN BATUCEPER", 77, 21);
+		doc.setFontSize(21);
+		doc.text("KELURAHAN PORIS GAGA", 62, 29);
+		doc.setFontSize(12);
+		doc.text("Jl. KH. Maulana Hasanuddin Perumahan Poris Indah", 58, 35);
+		doc.setFontSize(12);
+		doc.text("TANGERANG - BANTEN", 85, 41);
+		doc.setFontSize(11);
+		doc.addImage(img, "PNG", 13, 15, 23, 23);
+		doc.setLineWidth(0.5);
+		doc.line(13, 45, 198, 45);
+		doc.setFontSize(12);
+		doc.setFont("helvetica", "normal");
+		doc.text("Hasil Pengisian Kondisi Pendaftaran Warga", 69, 53);
+		doc.setFontSize(12);
+		doc.text(`Nomor KK Warga : ${wargaByUserID.no_kk}`, 13, 64);
+		doc.text(`Nomor KTP Warga : ${wargaByUserID.no_ktp}`, 13, 72);
+		doc.text(`Nama lengkap : ${wargaByUserID.nama_lengkap}`, 13, 80);
+		doc.text(`Alamat lengkap : ${wargaByUserID.alamat}`, 13, 88, {
+			maxWidth: "120",
+		});
+		doc.setFontSize(11);
+		doc.text(
+			`Tanggal cetak : ${today.getDate()} - 0${
+				today.getMonth() + 1
+			} - ${today.getFullYear()}`,
+			146,
+			93
+		);
+		doc.autoTable({
+			head: [["No", "Pertanyaan", "Jawaban"]],
+			body: hasilKuesioner.map((e, i) => {
+				return [`${i + 1}.`, pertanyaan[i], e.pilihan];
+			}),
+			startY: 98,
+			margin: {
+				left: 12,
+				right: 12,
+			},
+			theme: "grid",
+			columnStyles: {
+				0: { halign: "center", valign: "middle" },
+				1: { halign: "left" },
+				2: { halign: "center", valign: "middle" },
+			},
+			headStyles: {
+				fillColor: "rgb(75, 75, 253)",
+				halign: "center",
+			},
+			alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
+		});
+		window.open(doc.output("bloburl"), "_blank");
+	};
+
+	const generateKartuVerifikasi = () => {
+		const today = new Date();
+		const img = new Image();
+		img.src = "/logo_kelurahan.png";
+		let pertanyaan = [];
+		kriteria.forEach((e, i) => {
+			pertanyaan.push(e.pertanyaan);
+		});
+
+		var doc = new jsPDF({ orientation: "p", lineHeight: 1.5 });
+		doc.setFontSize(16);
+		doc.setFont("helvetica", "bold");
+		doc.text("PEMERINTAH KOTA TANGERANG", 62, 14);
+		doc.setFontSize(14);
+		doc.text("KECAMATAN BATUCEPER", 77, 21);
+		doc.setFontSize(21);
+		doc.text("KELURAHAN PORIS GAGA", 62, 29);
+		doc.setFontSize(12);
+		doc.text("Jl. KH. Maulana Hasanuddin Perumahan Poris Indah", 58, 35);
+		doc.setFontSize(12);
+		doc.text("TANGERANG - BANTEN", 85, 41);
+		doc.setFontSize(11);
+		doc.addImage(img, "PNG", 13, 15, 23, 23);
+		doc.setLineWidth(0.5);
+		doc.line(13, 45, 198, 45);
+		doc.setFontSize(12);
+		doc.setFont("helvetica", "normal");
+		doc.text("Kartu Cetak Verifikasi Kondisi Warga", 76, 53);
+		doc.setFontSize(12);
+		doc.text(`Nomor KK Warga : ${wargaByUserID.no_kk}`, 13, 64);
+		doc.text(`Nomor KTP Warga : ${wargaByUserID.no_ktp}`, 13, 72);
+		doc.text(`Nama lengkap : ${wargaByUserID.nama_lengkap}`, 13, 80);
+		doc.text(`Alamat lengkap : ${wargaByUserID.alamat}`, 13, 88, {
+			maxWidth: "120",
+		});
+		doc.setFontSize(11);
+		doc.text(
+			`Tanggal cetak : ${today.getDate()} - 0${
+				today.getMonth() + 1
+			} - ${today.getFullYear()}`,
+			146,
+			93
+		);
+		doc.autoTable({
+			head: [["No", "Pertanyaan", "Jawaban", "Verifikasi", "Keterangan"]],
+			body: hasilKuesioner.map((e, i) => {
+				return [`${i + 1}.`, pertanyaan[i], e.pilihan, "", ""];
+			}),
+			startY: 98,
+			margin: {
+				left: 12,
+				right: 12,
+			},
+			theme: "grid",
+			columnStyles: {
+				0: { halign: "center", valign: "middle", cellWidth: 10 },
+				1: {
+					halign: "left",
+					cellWidth: 90,
+					minCellHeight: 16,
+					valign: "middle",
+				},
+				2: { halign: "center", valign: "middle", cellWidth: 19 },
+				3: { halign: "center", valign: "middle", cellWidth: 19 },
+			},
+			headStyles: {
+				fillColor: "rgb(75, 75, 253)",
+				halign: "center",
+			},
+			alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
+		});
+		window.open(doc.output("bloburl"), "_blank");
+	};
+
 	return (
 		<div className="warga_petugas_detail">
 			<div className="logo_app">
@@ -442,6 +603,63 @@ const WargaPetugasDetail = () => {
 														pertanyaan terlebih dahulu!
 													</Alert>
 												) : null}
+
+												<div className="print_data_bantuan">
+													<Button
+														id="basic-button"
+														aria-controls={
+															open ? "basic-menu" : undefined
+														}
+														aria-haspopup="true"
+														aria-expanded={
+															open ? "true" : undefined
+														}
+														onClick={(e) =>
+															setAnchorEl(e.currentTarget)
+														}
+													>
+														<BsPrinter
+															size={20}
+															style={{
+																marginLeft: 5,
+																color: "rgb(75, 75, 253)",
+															}}
+														/>
+														<MdKeyboardArrowDown
+															size={20}
+															style={{
+																marginLeft: 5,
+																color: "rgb(117, 117, 117)",
+															}}
+														/>
+													</Button>
+													<Menu
+														id="basic-menu"
+														anchorEl={anchorEl}
+														open={open}
+														onClose={() => setAnchorEl(null)}
+														MenuListProps={{
+															"aria-labelledby": "basic-button",
+														}}
+													>
+														<MenuItem
+															onClick={() => {
+																generateKartuVerifikasi();
+															}}
+														>
+															CETAK KARTU VERIFIKASI
+														</MenuItem>
+														<MenuItem
+															onClick={() => {
+																generatePengisianPrioritas();
+															}}
+														>
+															CETAK PENGISIAN KONDISI PENDAFTARAN
+															WARGA
+														</MenuItem>
+													</Menu>
+												</div>
+
 												{kriteria && jawaban && (
 													<div className="wrap_verifikasi_content">
 														<div className="pertanyaan_jawaban_1">

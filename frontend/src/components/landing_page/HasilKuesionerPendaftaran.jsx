@@ -10,26 +10,17 @@ import kuki from "../../kuki";
 import API from "../../api";
 
 // npm packages
-import {
-	Radio,
-	RadioGroup,
-	FormControlLabel,
-	Button,
-	Alert,
-} from "@mui/material";
-import { jsPDF } from "jspdf";
+import { Radio, RadioGroup, FormControlLabel, Alert } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const HasilKuesionerPendaftaran = () => {
 	const [hasilKuesioner, setHasilKuesioner] = useState(null);
 	const [kriteriaBantuan, setKriteriaBantuan] = useState(null);
-	const [wargaByUserID, setWargaByUserID] = useState(null);
 
 	useEffect(() => {
 		document.title = "Hasil Kuesioner Pendaftaran Bantuan";
 		getAllHasilKuesionerByUserIDandIdentitasPilihan();
 		getAllKriteria();
-		getWargaByUserID();
 	}, []);
 
 	const getAllHasilKuesionerByUserIDandIdentitasPilihan = async () => {
@@ -44,58 +35,6 @@ const HasilKuesionerPendaftaran = () => {
 		setKriteriaBantuan(response.data);
 	};
 
-	const getWargaByUserID = async () => {
-		const response = await API.getWargaByUserID(kuki.get("user_id"));
-		setWargaByUserID(response.data);
-	};
-
-	const generatePdf = () => {
-		const today = new Date();
-		const img = new Image();
-		img.src = "/logo_basoma.png";
-		let pertanyaan = [];
-		kriteriaBantuan.forEach((e, i) => {
-			pertanyaan.push(e.pertanyaan);
-		});
-
-		var doc = new jsPDF({ orientation: "p", lineHeight: 1.5 });
-		doc.setFontSize(13);
-		doc.text("Laporan Pengisian Pendaftaran Bantuan", 70, 21);
-		doc.setFontSize(11);
-		doc.addImage(img, "PNG", 13, 10, 17, 17);
-		doc.line(13, 31, 197, 31);
-		doc.text(`Nama pendaftar : ${wargaByUserID.nama_lengkap}`, 14, 40);
-		doc.text(
-			`Tanggal cetak : ${today.getDate()} - 0${
-				today.getMonth() + 1
-			} - ${today.getFullYear()}`,
-			142,
-			40
-		);
-		doc.text(`Alamat lengkap : ${wargaByUserID.alamat}`, 14, 47, {
-			maxWidth: "120",
-		});
-		doc.text(`No. telepon : ${wargaByUserID.no_telepon}`, 142, 47);
-		doc.autoTable({
-			head: [["No", "Pertanyaan", "Jawaban"]],
-			body: hasilKuesioner.map((e, i) => {
-				return [`${i + 1}.`, pertanyaan[i], e.pilihan];
-			}),
-			startY: 52,
-			theme: "grid",
-			columnStyles: {
-				0: { halign: "center" },
-				1: { halign: "left" },
-				2: { halign: "center" },
-			},
-			headStyles: {
-				fillColor: "rgb(75, 75, 253)",
-			},
-			alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
-		});
-		window.open(doc.output("bloburl"), "_blank");
-	};
-
 	return (
 		// Hasil kuesioner pendaftaran content
 		<div className="hasil_kuesioner">
@@ -105,13 +44,13 @@ const HasilKuesionerPendaftaran = () => {
 			{/* Button dan tabel hasil kuesioner pendaftaran */}
 			{hasilKuesioner && kriteriaBantuan && (
 				<div className="hasil_kuesioner_pendaftaran">
-					<Button
+					{/* <Button
 						variant="contained"
 						className="btn_export_hasil_kuesioner"
 						onClick={generatePdf}
 					>
 						cetak data
-					</Button>
+					</Button> */}
 
 					{/* Tabel kuesioner */}
 					<table className="tbl_class">

@@ -90,23 +90,37 @@ const PendaftaranBantuanDetail = () => {
 
 		const today = new Date();
 		const img = new Image();
-		img.src = "/logo_basoma.png";
+		img.src = "/logo_kelurahan.png";
 
-		var doc = new jsPDF({ orientation: "p", lineHeight: 1.5 });
-		doc.setFontSize(13);
-		doc.text("Laporan Hasil Verifikasi Pendaftaran Bantuan", 57, 21);
+		var doc = new jsPDF({ orientation: "p" });
+		doc.setFontSize(16);
+		doc.setFont("helvetica", "bold");
+		doc.text("PEMERINTAH KOTA TANGERANG", 62, 14);
+		doc.setFontSize(14);
+		doc.text("KECAMATAN BATUCEPER", 77, 21);
+		doc.setFontSize(21);
+		doc.text("KELURAHAN PORIS GAGA", 62, 29);
+		doc.setFontSize(12);
+		doc.text("Jl. KH. Maulana Hasanuddin Perumahan Poris Indah", 58, 35);
+		doc.setFontSize(12);
+		doc.text("TANGERANG - BANTEN", 85, 41);
 		doc.setFontSize(11);
-		doc.addImage(img, "PNG", 13, 10, 17, 17);
-		doc.line(13, 31, 197, 31);
-		doc.text(
-			`Tanggal cetak : ${today.getDate()} - 0${
-				today.getMonth() + 1
-			} - ${today.getFullYear()}`,
-			14,
-			39
-		);
+		doc.addImage(img, "PNG", 13, 15, 23, 23);
+		doc.setLineWidth(0.5);
+		doc.line(13, 45, 198, 45);
 
 		if (statusVerifikasi === "memenuhi") {
+			doc.setFontSize(12);
+			doc.setFont("helvetica", "normal");
+			doc.text("Daftar Warga Penerima Bantuan", 80, 53);
+			doc.setFontSize(11);
+			doc.text(
+				`Tanggal cetak : ${today.getDate()} - 0${
+					today.getMonth() + 1
+				} - ${today.getFullYear()}`,
+				13,
+				64
+			);
 			doc.autoTable({
 				head: [
 					[
@@ -117,6 +131,7 @@ const PendaftaranBantuanDetail = () => {
 						"No. tlp",
 						"Status Verifikasi",
 						"Hasil Rekomendasi",
+						"Kebijakan",
 					],
 				],
 				body: pendaftaranBantuanByUserID
@@ -130,26 +145,44 @@ const PendaftaranBantuanDetail = () => {
 							e.no_telepon,
 							e.status_rekomendasi,
 							`${e.nilai_rekomendasi}%`,
+							e.status_kebijakan !== "Ya" ? "Tidak" : "Ya",
 						];
 					}),
-				startY: 44,
+				startY: 69,
+				margin: {
+					left: 12,
+					right: 12,
+				},
 				theme: "grid",
 				columnStyles: {
-					0: { halign: "center" },
-					1: { halign: "left" },
-					2: { halign: "left" },
+					0: { halign: "center", valign: "middle" },
+					1: { halign: "left", valign: "middle" },
+					2: { halign: "left", valign: "middle" },
 					3: { halign: "left" },
-					4: { halign: "center" },
-					5: { halign: "center" },
-					6: { halign: "center" },
+					4: { halign: "center", valign: "middle" },
+					5: { halign: "center", valign: "middle" },
+					6: { halign: "center", valign: "middle" },
+					7: { halign: "center", valign: "middle" },
 				},
 				headStyles: {
 					fillColor: "rgb(75, 75, 253)",
 					halign: "center",
+					valign: "middle",
 				},
 				alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
 			});
 		} else {
+			doc.setFontSize(12);
+			doc.setFont("helvetica", "normal");
+			doc.text("Daftar Warga Yang Tidak Memenuhi Menerima Bantuan", 60, 53);
+			doc.setFontSize(11);
+			doc.text(
+				`Tanggal cetak : ${today.getDate()} - 0${
+					today.getMonth() + 1
+				} - ${today.getFullYear()}`,
+				13,
+				64
+			);
 			doc.autoTable({
 				head: [
 					[
@@ -163,7 +196,7 @@ const PendaftaranBantuanDetail = () => {
 					],
 				],
 				body: pendaftaranBantuanByUserID
-					.filter((e) => e.status_rekomendasi !== "memenuhi")
+					.filter((e) => e.status_rekomendasi === "tidak memenuhi")
 					.map((e, i) => {
 						return [
 							`${i + 1}.`,
@@ -175,7 +208,11 @@ const PendaftaranBantuanDetail = () => {
 							`${e.nilai_rekomendasi}%`,
 						];
 					}),
-				startY: 44,
+				startY: 69,
+				margin: {
+					left: 12,
+					right: 12,
+				},
 				theme: "grid",
 				columnStyles: {
 					0: { halign: "center" },
@@ -336,6 +373,7 @@ const PendaftaranBantuanDetail = () => {
 										variant="contained"
 										color="success"
 										fullWidth
+										sx={{ fontWeight: "bold" }}
 										onClick={() => {
 											generatePdf();
 											// console.log(statusVerifikasi);

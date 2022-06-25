@@ -84,23 +84,37 @@ const PendaftaranBantuanPetugasDetail = () => {
 
 		const today = new Date();
 		const img = new Image();
-		img.src = "/logo_basoma.png";
+		img.src = "/logo_kelurahan.png";
 
 		var doc = new jsPDF({ orientation: "p", lineHeight: 1.5 });
-		doc.setFontSize(13);
-		doc.text("Laporan Verifikasi Petugas Pendaftaran Bantuan", 62, 21);
+		doc.setFontSize(16);
+		doc.setFont("helvetica", "bold");
+		doc.text("PEMERINTAH KOTA TANGERANG", 62, 14);
+		doc.setFontSize(14);
+		doc.text("KECAMATAN BATUCEPER", 77, 21);
+		doc.setFontSize(21);
+		doc.text("KELURAHAN PORIS GAGA", 62, 29);
+		doc.setFontSize(12);
+		doc.text("Jl. KH. Maulana Hasanuddin Perumahan Poris Indah", 58, 35);
+		doc.setFontSize(12);
+		doc.text("TANGERANG - BANTEN", 85, 41);
 		doc.setFontSize(11);
-		doc.addImage(img, "PNG", 13, 10, 17, 17);
-		doc.line(13, 31, 197, 31);
-		doc.text(
-			`Tanggal cetak : ${today.getDate()} - 0${
-				today.getMonth() + 1
-			} - ${today.getFullYear()}`,
-			14,
-			39
-		);
+		doc.addImage(img, "PNG", 13, 15, 23, 23);
+		doc.setLineWidth(0.5);
+		doc.line(13, 45, 198, 45);
 
 		if (statusVerifikasi !== "pending") {
+			doc.setFontSize(12);
+			doc.setFont("helvetica", "normal");
+			doc.text("Daftar Warga Yang Sudah Diverifikasi", 72, 53);
+			doc.setFontSize(11);
+			doc.text(
+				`Tanggal cetak : ${today.getDate()} - 0${
+					today.getMonth() + 1
+				} - ${today.getFullYear()}`,
+				13,
+				64
+			);
 			doc.autoTable({
 				head: [
 					[
@@ -115,8 +129,8 @@ const PendaftaranBantuanPetugasDetail = () => {
 				],
 				body: dataJoinSurvey
 					.filter((el, index) => {
-						const duplicate = seen.has(el.user_id);
-						seen.add(el.user_id);
+						const duplicate = seen.has(el.warga.no_kk);
+						seen.add(el.warga.no_kk);
 						return !duplicate;
 					})
 					.filter((abdu, i) => abdu.warga.status_rekomendasi !== "pending")
@@ -131,7 +145,11 @@ const PendaftaranBantuanPetugasDetail = () => {
 							`${e.pengguna.nm_depan} ${e.pengguna.nm_belakang}`,
 						];
 					}),
-				startY: 44,
+				startY: 69,
+				margin: {
+					left: 12,
+					right: 12,
+				},
 				theme: "grid",
 				columnStyles: {
 					0: { halign: "center" },
@@ -149,6 +167,17 @@ const PendaftaranBantuanPetugasDetail = () => {
 				alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
 			});
 		} else {
+			doc.setFontSize(12);
+			doc.setFont("helvetica", "normal");
+			doc.text("Daftar Warga Yang Belum Diverifikasi", 72, 53);
+			doc.setFontSize(11);
+			doc.text(
+				`Tanggal cetak : ${today.getDate()} - 0${
+					today.getMonth() + 1
+				} - ${today.getFullYear()}`,
+				13,
+				64
+			);
 			doc.autoTable({
 				head: [
 					[
@@ -172,7 +201,11 @@ const PendaftaranBantuanPetugasDetail = () => {
 							"Belum terverifikasi",
 						];
 					}),
-				startY: 44,
+				startY: 69,
+				margin: {
+					left: 12,
+					right: 12,
+				},
 				theme: "grid",
 				columnStyles: {
 					0: { halign: "center" },
@@ -190,88 +223,6 @@ const PendaftaranBantuanPetugasDetail = () => {
 				alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
 			});
 		}
-
-		// if (statusVerifikasi === "pending") {
-		// 	doc.autoTable({
-		// 		head: [
-		// 			[
-		// 				"No",
-		// 				"No KK",
-		// 				"Nama lengkap",
-		// 				"Alamat",
-		// 				"No. tlp",
-		// 				"Status Verifikasi",
-		// 			],
-		// 		],
-		// 		body: wargaByBantuanID
-		// 			.filter((e) => e.status_rekomendasi === "pending")
-		// 			.map((e, i) => {
-		// 				return [
-		// `${i + 1}.`,
-		// e.no_kk,
-		// e.nama_lengkap,
-		// e.alamat,
-		// e.no_telepon,
-		// "Belum terverifikasi",
-		// 				];
-		// 			}),
-		// 		startY: 44,
-		// 		theme: "grid",
-		// 		columnStyles: {
-		// 			0: { halign: "center" },
-		// 			1: { halign: "left" },
-		// 			2: { halign: "left" },
-		// 			3: { halign: "left" },
-		// 			4: { halign: "center" },
-		// 			5: { halign: "center" },
-		// 		},
-		// 		headStyles: {
-		// 			fillColor: "rgb(75, 75, 253)",
-		// 			halign: "center",
-		// 		},
-		// 		alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
-		// 	});
-		// } else {
-		// 	doc.autoTable({
-		// 		head: [
-		// 			[
-		// 				"No",
-		// 				"No KK",
-		// 				"Nama lengkap",
-		// 				"Alamat",
-		// 				"No. tlp",
-		// 				"Status Verifikasi",
-		// 			],
-		// 		],
-		// 		body: wargaByBantuanID
-		// 			.filter((e) => e.status_rekomendasi !== "pending")
-		// 			.map((e, i) => {
-		// 				return [
-		// 					`${i + 1}.`,
-		// 					e.no_kk,
-		// 					e.nama_lengkap,
-		// 					e.alamat,
-		// 					e.no_telepon,
-		// 					"Sudah terverifikasi",
-		// 				];
-		// 			}),
-		// 		startY: 44,
-		// 		theme: "grid",
-		// 		columnStyles: {
-		// 			0: { halign: "center" },
-		// 			1: { halign: "left" },
-		// 			2: { halign: "left" },
-		// 			3: { halign: "left" },
-		// 			4: { halign: "center" },
-		// 			5: { halign: "center" },
-		// 		},
-		// 		headStyles: {
-		// 			fillColor: "rgb(75, 75, 253)",
-		// 			halign: "center",
-		// 		},
-		// 		alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
-		// 	});
-		// }
 		window.open(doc.output("bloburl"), "_blank");
 	};
 
@@ -356,6 +307,7 @@ const PendaftaranBantuanPetugasDetail = () => {
 										variant="contained"
 										color="success"
 										fullWidth
+										sx={{ fontWeight: "bold" }}
 										onClick={() => {
 											generatePdf();
 											// console.log(statusVerifikasi);

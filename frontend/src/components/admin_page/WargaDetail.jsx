@@ -65,27 +65,42 @@ const WargaDetail = () => {
 	const generatePdf = () => {
 		const today = new Date();
 		const img = new Image();
-		const seen = new Set();
-		img.src = "/logo_basoma.png";
+		img.src = "/logo_kelurahan.png";
 
-		var doc = new jsPDF({ orientation: "p" });
-		doc.setFontSize(13);
-		doc.text("Laporan Hasil Verifikasi Pendaftaran Bantuan", 65, 21);
+		var doc = new jsPDF({ orientation: "p", lineHeight: 1.5 });
+		doc.setFontSize(16);
+		doc.setFont("helvetica", "bold");
+		doc.text("PEMERINTAH KOTA TANGERANG", 62, 14);
+		doc.setFontSize(14);
+		doc.text("KECAMATAN BATUCEPER", 77, 21);
+		doc.setFontSize(21);
+		doc.text("KELURAHAN PORIS GAGA", 62, 29);
+		doc.setFontSize(12);
+		doc.text("Jl. KH. Maulana Hasanuddin Perumahan Poris Indah", 58, 35);
+		doc.setFontSize(12);
+		doc.text("TANGERANG - BANTEN", 85, 41);
 		doc.setFontSize(11);
-		doc.addImage(img, "PNG", 13, 10, 17, 17);
-		doc.line(13, 31, 197, 31);
-		doc.text(`Nama lengkap : ${wargaByNoKK.nama_lengkap}`, 14, 39);
+		doc.addImage(img, "PNG", 13, 15, 23, 23);
+		doc.setLineWidth(0.5);
+		doc.line(13, 45, 198, 45);
+		doc.setFontSize(12);
+		doc.setFont("helvetica", "normal");
+		doc.text("Hasil Verifikasi Kondisi Warga", 83, 53);
+		doc.setFontSize(12);
+		doc.text(`Nomor KK Warga : ${wargaByNoKK.no_kk}`, 13, 64);
+		doc.text(`Nomor KTP Warga : ${wargaByNoKK.no_ktp}`, 13, 72);
+		doc.text(`Nama lengkap : ${wargaByNoKK.nama_lengkap}`, 13, 80);
+		doc.text(`Alamat lengkap : ${wargaByNoKK.alamat}`, 13, 88, {
+			maxWidth: "120",
+		});
+		doc.setFontSize(11);
 		doc.text(
 			`Tanggal cetak : ${today.getDate()} - 0${
 				today.getMonth() + 1
 			} - ${today.getFullYear()}`,
-			142,
-			39
+			146,
+			93
 		);
-		doc.text(`Alamat lengkap : ${wargaByNoKK.alamat}`, 14, 47, {
-			maxWidth: "120",
-		});
-		doc.text(`No. telepon : ${wargaByNoKK.no_telepon}`, 142, 47);
 
 		doc.autoTable({
 			head: [["No", "Pertanyaan", "Jawaban", "Verifikasi", "Keterangan"]],
@@ -98,14 +113,18 @@ const WargaDetail = () => {
 					e.keterangan,
 				];
 			}),
-			startY: 52,
+			startY: 98,
+			margin: {
+				left: 12,
+				right: 12,
+			},
 			theme: "grid",
 			columnStyles: {
-				0: { halign: "center" },
-				1: { halign: "left" },
-				2: { halign: "center" },
-				3: { halign: "left" },
-				4: { halign: "left" },
+				0: { halign: "center", valign: "middle" },
+				1: { halign: "left", minCellHeight: 13, valign: "middle" },
+				2: { halign: "center", valign: "middle" },
+				3: { halign: "left", valign: "middle" },
+				4: { halign: "left", valign: "middle" },
 			},
 			headStyles: {
 				fillColor: "rgb(75, 75, 253)",
@@ -113,25 +132,6 @@ const WargaDetail = () => {
 			},
 			alternateRowStyles: { fillColor: "rgb(218, 218, 218)" },
 		});
-
-		detailDataJoinSurvey
-			.filter((el, index) => {
-				const duplicate = seen.has(el.user_id);
-				seen.add(el.user_id);
-				return !duplicate;
-			})
-			.map((e, i) => {
-				doc.text(
-					`Warga diatas telah selesai diverifikasi oleh ${e.pengguna.nm_depan} ${e.pengguna.nm_belakang} dan memperoleh hasil akhir nilai rekomendasi`,
-					14,
-					195,
-					{
-						maxWidth: "180",
-					}
-				);
-				doc.text(`sebesar ${e.warga.nilai_rekomendasi}%.`, 14, 201);
-				return true;
-			});
 		window.open(doc.output("bloburl"), "_blank");
 	};
 
@@ -1554,6 +1554,7 @@ const WargaDetail = () => {
 												) {
 													API.updateWarga(wargaByNoKK.no_kk, {
 														status_rekomendasi: "memenuhi",
+														status_kebijakan: "Ya",
 													});
 													API.saveHistoryKebijakan({
 														id_history: `HSTY_${historyKebijakanLength}`,

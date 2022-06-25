@@ -89,6 +89,14 @@
                 padding: 0;
 
                 .verifikasi_content{
+
+                    .print_data_bantuan{
+                        button{
+                            height: 50px;
+                            border: 1px dashed rgb(71, 71, 71);
+                        }
+                    }
+
                     .wrap_verifikasi_content{
                         .pertanyaan_jawaban_1{
                             display: flex;

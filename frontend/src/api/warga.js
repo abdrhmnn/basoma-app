@@ -27,6 +27,7 @@ const WARGA = {
             no_telepon: props.no_telepon,
             status_rekomendasi: "pending",
             nilai_rekomendasi: 0,
+            status_kebijakan: "Tidak",
             foto_rumah: imgRumah.name
         })
     },
