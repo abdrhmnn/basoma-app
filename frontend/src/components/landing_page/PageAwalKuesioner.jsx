@@ -23,6 +23,7 @@ const PageAwalKuesioner = () => {
 				</p>
 				<Button
 					variant="contained"
+					sx={{ fontWeight: "bold" }}
 					onClick={() =>
 						navigate("/form-data-diri", {
 							state: location.state,

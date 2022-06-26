@@ -10,6 +10,7 @@ import UPLOAD from "./uploads";
 import WARGA from "./warga";
 import SURVEY from "./survey";
 import HISTORY_KEBIJAKAN from "./history_kebijakan";
+import SEND_EMAIL_NOTIF from "./send_email_notif";
 
 axios.defaults.baseURL = "http://localhost:5000";
 
@@ -48,7 +49,8 @@ const API = {
     ...MASUKAN,
     ...PEMBERITAHUAN,
     ...SURVEY,
-    ...HISTORY_KEBIJAKAN
+    ...HISTORY_KEBIJAKAN,
+    ...SEND_EMAIL_NOTIF
 }
 
 export default API

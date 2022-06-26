@@ -17,6 +17,9 @@ const WARGA = {
         return axios.get(`/warga/sortRangking/${bantuanId}`)
     },
     saveWarga: (props, userId, bantuanId, imgRumah) => {
+        // const splitRumah = imgRumah.name.split('.')
+        // const ekstensiFileRumah = splitRumah.length - 1
+        // const waktu = new Date()
         return axios.post(`/warga`, {
             no_kk: props.no_kk,
             no_ktp: props.no_ktp,
@@ -28,7 +31,7 @@ const WARGA = {
             status_rekomendasi: "pending",
             nilai_rekomendasi: 0,
             status_kebijakan: "Tidak",
-            foto_rumah: imgRumah.name
+            foto_rumah: imgRumah.name // 'IMG' + waktu.getSeconds() + ekstensiFileRumah
         })
     },
     updateWarga: (noKK, data) => {

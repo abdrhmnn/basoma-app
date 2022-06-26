@@ -12,6 +12,8 @@ import historyRoutes from "./route/HistoryKebijakanRoutes.js";
 import cors from "cors";
 import uploadRouter from "./route/UploadImgRouter.js";
 
+import sendEmailRoutes from "./route/SendEmailNotifRoutes.js";
+
 const app = express();
 
 try{
@@ -34,5 +36,6 @@ app.use('/nilai-prioritas', nilaiPrioritasRoutes)
 app.use('/pemberitahuan', pemberitahuanRoutes)
 app.use('/survey', surveyRoutes)
 app.use('/history-kebijakan', historyRoutes)
+app.use('/send-email', sendEmailRoutes)
 app.use('/public', express.static('public'));
 app.listen(5000, () => console.log(`Server sedang berjalan di port http://localhost:5000`))

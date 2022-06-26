@@ -45,7 +45,12 @@ const FormDataDiri = () => {
 	const schemaFormDataDiri = Yup.object({
 		no_kk: Yup.number()
 			.typeError("Nomor kartu keluarga tidak valid!")
-			.required("Nomor kartu keluarga masih kosong!"),
+			.required("Nomor kartu keluarga masih kosong!")
+			.test(
+				"len",
+				"Nomor kartu keluarga tidak valid!",
+				(val) => val.toString().length === 16
+			),
 		no_ktp: Yup.number()
 			.typeError("Nomor kartu tanda penduduk tidak valid!")
 			.required("Nomor kartu tanda penduduk masih kosong!"),
@@ -123,7 +128,10 @@ const FormDataDiri = () => {
 											"gambar_form_rumah",
 											selectedFileImgRumah
 										);
+										// console.log(dataImgRumah);
+										// console.log(selectedFileImgRumah);
 										API.saveIMG_RUMAH(dataImgRumah);
+										// API.sendEmail(values);
 										API.saveWarga(
 											values,
 											kuki.get("user_id"),

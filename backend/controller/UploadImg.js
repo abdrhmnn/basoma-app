@@ -1,4 +1,5 @@
 import multer from "multer"
+import path from "path";
 import * as fs from 'fs';
 
 const DIR_IMG_USER = 'public/user'
@@ -18,7 +19,9 @@ const storageFormRumah = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'public/frumah')
     },
-        filename: function (req, file, cb) {
+    filename: function (req, file, cb) {
+        const time = new Date()
+        // let fn = 'IMG' + time.getSeconds() + path.extname(file.originalname);
         cb(null, file.originalname )
     }
 })
