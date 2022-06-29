@@ -9,7 +9,8 @@ import {
     getWargaByBantuanID,
     getWargaByNoKK,
     getWargaByUserID,
-    updateWarga
+    updateWarga,
+    updateWargaByUserID
 } from "../controller/Warga.js";
 
 const router = express.Router();
@@ -22,6 +23,7 @@ router.get('/userId/:id', getWargaByUserID)
 router.get('/sortRangking/:id', getAllWargaAndSortByNilaiRangking)
 // router.get('/rahman/abdu', getJoinHistoryAndWarga)
 router.patch('/update/:id', updateWarga)
+router.patch('/update/warga/:id', updateWargaByUserID)
 router.delete('/:id', deleteWarga)
 router.delete('/bantuanId/:id', deleteWargaByBantuanID)
 

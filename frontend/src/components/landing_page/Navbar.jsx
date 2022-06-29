@@ -111,6 +111,15 @@ const Navbar = (props) => {
 								</MenuItem>
 								<MenuItem
 									onClick={() => {
+										navigate({
+											pathname: "/pendaftaran",
+										});
+									}}
+								>
+									Pendaftaran
+								</MenuItem>
+								<MenuItem
+									onClick={() => {
 										navigate("/edit-profile", {
 											state: kuki.get("user_id"),
 										});

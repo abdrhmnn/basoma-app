@@ -49,6 +49,28 @@ export const createNilaiPrioritas = async (req, res) => {
     }
 }
 
+export const updatePrioritasByUserID = async (req, res) => {
+    try{
+        await NilaiPrioritas.update(req.body, {
+            where: {
+                identitas_pilihan: req.params.id
+                // $and: {
+                //     identitas_pilihan: req.params.id
+                // },
+                // [Op.and]: [
+                //     { user_id: req.params.userId },
+                //     {  }
+                // ]
+            }
+        });
+        res.json({
+            "message" : "Prioritas berhasil diubah!"
+        });
+    }catch(error){
+        res.json({ message: error.message })
+    }
+}
+
 export const deleteNilaiPrioritas = async (req, res) => {
     try{
         await NilaiPrioritas.destroy({

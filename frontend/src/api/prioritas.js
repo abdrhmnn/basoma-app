@@ -13,6 +13,9 @@ const PRIORITAS = {
     savePrioritas: (data) => {
         return axios.post(`/nilai-prioritas`, data)
     },
+    updatePrioritas: (identitas, data) => {
+        return axios.patch(`/nilai-prioritas/update/warga/${identitas}`, data)
+    },
     deletePrioritasByUserID: (id) => {
         return axios.delete(`/nilai-prioritas/${id}`)
     }

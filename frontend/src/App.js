@@ -47,6 +47,7 @@ import PendaftaranBantuanPetugas from "./components/petugas_page/PendaftaranBant
 import PendaftaranBantuanPetugasDetail from "./components/petugas_page/PendaftaranBantuanPetugasDetail";
 import WargaPetugasDetail from "./components/petugas_page/WargaPetugasDetail";
 import HistoryKebijakan from "./components/admin_page/HistoryKebijakan";
+import Pendaftaran from "./components/landing_page/Pendaftaran";
 
 const PrivateRouteAdmin = ({ children }) => {
   const isAuthenticated = kuki.get("admin")
@@ -265,6 +266,18 @@ class App extends Component{
                     <FormDataDiri />
                   </PrivateRouteWarga> :
                   <FormDataDiri />
+                }
+              />
+
+              <Route
+                exact
+                path="/pendaftaran"
+                element={
+                  kuki.get("warga") || kuki.get("admin") ? 
+                  <PrivateRouteWarga>
+                    <Pendaftaran />
+                  </PrivateRouteWarga> :
+                  <Pendaftaran />
                 }
               />
               {/* Akhir landing page components */}

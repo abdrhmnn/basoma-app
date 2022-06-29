@@ -37,6 +37,9 @@ const WARGA = {
     updateWarga: (noKK, data) => {
         return axios.patch(`/warga/update/${noKK}`, data)
     },
+    updateWargaByUserID: (userId, data) => {
+        return axios.patch(`/warga/update/warga/${userId}`, data)
+    },
     deleteWargaByUserID: (id) => {
         return axios.delete(`/warga/${id}`)
     },

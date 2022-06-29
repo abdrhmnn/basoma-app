@@ -48,7 +48,7 @@ const SudahMengisiKuesioner = () => {
 						variant="contained"
 						component={Link}
 						to="/"
-						sx={{ mt: 2, mb: 4 }}
+						sx={{ mt: 2, mb: 4, fontWeight: "bold" }}
 					>
 						kembali ke beranda
 					</Button>
