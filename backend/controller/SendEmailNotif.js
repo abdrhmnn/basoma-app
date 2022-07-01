@@ -1,6 +1,5 @@
 import nodemailer from "nodemailer";
 
-// async..await is not allowed in global scope, must use a wrapper
 export async function sendEmail(req, res) {
 
     try{
@@ -17,7 +16,6 @@ export async function sendEmail(req, res) {
             </ul>
         `
 
-        // create reusable transporter object using the default SMTP transport
         let transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 587,
