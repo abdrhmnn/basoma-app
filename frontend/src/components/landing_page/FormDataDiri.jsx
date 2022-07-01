@@ -126,7 +126,7 @@ const FormDataDiri = () => {
 										// console.log(dataImgRumah);
 										// console.log(selectedFileImgRumah);
 										API.saveIMG_RUMAH(dataImgRumah);
-										API.sendEmail(values);
+										// API.sendEmail(values);
 										API.saveWarga(
 											values,
 											kuki.get("user_id"),

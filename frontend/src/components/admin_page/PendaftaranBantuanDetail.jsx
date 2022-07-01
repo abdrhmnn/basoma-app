@@ -35,12 +35,19 @@ const PendaftaranBantuanDetail = () => {
 	const [statusVerifikasi, setStatusVerifikasi] = useState("");
 	const [alertVerifikasi, setAlertVerifikasi] = useState(false);
 
+	const [alertVerifikasiPeriode, setAlertVerifikasiPeriode] = useState(false);
+	const [bulanSatu, setBulanSatu] = useState("");
+	const [bulanDua, setBulanDua] = useState("");
+
 	// modal state
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => {
 		setStatusVerifikasi("");
+		setBulanSatu("");
+		setBulanDua("");
 		setAlertVerifikasi(false);
+		setAlertVerifikasiPeriode(false);
 		setOpen(false);
 	};
 
@@ -82,13 +89,71 @@ const PendaftaranBantuanDetail = () => {
 		p: 4,
 	};
 
+	function range(start, end) {
+		/* generate a range : [start, start+1, ..., end-1, end] */
+		let len = end - start + 1;
+		let a = new Array(len);
+		for (let i = 0; i < len; i++) a[i] = start + i;
+		return a;
+	}
+
 	const generatePdf = () => {
-		if (statusVerifikasi === "") {
+		if (statusVerifikasi === "" || bulanSatu === "" || bulanDua === "") {
 			setAlertVerifikasi(true);
 			return;
 		}
 
+		if (bulanSatu > bulanDua) {
+			setAlertVerifikasiPeriode(true);
+			return;
+		}
+
 		const today = new Date();
+		const dataRangeTanggal = range(bulanSatu, bulanDua);
+		const monthNames = [
+			"Januari",
+			"Februari",
+			"Maret",
+			"April",
+			"Mei",
+			"Juni",
+			"Juli",
+			"Agustus",
+			"September",
+			"Oktober",
+			"November",
+			"Desember",
+		];
+
+		// console.log(bulanSatu);
+		// console.log(bulanDua);
+		// console.log(dataRangeTanggal);
+
+		// pendaftaranBantuanByUserID.filter((el, i) => {
+		// 	const tanggalDB = new Date(el.tanggal_pendaftaran);
+		// 	const dataPeriode = dataRangeTanggal.includes(
+		// 		tanggalDB.getMonth() + 1
+		// 	);
+
+		// 	if (dataPeriode === false) {
+		// 		setAlertVerifikasi(true);
+		// 	}
+		// 	// console.log(typeof e.tanggal_pendaftaran);
+		// 	// console.log(tanggalDB);
+		// 	// console.log(tanggalDB.getMonth());
+		// 	console.log(dataPeriode);
+		// 	// console.log(dataRangeTanggal);
+		// 	// return dataPeriode && el.status_rekomendasi === "memenuhi";
+		// });
+		// .map((e, i) => {
+		// 	console.log(e);
+		// 	// if (e) {
+		// 	// 	console.log("ok");
+		// 	// } else {
+		// 	// 	console.log("gagal");
+		// 	// }
+		// });
+
 		const img = new Image();
 		img.src = "/logo_kelurahan.png";
 
@@ -118,8 +183,15 @@ const PendaftaranBantuanDetail = () => {
 				`Tanggal cetak : ${today.getDate()} - 0${
 					today.getMonth() + 1
 				} - ${today.getFullYear()}`,
+				147,
+				68
+			);
+			doc.text(
+				`Periode pendaftaran : ${monthNames[bulanSatu - 1]} - ${
+					monthNames[bulanDua - 1]
+				} 2022`,
 				13,
-				64
+				68
 			);
 			doc.autoTable({
 				head: [
@@ -135,7 +207,14 @@ const PendaftaranBantuanDetail = () => {
 					],
 				],
 				body: pendaftaranBantuanByUserID
-					.filter((e) => e.status_rekomendasi === "memenuhi")
+					.filter((el, i) => {
+						const tanggalDB = new Date(el.tanggal_pendaftaran);
+						const dataPeriode = dataRangeTanggal.includes(
+							tanggalDB.getMonth() + 1
+						);
+
+						return dataPeriode && el.status_rekomendasi === "memenuhi";
+					})
 					.map((e, i) => {
 						return [
 							`${i + 1}.`,
@@ -148,7 +227,7 @@ const PendaftaranBantuanDetail = () => {
 							e.status_kebijakan !== "Ya" ? "Tidak" : "Ya",
 						];
 					}),
-				startY: 69,
+				startY: 73,
 				margin: {
 					left: 12,
 					right: 12,
@@ -180,8 +259,15 @@ const PendaftaranBantuanDetail = () => {
 				`Tanggal cetak : ${today.getDate()} - 0${
 					today.getMonth() + 1
 				} - ${today.getFullYear()}`,
+				147,
+				68
+			);
+			doc.text(
+				`Periode pendaftaran : ${monthNames[bulanSatu - 1]} - ${
+					monthNames[bulanDua - 1]
+				} 2022`,
 				13,
-				64
+				68
 			);
 			doc.autoTable({
 				head: [
@@ -196,7 +282,16 @@ const PendaftaranBantuanDetail = () => {
 					],
 				],
 				body: pendaftaranBantuanByUserID
-					.filter((e) => e.status_rekomendasi === "tidak memenuhi")
+					.filter((el, i) => {
+						const tanggalDB = new Date(el.tanggal_pendaftaran);
+						const dataPeriode = dataRangeTanggal.includes(
+							tanggalDB.getMonth() + 1
+						);
+
+						return (
+							dataPeriode && el.status_rekomendasi === "tidak memenuhi"
+						);
+					})
 					.map((e, i) => {
 						return [
 							`${i + 1}.`,
@@ -208,7 +303,7 @@ const PendaftaranBantuanDetail = () => {
 							`${e.nilai_rekomendasi}%`,
 						];
 					}),
-				startY: 69,
+				startY: 73,
 				margin: {
 					left: 12,
 					right: 12,
@@ -339,11 +434,91 @@ const PendaftaranBantuanDetail = () => {
 									<Alert
 										severity="warning"
 										variant="outlined"
-										sx={{ mt: 2 }}
+										sx={{ mt: 2, mb: 2 }}
 									>
-										Pilih status verifikasi terlebih dahulu!
+										Lengkapi data terlebih dahulu!
 									</Alert>
 								) : null}
+
+								{alertVerifikasiPeriode ? (
+									<Alert
+										severity="warning"
+										variant="outlined"
+										sx={{ mt: 2, mb: 2 }}
+									>
+										Format tanggal periode tidak valid!
+									</Alert>
+								) : null}
+								<Typography
+									id="modal-modal-description"
+									sx={{ mt: 3 }}
+									component={"span"}
+								>
+									Periode pendaftaran
+								</Typography>
+								<div
+									style={{
+										display: "flex",
+										alignItems: "center",
+									}}
+								>
+									<FormControl fullWidth sx={{ mt: 2, mb: 2, mr: 2 }}>
+										<InputLabel id="pilih_bulan_1">
+											Pilih bulan
+										</InputLabel>
+										<Select
+											labelId="pilih_bulan_1"
+											id="pilih_bulan_1"
+											value={bulanSatu}
+											label="Pilih bulan 1"
+											onChange={(e) => {
+												setBulanSatu(e.target.value);
+											}}
+										>
+											<MenuItem value={1}>Januari</MenuItem>
+											<MenuItem value={2}>Februari</MenuItem>
+											<MenuItem value={3}>Maret</MenuItem>
+											<MenuItem value={4}>April</MenuItem>
+											<MenuItem value={5}>Mei</MenuItem>
+											<MenuItem value={6}>Juni</MenuItem>
+											<MenuItem value={7}>Juli</MenuItem>
+											<MenuItem value={8}>Agustus</MenuItem>
+											<MenuItem value={9}>September</MenuItem>
+											<MenuItem value={10}>Oktober</MenuItem>
+											<MenuItem value={11}>November</MenuItem>
+											<MenuItem value={12}>Desember</MenuItem>
+										</Select>
+									</FormControl>
+									-
+									<FormControl fullWidth sx={{ mt: 2, mb: 2, ml: 2 }}>
+										<InputLabel id="pilih_bulan_2">
+											Pilih bulan
+										</InputLabel>
+										<Select
+											labelId="pilih_bulan_2"
+											id="pilih_bulan_2"
+											value={bulanDua}
+											label="Pilih bulan 2"
+											onChange={(e) => {
+												setBulanDua(e.target.value);
+											}}
+										>
+											<MenuItem value={1}>Januari</MenuItem>
+											<MenuItem value={2}>Februari</MenuItem>
+											<MenuItem value={3}>Maret</MenuItem>
+											<MenuItem value={4}>April</MenuItem>
+											<MenuItem value={5}>Mei</MenuItem>
+											<MenuItem value={6}>Juni</MenuItem>
+											<MenuItem value={7}>Juli</MenuItem>
+											<MenuItem value={8}>Agustus</MenuItem>
+											<MenuItem value={9}>September</MenuItem>
+											<MenuItem value={10}>Oktober</MenuItem>
+											<MenuItem value={11}>November</MenuItem>
+											<MenuItem value={12}>Desember</MenuItem>
+										</Select>
+									</FormControl>
+								</div>
+
 								<Typography
 									id="modal-modal-description"
 									sx={{ mt: 3 }}
@@ -369,19 +544,19 @@ const PendaftaranBantuanDetail = () => {
 											</MenuItem>
 										</Select>
 									</FormControl>
-									<Button
-										variant="contained"
-										color="success"
-										fullWidth
-										sx={{ fontWeight: "bold" }}
-										onClick={() => {
-											generatePdf();
-											// console.log(statusVerifikasi);
-										}}
-									>
-										cetak
-									</Button>
 								</Typography>
+								<Button
+									variant="contained"
+									color="success"
+									fullWidth
+									sx={{ fontWeight: "bold" }}
+									onClick={() => {
+										generatePdf();
+										// console.log(statusVerifikasi);
+									}}
+								>
+									cetak
+								</Button>
 							</Box>
 						</Modal>
 					</div>

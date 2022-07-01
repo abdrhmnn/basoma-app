@@ -9,7 +9,7 @@ GET http://localhost:5000/history-kebijakan/join/table/USER_2
 
 ###
 
-GET http://localhost:5000/survey/2222
+GET http://localhost:5000/warga
 
 ###
 

@@ -45,6 +45,9 @@ const Warga = db.define('warga_tbl', {
     status_kebijakan: {
         type: DataTypes.STRING
     },
+    tanggal_pendaftaran: {
+        type: DataTypes.DATEONLY
+    },
     foto_rumah: {
         type: DataTypes.STRING
     }

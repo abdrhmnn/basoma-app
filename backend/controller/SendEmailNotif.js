@@ -24,7 +24,7 @@ export async function sendEmail(req, res) {
             secure: false, // true for 465, false for other ports
             auth: {
                 user: "abdrhmn.gh@gmail.com", // generated ethereal user
-                pass: "vqjoowvweudwddhi", // generated ethereal password
+                pass: "bqvzujoxebmdlupy", // generated ethereal password
             },
             tls: {
                 rejectUnauthorized: false

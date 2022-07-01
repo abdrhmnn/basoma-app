@@ -17,6 +17,7 @@ const WARGA = {
         return axios.get(`/warga/sortRangking/${bantuanId}`)
     },
     saveWarga: (props, userId, bantuanId, imgRumah) => {
+        const today = new Date();
         // const splitRumah = imgRumah.name.split('.')
         // const ekstensiFileRumah = splitRumah.length - 1
         // const waktu = new Date()
@@ -31,6 +32,7 @@ const WARGA = {
             status_rekomendasi: "pending",
             nilai_rekomendasi: 0,
             status_kebijakan: "Tidak",
+            tanggal_pendaftaran: today.toJSON().slice(0, 10),
             foto_rumah: imgRumah.name // 'IMG' + waktu.getSeconds() + ekstensiFileRumah
         })
     },
