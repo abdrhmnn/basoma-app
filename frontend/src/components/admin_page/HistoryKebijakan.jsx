@@ -100,7 +100,7 @@ const HistoryKebijakan = () => {
 		doc.setFont("helvetica", "normal");
 		doc.text("Daftar Warga Penerima Kebijakan Bantuan", 69, 53);
 		doc.text(
-			`Kebijakan dilakukan oleh : ${penggunaByID.nm_depan} ${penggunaByID.nm_belakang}`,
+			`Kebijakan dilakukan oleh : ${penggunaByID.username}`,
 			13,
 			64
 		);
@@ -325,8 +325,7 @@ const HistoryKebijakan = () => {
 												</div>
 												<div className="data_diri">
 													<div className="nm_lengkap">
-														{e.pengguna.nm_depan}{" "}
-														{e.pengguna.nm_belakang}
+														{e.pengguna.username}
 													</div>
 													<div className="jabatan">
 														{e.pengguna.role}

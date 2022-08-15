@@ -1032,9 +1032,7 @@ const Pendaftaran = () => {
 												no_ktp: updateDataNoKTP,
 												nama_lengkap: updateDataNama,
 												alamat: updateDataAlamat,
-												no_telepon: updateDataNoTlp,
-												status_rekomendasi: "pending",
-												nilai_rekomendasi: 0,
+												no_telepon: updateDataNoTlp
 											}).then(() => {
 												setIsSuccessUpdate(true);
 											});

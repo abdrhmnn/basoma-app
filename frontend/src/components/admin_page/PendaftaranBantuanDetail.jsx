@@ -26,10 +26,9 @@ import { BsPrinter } from "react-icons/bs";
 import swal from "sweetalert";
 
 const PendaftaranBantuanDetail = () => {
-	const [pendaftaranBantuanByUserID, setPendaftaranBantuanByUserID] =
-		useState(null);
+	const [pendaftaranBantuanByUserID, setPendaftaranBantuanByUserID] = useState(null);
 	const [searchDataPendaftaran, setSearchDataPendaftaran] = useState("");
-	const [dataPendaftaranLength, setDataPendaftaranLength] = useState(10);
+	const [dataPendaftaranLength, setDataPendaftaranLength] = useState(20);
 	const [pemberitahuan, setPemberitahuan] = useState(null);
 
 	const [statusVerifikasi, setStatusVerifikasi] = useState("");
@@ -89,8 +88,7 @@ const PendaftaranBantuanDetail = () => {
 		p: 4,
 	};
 
-	function range(start, end) {
-		/* generate a range : [start, start+1, ..., end-1, end] */
+	const range = (start, end) => {
 		let len = end - start + 1;
 		let a = new Array(len);
 		for (let i = 0; i < len; i++) a[i] = start + i;

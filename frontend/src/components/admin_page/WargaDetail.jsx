@@ -91,7 +91,7 @@ const WargaDetail = () => {
 		doc.text(`Nomor KTP Warga : ${wargaByNoKK.no_ktp}`, 13, 72);
 		doc.text(`Nama lengkap : ${wargaByNoKK.nama_lengkap}`, 13, 80);
 		doc.text(`Alamat lengkap : ${wargaByNoKK.alamat}`, 13, 88, {
-			maxWidth: "120",
+			maxWidth: "160",
 		});
 		doc.setFontSize(11);
 		doc.text(

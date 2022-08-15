@@ -109,7 +109,7 @@ const Navbar = (props) => {
 								>
 									Pemberitahuan
 								</MenuItem>
-								<MenuItem
+								{/* <MenuItem
 									onClick={() => {
 										navigate({
 											pathname: "/pendaftaran",
@@ -117,7 +117,7 @@ const Navbar = (props) => {
 									}}
 								>
 									Pendaftaran
-								</MenuItem>
+								</MenuItem> */}
 								<MenuItem
 									onClick={() => {
 										navigate("/edit-profile", {

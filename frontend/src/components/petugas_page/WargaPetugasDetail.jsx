@@ -375,7 +375,7 @@ const WargaPetugasDetail = () => {
 		doc.text(`Nomor KTP Warga : ${wargaByUserID.no_ktp}`, 13, 72);
 		doc.text(`Nama lengkap : ${wargaByUserID.nama_lengkap}`, 13, 80);
 		doc.text(`Alamat lengkap : ${wargaByUserID.alamat}`, 13, 88, {
-			maxWidth: "120",
+			maxWidth: "140",
 		});
 		doc.setFontSize(11);
 		doc.text(
@@ -443,7 +443,7 @@ const WargaPetugasDetail = () => {
 		doc.text(`Nomor KTP Warga : ${wargaByUserID.no_ktp}`, 13, 72);
 		doc.text(`Nama lengkap : ${wargaByUserID.nama_lengkap}`, 13, 80);
 		doc.text(`Alamat lengkap : ${wargaByUserID.alamat}`, 13, 88, {
-			maxWidth: "120",
+			maxWidth: "160",
 		});
 		doc.setFontSize(11);
 		doc.text(

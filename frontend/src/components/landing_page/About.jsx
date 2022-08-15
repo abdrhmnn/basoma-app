@@ -65,7 +65,7 @@ const About = () => {
 					<li>Konsumsi makanan</li>
 					<li>Kemampuan berobat</li>
 				</ul>
-				<p>
+				{/* <p>
 					Kami adalah mahasiswa{" "}
 					<a
 						href="https://www.mercubuana.ac.id/id"
@@ -76,10 +76,10 @@ const About = () => {
 					</a>{" "}
 					yang saat ini sedang mengerjakan tugas akhir dimana aplikasi
 					Basoma adalah aplikasi yang kami rancang untuk tugas akhir kami.
-				</p>
+				</p> */}
 
 				{/* Card container */}
-				<div className="about_us">
+				{/* <div className="about_us">
 					<Card className="card_about_us">
 						<Avatar
 							alt="Foto Profile"
@@ -113,7 +113,7 @@ const About = () => {
 							<p>Designer</p>
 						</CardContent>
 					</Card>
-				</div>
+				</div> */}
 				{/* Akhir card container */}
 
 				<p>

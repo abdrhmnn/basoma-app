@@ -48,7 +48,7 @@ const Pemberitahuan = () => {
 					Pemberitahuan mengenai hasil keputusan calon penerimaan BPNT akan
 					ditampilkan disini.
 				</Alert>
-				{wargaByUserID && pemberitahuanByUserID && pemberitahuanByUserID ? (
+				{wargaByUserID && pemberitahuanByUserID ? (
 					<div className="data_pemberitahuan">
 						<Alert
 							variant="outlined"
@@ -80,19 +80,19 @@ const Pemberitahuan = () => {
 										<span>Hasil keputusan : </span>
 										<span>
 											{wargaByUserID.status_rekomendasi}{" "}
-											{wargaByUserID.status_rekomendasi
+											{wargaByUserID.status_rekomendasi === "memenuhi" 
 												? "(Diterima)"
 												: "(Ditolak)"}
 										</span>
 									</div>
 								</div>
-								{wargaByUserID.status_rekomendasi ===
+								{/* {wargaByUserID.status_rekomendasi ===
 								"tidak memenuhi" ? (
 									<div className="masukan_admin">
 										<span>Keterangan : </span>
 										<span>{pemberitahuanByUserID.alasan}</span>
 									</div>
-								) : null}
+								) : null} */}
 							</div>
 						</Alert>
 						{wargaByUserID.status_rekomendasi === "memenuhi" ? (

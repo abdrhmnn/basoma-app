@@ -25,7 +25,7 @@ import { BsPrinter } from "react-icons/bs";
 const PendaftaranBantuanPetugasDetail = () => {
 	const [wargaByBantuanID, setWargaByBantuanID] = useState(null);
 	const [valueCari, setValueCari] = useState("");
-	const [dataVerifikasiLength, setDataVerifikasiLength] = useState(10);
+	const [dataVerifikasiLength, setDataVerifikasiLength] = useState(20);
 	const [dataJoinSurvey, setDataJoinSurvey] = useState(null);
 
 	const [statusVerifikasi, setStatusVerifikasi] = useState("");
@@ -142,7 +142,7 @@ const PendaftaranBantuanPetugasDetail = () => {
 							e.warga.alamat,
 							e.warga.no_telepon,
 							"Sudah terverifikasi",
-							`${e.pengguna.nm_depan} ${e.pengguna.nm_belakang}`,
+							`${e.pengguna.username}`,
 						];
 					}),
 				startY: 69,
@@ -347,8 +347,12 @@ const PendaftaranBantuanPetugasDetail = () => {
 											return (
 												<tr key={i}>
 													<td>{i + 1}</td>
-													<td>{e.nama_lengkap}</td>
-													<td>{e.alamat}</td>
+													<td style={{ textAlign: "left" }}>
+														{e.nama_lengkap}
+													</td>
+													<td style={{ textAlign: "left" }}>
+														{e.alamat}
+													</td>
 													<td>{e.no_telepon}</td>
 													<td>
 														{highlightRole(e.status_rekomendasi)}
