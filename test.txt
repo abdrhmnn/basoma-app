@@ -8,4 +8,4 @@ test lagi 2
 
 commit ke branch test
 
-buat branch baru, buat branch baru
+buat branch baru, buat branch baru, oke
